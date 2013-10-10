@@ -1,0 +1,7 @@
+F:\Projects\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.exe.config
+F:\Projects\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.exe
+F:\Projects\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.pdb
+F:\Projects\Scheduler\Host\Timetable.Sync\bin\Debug\Oracle.DataAccess.dll
+F:\Projects\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.csprojResolveAssemblyReference.cache
+F:\Projects\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.exe
+F:\Projects\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.pdb
