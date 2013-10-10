@@ -106,13 +106,7 @@ namespace Timetable.Data.Context
             modelBuilder.Configurations.Add(new ScheduleInfoMapping());
             modelBuilder.Configurations.Add(new LecturersMapping());
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            //Configuration.LazyLoadingEnabled = false;
-            base.Dispose(disposing);
-        }
-
+        
         #region ISchedulerDatabase implementation
 
         IQueryable<Department> ISchedulerDatabase.Departments

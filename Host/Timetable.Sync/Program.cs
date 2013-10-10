@@ -19,7 +19,8 @@ namespace Timetable.Sync
             //{
             //    conn.Open();
             //    OracleCommand cmd = conn.CreateCommand();
-            //    cmd.CommandText = "select * from V_ASP_ATTEST";
+            //    cmd.CommandText = "select cast(\"extend1\".\"ID\" as number(10,0)) as \"C1\", \"Extend1\".\"NAMEFULL\" as \"NAMEFULL\" from \"sdms\".\"B_BULDINGS\" \"Extend1\")";
+            //    //cmd.CommandText = "select ID, NAMEFULL from sdms.B_BULDINGS";
             //    var reader = cmd.ExecuteReader();
             //    var data = reader.GetData(0);
             //}
@@ -33,7 +34,8 @@ namespace Timetable.Sync
 
             using (var context = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString)))
             {
-                var result = context.RawSqlCommand("select * from V_ASP_ATTEST");
+                var buildings = context.Buildings.AsEnumerable();
+                //var result = context.RawSqlCommand("select * from V_ASP_ATTEST");
             }
         }
     }
