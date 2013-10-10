@@ -1,22 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Data.Entity;
+using System.Linq;
 using Timetable.Base.Entities;
-using Timetable.Base.Entities.Scheduler;
 
 namespace Timetable.Data.Context.Interfaces
 {
     public interface IDataContext
     {
-        void SaveChanges();
-
         IEnumerable<DbEntityValidationResult> GetValidationErrors();
 
-        DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity;
+        IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity;
 
-        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : BaseEntity;
+        IQueryable<TEntity> RawSqlQuery<TEntity>(
+            string query, 
+            params object[] parameters) where TEntity : BaseEntity;
 
-        IEnumerable<TEntity> RawSqlQuery<TEntity>(string query, params object[] parameters) where TEntity : BaseEntity;
+        int RawSqlCommand(
+            string command,
+            params object[] parameters);
+
+        IQueryable<dynamic> RawSqlQuery(
+            List<Type> types,
+            List<string> names,
+            string query,
+            params object[] parameters);
     }
 }

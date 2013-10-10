@@ -9,7 +9,5 @@ namespace Timetable.Base.Interfaces.DataSources
         void Update<TEntity>(TEntity entity) where TEntity : BaseEntity;
 
         void Delete<TEntity>(TEntity entity) where TEntity : BaseEntity;
-
-        void AttachIsNotAttached<TEntity>(TEntity entity) where TEntity : BaseEntity;
     }
 }

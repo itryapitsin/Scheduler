@@ -1,10 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-
-using Timetable.Base.Entities;
 using Timetable.Base.Entities.Personalization;
 using Timetable.Base.Interfaces.DataSources;
-using Timetable.Data.Context.Interfaces;
 
 namespace Timetable.Data.Context
 {

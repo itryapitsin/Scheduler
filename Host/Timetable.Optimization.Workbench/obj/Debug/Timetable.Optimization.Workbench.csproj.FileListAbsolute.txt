@@ -35,3 +35,17 @@ C:\Users\pyatin\Documents\GitHub\SchedulerHost\Timetable.Optimization.Workbench\
 F:\Projects\Scheduler\Host\Timetable.Optimization.Workbench\obj\Debug\Timetable.Optimization.Workbench.csprojResolveAssemblyReference.cache
 F:\Projects\Scheduler\Host\Timetable.Optimization.Workbench\obj\Debug\Timetable.Optimization.Workbench.exe
 F:\Projects\Scheduler\Host\Timetable.Optimization.Workbench\obj\Debug\Timetable.Optimization.Workbench.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\obj\Debug\Timetable.Optimization.Workbench.csprojResolveAssemblyReference.cache
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Optimization.Workbench.exe.config
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Optimization.Workbench.exe
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Optimization.Workbench.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Base.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Data.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Optimization.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Ninject.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Base.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Data.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Optimization.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\EntityFramework.xml
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\obj\Debug\Timetable.Optimization.Workbench.exe
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\obj\Debug\Timetable.Optimization.Workbench.pdb

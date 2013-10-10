@@ -31,3 +31,12 @@ F:\Projects\Scheduler\Host\Timetable.Optimization\bin\Debug\Timetable.Base.pdb
 F:\Projects\Scheduler\Host\Timetable.Optimization\obj\Debug\Timetable.Optimization.csprojResolveAssemblyReference.cache
 F:\Projects\Scheduler\Host\Timetable.Optimization\obj\Debug\Timetable.Optimization.dll
 F:\Projects\Scheduler\Host\Timetable.Optimization\obj\Debug\Timetable.Optimization.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\bin\Debug\Timetable.Optimization.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\bin\Debug\Timetable.Optimization.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\bin\Debug\Timetable.Optimization.dll.CodeAnalysisLog.xml
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\bin\Debug\Timetable.Optimization.dll.lastcodeanalysissucceeded
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\bin\Debug\Timetable.Base.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\bin\Debug\Timetable.Base.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\obj\Debug\Timetable.Optimization.csprojResolveAssemblyReference.cache
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\obj\Debug\Timetable.Optimization.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Optimization\obj\Debug\Timetable.Optimization.pdb

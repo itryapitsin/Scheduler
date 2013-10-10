@@ -5,3 +5,17 @@ F:\Projects\Scheduler\Host\Timetable.Sync\bin\Debug\Oracle.DataAccess.dll
 F:\Projects\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.csprojResolveAssemblyReference.cache
 F:\Projects\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.exe
 F:\Projects\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.exe.config
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.exe
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Oracle.DataAccess.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Base.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Ninject.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Base.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.csprojResolveAssemblyReference.cache
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.exe
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\EntityFramework.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Data.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Data.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\EntityFramework.xml

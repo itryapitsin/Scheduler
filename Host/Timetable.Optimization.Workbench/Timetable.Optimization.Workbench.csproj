@@ -59,6 +59,10 @@
       <Project>{ABDB4F76-D271-433B-AB27-C8ED9CE1DF84}</Project>
       <Name>Timetable.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
+      <Project>{562ead51-a27a-47de-9cf6-554d0d793fb3}</Project>
+      <Name>Timetable.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Timetable.Optimization\Timetable.Optimization.csproj">
       <Project>{A1FD1CA5-1775-4D07-8B4C-9C086BE1E8B4}</Project>
       <Name>Timetable.Optimization</Name>

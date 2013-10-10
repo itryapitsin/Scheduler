@@ -70,3 +70,16 @@ F:\Projects\Scheduler\Host\Timetable.Host\bin\Ninject.Extensions.Wcf.pdb
 F:\Projects\Scheduler\Host\Timetable.Host\bin\Ninject.Extensions.Wcf.xml
 F:\Projects\Scheduler\Host\Timetable.Host\bin\Ninject.Web.Common.pdb
 F:\Projects\Scheduler\Host\Timetable.Host\bin\Ninject.Web.Common.xml
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll.CodeAnalysisLog.xml
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll.lastcodeanalysissucceeded
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Base.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Base.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.pdb
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Microsoft.Web.Infrastructure.xml
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.dll
+C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.pdb
