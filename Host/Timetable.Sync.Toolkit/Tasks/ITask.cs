@@ -1,8 +1,12 @@
-﻿namespace Timetable.Sync.Toolkit.Tasks
+﻿using System;
+
+namespace Timetable.Sync.Toolkit.Tasks
 {
     public interface ITask
     {
-        string Name { get; }
+        DateTime CreateDate { get; set; }
+
+        string Id { get; set; }
 
         void Execute();
     }

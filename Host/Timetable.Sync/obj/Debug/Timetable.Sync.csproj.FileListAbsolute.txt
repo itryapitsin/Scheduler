@@ -33,4 +33,5 @@ C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Base.pdb
 C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Data.pdb
 C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\EntityFramework.xml
 C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync\obj\Debug\Timetable.Sync.csprojResolveAssemblyReference.cache
-C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.Executor.exe.config
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.Toolkit.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Sync.Toolkit.pdb

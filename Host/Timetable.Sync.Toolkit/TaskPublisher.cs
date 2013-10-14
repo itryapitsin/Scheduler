@@ -1,4 +1,5 @@
-﻿using System.Messaging;
+﻿using System;
+using System.Messaging;
 using Timetable.Sync.Toolkit.Tasks;
 
 namespace Timetable.Sync.Toolkit
@@ -15,11 +16,13 @@ namespace Timetable.Sync.Toolkit
 
             _objMessageQueue.Formatter = new XmlMessageFormatter(new[] { task.GetType(), typeof(object) });
 
-            using (var objMqMessage = new Message())
+            using (var message = new Message())
             {
-                objMqMessage.Body = task;
-                objMqMessage.Label = task.Name;
-                _objMessageQueue.Send(objMqMessage);
+                message.Body = task;
+                message.Label = task.CreateDate.Ticks.ToString();
+                _objMessageQueue.Send(message);
+
+                task.Id = message.Id;
             }
         }
     }

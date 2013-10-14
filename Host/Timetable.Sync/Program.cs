@@ -1,4 +1,8 @@
-﻿namespace Timetable.Sync
+﻿using System.Messaging;
+using Timetable.Sync.Toolkit;
+using Timetable.Sync.Toolkit.Tasks;
+
+namespace Timetable.Sync
 {
     class Program
     {
@@ -27,6 +31,17 @@
             //    var buildings = context.Buildings.AsEnumerable();
             //    //var result = context.RawSqlCommand("select * from V_ASP_ATTEST");
             //}
+
+            var task = new SyncDataTask();
+
+            var publisher = new TaskPublisher();
+            //publisher.Publish(new SyncDataTask());
+            //publisher.Publish(new SyncDataTask());
+            publisher.Publish(task);
+
+            var reciver = new TaskReciver();
+            var t1 = reciver.GetTaskById<SyncDataTask>(task.Id);
+            reciver.Recive<SyncDataTask>();
         }
     }
 }

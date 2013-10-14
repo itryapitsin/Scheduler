@@ -7,17 +7,16 @@ namespace Timetable.Host.Services
 {
     public class DataSyncService : IDataSyncService
     {
-        private readonly SyncDataTask _task = new SyncDataTask();
-
         public void DoSync()
         {
             var taskPublisher = new TaskPublisher();
-            taskPublisher.Publish(new SyncDataTask());
+            var task = new SyncDataTask();
+            taskPublisher.Publish(task);
         }
 
         public int GetProgress()
         {
-            return _task.GetProgress();
+            throw new NotImplementedException();
         }
     }
 }

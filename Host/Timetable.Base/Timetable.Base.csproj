@@ -91,6 +91,7 @@
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\RegistrationException.cs" />
     <Compile Include="Interfaces\DataSources\IDatabase.cs" />
+    <Compile Include="Interfaces\DataSources\IIIASDatabase.cs" />
     <Compile Include="Interfaces\DataSources\ISchedulerDatabase.cs" />
     <Compile Include="Interfaces\DataSources\IUserDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

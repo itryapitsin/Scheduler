@@ -1,0 +1,12 @@
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Sync.Toolkit.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Sync.Toolkit.pdb
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Data.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\EntityFramework.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Base.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Ninject.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Data.pdb
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\EntityFramework.xml
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Base.pdb
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\obj\Debug\Timetable.Sync.Toolkit.csprojResolveAssemblyReference.cache
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\obj\Debug\Timetable.Sync.Toolkit.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\obj\Debug\Timetable.Sync.Toolkit.pdb

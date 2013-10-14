@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Objects;
-using System.Linq;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
-using System.Web;
 
 namespace Timetable.Host
 {
@@ -12,7 +9,6 @@ namespace Timetable.Host
     {
         public void AddBindingParameters(OperationDescription description, BindingParameterCollection parameters)
         {
-
         }
 
         public void ApplyClientBehavior(OperationDescription description, System.ServiceModel.Dispatcher.ClientOperation proxy)

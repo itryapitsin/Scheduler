@@ -4,7 +4,16 @@ namespace Timetable.Sync.Toolkit.Tasks
 {
     public class SyncDataTask: ITask
     {
-        public string Name { get { return "SyncDataTask"; } }
+        public DateTime CreateDate { get; set; }
+        public string Id { get; set; }
+
+        private int Progress = 0;
+
+        public SyncDataTask()
+        {
+            CreateDate = DateTime.Now;
+        }
+
 
         public void Execute()
         {
@@ -13,7 +22,7 @@ namespace Timetable.Sync.Toolkit.Tasks
 
         public int GetProgress()
         {
-            throw new NotImplementedException();
+            return Progress;
         }
     }
 }
