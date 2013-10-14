@@ -131,7 +131,7 @@ namespace Timetable.Host.Services
 
         public IQueryable<Building> GetBuildings()
         {
-            return Database.Buildings;
+            return Database.Buildings.AsQueryable();
         }
 
         public IQueryable<Course> GetCources()
@@ -142,7 +142,7 @@ namespace Timetable.Host.Services
 
         public IQueryable<Department> GetDeparmtents()
         {
-            return Database.Departments;
+            return Database.Departments.AsQueryable();
         }
 
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -109,9 +110,9 @@ namespace Timetable.Data.Context
         
         #region ISchedulerDatabase implementation
 
-        IQueryable<Department> ISchedulerDatabase.Departments
+        ICollection<Department> ISchedulerDatabase.Departments
         {
-            get { return Departments; }
+            get { return Departments.ToList(); }
         }
 
         IQueryable<Auditorium> ISchedulerDatabase.Auditoriums
@@ -170,9 +171,9 @@ namespace Timetable.Data.Context
             get { return Courses; }
         }
 
-        IQueryable<Building> ISchedulerDatabase.Buildings
+        ICollection<Building> ISchedulerDatabase.Buildings
         {
-            get { return Buildings; }
+            get { return Buildings.ToList(); }
         }
 
         IQueryable<Tutorial> ISchedulerDatabase.Tutorials

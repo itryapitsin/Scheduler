@@ -67,6 +67,10 @@
       <Project>{562EAD51-A27A-47DE-9CF6-554D0D793FB3}</Project>
       <Name>Timetable.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Timetable.Logic\Timetable.Logic.csproj">
+      <Project>{B8F9774C-3F0E-4A9E-9E73-8DF018CE46E8}</Project>
+      <Name>Timetable.Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Timetable.Sync.Toolkit\Timetable.Dispatcher.csproj">
       <Project>{fd2ad465-c3d3-4b3f-866c-8bd1dbc71b28}</Project>
       <Name>Timetable.Dispatcher</Name>

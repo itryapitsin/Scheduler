@@ -1,9 +1,11 @@
 ﻿using System.Configuration;
 using System.Messaging;
 using Oracle.DataAccess.Client;
+using Timetable.Data.Context;
 using Timetable.Data.IIAS.Context;
 using Timetable.Dispatcher;
 using Timetable.Dispatcher.Tasks;
+using Timetable.Logic.SyncData;
 
 namespace Timetable.Sync
 {
@@ -16,6 +18,10 @@ namespace Timetable.Sync
                 var buildings = context.GetBuildings();
             }
 
+            var buildingSync = new BuildingSync();
+            buildingSync.IIASContext = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString));
+            buildingSync.SchedulerDatabase = new SchedulerContext();
+            buildingSync.Sync();
             //var task = new SyncDataTask();
             //var alarmTask = new AlarmTask();
 

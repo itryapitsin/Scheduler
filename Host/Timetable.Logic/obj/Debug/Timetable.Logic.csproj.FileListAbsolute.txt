@@ -1,0 +1,13 @@
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Timetable.Logic.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Timetable.Logic.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Timetable.Base.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Timetable.Data.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Ninject.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\EntityFramework.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Oracle.DataAccess.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Timetable.Base.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Timetable.Data.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\EntityFramework.xml
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\obj\Debug\Timetable.Logic.csprojResolveAssemblyReference.cache
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\obj\Debug\Timetable.Logic.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\obj\Debug\Timetable.Logic.pdb

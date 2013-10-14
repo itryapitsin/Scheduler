@@ -51,3 +51,5 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Base.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Data.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Dispatcher.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\EntityFramework.xml
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Logic.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync\bin\Debug\Timetable.Logic.pdb
