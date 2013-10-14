@@ -47,8 +47,8 @@ namespace Timetable.Host.Interfaces
            Group group,
            StudyYear studyYear,
            int semester,
-           DateTime StartDate,
-           DateTime EndDate);
+           DateTime startDate,
+           DateTime endDate);
 
         [OperationContract]
         [ApplyDataContractResolver]
@@ -265,9 +265,9 @@ namespace Timetable.Host.Interfaces
             Group group,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate,
-            string SubGroup);
+            DateTime startDate,
+            DateTime endDate,
+            string subGroup);
 
         [OperationContract]
         [ApplyDataContractResolver]
@@ -284,8 +284,8 @@ namespace Timetable.Host.Interfaces
             Speciality speciality,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate);
+            DateTime startDate,
+            DateTime endDate);
 
         [OperationContract]
         [ApplyDataContractResolver]
@@ -294,8 +294,8 @@ namespace Timetable.Host.Interfaces
             Lecturer lecturer,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate);
+            DateTime startDate,
+            DateTime endDate);
 
         [OperationContract]
         [ApplyDataContractResolver]
@@ -304,8 +304,8 @@ namespace Timetable.Host.Interfaces
             Auditorium auditorium,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate);
+            DateTime startDate,
+            DateTime endDate);
 
         [OperationContract]
         [ApplyDataContractResolver]

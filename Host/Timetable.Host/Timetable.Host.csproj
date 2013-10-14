@@ -20,10 +20,14 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -100,6 +104,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Services\DataService.svc" />
+    <Content Include="Services\DataSyncService.svc" />
     <Content Include="Services\UserService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -120,6 +125,10 @@
       <DependentUpon>DataService.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DataSyncService.svc.cs">
+      <DependentUpon>DataSyncService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IDataSyncService.cs" />
     <Compile Include="Services\UserService.svc.cs">
       <DependentUpon>UserService.svc</DependentUpon>
     </Compile>
@@ -147,6 +156,10 @@
     <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
       <Project>{562ead51-a27a-47de-9cf6-554d0d793fb3}</Project>
       <Name>Timetable.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Timetable.Sync.Toolkit\Timetable.Sync.Toolkit.csproj">
+      <Project>{fd2ad465-c3d3-4b3f-866c-8bd1dbc71b28}</Project>
+      <Name>Timetable.Sync.Toolkit</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

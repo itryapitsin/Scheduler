@@ -48,3 +48,14 @@ C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.N
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.dll
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.pdb
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.csprojResolveAssemblyReference.cache
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.pdb
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.dll.CodeAnalysisLog.xml
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.dll.lastcodeanalysissucceeded
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.xml
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.xml
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.csprojResolveAssemblyReference.cache
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.dll
+C:\MyProjects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.pdb

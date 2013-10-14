@@ -12,8 +12,6 @@ namespace Timetable.Host.Services
 {
     public class DataService : BaseService<ISchedulerDatabase>, IDataService
     {
-        #region Operations implementation
-
         public IQueryable<TimetableEntity> GetTimetableEntities()
         {
             return Database.TimetableEntities
@@ -35,15 +33,14 @@ namespace Timetable.Host.Services
 
             if (schedule.WeekTypeId == 1)
                 schedulesCount = schedules.Count();
-            if (schedule.WeekTypeId == 2)
-                schedulesCount = schedules.Where(x => x.WeekTypeId == 1 || x.WeekTypeId == 2).Count();
-            if (schedule.WeekTypeId == 3)
-                schedulesCount = schedules.Where(x => x.WeekTypeId == 1 || x.WeekTypeId == 3).Count();
 
-            if (schedulesCount == 0)
-                return true;
-        
-            return false;
+            if (schedule.WeekTypeId == 2)
+                schedulesCount = schedules.Count(x => x.WeekTypeId == 1 || x.WeekTypeId == 2);
+
+            if (schedule.WeekTypeId == 3)
+                schedulesCount = schedules.Count(x => x.WeekTypeId == 1 || x.WeekTypeId == 3);
+
+            return schedulesCount == 0;
         }
 
         public IQueryable<Branch> GetBranches()
@@ -161,8 +158,6 @@ namespace Timetable.Host.Services
                 .Where(x => x.BranchId == branch.Id);
         }
 
-        #region Groups
-
         public Group GetGroupById(int groupId)
         {
             return Database.Groups
@@ -196,10 +191,6 @@ namespace Timetable.Host.Services
                 .Where(x => x.Speciality.Id.Equals(speciality.Id))
                 .Where(x => x.Course.Id.Equals(course.Id));
         }
-
-        #endregion
-
-        #region Lecturers
 
         public IQueryable<Lecturer> GetLecturersByDeparmentId(Department department)
         {
@@ -256,10 +247,6 @@ namespace Timetable.Host.Services
 
             return result.AsQueryable();
         }
-
-        #endregion
-
-        #region ScheduleInfoes
 
         public ScheduleInfo GetScheduleInfoById(int id)
         {
@@ -344,40 +331,35 @@ namespace Timetable.Host.Services
                 .Include(x => x.Specialities);
         }
 
-        #endregion
-
-        #region AuditoriumTypes
-
         public IQueryable<AuditoriumType> GetAuditoriumTypes()
         {
             return Database.AuditoriumTypes;
         }
 
-        #endregion
-
-        #region Schedules
-
         public IQueryable<Schedule> GetSchedulesForAll(
-                                Lecturer lecturer, 
-                                Auditorium auditorium,
-                                IEnumerable<Group> groups,
-                                WeekType weekType,
-                                string subGroup,
-                                DateTime startDate,
-                                DateTime endDate
-                                )
+            Lecturer lecturer, 
+            Auditorium auditorium,
+            IEnumerable<Group> groups,
+            WeekType weekType,
+            string subGroup,
+            DateTime startDate,
+            DateTime endDate)
         {
             var result = GetSchedules().Where(x => x.IsActual);
             if(lecturer != null)
                 result = result.Where(x => x.ScheduleInfo.Lecturer.Id == lecturer.Id);
             if(auditorium != null)
                 result = result.Where(x => x.Auditorium.Id == auditorium.Id);
+
             foreach(var group in groups)
                     result = result.Where(x => x.ScheduleInfo.Groups.Any(y => y.Id == group.Id));
+
             if(subGroup != null)
                     result = result.Where(x => x.SubGroup == null || x.SubGroup == subGroup);
+
             if(startDate != null)
                     result = result.Where(x => x.EndDate >= startDate);
+
             if(endDate != null)
                     result = result.Where(x => x.StartDate <= endDate);
 
@@ -400,16 +382,15 @@ namespace Timetable.Host.Services
 
 
         public IQueryable<Schedule> GetSchedulesForDayTimeDate(
-                                int? dayOfWeek, 
-                                Time period,
-                                WeekType weekType,
-                                Lecturer lecturer, 
-                                Auditorium auditorium,
-                                IEnumerable<Group> groups,
-                                string subGroup,
-                                DateTime startDate,
-                                DateTime endDate
-            )
+            int? dayOfWeek, 
+            Time period,
+            WeekType weekType,
+            Lecturer lecturer, 
+            Auditorium auditorium,
+            IEnumerable<Group> groups,
+            string subGroup,
+            DateTime startDate,
+            DateTime endDate)
         {
             var result = GetSchedules().Where(x => x.IsActual);
 
@@ -474,9 +455,9 @@ namespace Timetable.Host.Services
             Group group,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate,
-            string SubGroup)
+            DateTime startDate,
+            DateTime endDate,
+            string subGroup)
         {
             var result =  GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
@@ -484,8 +465,8 @@ namespace Timetable.Host.Services
                 .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id.Equals(faculty.Id))
                             && x.ScheduleInfo.Courses.Any(y => y.Id.Equals(course.Id))
                             && x.ScheduleInfo.Groups.Any(y => y.Id.Equals(group.Id)));
-            if (SubGroup != null)
-                result = result.Where(x => x.SubGroup == SubGroup);
+            if (subGroup != null)
+                result = result.Where(x => x.SubGroup == subGroup);
 
             return result;
         }
@@ -494,13 +475,13 @@ namespace Timetable.Host.Services
            Group group,
            StudyYear studyYear,
            int semester,
-           DateTime StartDate,
-           DateTime EndDate)
+           DateTime startDate,
+           DateTime endDate)
         {
             return GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
                 .Where(x => x.ScheduleInfo.Semester == semester)
-                .Where(x => x.StartDate <= EndDate && x.EndDate >= StartDate)
+                .Where(x => x.StartDate <= endDate && x.EndDate >= startDate)
                 .Where(x => x.ScheduleInfo.Groups.Any(y => y.Id.Equals(group.Id)));
 
         }
@@ -511,8 +492,8 @@ namespace Timetable.Host.Services
             Speciality speciality,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate)
+            DateTime startDate,
+            DateTime endDate)
         {
             return GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
@@ -527,8 +508,8 @@ namespace Timetable.Host.Services
             Lecturer lecturer,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate)
+            DateTime startDate,
+            DateTime endDate)
         {
             var result =  GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
@@ -542,14 +523,13 @@ namespace Timetable.Host.Services
             Auditorium auditorium,
             StudyYear studyYear,
             int semester,
-            DateTime StartDate,
-            DateTime EndDate)
+            DateTime startDate,
+            DateTime endDate)
         {
             var result = GetSchedules()
                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
                .Where(x => x.ScheduleInfo.Semester == semester)
                .Where(x => x.Auditorium.Id.Equals(auditorium.Id));
-
          
             return result;
         }
@@ -587,10 +567,6 @@ namespace Timetable.Host.Services
                 .Include(x => x.Auditorium)
                 .Include(x => x.Period);
         }
-
-        #endregion
-
-        #region Tutorial
 
         public Tutorial GetTutorialById(Tutorial tutorial)
         {
@@ -632,8 +608,6 @@ namespace Timetable.Host.Services
                 .Select(x => x.Tutorial);
         }
 
-        #endregion
-
         public IQueryable<Speciality> GetSpecialities(Faculty faculty)
         {
             return Database.Specialities
@@ -668,44 +642,5 @@ namespace Timetable.Host.Services
         {
             return Database.StudyYears;
         }
-
-        #endregion
-
-        #region test
-
-        public void AddBlockScheduleForAuditorium(int AuditoriumId, 
-                                                  int DayOfWeek, 
-                                                  int PeriodId, 
-                                                  int WeekTypeId, 
-                                                  DateTime StartDate,
-                                                  DateTime EndDate)
-        {
-            var schedule = new Schedule();
-            schedule.AuditoriumId = AuditoriumId;
-            schedule.DayOfWeek = DayOfWeek;
-            schedule.PeriodId = PeriodId;
-            schedule.WeekTypeId = WeekTypeId;
-            schedule.StartDate = StartDate;
-            schedule.EndDate = EndDate;
-            schedule.CreatedDate = DateTime.Now.Date;
-            schedule.UpdatedDate = DateTime.Now.Date;
-            schedule.IsActual = true;
-            Database.Add<Schedule>(schedule);
-        }
-
-        /*public void AddBlockScheduleForLecturer(int LecturerId,
-                                                  int DayOfWeek,
-                                                  int PeriodId,
-                                                  int WeekTypeId,
-                                                  DateTime StartDate,
-                                                  DateTime EndDate)
-        {
-            
-
-            Database.Add<Schedule>(schedule);
-        }*/
-        
-
-        #endregion
     }
 }
