@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Messaging;
-using Timetable.Sync.Toolkit.Tasks;
+using Timetable.Dispatcher.Tasks;
 
-namespace Timetable.Sync.Toolkit
+namespace Timetable.Dispatcher
 {
     public class TaskPool
     {
-        private readonly MessageQueue _messageQueue;
+        private MessageQueue _messageQueue;
 
-        public TaskPool()
+        private void CreateQueue(string taskName)
         {
-            _messageQueue = MessageQueue.Exists(@".\Private$\Timetable.Dispatcher")
-                ? new MessageQueue(@".\Private$\Timetable.Dispatcher")
-                : MessageQueue.Create(@".\Private$\Timetable.Dispatcher");
+            var path = TaskDispatcherSettings.GetTaskPath(taskName);
+            _messageQueue = MessageQueue.Exists(path)
+                ? new MessageQueue(path)
+                : MessageQueue.Create(path);
         }
 
         public T GetTaskById<T>(string id) where T : class, ITask
         {
+            CreateQueue(typeof(T).Name);
+
             _messageQueue.Formatter = new XmlMessageFormatter(new[] { typeof(T), typeof(object) });
 
             var messages = _messageQueue.GetAllMessages();
@@ -33,12 +34,23 @@ namespace Timetable.Sync.Toolkit
             return task;
         }
 
-        public IEnumerable<ITask> GetTasks(Type taskType)
+        public IEnumerable<T> GetTasks<T>() where T : class, ITask
         {
-            _messageQueue.Formatter = new XmlMessageFormatter(new[] { taskType, typeof(object) });
+            CreateQueue(typeof(T).Name);
+
+            _messageQueue.Formatter = new XmlMessageFormatter(new[] { typeof(T), typeof(object) });
 
             var messages = _messageQueue.GetAllMessages();
-            return messages.Select(x => x.Body as ITask);
+            var tasks = new List<T>();
+            foreach (var message in messages)
+            {
+                var task = message.Body as T;
+                if(task == null)
+                    continue;
+                task.Id = message.Id;
+                tasks.Add(task);
+            }
+            return tasks;
         }
     }
 }

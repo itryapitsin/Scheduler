@@ -1,18 +1,23 @@
-﻿using System;
-using System.Messaging;
-using Timetable.Sync.Toolkit.Tasks;
+﻿using System.Messaging;
+using Timetable.Dispatcher.Tasks;
 
-namespace Timetable.Sync.Toolkit
+namespace Timetable.Dispatcher
 {
     public class TaskPublisher
     {
         private MessageQueue _messageQueue;
 
+        private void CreateQueue(string taskName)
+        {
+            var path = TaskDispatcherSettings.GetTaskPath(taskName);
+            _messageQueue = MessageQueue.Exists(path)
+                ? new MessageQueue(path)
+                : MessageQueue.Create(path);
+        }
+
         public void Publish(ITask task)
         {
-            _messageQueue = MessageQueue.Exists(@".\Private$\Timetable.Dispatcher")
-                ? new MessageQueue(@".\Private$\Timetable.Dispatcher")
-                : MessageQueue.Create(@".\Private$\Timetable.Dispatcher");
+            CreateQueue(task.GetType().Name);
 
             _messageQueue.Formatter = new XmlMessageFormatter(new[] { task.GetType(), typeof(object) });
 
@@ -20,6 +25,7 @@ namespace Timetable.Sync.Toolkit
             {
                 message.Body = task;
                 message.Label = task.CreateDate.Ticks.ToString();
+
                 _messageQueue.Send(message);
 
                 task.Id = message.Id;

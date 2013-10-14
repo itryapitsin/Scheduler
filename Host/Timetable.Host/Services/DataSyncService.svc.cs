@@ -1,7 +1,7 @@
 ﻿using System;
+using Timetable.Dispatcher;
+using Timetable.Dispatcher.Tasks;
 using Timetable.Host.Interfaces;
-using Timetable.Sync.Toolkit;
-using Timetable.Sync.Toolkit.Tasks;
 
 namespace Timetable.Host.Services
 {

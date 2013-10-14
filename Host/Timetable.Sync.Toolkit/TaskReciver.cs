@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Messaging;
-using Timetable.Sync.Toolkit.Tasks;
+using Timetable.Dispatcher.Tasks;
 
-namespace Timetable.Sync.Toolkit
+namespace Timetable.Dispatcher
 {
     public class TaskReciver
     {
-        private readonly MessageQueue _messageQueue;
+        private MessageQueue _messageQueue;
 
-        public TaskReciver()
+        private void CreateQueue(string taskName)
         {
-            _messageQueue = MessageQueue.Exists(@".\Private$\Timetable.Dispatcher")
-                ? new MessageQueue(@".\Private$\Timetable.Dispatcher")
-                : MessageQueue.Create(@".\Private$\Timetable.Dispatcher");
+            var path = TaskDispatcherSettings.GetTaskPath(taskName);
+            _messageQueue = MessageQueue.Exists(path)
+                ? new MessageQueue(path)
+                : MessageQueue.Create(path);
         }
 
         public T Recive<T>() where T : class, ITask
         {
+            CreateQueue(typeof(T).Name);
+
             _messageQueue.Formatter = new XmlMessageFormatter(new[] { typeof(T), typeof(object) });
 
             var message = _messageQueue.Receive();

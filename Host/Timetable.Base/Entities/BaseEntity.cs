@@ -17,5 +17,7 @@ namespace Timetable.Base.Entities
 
         [DataMember(Name = "UpdateDate")]
         public DateTime UpdatedDate { get; set; }
+
+        public Int64? IIASKey { get; set; }
     }
 }

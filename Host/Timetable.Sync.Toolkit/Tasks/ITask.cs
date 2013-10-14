@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Timetable.Sync.Toolkit.Tasks
+namespace Timetable.Dispatcher.Tasks
 {
     public interface ITask
     {

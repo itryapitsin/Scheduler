@@ -15,7 +15,7 @@ namespace Timetable.Data.Context.Interfaces
 
         IQueryable<TEntity> RawSqlQuery<TEntity>(
             string query, 
-            params object[] parameters) where TEntity : BaseEntity;
+            params object[] parameters) where TEntity : class;
 
         int RawSqlCommand(
             string command,

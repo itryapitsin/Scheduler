@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Timetable.Sync.Toolkit.Tasks
+namespace Timetable.Dispatcher.Tasks
 {
     public class SyncDataTask: ITask
     {
@@ -14,10 +14,9 @@ namespace Timetable.Sync.Toolkit.Tasks
             CreateDate = DateTime.Now;
         }
 
-
         public void Execute()
         {
-            throw new NotImplementedException();
+
         }
 
         public int GetProgress()

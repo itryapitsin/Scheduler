@@ -1,0 +1,13 @@
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Dispatcher.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Dispatcher.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Data.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\EntityFramework.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Base.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Ninject.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Data.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\EntityFramework.xml
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Timetable.Base.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\obj\Debug\Timetable.Dispatcher.csprojResolveAssemblyReference.cache
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\obj\Debug\Timetable.Dispatcher.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\obj\Debug\Timetable.Dispatcher.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Sync.Toolkit\bin\Debug\Oracle.DataAccess.dll

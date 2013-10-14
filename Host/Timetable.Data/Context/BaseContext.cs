@@ -73,7 +73,7 @@ namespace Timetable.Data.Context
 
         public IQueryable<TEntity> RawSqlQuery<TEntity>(
             string query,
-            params object[] parameters) where TEntity : BaseEntity
+            params object[] parameters) where TEntity : class
         {
             var result = base.Set<TEntity>().SqlQuery(query, parameters).AsQueryable();
 

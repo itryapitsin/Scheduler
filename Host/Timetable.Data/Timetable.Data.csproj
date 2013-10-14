@@ -56,6 +56,7 @@
     <Reference Include="Ninject">
       <HintPath>..\Libs\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -76,6 +77,10 @@
     <Compile Include="Context\DbContextExtensions.cs" />
     <Compile Include="Context\SchedulerContext.cs" />
     <Compile Include="Context\UserContext.cs" />
+    <Compile Include="IIAS\Context\IIIASContext.cs" />
+    <Compile Include="IIAS\Mapping\BuildingMapping.cs" />
+    <Compile Include="IIAS\Models\Building.cs" />
+    <Compile Include="IIAS\Context\IIASContext.cs" />
     <Compile Include="Mapping\AuditoriumMapping.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -112,29 +117,33 @@
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Migrations\201306070734041_Foreign_keys_updated.cs" />
-    <Compile Include="Migrations\201306070734041_Foreign_keys_updated.Designer.cs">
+    <Compile Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.cs" />
+    <Compile Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.Designer.cs">
       <DependentUpon>201306070734041_Foreign_keys_updated.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201307110658161_AddStartEndTimeToSchedules.cs" />
-    <Compile Include="Migrations\201307110658161_AddStartEndTimeToSchedules.Designer.cs">
+    <Compile Include="Migrations\Schedule\201307110658161_AddStartEndTimeToSchedules.cs" />
+    <Compile Include="Migrations\Schedule\201307110658161_AddStartEndTimeToSchedules.Designer.cs">
       <DependentUpon>201307110658161_AddStartEndTimeToSchedules.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201307120626393_Add_AutoDeleteField_In_Schedules.cs" />
-    <Compile Include="Migrations\201307120626393_Add_AutoDeleteField_In_Schedules.Designer.cs">
+    <Compile Include="Migrations\Schedule\201307120626393_Add_AutoDeleteField_In_Schedules.cs" />
+    <Compile Include="Migrations\Schedule\201307120626393_Add_AutoDeleteField_In_Schedules.Designer.cs">
       <DependentUpon>201307120626393_Add_AutoDeleteField_In_Schedules.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309030713534_AddingTimetaeEntity.cs" />
-    <Compile Include="Migrations\201309030713534_AddingTimetaeEntity.Designer.cs">
+    <Compile Include="Migrations\Schedule\201309030713534_AddingTimetaeEntity.cs" />
+    <Compile Include="Migrations\Schedule\201309030713534_AddingTimetaeEntity.Designer.cs">
       <DependentUpon>201309030713534_AddingTimetaeEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309031344534_MakeTimetableIdNullable.cs" />
-    <Compile Include="Migrations\201309031344534_MakeTimetableIdNullable.Designer.cs">
+    <Compile Include="Migrations\Schedule\201309031344534_MakeTimetableIdNullable.cs" />
+    <Compile Include="Migrations\Schedule\201309031344534_MakeTimetableIdNullable.Designer.cs">
       <DependentUpon>201309031344534_MakeTimetableIdNullable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309301702437_Add_sbgroups.cs" />
-    <Compile Include="Migrations\201309301702437_Add_sbgroups.Designer.cs">
+    <Compile Include="Migrations\Schedule\201309301702437_Add_sbgroups.cs" />
+    <Compile Include="Migrations\Schedule\201309301702437_Add_sbgroups.Designer.cs">
       <DependentUpon>201309301702437_Add_sbgroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Schedule\201310141905246_IIASKeyAddedToEveryoneTables.cs" />
+    <Compile Include="Migrations\Schedule\201310141905246_IIASKeyAddedToEveryoneTables.Designer.cs">
+      <DependentUpon>201310141905246_IIASKeyAddedToEveryoneTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Schedule\201305122003080_Remove_StudyYear_entity.cs" />
     <Compile Include="Migrations\Schedule\201305122003080_Remove_StudyYear_entity.Designer.cs">
@@ -192,23 +201,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201306070734041_Foreign_keys_updated.resx">
+    <EmbeddedResource Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.resx">
       <DependentUpon>201306070734041_Foreign_keys_updated.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201307110658161_AddStartEndTimeToSchedules.resx">
+    <EmbeddedResource Include="Migrations\Schedule\201307110658161_AddStartEndTimeToSchedules.resx">
       <DependentUpon>201307110658161_AddStartEndTimeToSchedules.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201307120626393_Add_AutoDeleteField_In_Schedules.resx">
+    <EmbeddedResource Include="Migrations\Schedule\201307120626393_Add_AutoDeleteField_In_Schedules.resx">
       <DependentUpon>201307120626393_Add_AutoDeleteField_In_Schedules.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309030713534_AddingTimetaeEntity.resx">
+    <EmbeddedResource Include="Migrations\Schedule\201309030713534_AddingTimetaeEntity.resx">
       <DependentUpon>201309030713534_AddingTimetaeEntity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309031344534_MakeTimetableIdNullable.resx">
+    <EmbeddedResource Include="Migrations\Schedule\201309031344534_MakeTimetableIdNullable.resx">
       <DependentUpon>201309031344534_MakeTimetableIdNullable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309301702437_Add_sbgroups.resx">
+    <EmbeddedResource Include="Migrations\Schedule\201309301702437_Add_sbgroups.resx">
       <DependentUpon>201309301702437_Add_sbgroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Schedule\201310141905246_IIASKeyAddedToEveryoneTables.resx">
+      <DependentUpon>201310141905246_IIASKeyAddedToEveryoneTables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Schedule\201305122003080_Remove_StudyYear_entity.resx">
       <DependentUpon>201305122003080_Remove_StudyYear_entity.cs</DependentUpon>
