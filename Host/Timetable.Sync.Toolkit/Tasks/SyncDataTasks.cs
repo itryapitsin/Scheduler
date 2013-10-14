@@ -10,5 +10,10 @@ namespace Timetable.Sync.Toolkit.Tasks
         {
             throw new NotImplementedException();
         }
+
+        public int GetProgress()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

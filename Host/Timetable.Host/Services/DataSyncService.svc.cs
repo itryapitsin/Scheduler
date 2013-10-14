@@ -1,19 +1,23 @@
 ﻿using System;
 using Timetable.Host.Interfaces;
+using Timetable.Sync.Toolkit;
+using Timetable.Sync.Toolkit.Tasks;
 
 namespace Timetable.Host.Services
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "DataSyncService" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select DataSyncService.svc or DataSyncService.svc.cs at the Solution Explorer and start debugging.
     public class DataSyncService : IDataSyncService
     {
+        private readonly SyncDataTask _task = new SyncDataTask();
+
         public void DoSync()
         {
+            var taskPublisher = new TaskPublisher();
+            taskPublisher.Publish(new SyncDataTask());
         }
 
         public int GetProgress()
         {
-            throw new NotImplementedException();
+            return _task.GetProgress();
         }
     }
 }
