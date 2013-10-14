@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Messaging;
 using Timetable.Sync.Toolkit.Tasks;
 
@@ -22,24 +21,9 @@ namespace Timetable.Sync.Toolkit
 
             var message = _messageQueue.Receive();
             if(message == null)
-                throw new NullReferenceException("objMqMessage");
+                throw new NullReferenceException("message");
 
             return message.Body as T;
-        }
-
-        public T GetTaskById<T>(string id) where T : class, ITask
-        {
-            _messageQueue.Formatter = new XmlMessageFormatter(new[] { typeof(T), typeof(object) });
-
-            var messages = _messageQueue.GetAllMessages();
-            var task = messages.First(x => x.Id == id).Body as T;
-
-            if (task == null)
-                return null;
-
-            task.Id = id;
-
-            return task;
         }
     }
 }

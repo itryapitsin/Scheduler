@@ -39,8 +39,11 @@ namespace Timetable.Sync
             //publisher.Publish(new SyncDataTask());
             publisher.Publish(task);
 
+            var taskPool = new TaskPool();
+            var t = taskPool.GetTaskById<SyncDataTask>(task.Id);
+            var tasks = taskPool.GetTasks(typeof(SyncDataTask));
+
             var reciver = new TaskReciver();
-            var t1 = reciver.GetTaskById<SyncDataTask>(task.Id);
             reciver.Recive<SyncDataTask>();
         }
     }
