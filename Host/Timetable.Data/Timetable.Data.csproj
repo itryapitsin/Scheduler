@@ -79,6 +79,7 @@
     <Compile Include="Context\UserContext.cs" />
     <Compile Include="IIAS\Context\IIIASContext.cs" />
     <Compile Include="IIAS\Mapping\BuildingMapping.cs" />
+    <Compile Include="IIAS\Models\AuditoriumType.cs" />
     <Compile Include="IIAS\Models\Building.cs" />
     <Compile Include="IIAS\Context\IIASContext.cs" />
     <Compile Include="Mapping\AuditoriumMapping.cs">

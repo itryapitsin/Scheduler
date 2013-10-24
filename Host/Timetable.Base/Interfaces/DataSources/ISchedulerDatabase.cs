@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Timetable.Base.Entities.Scheduler;
 
 namespace Timetable.Base.Interfaces.DataSources
 {
     public interface ISchedulerDatabase: IDatabase
     {
-        ICollection<Department> Departments { get; }
+        IQueryable<Department> Departments { get; }
 
         IQueryable<Auditorium> Auditoriums { get; }
 
@@ -14,7 +13,7 @@ namespace Timetable.Base.Interfaces.DataSources
 
         IQueryable<Speciality> Specialities { get; }
 
-        ICollection<Building> Buildings { get; }
+        IQueryable<Building> Buildings { get; }
 
         IQueryable<Branch> Branches { get; }
 

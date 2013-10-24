@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading.Tasks;
 using Timetable.Base.Entities;
 using Timetable.Data.Context.Interfaces;
 

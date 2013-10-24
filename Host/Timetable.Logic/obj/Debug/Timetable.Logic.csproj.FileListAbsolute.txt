@@ -11,3 +11,4 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\EntityFramework.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\obj\Debug\Timetable.Logic.csprojResolveAssemblyReference.cache
 E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\obj\Debug\Timetable.Logic.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\obj\Debug\Timetable.Logic.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Logic\bin\Debug\Timetable.Logic.dll.config

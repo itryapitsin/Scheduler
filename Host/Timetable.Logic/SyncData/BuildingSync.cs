@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,15 @@ namespace Timetable.Logic.SyncData
 
         public ISchedulerDatabase SchedulerDatabase;
 
-        public void Sync()
+        public async void Sync()
         {
-            var iiasBuildings = IIASContext.GetBuildings();
-            var schedulerBuildings = SchedulerDatabase.Buildings;
+            var task1 = Task.Factory.StartNew(() => IIASContext.GetBuildings().ToList());
+            var task2 = Task.Factory.StartNew(() => SchedulerDatabase.Buildings.ToList());
+
+            Task.WaitAll(task1, task2);
+
+            var iiasBuildings = await task1;
+            var schedulerBuildings = await task2;
 
             foreach (var iiasBuilding in iiasBuildings)
             {
@@ -45,6 +51,8 @@ namespace Timetable.Logic.SyncData
                     schedulerBuilding.Name = iiasBuilding.Fullname;
                     schedulerBuilding.ShortName = iiasBuilding.ShortName;
                     schedulerBuilding.IsActual = true;
+
+                    SchedulerDatabase.Update(schedulerBuilding);
                 }
             }
         }

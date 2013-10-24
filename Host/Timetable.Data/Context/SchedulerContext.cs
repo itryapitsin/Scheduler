@@ -110,9 +110,9 @@ namespace Timetable.Data.Context
         
         #region ISchedulerDatabase implementation
 
-        ICollection<Department> ISchedulerDatabase.Departments
+        IQueryable<Department> ISchedulerDatabase.Departments
         {
-            get { return Departments.ToList(); }
+            get { return Departments; }
         }
 
         IQueryable<Auditorium> ISchedulerDatabase.Auditoriums
@@ -171,9 +171,9 @@ namespace Timetable.Data.Context
             get { return Courses; }
         }
 
-        ICollection<Building> ISchedulerDatabase.Buildings
+        IQueryable<Building> ISchedulerDatabase.Buildings
         {
-            get { return Buildings.ToList(); }
+            get { return Buildings; }
         }
 
         IQueryable<Tutorial> ISchedulerDatabase.Tutorials

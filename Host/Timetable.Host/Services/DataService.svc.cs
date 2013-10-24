@@ -286,9 +286,11 @@ namespace Timetable.Host.Services
             StudyYear studyYear,
             int semester)
         {
-            return GetScheduleInfoesForCourse(faculty, course, studyYear, semester)
-                .Where(x => x.Groups.Any(y => y.Id.Equals(group.Id)))
+            return GetScheduleInfoes()
+                .Where(x => x.StudyYear.Id == studyYear.Id)
+                .Where(x => x.Semester == semester)
                 .Where(x => x.TutorialType.Id.Equals(tutorialtype.Id));
+            //.Where(x => x.Groups.Any(y => groups.Any(z => z.Id.Equals(y.Id))))
         }
 
 
