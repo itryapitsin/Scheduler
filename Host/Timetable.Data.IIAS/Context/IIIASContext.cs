@@ -17,5 +17,11 @@ namespace Timetable.Data.IIAS.Context
         IQueryable<Faculty> GetFaculties();
 
         IQueryable<Department> GetDepartments();
+
+        IQueryable<Lecturer> GetLecturers();
+
+        IQueryable<Tutorial> GetTutorials();
+
+        IQueryable<Speciality> GetSpecialities();
     }
 }

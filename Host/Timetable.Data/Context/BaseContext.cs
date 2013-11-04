@@ -26,7 +26,7 @@ namespace Timetable.Data.Context
 
         protected BaseContext(string connectionStringOrName) : base(connectionStringOrName) { }
 
-        protected BaseContext() {}
+        protected BaseContext() { }
 
         protected BaseContext(DbConnection connection, bool contextOwnsConnection) : base(connection, contextOwnsConnection) { }
 
@@ -43,26 +43,29 @@ namespace Timetable.Data.Context
             return base.Set<T>();
         }
 
-        public virtual void Add<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public virtual void Add<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Add(entity);
-            SaveChanges();
+            if (isApplyNow)
+                SaveChanges();
         }
 
-        public virtual void Update<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public virtual void Update<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
         {
             AttachIfNotAttached(entity);
             Entry(entity).State = EntityState.Modified;
-            SaveChanges();
+            if (isApplyNow)
+                SaveChanges();
         }
 
-        public virtual void Delete<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public virtual void Delete<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Remove(entity);
             Entry(entity).State = EntityState.Deleted;
-            SaveChanges();
+            if (isApplyNow)
+                SaveChanges();
         }
 
         public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : BaseEntity

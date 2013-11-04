@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
 using Timetable.Data.Context;
@@ -11,11 +12,37 @@ namespace Timetable.Sync
     {
         static void Main(string[] args)
         {
+            Console.Write(@"Loading organizations...");
             DoSync(new OrganizationSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading branches...");
             DoSync(new BranchSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading buildings...");
             DoSync(new BuildingSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading faculties...");
             DoSync(new FacultySync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading departments...");
             DoSync(new DepartmentSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading lecturers...");
+            DoSync(new LecturerSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading tutorials...");
+            DoSync(new TutorialSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading specialities...");
+            DoSync(new SpecialitySync());
+            Console.WriteLine(@"done!");
         }
 
         public static void DoSync(BaseSync sync)

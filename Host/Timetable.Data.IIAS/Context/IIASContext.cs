@@ -14,6 +14,11 @@ namespace Timetable.Data.IIAS.Context
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Department> Departments { get; set; }
 
+        public DbSet<Speciality> Specialities { get; set; }
+
+        public DbSet<Tutorial> Tutorials { get; set; }
+
+        public DbSet<Lecturer> Lecturers { get; set; }
 
         public IIASContext(OracleConnection connection) : base(connection, true)
         {
@@ -72,8 +77,7 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.O_BASE_UNIT.NAME_LONG AS Name
                     FROM
                         SDMS.O_BASE_UNIT, 
-                        SDMS.V_STUD_GR, 
-                        SDMS.O_USE_BASE_UNITS
+                        SDMS.V_STUD_GR
                     WHERE  
                         SDMS.O_BASE_UNIT.BUN_ID = SDMS.V_STUD_GR.FACUL_BUN_ID");
         }
@@ -90,6 +94,43 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.O_BASE_UNIT
                     WHERE  
                         SDMS.V_PED_PERS_ALL.BUN_ID = SDMS.O_BASE_UNIT.BUN_ID");
+        }
+
+        public IQueryable<Lecturer> GetLecturers()
+        {
+            return RawSqlQuery<Lecturer>(@"
+                    SELECT DISTINCT 
+                        PCARD_ID AS Id, 
+                        I_NAME AS FirstName, 
+                        O_NAME AS MiddleName, 
+                        F_NAME AS LastName
+                    FROM            
+                        SDMS.V_PED_PERS_ALL");
+        }
+
+        public IQueryable<Tutorial> GetTutorials()
+        {
+            return RawSqlQuery<Tutorial>(@"
+                    SELECT DISTINCT 
+                        DIS_CODE AS Id, 
+                        DISCIPL_NAME AS Name
+                    FROM            
+                        SDMS.V_UPL_RASP");
+        }
+
+        public IQueryable<Speciality> GetSpecialities()
+        {
+            return RawSqlQuery<Speciality>(@"
+                    SELECT DISTINCT 
+                        SDMS.V_STUD_GR.SPEC_BUN_ID AS Id, 
+                        SDMS.O_BASE_UNIT.NAME_SHORT AS ShortName, 
+                        SDMS.O_BASE_UNIT.NAME_LONG AS Name, 
+                        SDMS.O_BASE_UNIT.CODE AS Code
+                    FROM            
+                        SDMS.V_STUD_GR, 
+                        SDMS.O_BASE_UNIT
+                    WHERE        
+                        SDMS.V_STUD_GR.SPEC_BUN_ID = SDMS.O_BASE_UNIT.BUN_ID");
         }
     }
 }

@@ -34,17 +34,17 @@ namespace Timetable.Host.Services
 
         public OperationResult Add(BaseEntity entity)
         {
-            return Crud(Database.Add, entity);
+            return Crud(e => Database.Add(e), entity);
         }
 
         public OperationResult Update(BaseEntity entity)
         {
-            return Crud(Database.Update, entity);
+            return Crud(e => Database.Update(e), entity);
         }
 
         public OperationResult Delete(BaseEntity entity)
         {
-            return Crud(Database.Delete, entity);
+            return Crud(e => Database.Delete(e), entity);
         }
     }
 }

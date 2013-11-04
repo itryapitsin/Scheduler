@@ -32,5 +32,10 @@ namespace Timetable.Data.Context
         }
 
         #endregion
+
+        public void SaveChanges()
+        {
+            base.SaveChanges();
+        }
     }
 }
