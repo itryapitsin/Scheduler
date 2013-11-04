@@ -14,10 +14,10 @@ namespace Timetable.Sync
     {
         static void Main(string[] args)
         {
-            using (var context = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString)))
-            {
-                var buildings = context.GetBuildings();
-            }
+            //using (var context = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString)))
+            //{
+            //    var buildings = context.GetBuildings();
+            //}
 
             var buildingSync = new BuildingSync();
             buildingSync.IIASContext = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString));

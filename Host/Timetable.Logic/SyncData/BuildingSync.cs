@@ -10,13 +10,9 @@ using Timetable.Data.IIAS.Context;
 
 namespace Timetable.Logic.SyncData
 {
-    public class BuildingSync
+    public class BuildingSync: BaseSync
     {
-        public IIIASContext IIASContext;
-
-        public ISchedulerDatabase SchedulerDatabase;
-
-        public async void Sync()
+        public override async void Sync()
         {
             var task1 = Task.Factory.StartNew(() => IIASContext.GetBuildings().ToList());
             var task2 = Task.Factory.StartNew(() => SchedulerDatabase.Buildings.ToList());
