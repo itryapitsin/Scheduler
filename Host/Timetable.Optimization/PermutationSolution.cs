@@ -9,6 +9,7 @@ using Timetable.Optimization.Providers;
 
 namespace Timetable.Optimization
 {
+	// Permutation solution class
     public class PermutationSolution : ISolution
     {
         //[Inject]
