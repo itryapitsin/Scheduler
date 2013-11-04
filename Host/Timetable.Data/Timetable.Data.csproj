@@ -82,6 +82,7 @@
     <Compile Include="IIAS\Models\AuditoriumType.cs" />
     <Compile Include="IIAS\Models\Building.cs" />
     <Compile Include="IIAS\Context\IIASContext.cs" />
+    <Compile Include="IIAS\Models\Organization.cs" />
     <Compile Include="Mapping\AuditoriumMapping.cs">
       <SubType>Code</SubType>
     </Compile>

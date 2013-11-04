@@ -17,9 +17,3 @@ C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetab
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetablle.Host.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.dll
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.pdb
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll.config
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.pdb
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetablle.Host.Tests.csprojResolveAssemblyReference.cache
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.dll
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.pdb
