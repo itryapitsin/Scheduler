@@ -25,18 +25,23 @@ namespace Timetable.Logic.SyncData
             foreach (var iiasEntity in iiasEntities)
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasEntity.Id);
+                var branch = SchedulerDatabase.Branches.FirstOrDefault(x => x.IIASKey == iiasEntity.BranchId);
+                if(branch == null)
+                    continue;
+
                 if (schedulerEntity == null)
                 {
-                    var building = new Faculty
+                    schedulerEntity = new Faculty
                     {
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
                         IIASKey = iiasEntity.Id,
+                        BranchId = branch.Id,
                         Name = iiasEntity.Name,
                         ShortName = iiasEntity.ShortName,
                         IsActual = true
                     };
-                    SchedulerDatabase.Add(building);
+                    SchedulerDatabase.Add(schedulerEntity);
                 }
                 else
                 {
@@ -45,6 +50,7 @@ namespace Timetable.Logic.SyncData
                     schedulerEntity.Name = iiasEntity.Name;
                     schedulerEntity.ShortName = iiasEntity.ShortName;
                     schedulerEntity.IsActual = true;
+                    schedulerEntity.BranchId = branch.Id;
 
                     SchedulerDatabase.Update(schedulerEntity);
                 }

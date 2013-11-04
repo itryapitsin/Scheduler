@@ -8,12 +8,12 @@ namespace Timetable.Data.IIAS.Models
 {
     public class Faculty
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
 
         public string Name { get; set; }
 
         public string ShortName { get; set; }
 
-        public int BranchId { get; set; }
+        public Int64 BranchId { get; set; }
     }
 }

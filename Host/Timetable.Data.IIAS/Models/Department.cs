@@ -8,7 +8,7 @@ namespace Timetable.Data.IIAS.Models
 {
     public class Department
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
 
         public string Name { get; set; }
 

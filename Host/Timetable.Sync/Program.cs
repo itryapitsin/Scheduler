@@ -14,6 +14,7 @@ namespace Timetable.Sync
             DoSync(new OrganizationSync());
             DoSync(new BranchSync());
             DoSync(new BuildingSync());
+            DoSync(new FacultySync());
             DoSync(new DepartmentSync());
         }
 

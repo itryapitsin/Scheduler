@@ -19,32 +19,34 @@ namespace Timetable.Logic.SyncData
 
             Task.WaitAll(task1, task2);
 
-            var iiasBuildings = await task1;
-            var schedulerBuildings = await task2;
+            var iiasEntities = await task1;
+            var schedulerEntities = await task2;
 
-            foreach (var iiasBuilding in iiasBuildings)
+            foreach (var iiasEntity in iiasEntities)
             {
-                var schedulerBuilding = schedulerBuildings.FirstOrDefault(x => x.IIASKey == iiasBuilding.Id);
-                if (schedulerBuilding == null)
+                var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasEntity.Id);
+                if (schedulerEntity == null)
                 {
-                    var building = new Branch
+                    schedulerEntity = new Branch
                     {
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
-                        IIASKey = iiasBuilding.Id,
-                        Name = iiasBuilding.Name,
+                        IIASKey = iiasEntity.Id,
+                        Name = iiasEntity.Name,
+                        OrganizationId = (int)iiasEntity.OrganizationId,
                         IsActual = true
                     };
-                    SchedulerDatabase.Add(building);
+                    SchedulerDatabase.Add(schedulerEntity);
                 }
                 else
                 {
-                    schedulerBuilding.UpdatedDate = DateTime.Now;
-                    schedulerBuilding.IIASKey = iiasBuilding.Id;
-                    schedulerBuilding.Name = iiasBuilding.Name;
-                    schedulerBuilding.IsActual = true;
+                    schedulerEntity.UpdatedDate = DateTime.Now;
+                    schedulerEntity.IIASKey = iiasEntity.Id;
+                    schedulerEntity.Name = iiasEntity.Name;
+                    schedulerEntity.OrganizationId = (int)iiasEntity.OrganizationId;
+                    schedulerEntity.IsActual = true;
 
-                    SchedulerDatabase.Update(schedulerBuilding);
+                    SchedulerDatabase.Update(schedulerEntity);
                 }
             }
         }

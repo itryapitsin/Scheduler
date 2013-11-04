@@ -1,11 +1,13 @@
-﻿namespace Timetable.Data.IIAS.Models
+﻿using System;
+
+namespace Timetable.Data.IIAS.Models
 {
     public class Branche
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
 
         public string Name { get; set; }
 
-        public int OrganizationId { get; set; }
+        public Int64 OrganizationId { get; set; }
     }
 }
