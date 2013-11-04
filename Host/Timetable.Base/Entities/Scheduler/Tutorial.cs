@@ -12,19 +12,13 @@ namespace Timetable.Base.Entities.Scheduler
         [DataMember(Name = "ShortName")]
         public string ShortName { get; set; }
 
-        [DataMember(Name = "Faculty")]
-        public virtual Faculty Faculty { get; set; }
+        [DataMember(Name = "Faculties")]
+        public ICollection<Faculty> Faculties { get; set; }
 
-        [DataMember(Name = "FacultyId")]
-        public int? FacultyId { get; set; }
-
-        [DataMember(Name = "Speciality")]
-        public virtual Speciality Speciality { get; set; }
-
-        [DataMember(Name = "SpecialityId")]
-        public int? SpecialityId { get; set; }
+        [DataMember(Name = "Specialities")]
+        public ICollection<Speciality> Specialities { get; set; }
 
         [DataMember(Name = "ScheduleInfoes")]
-        public virtual ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
+        public ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
     }
 }

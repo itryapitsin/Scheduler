@@ -75,6 +75,7 @@
     <Compile Include="Entities\Scheduler\Faculty.cs" />
     <Compile Include="Entities\Scheduler\Group.cs" />
     <Compile Include="Entities\Scheduler\Lecturer.cs" />
+    <Compile Include="Entities\Scheduler\Organization.cs" />
     <Compile Include="Entities\Scheduler\Position.cs" />
     <Compile Include="Entities\Scheduler\Schedule.cs" />
     <Compile Include="Entities\Scheduler\ScheduleInfo.cs" />

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 
 namespace Timetable.Base.Entities.Scheduler
 {
     [DataContract(IsReference = true)]
-    public class Faculty: BaseEntity
+    public class Faculty : BaseEntity
     {
         [DataMember(Name = "Name")]
         public string Name { get; set; }
@@ -16,7 +17,13 @@ namespace Timetable.Base.Entities.Scheduler
         public ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
 
         [DataMember(Name = "Specialities")]
-        public ICollection<Speciality> Specialities {get; set;}
+        public ICollection<Speciality> Specialities { get; set; }
+
+        [DataMember(Name = "Departments")]
+        public ICollection<Department> Departments { get; set; }
+
+        [DataMember(Name = "Tutorials")]
+        public ICollection<Tutorial> Tutorials { get; set; }
 
         [DataMember(Name = "Branch")]
         public virtual Branch Branch { get; set; }
@@ -28,6 +35,8 @@ namespace Timetable.Base.Entities.Scheduler
         {
             Specialities = new HashSet<Speciality>();
             ScheduleInfoes = new HashSet<ScheduleInfo>();
+            Departments = new Collection<Department>();
+            Tutorials = new Collection<Tutorial>();
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Timetable.Base.Interfaces.DataSources
 
         IQueryable<Building> Buildings { get; }
 
+        IQueryable<Organization> Organizations { get; }
+
         IQueryable<Branch> Branches { get; }
 
         IQueryable<Course> Courses { get; }

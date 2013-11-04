@@ -20,6 +20,8 @@ namespace Timetable.Data.Context
 
         public IDbSet<Faculty> Faculties { get; set; }
 
+        public IDbSet<Organization> Organizations { get; set; }
+
         public IDbSet<Building> Buildings { get; set; }
 
         public IDbSet<Branch> Branches { get; set; }
@@ -113,6 +115,11 @@ namespace Timetable.Data.Context
         IQueryable<Department> ISchedulerDatabase.Departments
         {
             get { return Departments; }
+        }
+
+        IQueryable<Organization> ISchedulerDatabase.Organizations
+        {
+            get { return Organizations; }
         }
 
         IQueryable<Auditorium> ISchedulerDatabase.Auditoriums

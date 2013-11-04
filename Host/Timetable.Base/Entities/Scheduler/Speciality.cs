@@ -16,13 +16,16 @@ namespace Timetable.Base.Entities.Scheduler
 	    public string Code { get; set; }
 
         [DataMember(Name = "Faculties")]
-        public virtual ICollection<Faculty> Faculties { get; set; }
+        public ICollection<Faculty> Faculties { get; set; }
 
         [DataMember(Name = "ScheduleInfoes")]
-        public virtual ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
+        public ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
+
+        [DataMember(Name = "Tutorials")]
+        public ICollection<Tutorial> Tutorials { get; set; }
 
         [DataMember(Name = "Groups")]
-        public virtual ICollection<Group> Groups { get; set; }
+        public ICollection<Group> Groups { get; set; }
 
         public Speciality()
         {

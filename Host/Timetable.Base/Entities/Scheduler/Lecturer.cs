@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 
 namespace Timetable.Base.Entities.Scheduler
@@ -19,18 +20,19 @@ namespace Timetable.Base.Entities.Scheduler
 	    public string Contacts { get; set; }
 
         [DataMember(Name = "Departments")]
-        public virtual ICollection<Department> Departments { get; set; }
+        public ICollection<Department> Departments { get; set; }
 
         [DataMember(Name = "Positions")]
-        public virtual ICollection<Position> Positions { get; set; }
+        public ICollection<Position> Positions { get; set; }
             
         [DataMember(Name = "ScheduleInfoes")]
-        public virtual ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
+        public ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
 
         public Lecturer()
         {
-            ScheduleInfoes = new HashSet<ScheduleInfo>();
-            Departments = new HashSet<Department>();
+            ScheduleInfoes = new Collection<ScheduleInfo>();
+            Departments = new Collection<Department>();
+            Positions = new Collection<Position>();
         }
     }
 }

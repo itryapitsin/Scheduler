@@ -16,13 +16,24 @@ namespace Timetable.Data.Mapping
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            HasOptional(x => x.Faculty)
-                .WithMany()
-                .HasForeignKey(x => x.FacultyId);
+            HasMany(x => x.Faculties)
+                .WithMany(x => x.Tutorials)
+                .Map(x =>
+                {
+                    x.MapLeftKey("Tutorial_Id");
+                    x.MapRightKey("Faculty_Id");
+                    x.ToTable("FacultiesToTutorials");
+                });
 
-            HasOptional(x => x.Speciality)
-                .WithMany()
-                .HasForeignKey(x => x.SpecialityId);
+
+            HasMany(x => x.Specialities)
+                .WithMany(x => x.Tutorials)
+                .Map(x =>
+                {
+                    x.MapLeftKey("Tutorial_Id");
+                    x.MapRightKey("Speciality_Id");
+                    x.ToTable("SpecialitiesToTutorials");
+                });
 
             HasMany(x => x.ScheduleInfoes)
                 .WithRequired(x => x.Tutorial)

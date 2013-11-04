@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Timetable.Data.IIAS.Models
+namespace Timetable.Base.Entities.Scheduler
 {
-    public class Organization
+    public class Organization: BaseEntity
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
+
+        public ICollection<Branch> Branches { get; set; }
     }
 }

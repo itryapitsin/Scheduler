@@ -92,6 +92,7 @@
     <Compile Include="Mapping\BranchMapping.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mapping\OrganizationMapping.cs" />
     <Compile Include="Mapping\BuildingMapping.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -118,6 +119,10 @@
     </Compile>
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs" />
+    <Compile Include="Migrations\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.Designer.cs">
+      <DependentUpon>201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.cs" />
     <Compile Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.Designer.cs">
@@ -203,6 +208,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.resx">
+      <DependentUpon>201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.resx">
       <DependentUpon>201306070734041_Foreign_keys_updated.cs</DependentUpon>
     </EmbeddedResource>
