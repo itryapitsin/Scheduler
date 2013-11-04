@@ -93,7 +93,6 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\System.Spatial.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Base.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Dispatcher.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Oracle.DataAccess.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Base.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Dispatcher.pdb

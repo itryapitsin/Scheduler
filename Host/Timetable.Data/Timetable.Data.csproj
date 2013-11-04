@@ -56,7 +56,6 @@
     <Reference Include="Ninject">
       <HintPath>..\Libs\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -77,15 +76,6 @@
     <Compile Include="Context\DbContextExtensions.cs" />
     <Compile Include="Context\SchedulerContext.cs" />
     <Compile Include="Context\UserContext.cs" />
-    <Compile Include="IIAS\Context\IIIASContext.cs" />
-    <Compile Include="IIAS\Mapping\BuildingMapping.cs" />
-    <Compile Include="IIAS\Models\AuditoriumType.cs" />
-    <Compile Include="IIAS\Models\Branche.cs" />
-    <Compile Include="IIAS\Models\Building.cs" />
-    <Compile Include="IIAS\Context\IIASContext.cs" />
-    <Compile Include="IIAS\Models\Department.cs" />
-    <Compile Include="IIAS\Models\Faculty.cs" />
-    <Compile Include="IIAS\Models\Organization.cs" />
     <Compile Include="Mapping\AuditoriumMapping.cs">
       <SubType>Code</SubType>
     </Compile>

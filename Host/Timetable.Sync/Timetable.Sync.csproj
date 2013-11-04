@@ -63,6 +63,10 @@
       <Project>{abdb4f76-d271-433b-ab27-c8ed9ce1df84}</Project>
       <Name>Timetable.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Timetable.Data.IIAS\Timetable.Data.IIAS.csproj">
+      <Project>{711E2BB6-2FDC-4B03-AA42-A0A3F49B88E0}</Project>
+      <Name>Timetable.Data.IIAS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
       <Project>{562EAD51-A27A-47DE-9CF6-554D0D793FB3}</Project>
       <Name>Timetable.Data</Name>

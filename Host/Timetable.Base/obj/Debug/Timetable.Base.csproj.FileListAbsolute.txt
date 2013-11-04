@@ -67,6 +67,5 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.xml
-E:\Projects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.csprojResolveAssemblyReference.cache
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.pdb

@@ -56,7 +56,6 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Tim
 E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Data.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Optimization.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Ninject.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Oracle.DataAccess.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Base.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Data.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Optimization.Workbench\bin\Debug\Timetable.Optimization.pdb

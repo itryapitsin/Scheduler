@@ -158,7 +158,6 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\Timetable.Data.dll.Co
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\Timetable.Data.dll.lastcodeanalysissucceeded
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\EntityFramework.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\Microsoft.Web.Infrastructure.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\Oracle.DataAccess.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\Timetable.Base.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\Timetable.Base.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\bin\Debug\EntityFramework.xml

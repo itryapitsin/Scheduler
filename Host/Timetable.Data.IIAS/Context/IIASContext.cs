@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
 using Timetable.Data.Context;
 using Timetable.Data.IIAS.Models;
@@ -39,24 +37,24 @@ namespace Timetable.Data.IIAS.Context
             return RawSqlQuery<AuditoriumType>(@"");
         }
 
-        public IQueryable<AuditoriumType> GetBranches()
+        public IQueryable<Branche> GetBranches()
         {
-            return RawSqlQuery<AuditoriumType>(@"");
+            return RawSqlQuery<Branche>(@"");
         }
 
-        public IQueryable<AuditoriumType> GetOrganizations()
+        public IQueryable<Organization> GetOrganizations()
         {
-            return RawSqlQuery<AuditoriumType>(@"");
+            return RawSqlQuery<Organization>(@"");
         }
 
-        public IQueryable<AuditoriumType> GetFaculties()
+        public IQueryable<Faculty> GetFaculties()
         {
-            return RawSqlQuery<AuditoriumType>(@"");
+            return RawSqlQuery<Faculty>(@"");
         }
 
-        public IQueryable<AuditoriumType> GetDepartments()
+        public IQueryable<Department> GetDepartments()
         {
-            return RawSqlQuery<AuditoriumType>(@"");
+            return RawSqlQuery<Department>(@"");
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿using System.Configuration;
-using System.Messaging;
 using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
 using Timetable.Data.Context;
 using Timetable.Data.IIAS.Context;
-using Timetable.Dispatcher;
-using Timetable.Dispatcher.Tasks;
 using Timetable.Logic.SyncData;
 
 namespace Timetable.Sync
@@ -14,17 +11,19 @@ namespace Timetable.Sync
     {
         static void Main(string[] args)
         {
-            //using (var context = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString)))
-            //{
-            //    var buildings = context.GetBuildings();
-            //}
+            DoSync(new OrganizationSync());
+            DoSync(new BranchSync());
+            DoSync(new BuildingSync());
+            DoSync(new DepartmentSync());
+        }
 
-            var buildingSync = new BuildingSync();
-            buildingSync.IIASContext = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString));
-            buildingSync.SchedulerDatabase = new SchedulerContext();
-            var buildingSyncTask = new Task(buildingSync.Sync);
-            buildingSyncTask.Start();
-            buildingSyncTask.Wait();
+        public static void DoSync(BaseSync sync)
+        {
+            sync.IIASContext = new IIASContext(new OracleConnection(ConfigurationManager.ConnectionStrings["OracleHR"].ConnectionString));
+            sync.SchedulerDatabase = new SchedulerContext();
+            var syncTask = new Task(sync.Sync);
+            syncTask.Start();
+            syncTask.Wait();
         }
     }
 }
