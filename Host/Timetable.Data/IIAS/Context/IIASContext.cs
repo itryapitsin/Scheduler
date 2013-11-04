@@ -11,6 +11,11 @@ namespace Timetable.Data.IIAS.Context
     public class IIASContext: BaseContext, IIIASContext
     {
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Branche> Branches { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Department> Departments { get; set; }
+
 
         public IIASContext(OracleConnection connection) : base(connection, true)
         {
@@ -31,9 +36,27 @@ namespace Timetable.Data.IIAS.Context
 
         public IQueryable<AuditoriumType> GetAuditoriumType()
         {
-            return RawSqlQuery<AuditoriumType>(@"
-                
-            ");
+            return RawSqlQuery<AuditoriumType>(@"");
+        }
+
+        public IQueryable<AuditoriumType> GetBranches()
+        {
+            return RawSqlQuery<AuditoriumType>(@"");
+        }
+
+        public IQueryable<AuditoriumType> GetOrganizations()
+        {
+            return RawSqlQuery<AuditoriumType>(@"");
+        }
+
+        public IQueryable<AuditoriumType> GetFaculties()
+        {
+            return RawSqlQuery<AuditoriumType>(@"");
+        }
+
+        public IQueryable<AuditoriumType> GetDepartments()
+        {
+            return RawSqlQuery<AuditoriumType>(@"");
         }
     }
 }
