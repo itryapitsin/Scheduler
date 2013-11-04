@@ -15,10 +15,6 @@ namespace Timetable.Data.Mapping
         {
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-            HasRequired(x => x.Building)
-                .WithMany()
-                .HasForeignKey(x => x.BuildingId);
         }
     }
 }

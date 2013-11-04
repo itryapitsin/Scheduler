@@ -113,6 +113,10 @@
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.cs" />
+    <Compile Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.Designer.cs">
+      <DependentUpon>201311042153355_RemoveBuildingFromTimes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Schedule\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs" />
     <Compile Include="Migrations\Schedule\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.Designer.cs">
       <DependentUpon>201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs</DependentUpon>
@@ -201,6 +205,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.resx">
+      <DependentUpon>201311042153355_RemoveBuildingFromTimes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Schedule\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.resx">
       <DependentUpon>201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs</DependentUpon>
     </EmbeddedResource>

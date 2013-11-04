@@ -183,3 +183,4 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.csproj
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.Schedule.TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.resources
+E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.Schedule.RemoveBuildingFromTimes.resources

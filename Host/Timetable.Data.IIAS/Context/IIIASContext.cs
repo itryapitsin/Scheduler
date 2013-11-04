@@ -23,5 +23,9 @@ namespace Timetable.Data.IIAS.Context
         IQueryable<Tutorial> GetTutorials();
 
         IQueryable<Speciality> GetSpecialities();
+
+        IQueryable<TutorialType> GetTutorialTypes();
+
+        IQueryable<Time> GetTimes();
     }
 }

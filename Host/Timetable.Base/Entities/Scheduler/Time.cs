@@ -12,12 +12,6 @@ namespace Timetable.Base.Entities.Scheduler
         [DataMember(Name = "End")]
         public TimeSpan End { get; set; }
 
-        [DataMember(Name = "Building")]
-        public virtual Building Building { get; set; }
-
-        [DataMember(Name = "BuildingId")]
-        public int BuildingId { get; set; }
-
         [DataMember(Name = "Position")]
         public int Position { get; set; }
     }

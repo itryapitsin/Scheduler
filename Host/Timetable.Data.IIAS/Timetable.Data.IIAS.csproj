@@ -57,8 +57,10 @@
     <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Tutorial.cs" />
     <Compile Include="Models\Speciality.cs" />
+    <Compile Include="Models\TutorialType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

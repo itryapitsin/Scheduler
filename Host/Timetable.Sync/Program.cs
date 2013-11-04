@@ -43,6 +43,14 @@ namespace Timetable.Sync
             Console.Write(@"Loading specialities...");
             DoSync(new SpecialitySync());
             Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading tutorial types...");
+            DoSync(new TutorialTypeSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading times...");
+            DoSync(new TimeSync());
+            Console.WriteLine(@"done!");
         }
 
         public static void DoSync(BaseSync sync)

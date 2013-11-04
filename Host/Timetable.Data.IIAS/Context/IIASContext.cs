@@ -9,9 +9,13 @@ namespace Timetable.Data.IIAS.Context
     public class IIASContext: BaseContext, IIIASContext
     {
         public DbSet<Building> Buildings { get; set; }
+
         public DbSet<Branche> Branches { get; set; }
+
         public DbSet<Organization> Organizations { get; set; }
+
         public DbSet<Faculty> Faculties { get; set; }
+
         public DbSet<Department> Departments { get; set; }
 
         public DbSet<Speciality> Specialities { get; set; }
@@ -19,6 +23,10 @@ namespace Timetable.Data.IIAS.Context
         public DbSet<Tutorial> Tutorials { get; set; }
 
         public DbSet<Lecturer> Lecturers { get; set; }
+
+        public DbSet<TutorialType> TutorialTypes { get; set; }
+
+        public DbSet<Time> Times { get; set; }
 
         public IIASContext(OracleConnection connection) : base(connection, true)
         {
@@ -131,6 +139,30 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.O_BASE_UNIT
                     WHERE        
                         SDMS.V_STUD_GR.SPEC_BUN_ID = SDMS.O_BASE_UNIT.BUN_ID");
+        }
+
+        public IQueryable<TutorialType> GetTutorialTypes()
+        {
+            return RawSqlQuery<TutorialType>(@"
+                    SELECT DISTINCT 
+                        EW_ID AS Id, 
+                        KIND_EDU_WORK_NAME AS Name
+                    FROM            
+                        SDMS.V_UPL_RASP");
+        }
+
+        public IQueryable<Time> GetTimes()
+        {
+            return RawSqlQuery<Time>(@"
+                    SELECT DISTINCT 
+                        TUP_ID AS Id, 
+                        TIME_FROM_PAR AS ""Start"",
+                        TIME_TO_PAR AS ""Finish""
+                    FROM            
+                        SDMS.U_TYPE_UCHPAR
+                    ORDER BY 
+                        ""Start"", 
+                        ""Finish""");
         }
     }
 }

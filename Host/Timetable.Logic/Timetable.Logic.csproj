@@ -52,6 +52,8 @@
     <Compile Include="SyncData\DepartmentSync.cs" />
     <Compile Include="SyncData\BranchSync.cs" />
     <Compile Include="SyncData\SpecialitySync.cs" />
+    <Compile Include="SyncData\TimeSync.cs" />
+    <Compile Include="SyncData\TutorialTypeSync.cs" />
     <Compile Include="SyncData\TutorialSync.cs" />
     <Compile Include="SyncData\OrganizationSync.cs" />
     <Compile Include="SyncData\LecturerSync.cs" />

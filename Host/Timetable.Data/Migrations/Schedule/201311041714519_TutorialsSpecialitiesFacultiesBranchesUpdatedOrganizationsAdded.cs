@@ -66,6 +66,7 @@ namespace Timetable.Data.Migrations.Schedule
                 .Index(t => t.Faculty_Id);
             
             AddColumn("dbo.Branches", "OrganizationId", c => c.Int(nullable: false));
+            AddColumn("dbo.Times", "Position", c => c.Int(nullable: false));
             AddForeignKey("dbo.Branches", "OrganizationId", "dbo.Organizations", "Id");
             CreateIndex("dbo.Branches", "OrganizationId");
             DropColumn("dbo.Departments", "FacultyId");
