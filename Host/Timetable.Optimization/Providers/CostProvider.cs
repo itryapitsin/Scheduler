@@ -3,10 +3,12 @@ using System.Linq;
 using Ninject;
 using Timetable.Base.Entities.Scheduler;
 using Timetable.Base.Interfaces.DataSources;
+using Metaheuristics.Providers.CostProvider;
+using Metaheuristics.Solutions;
 
 namespace Timetable.Optimization.Providers
 {
-    public class CostProvider : ICostProvider
+    public class CostProvider : ICostProvider<ScheduleInfo>
     {
         private const double Fine = 1000.0;
         private ISchedulerDatabase _database;
@@ -41,13 +43,13 @@ namespace Timetable.Optimization.Providers
         /// </summary>
         /// <param name="solution"></param>
         /// <returns></returns>
-        private double FillSchedule(ISolution solution)
+        private double FillSchedule(ISolution<ScheduleInfo> solution)
         {
             double result = 0;
 
             // Number of schedule violations
             int currentScheduleViolations = 0;
-            for (int i = 1; i <= solution.Count; i++)
+            for (int i = 1; i <= solution.N; i++)
             {
                 int timeId = 0;
 
@@ -69,7 +71,7 @@ namespace Timetable.Optimization.Providers
                         {
                             timeId = time.Id;
                             auditoriumId = auditorium.Id;
-                            _schedule[timeId].Add(auditoriumId, solution.Items[i].Id);
+                            _schedule[timeId].Add(auditoriumId, solution.Elements[i].Id);
                             break;
                         }
                     }
@@ -87,7 +89,7 @@ namespace Timetable.Optimization.Providers
             return result;
         }
 
-        public double GetCost(ISolution solution)
+        public double GetCost(ISolution<ScheduleInfo> solution)
         {
             double cost;
 

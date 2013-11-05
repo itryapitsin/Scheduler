@@ -69,3 +69,13 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.pdb
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.dll
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.pdb
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.dll.CodeAnalysisLog.xml
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\Timetable.Base.dll.lastcodeanalysissucceeded
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.dll
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.dll
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.xml
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.xml
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.dll
+D:\Senichev\Git\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.pdb

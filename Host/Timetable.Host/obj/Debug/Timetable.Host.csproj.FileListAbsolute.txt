@@ -101,3 +101,4 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\System.Spatial.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.pdb
+D:\Senichev\Git\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache

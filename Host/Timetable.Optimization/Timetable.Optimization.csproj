@@ -53,25 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\ISolutionBuilder.cs" />
     <Compile Include="Builders\PermutationSolutionBuilder.cs" />
-    <Compile Include="ISolution.cs" />
     <Compile Include="PermutationSolution.cs" />
     <Compile Include="Providers\CostProvider.cs" />
-    <Compile Include="Providers\ICombineProvider.cs" />
-    <Compile Include="Providers\ICostProvider.cs" />
     <Compile Include="Providers\IFineProvider.cs" />
-    <Compile Include="Providers\INeighborhoodProvider.cs" />
-    <Compile Include="Providers\IProviderContainer.cs" />
-    <Compile Include="Providers\OneSplitCombineProvider.cs" />
-    <Compile Include="Providers\OneSwapNeighborhoodProvider.cs" />
-    <Compile Include="Providers\ProviderContainer.cs" />
     <Compile Include="ScheduleRequirement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Solvers\ILocalOptimizationSolver.cs" />
-    <Compile Include="Solvers\LocalOptimizationSolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Metaheuristics\Metaheuristics.csproj">
+      <Project>{39fb6228-31cb-4332-9006-34d4e2c4d1d6}</Project>
+      <Name>Metaheuristics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Timetable.Base\Timetable.Base.csproj">
       <Project>{abdb4f76-d271-433b-ab27-c8ed9ce1df84}</Project>
       <Name>Timetable.Base</Name>

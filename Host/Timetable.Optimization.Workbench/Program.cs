@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Metaheuristics.Providers.CombineProvider;
+using Metaheuristics.Providers.NeighborhoodProvider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Timetable.Base.Entities.Scheduler;
 using Timetable.Data.Context;
 using Timetable.Optimization.Builders;
 using Timetable.Optimization.Providers;
-using Timetable.Optimization.Solvers;
 
 namespace Timetable.Optimization.Workbench
 {
@@ -16,11 +18,11 @@ namespace Timetable.Optimization.Workbench
         {
             var database = new SchedulerContext();
 
-            var neigborhoodProvider = new OneSwapNeighborhoodProvider();
-            var combineProvider = new OneSplitCombineProvider();
+            var neigborhoodProvider = new OneSwapNeighborhoodProvider<ScheduleInfo>();
+            var combineProvider = new OneSplitCombineProvider<ScheduleInfo>();
             var costProvider = new CostProvider(database);
 
-            var providerContainer = new ProviderContainer(costProvider, neigborhoodProvider, combineProvider);
+            //var providerContainer = new ProviderContainer(costProvider, neigborhoodProvider, combineProvider);
 
             //var permutationSolutionBuilder = new PermutationSolutionBuilder(
             //var localOptimizationSolver = new LocalOptimizationSolver(permutationSolutionBuilder);
