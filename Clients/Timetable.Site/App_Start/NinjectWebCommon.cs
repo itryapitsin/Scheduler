@@ -3,7 +3,6 @@
 
 namespace Timetable.Site.App_Start
 {
-
     using System;
     using System.Web;
 

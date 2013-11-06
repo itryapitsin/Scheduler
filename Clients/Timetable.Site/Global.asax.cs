@@ -10,10 +10,7 @@ namespace Timetable.Site
     {
         protected void Application_Start()
         {
-            MvcHandler.DisableMvcResponseHeader = true;
-
             AreaRegistration.RegisterAllAreas();
-
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
