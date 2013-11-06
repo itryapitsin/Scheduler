@@ -1,0 +1,283 @@
+﻿@{
+    ViewBag.Title = "Расписание групп";
+}
+
+<link  rel='stylesheet' type='text/css' href="@Url.Content("~/Content/themes/base/jquery-ui-1.10.1.custom.css")" />
+<link  rel='stylesheet' type='text/css' href="@Url.Content("~/Content/bootstrap.css")" />
+
+<script>
+      var pathPrefix = "@HttpContext.Current.Request.ApplicationPath";
+</script>
+
+<script type='text/javascript' src="@Url.Content("~/Scripts/jquery-1.9.1.js")"></script>
+<script type='text/javascript' src="@Url.Content("~/Scripts/knockout-2.1.0.js")"></script>
+<script type='text/javascript' src="@Url.Content("~/Scripts/jquery-ui-1.10.1.custom.js")"></script>
+<script type='text/javascript' src="@Url.Content("~/Scripts/Site/group.viewmodel.js")"></script>
+<script type='text/javascript' src="@Url.Content("~/Scripts/Site/data.model.js")"></script>
+<script type='text/javascript' src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+
+<style>
+    .selectedTag {background-color:lightgreen;}
+    .unselectedTag {background-color:lightblue;}
+    .preselectedTag {background-color:paleturquoise;}
+    .nowSchedule {background-color:#F1CCFF; border:solid 1px; border-color:lightslategrey;}
+    .nextSchedule {background-color:#C2FFD1; border:solid 1px; border-color:lightslategrey;}
+    .ordinarSchedule{background-color:snow; border:solid 1px; border-color:lightslategrey;}
+    .popover-title { display: none; }
+</style>
+
+
+       <table style="margin:10px;">
+       <tr>
+          <th style="text-align:left;"><strong>Идут с</strong></th>
+          <th style="text-align:left;"><strong>Идут по</strong></th>
+       </tr>
+       <tr>
+          <td>
+            <input style="width:150px; height:30px;" type="date" id="startDate" data-bind="value:$root.getScheduleStartDate, valueUpdate: 'blur'"/> 
+          </td>
+          <td>
+            <input  style="width:150px; height:30px;" type="date" id="endDate" data-bind="value:$root.getScheduleEndDate, valueUpdate: 'blur'" />
+          </td>
+       </tr>
+       </table>
+
+
+<div id="main11">
+    <a name="top"></a>
+ 
+
+    <div id="Menu" style="-webkit-border-radius:6px; -moz-border-radius:5px; -khtml-border-radius:10px; margin:10px; width:90%; height:auto; background-color:lavender">
+        
+        <a style="margin-left:20px; cursor:pointer;">по группам</a>
+        <a style="margin-left:20px; cursor:pointer;">по аудиториям</a>
+        <a style="margin-left:20px; cursor:pointer;">по преподавателям</a>
+        <input id="searchText" style="color:dimgray; width:90%; height:50px; margin:5px; font-size:26px;" type="text" placeholder="Введите номер группы..." data-bind="value: $root.searchText, valueUpdate: 'afterkeydown'" />
+  
+
+        <div style="margin:5px;" data-bind="foreach: groupsLiveSearch">
+            <div data-bind=" css: {preselectedTag: $root.selectedLiveSearchGroupIndex() == $index(), selectedTag : $root.groupsLiveSearch()[$index()].Id == $root.currentLiveSearchGroup().Id, unselectedTag : $root.groupsLiveSearch()[$index()].Id != $root.currentLiveSearchGroup().Id}, event:{click: $root.clickGroupTagHandle.bind($data,$index()), mouseover: $root.selectGroupTagHandle.bind($data,$index())}" style="font-size:20px; margin:3px; padding:5px; float:left; cursor:pointer; color:dimgray; ">
+                <span data-bind="text: $root.groupsLiveSearch()[$index()].Code"></span>
+            </div>
+        </div>
+        
+        
+
+        <div id="extendedSearch" style=" margin-top:8px; font-size: 20px; float:left; color:dimgray; margin-left:10px; margin-right:20px;" data-bind="if: $root.groupsLiveSearch().length == 0 && $root.searchText() != undefined && $root.searchText() != ''">
+            <div>
+                <span>Попробуйте </span> <a onclick="extendedSearchHandle();" style="cursor:pointer;">расширеный поиск</a>
+            </div>
+        </div>
+        
+        
+
+        <div id="extendedSearchSelect" class="hide">
+            <div>
+                <select style="width:120px;" class="span5" id="branches1" data-bind="options: $root.brunches, optionsText: 'Name', value: $root.currentBrunch">
+                    <option></option>
+                </select>
+
+                <select style="width:120px;" class="span5" id="faculties1" data-bind="options: $root.faculties, optionsText: 'Name', value: $root.currentFaculty">
+                    <option></option>
+                </select>
+
+                <select style="width:120px;" class="span5" id="courses1" data-bind="options: $root.courses, optionsText: 'Name', value: $root.currentCourse">
+                    <option></option>
+                </select>
+
+                <select style="width:120px;" class="span5" id="spacialities1" data-bind="options: $root.specialities, optionsText: 'Name', value: $root.currentSpeciality">
+                    <option></option>
+                </select>
+
+                <select style="width:120px;" class="span5" id="groups1" data-bind="options: $root.groups, optionsText: 'Code', value: $root.currentGroup">
+                    <option></option>
+                </select>
+    
+                <input id="findButton" type="button" class="btn btn-primary" value="Найти" data-bind="click: $root.findButtonHandle" />
+            </div>
+    
+        </div>
+       
+        <div data-bind="if: $root.quickNowPair() !== ''" style="font-size: 20px; color:dimgray; float:left; margin-top:8px; margin-left:10px;">
+            <span data-bind="text: 'Сейчас ' + $root.quickNowPair()"></span>
+        </div>
+        
+        <div data-bind="if: $root.quickNowPair() == '' && $root.quickNextPair() != ''"style="font-size: 20px; color:dimgray; float:left; margin-top:8px; margin-left:10px;">
+            <span data-bind="text: 'Скоро ' + $root.quickNextPair()"></span>
+        </div>
+        
+        <div id="nullSchedules" class="hide" style=" font-size:26px; padding:20px; background-color:#f1ccff; color:dimgray; float:left; height:80px; margin:10px; margin-top:10px; width:95%;">  
+            <span>Даных о расписании не найдено</span>
+        </div>
+
+
+        
+        <!-- ko if: $root.isSchedulesLoaded() == true -->
+        <div style="font-size: 20px; float:left; margin-top:8px; margin-left:10px;">
+            <a style="margin-left:20px; cursor:pointer;" data-bind="if:$root.isTableView(), event:{click: $root.tableViewClickHandle}">Показать в смешаном виде</a>
+            <a style="margin-left:20px; cursor:pointer;" data-bind="if:!$root.isTableView(), event:{click: $root.tableViewClickHandle}">Показать в виде таблицы</a>
+        </div>
+        <!-- /ko -->
+        
+       
+
+        <!-- ko if: $root.isTableView() == false -->
+        <div id="timeset" style="float:left; margin:10px; margin-top:10px; width:100%;" data-bind="foreach: schedules" >
+            <!-- ko if: $root.schedules()[$index()]().length > 0 -->
+            <div style="-webkit-border-radius:6px; -moz-border-radius:5px; -khtml-border-radius:10px; background-color:lavender; width:200px; height: auto; margin:5px; float: left">
+                <div style="margin:3px; font-size:20px; color:dimgray"><span data-bind="text: $root.daysOfweek()[$index()].Name"></span></div>
+                <div data-bind="foreach: $root.schedules()[$index()]()" >
+                
+                    <div href="#" class="schedule" rel="popover" data-original-title="" data-bind="css:{nextSchedule: $root.closerPairsNext.indexOf($root.schedules()[$parentContext.$index()]()[$index()].Id()) != -1, nowSchedule: $root.closerPairs.indexOf($root.schedules()[$parentContext.$index()]()[$index()].Id()) != -1, ordinarSchedule: $root.closerPairs.indexOf($root.schedules()[$parentContext.$index()]()[$index()].Id()) == -1 && $root.closerPairsNext.indexOf($root.schedules()[$parentContext.$index()]()[$index()].Id()) == -1}, event:{click: $root.scheduleClickHandle.bind($data,$parentContext.$index(),$index())}" style="font-size:14px; color:dimgray; width:186px; height: auto; cursor:pointer; margin:2px; padding:5px; float: left">
+                       
+                        <span style="font-size:20px;" data-bind="text: $root.schedules()[$parentContext.$index()]()[$index()].Time()"></span>
+                        <span data-bind="text: $root.schedules()[$parentContext.$index()]()[$index()].WeekType()"></span>
+
+                        <span data-bind="text: $root.schedules()[$parentContext.$index()]()[$index()].Tutorial()"></span>
+                        <span data-bind="text: '(' + $root.schedules()[$parentContext.$index()]()[$index()].TutorialType() + ')'"></span>
+                        <span data-bind="text: $root.schedules()[$parentContext.$index()]()[$index()].Lecturer()"></span>
+                    
+                        <span data-bind="text: $root.schedules()[$parentContext.$index()]()[$index()].Auditorium()"></span>
+                    
+                        <!-- ko if: $root.closerPairs.indexOf($root.schedules()[$parentContext.$index()]()[$index()].Id()) != -1 -->
+                        <div style="right:0px;"> 
+                            <strong  data-bind="text: 'до конца ' + $root.closerPairTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+                    
+                        <!-- ko if: $root.closerPairsNext.indexOf($root.schedules()[$parentContext.$index()]()[$index()].Id()) != -1 -->
+                        <div style="right:0px;" >
+                            <strong data-bind="text: 'до начала ' + $root.closerPairNextTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+                 
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+    
+   
+
+    <!-- ko if: $root.isTableView() == true -->
+    <!--<div style="width:100px; height:20px; float:left; margin:10px; margin-top:10px;background-color:lavender; float:left;"></div>-->
+    <!--<div data-bind="foreach: daysOfweek" style="margin-left:135px;">
+            <div style="width:160px; height:20px; margin:2px; background-color:lavender; float:left;">
+                <strong data-bind="text:$root.daysOfweek()[$index()].Name"></strong>
+            </div>
+        </div>-->
+    
+    <div style="width:100%; top:600px;" >
+        <!--<
+            <div style="width:100px; height:160px; margin:2px; background-color:lavender">
+                <strong data-bind="text:$root.differentTimes()[$index()].Time"></strong>
+            </div>
+        </div>-->
+    
+        <div id="timetable" style="float:left; margin:10px; margin-top:10px;" data-bind="foreach: scheduleTable" >
+            <!-- ko if: $index() == 0 -->
+            <div style="float:left;" data-bind="foreach: $root.differentTimes" >
+                <div style="width:100px; height:160px; margin:2px; background-color:lavender">
+                    <strong data-bind="text:$root.differentTimes()[$index()].Time"></strong>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: $index() > 0 -->
+            <div  style="float:left;"data-bind="foreach: $root.scheduleTable()[$index()]">
+                <div style="width:160px; height:160px; margin:2px; background-color:lavender">
+                    <!-- ko if: $root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule() !== undefined -->
+                    <div  href="#"  class="schedule ordinarSchedule" rel="popover" data-original-title="" style="font-size:14px; color:dimgray; width:146px; height: auto; cursor:pointer; margin:2px; padding:5px; float: left"
+                          data-bind="css:{nextSchedule: $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Id()) != -1, nowSchedule: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Id()) != -1, ordinarSchedule: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Id()) == -1 && $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Id()) == -1}, event:{click: $root.scheduleTableClickHandle.bind($data,$parentContext.$index(),$index(),1)}">
+                    
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Tutorial()"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().WeekType()"></span>
+                        <span data-bind="text: '(' + $root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().TutorialType() + ')'"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Lecturer()"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Auditorium()"></span>
+                        
+                        <!-- ko if: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Id()) != -1 -->
+                        <div style="right:0px;"> 
+                            <strong  data-bind="text: 'до конца ' + $root.closerPairTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+                    
+                        <!-- ko if: $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].EverydaySchedule().Id()) != -1 -->
+                        <div style="right:0px;" >
+                            <strong data-bind="text: 'до начала ' + $root.closerPairNextTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: $root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule() !== undefined -->
+                    <div  href="#" class="schedule ordinarSchedule" rel="popover" data-original-title="" style="font-size:14px; color:dimgray; width:146px; height: auto; cursor:pointer; margin:2px; padding:5px; float: left"
+                          data-bind="css:{nextSchedule: $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Id()) != -1, nowSchedule: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Id()) != -1, ordinarSchedule: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Id()) == -1 && $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Id()) == -1}, event:{click: $root.scheduleTableClickHandle.bind($data,$parentContext.$index(),$index(),2)}">
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Tutorial()"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().WeekType()"></span>
+                        <span data-bind="text: '(' + $root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().TutorialType() + ')'"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Lecturer()"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Auditorium()"></span>
+                        
+                        <!-- ko if: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Id()) != -1 -->
+                        <div style="right:0px;"> 
+                            <strong  data-bind="text: 'до конца ' + $root.closerPairTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+                    
+                        <!-- ko if: $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].NumeratorSchedule().Id()) != -1 -->
+                        <div style="right:0px;" >
+                            <strong data-bind="text: 'до начала ' + $root.closerPairNextTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: $root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule() !== undefined -->
+                    <div  href="#" class="schedule ordinarSchedule" rel="popover" data-original-title="" style="font-size:14px; color:dimgray; width:146px; height: auto; cursor:pointer; margin:2px; padding:5px; float: left"
+                          data-bind="css:{nextSchedule: $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Id()) != -1, nowSchedule: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Id()) != -1, ordinarSchedule: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Id()) == -1 && $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Id()) == -1}, event:{click: $root.scheduleTableClickHandle.bind($data,$parentContext.$index(),$index(),3)}">
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Tutorial()"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().WeekType()"></span>
+                        <span data-bind="text: '(' + $root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().TutorialType() + ')'"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Lecturer()"></span>
+                        <span data-bind="text: $root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Auditorium()"></span>
+                        
+                        <!-- ko if: $root.closerPairs.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Id()) != -1 -->
+                        <div style="right:0px;"> 
+                            <strong  data-bind="text: 'до конца ' + $root.closerPairTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+                    
+                        <!-- ko if: $root.closerPairsNext.indexOf($root.scheduleTable()[$parentContext.$index()][$index()].DenominatorSchedule().Id()) != -1 -->
+                        <div style="right:0px;" >
+                            <strong data-bind="text: 'до начала ' + $root.closerPairNextTimer()"></strong>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div style="z-index:100500; font-size:20px; background-color:lavender; -webkit-border-radius:6px; -moz-border-radius:5px; -khtml-border-radius:10px;  position:fixed; right:50%; bottom: 5px;"><a href="#top">Наверх</a></div>
+</div>
+
+<div class="extendInfo hide" style="width:auto;">
+    <!-- ko if: $root.clickedSchedule() !== undefined -->
+    <span style="font-size:20px;" data-bind="text: $root.clickedSchedule().Time()"></span>
+    <span data-bind="text: $root.clickedSchedule().WeekTypeFullName()"></span>
+    <span data-bind="text: $root.clickedSchedule().TutorialFullName()"></span>
+    <span data-bind="text: '(' + $root.clickedSchedule().TutorialTypeFullName() + ')'"></span>
+    <span data-bind="text: $root.clickedSchedule().LecturerFullName()"></span>          
+    <span data-bind="text: $root.clickedSchedule().Auditorium()"></span>
+    <span data-bind="text: $root.clickedSchedule().StartDate() + '-' + $root.clickedSchedule().EndDate()"></span>
+    <!-- /ko -->
+</div>
+ 
+  
+ 
+  
