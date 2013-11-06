@@ -1,0 +1,26 @@
+﻿<div id="scheduleInfoesModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Настройки потока</h3>
+    </div>
+    <div class="modal-body">
+        <label>Филиал</label>
+        <select class="span8" ng-model="branch" ng-options="branch.Name for branch in pageModel.Branches"></select>
+
+        <label>Факультет</label>
+        <select class="span8"></select>
+
+        <label>Курс</label>
+        <select class="span8" multiple="multiple"></select>
+
+        <label>Специальность</label>
+        <select class="span8" multiple="multiple"></select>
+
+        <label>Группа</label>
+        <select class="span8" multiple="multiple"></select>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-success">Применить</a>&nbsp;
+        <a data-dismiss="modal" aria-hidden="true">Закрыть</a>
+    </div>
+</div>

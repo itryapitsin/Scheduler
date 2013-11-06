@@ -9,19 +9,17 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width" />		
         <title>@ViewBag.Title</title>    
-        <link  rel='stylesheet' type='text/css' href="@Url.Content("~/Content/themes/base/jquery-ui-1.10.1.custom.css")" />
-        <link  rel='stylesheet' type='text/css' href="@Url.Content("~/Content/bootstrap.css")" />
-        <link  rel="stylesheet" type="text/css"  href="@Url.Content("~/Content/resources/css/ext-all.css")"/>
+        @Styles.Render("~/Content/jquery")
+        @Styles.Render("~/Content/bootstrap")
+        @Styles.Render("~/Content/resources/css/ext-all.css")
 		@RenderSection("css", false)
 		
         @Scripts.Render("~/Scripts/jquery")
         @Scripts.Render("~/Scripts/knockout")
         @Scripts.Render("~/Scripts/bootstrap")
-
-        <script type='text/javascript' src="@Url.Content("~/Scripts/Site/newbase.viewmodel.js")"></script>
-        <script type='text/javascript' src="@Url.Content("~/Scripts/Site/data.model.js")"></script>
-        <script src="@Url.Content("~/Scripts/ext-all.js")" type="text/javascript"></script>  
-
+        @Scripts.Render("~/Scripts/Site/newbase.viewmodel.js")
+        @Scripts.Render("~/Scripts/Site/data.model.js")
+        @Scripts.Render("~/Scripts/ext-all.js")
 		@RenderSection("scripts", false)
 	</head>
 	<body>

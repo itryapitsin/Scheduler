@@ -2,19 +2,20 @@
 using System.Web.Mvc;
 using System.Configuration;
 using System.ServiceModel;
+using Timetable.Site.DataService;
 using Timetable.Site.UserService;
 
 namespace Timetable.Site.Controllers
 {
     public class BaseController : Controller
     {
-        #region Services
         protected readonly IUserService UserService;
-        #endregion
+        protected readonly IDataService DataService;
         
         public BaseController()
         {
             UserService = GetService<IUserService>("UserServiceAddress");
+            DataService = new DataServiceClient();
         }
 
         

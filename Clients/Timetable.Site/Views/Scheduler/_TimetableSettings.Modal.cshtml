@@ -1,0 +1,23 @@
+﻿<div id="timetableSettingsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Параметры расписания</h3>
+    </div>
+    <div class="modal-body">
+        <label class="control-label">Корпус</label>
+        <select class="span8" ng-model="building" ng-options="building.Name for building in pageModel.Buildings"></select>
+
+        <label class="control-label">Тип недели</label>
+        <select class="span8"></select>
+
+        <label class="control-label">Подгруппа</label>
+        <select class="span8"></select>
+
+        <label class="control-label">Период</label>
+        <input type="text" daterangepicker class="span8" />
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-success">Применить</a>&nbsp;
+        <a data-dismiss="modal" aria-hidden="true">Закрыть</a>
+    </div>
+</div>
