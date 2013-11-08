@@ -29,15 +29,6 @@ namespace Timetable.Data.Mapping
                     m.MapRightKey("Speciality_Id");
                     m.ToTable("FacultiesToSpecialities");
                 });
-
-            HasMany(x => x.Departments)
-                .WithMany(x => x.Faculties)
-                .Map(m =>
-                {
-                    m.MapLeftKey("Faculty_Id");
-                    m.MapRightKey("Department_Id");
-                    m.ToTable("DepartmentsToFaculties");
-                });
         }
     }
 }

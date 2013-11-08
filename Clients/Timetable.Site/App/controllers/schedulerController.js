@@ -152,7 +152,8 @@ function schedulerController(
     $routeParams,
     $locale,
     $http,
-    $resource) {
+    $resource,
+    localStorageService) {
 
     $scope.pageModel = pageModel;
     $scope.settings = new settings();

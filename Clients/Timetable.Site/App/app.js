@@ -1,6 +1,6 @@
 ﻿
 
-var app = angular.module('scheduler', ['ngResource', '$strap.directives', '$strap', 'ngCookies']);
+var app = angular.module('scheduler', ['ngResource', '$strap.directives', '$strap', 'ngCookies', 'LocalStorageModule']);
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 

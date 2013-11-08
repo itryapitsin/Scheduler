@@ -29,6 +29,7 @@ namespace Timetable.Site
                 "~/Scripts/angular-touch.js",
                 "~/Scripts/angular-bootstrap.js",
                 "~/Scripts/angular-bootstrap-prettify.js",
+                "~/Scripts/angular-localstorage.js",
                 "~/Scripts/ui-bootstrap-{version}.js",
                 "~/Scripts/ui-bootstrap-tpls-{version}.js",
                 "~/Scripts/i18n/angular-locale_ru-ru.js"));

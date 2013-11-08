@@ -14,9 +14,7 @@ namespace Timetable.Sync
         {
             var conn = new OracleConnection("DATA SOURCE=iias.karelia.ru:1521/iias;USER ID=DPYATIN;Password=xgmst321");
 
-            //Console.Write(@"Loading schedule infoes...");
-            //DoSync(new DepartmentsToFacultiesSync(conn));
-            //Console.WriteLine(@"done!");
+
 
             Console.Write(@"Loading study years...");
             DoSync(new StudyYearSync(conn));
@@ -48,6 +46,10 @@ namespace Timetable.Sync
 
             Console.Write(@"Loading departments...");
             DoSync(new DepartmentSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading schedule infoes...");
+            DoSync(new DepartmentsToFacultiesSync(conn));
             Console.WriteLine(@"done!");
 
             Console.Write(@"Loading lecturers...");

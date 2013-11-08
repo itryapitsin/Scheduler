@@ -118,81 +118,9 @@
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Migrations\Schedule\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs" />
-    <Compile Include="Migrations\Schedule\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.Designer.cs">
-      <DependentUpon>201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.cs" />
-    <Compile Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.Designer.cs">
-      <DependentUpon>201311081028124_ScheduleInfoesHoursPerWeekChangeType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201311072242140_AuditoriumTypesAdded.cs" />
-    <Compile Include="Migrations\Schedule\201311072242140_AuditoriumTypesAdded.Designer.cs">
-      <DependentUpon>201311072242140_AuditoriumTypesAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.cs" />
-    <Compile Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.Designer.cs">
-      <DependentUpon>201311042153355_RemoveBuildingFromTimes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs" />
-    <Compile Include="Migrations\Schedule\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.Designer.cs">
-      <DependentUpon>201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.cs" />
-    <Compile Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.Designer.cs">
-      <DependentUpon>201306070734041_Foreign_keys_updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201307110658161_AddStartEndTimeToSchedules.cs" />
-    <Compile Include="Migrations\Schedule\201307110658161_AddStartEndTimeToSchedules.Designer.cs">
-      <DependentUpon>201307110658161_AddStartEndTimeToSchedules.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201307120626393_Add_AutoDeleteField_In_Schedules.cs" />
-    <Compile Include="Migrations\Schedule\201307120626393_Add_AutoDeleteField_In_Schedules.Designer.cs">
-      <DependentUpon>201307120626393_Add_AutoDeleteField_In_Schedules.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201309030713534_AddingTimetaeEntity.cs" />
-    <Compile Include="Migrations\Schedule\201309030713534_AddingTimetaeEntity.Designer.cs">
-      <DependentUpon>201309030713534_AddingTimetaeEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201309031344534_MakeTimetableIdNullable.cs" />
-    <Compile Include="Migrations\Schedule\201309031344534_MakeTimetableIdNullable.Designer.cs">
-      <DependentUpon>201309031344534_MakeTimetableIdNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201309301702437_Add_sbgroups.cs" />
-    <Compile Include="Migrations\Schedule\201309301702437_Add_sbgroups.Designer.cs">
-      <DependentUpon>201309301702437_Add_sbgroups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201310141905246_IIASKeyAddedToEveryoneTables.cs" />
-    <Compile Include="Migrations\Schedule\201310141905246_IIASKeyAddedToEveryoneTables.Designer.cs">
-      <DependentUpon>201310141905246_IIASKeyAddedToEveryoneTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201305122003080_Remove_StudyYear_entity.cs" />
-    <Compile Include="Migrations\Schedule\201305122003080_Remove_StudyYear_entity.Designer.cs">
-      <DependentUpon>201305122003080_Remove_StudyYear_entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201305122018495_Add_StudyYear_entity.cs" />
-    <Compile Include="Migrations\Schedule\201305122018495_Add_StudyYear_entity.Designer.cs">
-      <DependentUpon>201305122018495_Add_StudyYear_entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201303031905385_Initial_create.cs" />
-    <Compile Include="Migrations\Schedule\201303031905385_Initial_create.Designer.cs">
-      <DependentUpon>201303031905385_Initial_create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201303040739543_Add_branches.cs" />
-    <Compile Include="Migrations\Schedule\201303040739543_Add_branches.Designer.cs">
-      <DependentUpon>201303040739543_Add_branches.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201303171657069_Create_many_to_many_for_lecturers_and_departments.cs" />
-    <Compile Include="Migrations\Schedule\201303171657069_Create_many_to_many_for_lecturers_and_departments.Designer.cs">
-      <DependentUpon>201303171657069_Create_many_to_many_for_lecturers_and_departments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201303171744445_Create_many_to_many_for_faculties_and_specialities.cs" />
-    <Compile Include="Migrations\Schedule\201303171744445_Create_many_to_many_for_faculties_and_specialities.Designer.cs">
-      <DependentUpon>201303171744445_Create_many_to_many_for_faculties_and_specialities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Schedule\201304061253125_Add_StudyYears_and_AuditoriumTypes.cs" />
-    <Compile Include="Migrations\Schedule\201304061253125_Add_StudyYears_and_AuditoriumTypes.Designer.cs">
-      <DependentUpon>201304061253125_Add_StudyYears_and_AuditoriumTypes.cs</DependentUpon>
+    <Compile Include="Migrations\201311082049465_InitialDatabase.cs" />
+    <Compile Include="Migrations\201311082049465_InitialDatabase.Designer.cs">
+      <DependentUpon>201311082049465_InitialDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Auth\201304201431152_Add_users_and_roles.cs">
       <SubType>Code</SubType>
@@ -240,62 +168,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Schedule\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.resx">
-      <DependentUpon>201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.resx">
-      <DependentUpon>201311081028124_ScheduleInfoesHoursPerWeekChangeType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201311072242140_AuditoriumTypesAdded.resx">
-      <DependentUpon>201311072242140_AuditoriumTypesAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.resx">
-      <DependentUpon>201311042153355_RemoveBuildingFromTimes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.resx">
-      <DependentUpon>201311041714519_TutorialsSpecialitiesFacultiesBranchesUpdatedOrganizationsAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201306070734041_Foreign_keys_updated.resx">
-      <DependentUpon>201306070734041_Foreign_keys_updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201307110658161_AddStartEndTimeToSchedules.resx">
-      <DependentUpon>201307110658161_AddStartEndTimeToSchedules.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201307120626393_Add_AutoDeleteField_In_Schedules.resx">
-      <DependentUpon>201307120626393_Add_AutoDeleteField_In_Schedules.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201309030713534_AddingTimetaeEntity.resx">
-      <DependentUpon>201309030713534_AddingTimetaeEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201309031344534_MakeTimetableIdNullable.resx">
-      <DependentUpon>201309031344534_MakeTimetableIdNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201309301702437_Add_sbgroups.resx">
-      <DependentUpon>201309301702437_Add_sbgroups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201310141905246_IIASKeyAddedToEveryoneTables.resx">
-      <DependentUpon>201310141905246_IIASKeyAddedToEveryoneTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201305122003080_Remove_StudyYear_entity.resx">
-      <DependentUpon>201305122003080_Remove_StudyYear_entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201305122018495_Add_StudyYear_entity.resx">
-      <DependentUpon>201305122018495_Add_StudyYear_entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201303031905385_Initial_create.resx">
-      <DependentUpon>201303031905385_Initial_create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201303040739543_Add_branches.resx">
-      <DependentUpon>201303040739543_Add_branches.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201303171657069_Create_many_to_many_for_lecturers_and_departments.resx">
-      <DependentUpon>201303171657069_Create_many_to_many_for_lecturers_and_departments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201303171744445_Create_many_to_many_for_faculties_and_specialities.resx">
-      <DependentUpon>201303171744445_Create_many_to_many_for_faculties_and_specialities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Schedule\201304061253125_Add_StudyYears_and_AuditoriumTypes.resx">
-      <DependentUpon>201304061253125_Add_StudyYears_and_AuditoriumTypes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201311082049465_InitialDatabase.resx">
+      <DependentUpon>201311082049465_InitialDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Auth\201304201431152_Add_users_and_roles.resx">
       <DependentUpon>201304201431152_Add_users_and_roles.cs</DependentUpon>
