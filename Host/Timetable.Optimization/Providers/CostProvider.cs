@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Ninject;
-using Timetable.Base.Entities.Scheduler;
-using Timetable.Base.Interfaces.DataSources;
 using Metaheuristics.Providers.CostProvider;
 using Metaheuristics.Solutions;
+using Timetable.Data.Context.Interfaces;
+using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Optimization.Providers
 {

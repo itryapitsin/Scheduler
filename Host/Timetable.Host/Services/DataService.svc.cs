@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Timetable.Base.Entities.Scheduler;
-using Timetable.Base.Interfaces.DataSources;
+using Timetable.Data.Context.Interfaces;
+using Timetable.Data.Models.Scheduler;
 using Timetable.Host.Interfaces;
-using Group = Timetable.Base.Entities.Scheduler.Group;
+using Group = Timetable.Data.Models.Scheduler.Group;
 
 namespace Timetable.Host.Services
 {
@@ -619,9 +619,9 @@ namespace Timetable.Host.Services
 
         public IQueryable<Time> GetTimes(Building building)
         {
-            return Database.Times
-                .Where(x => x.Building.Id.Equals(building.Id))
-                .Include(x => x.Building);
+            return Database.Times;
+            //.Where(x => x.Building.Id.Equals(building.Id))
+            //.Include(x => x.Building);
         }
 
         public IQueryable<TutorialType> GetTutorialTypes()

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Timetable.Data.Context.Interfaces;
+using Timetable.Data.IIAS.Interfaces;
 using Timetable.Data.IIAS.Models;
 
 namespace Timetable.Data.IIAS.Context

@@ -90,15 +90,13 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll.CodeAnal
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll.lastcodeanalysissucceeded
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Microsoft.Web.Infrastructure.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\System.Spatial.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Base.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Dispatcher.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Base.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.pdb
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Dispatcher.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Microsoft.Web.Infrastructure.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\System.Spatial.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.pdb
 D:\Senichev\Git\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
+E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Sync.Dispatcher.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Sync.Dispatcher.pdb

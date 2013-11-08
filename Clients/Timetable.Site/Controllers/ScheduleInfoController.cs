@@ -21,15 +21,15 @@ namespace Timetable.Site.Controllers
             {
                 foreach (var groupId in groupIds)
                 {
-                    var scheduleInfo = DataService
-                        .GetScheduleInfoesForGroup(
-                            new Faculty { Id = facultyId },
-                            new Group { Id = groupId },
-                            new StudyYear { Id = studyYearId },
-                            semestr)
-                        .Select(x => new ScheduleInfoViewModel(x));
+                    //var scheduleInfo = DataService
+                    //    .GetScheduleInfoesForGroup(
+                    //        new Faculty { Id = facultyId },
+                    //        new Group { Id = groupId },
+                    //        new StudyYear { Id = studyYearId },
+                    //        semestr)
+                    //    .Select(x => new ScheduleInfoViewModel(x));
 
-                    result.AddRange(scheduleInfo);
+                    //result.AddRange(scheduleInfo);
                 }   
             }
 

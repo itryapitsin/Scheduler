@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Timetable.Base.Entities;
+using Timetable.Data.Models;
 
 namespace Timetable.Data.Context.Interfaces
 {

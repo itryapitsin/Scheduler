@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Timetable.Base.Interfaces.DataSources;
+﻿using Timetable.Data.Context.Interfaces;
 using Timetable.Data.IIAS.Context;
 
-namespace Timetable.Logic.SyncData
+namespace Timetable.Sync.Logic.SyncData
 {
     public abstract class BaseSync
     {

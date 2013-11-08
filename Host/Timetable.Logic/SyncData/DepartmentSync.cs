@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Timetable.Base.Entities.Scheduler;
+using Timetable.Data.Models.Scheduler;
 
-namespace Timetable.Logic.SyncData
+namespace Timetable.Sync.Logic.SyncData
 {
     public class DepartmentSync: BaseSync
     {

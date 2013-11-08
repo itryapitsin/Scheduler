@@ -1,6 +1,6 @@
 ﻿using Ninject.Modules;
 using Timetable.Data.Context;
-using Timetable.Base.Interfaces.DataSources;
+using Timetable.Data.Context.Interfaces;
 
 namespace Timetable.Data
 {

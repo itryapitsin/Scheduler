@@ -1,7 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Oracle.DataAccess.Client;
-using Timetable.Data.Context;
 using Timetable.Data.IIAS.Models;
 
 namespace Timetable.Data.IIAS.Context

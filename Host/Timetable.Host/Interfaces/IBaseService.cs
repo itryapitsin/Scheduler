@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceModel;
 using Timetable.Base.Entities;
+using Timetable.Data.Models;
 
 namespace Timetable.Host.Interfaces
 {

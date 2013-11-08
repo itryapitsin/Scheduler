@@ -76,6 +76,11 @@
     <Compile Include="Context\DbContextExtensions.cs" />
     <Compile Include="Context\SchedulerContext.cs" />
     <Compile Include="Context\UserContext.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\RegistrationException.cs" />
+    <Compile Include="Context\Interfaces\IDatabase.cs" />
+    <Compile Include="Context\Interfaces\ISchedulerDatabase.cs" />
+    <Compile Include="Context\Interfaces\IUserDatabase.cs" />
     <Compile Include="Mapping\AuditoriumMapping.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,8 +118,8 @@
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Migrations\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs" />
-    <Compile Include="Migrations\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.Designer.cs">
+    <Compile Include="Migrations\Schedule\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs" />
+    <Compile Include="Migrations\Schedule\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.Designer.cs">
       <DependentUpon>201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.cs" />
@@ -197,6 +202,30 @@
     </Compile>
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Migrations\Schedule\SchedulerConfiguration.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Personalization\User.cs" />
+    <Compile Include="Models\Personalization\UserRole.cs" />
+    <Compile Include="Models\Personalization\UserRoleTypes.cs" />
+    <Compile Include="Models\Scheduler\Auditorium.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumType.cs" />
+    <Compile Include="Models\Scheduler\Branch.cs" />
+    <Compile Include="Models\Scheduler\Building.cs" />
+    <Compile Include="Models\Scheduler\Course.cs" />
+    <Compile Include="Models\Scheduler\Departament.cs" />
+    <Compile Include="Models\Scheduler\Faculty.cs" />
+    <Compile Include="Models\Scheduler\Group.cs" />
+    <Compile Include="Models\Scheduler\Lecturer.cs" />
+    <Compile Include="Models\Scheduler\Organization.cs" />
+    <Compile Include="Models\Scheduler\Position.cs" />
+    <Compile Include="Models\Scheduler\Schedule.cs" />
+    <Compile Include="Models\Scheduler\ScheduleInfo.cs" />
+    <Compile Include="Models\Scheduler\Speciality.cs" />
+    <Compile Include="Models\Scheduler\StudyYear.cs" />
+    <Compile Include="Models\Scheduler\Time.cs" />
+    <Compile Include="Models\Scheduler\TimetableEntity.cs" />
+    <Compile Include="Models\Scheduler\Tutorial.cs" />
+    <Compile Include="Models\Scheduler\TutorialType.cs" />
+    <Compile Include="Models\Scheduler\WeekType.cs" />
     <Compile Include="Resources\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -211,13 +240,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Timetable.Base\Timetable.Base.csproj">
-      <Project>{ABDB4F76-D271-433B-AB27-C8ED9CE1DF84}</Project>
-      <Name>Timetable.Base</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.resx">
+    <EmbeddedResource Include="Migrations\Schedule\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.resx">
       <DependentUpon>201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.resx">

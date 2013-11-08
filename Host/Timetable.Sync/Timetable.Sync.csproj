@@ -59,10 +59,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Timetable.Base\Timetable.Base.csproj">
-      <Project>{abdb4f76-d271-433b-ab27-c8ed9ce1df84}</Project>
-      <Name>Timetable.Base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Timetable.Data.IIAS\Timetable.Data.IIAS.csproj">
       <Project>{711E2BB6-2FDC-4B03-AA42-A0A3F49B88E0}</Project>
       <Name>Timetable.Data.IIAS</Name>
@@ -71,13 +67,13 @@
       <Project>{562EAD51-A27A-47DE-9CF6-554D0D793FB3}</Project>
       <Name>Timetable.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Timetable.Logic\Timetable.Logic.csproj">
+    <ProjectReference Include="..\Timetable.Logic\Timetable.Sync.Logic.csproj">
       <Project>{B8F9774C-3F0E-4A9E-9E73-8DF018CE46E8}</Project>
-      <Name>Timetable.Logic</Name>
+      <Name>Timetable.Sync.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Timetable.Sync.Toolkit\Timetable.Dispatcher.csproj">
+    <ProjectReference Include="..\Timetable.Sync.Toolkit\Timetable.Sync.Dispatcher.csproj">
       <Project>{fd2ad465-c3d3-4b3f-866c-8bd1dbc71b28}</Project>
-      <Name>Timetable.Dispatcher</Name>
+      <Name>Timetable.Sync.Dispatcher</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

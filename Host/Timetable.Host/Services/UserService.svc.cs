@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Timetable.Base.Entities.Personalization;
-using Timetable.Base.Interfaces.DataSources;
+using Timetable.Data.Context.Interfaces;
 using Timetable.Host.Interfaces;
 
 namespace Timetable.Host.Services

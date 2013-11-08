@@ -43,7 +43,7 @@ namespace Timetable.Host.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel(new BaseContainer(), new DataContainer());
+            var kernel = new StandardKernel(new DataContainer());
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             

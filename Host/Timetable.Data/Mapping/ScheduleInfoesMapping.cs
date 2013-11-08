@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using Timetable.Base.Entities.Scheduler;
+using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Data.Mapping
 {

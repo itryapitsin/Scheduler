@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Oracle.DataAccess.Client;
 using Timetable.Data.Context;
 using Timetable.Data.IIAS.Context;
-using Timetable.Logic.SyncData;
+using Timetable.Sync.Logic.SyncData;
 
 namespace Timetable.Sync
 {
@@ -13,6 +13,10 @@ namespace Timetable.Sync
         static void Main(string[] args)
         {
             var conn = new OracleConnection("DATA SOURCE=iias.karelia.ru:1521/iias;USER ID=DPYATIN;Password=xgmst321");
+
+            //Console.Write(@"Loading schedule infoes...");
+            //DoSync(new DepartmentsToFacultiesSync(conn));
+            //Console.WriteLine(@"done!");
 
             Console.Write(@"Loading study years...");
             DoSync(new StudyYearSync(conn));
@@ -69,6 +73,8 @@ namespace Timetable.Sync
             Console.Write(@"Loading schedule infoes...");
             DoSync(new ScheduleInfoSync());
             Console.WriteLine(@"done!");
+
+
         }
 
         public static void DoSync(BaseSync sync)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Timetable.Base.Entities;
-using Timetable.Base.Entities.Scheduler;
+using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Optimization
 {

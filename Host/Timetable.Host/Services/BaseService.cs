@@ -1,7 +1,8 @@
 ﻿using System;
 using Ninject;
 using Timetable.Base.Entities;
-using Timetable.Base.Interfaces.DataSources;
+using Timetable.Data.Context.Interfaces;
+using Timetable.Data.Models;
 using Timetable.Host.Interfaces;
 
 namespace Timetable.Host.Services

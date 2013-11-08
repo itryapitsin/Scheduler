@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Threading.Tasks;
-using Timetable.Base.Entities;
-using Timetable.Data.Context.Interfaces;
+using Timetable.Data.IIAS.Interfaces;
 
-namespace Timetable.Data.Context
+namespace Timetable.Data.IIAS.Context
 {
     public abstract class BaseContext : DbContext, IDataContext
     {
@@ -38,26 +35,26 @@ namespace Timetable.Data.Context
             Configuration.ValidateOnSaveEnabled = false;
         }
 
-        public new IDbSet<T> Set<T>() where T : BaseEntity
+        public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();
         }
 
-        public virtual void Add<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public virtual void Add<TEntity>(TEntity entity) where TEntity : class
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Add(entity);
             SaveChanges();
         }
 
-        public virtual void Update<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public virtual void Update<TEntity>(TEntity entity) where TEntity : class
         {
             AttachIfNotAttached(entity);
             Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
-        public virtual void Delete<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public virtual void Delete<TEntity>(TEntity entity) where TEntity : class
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Remove(entity);
@@ -65,7 +62,7 @@ namespace Timetable.Data.Context
             SaveChanges();
         }
 
-        public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : class
         {
             if (Entry(entity).State != EntityState.Detached)
                 return;

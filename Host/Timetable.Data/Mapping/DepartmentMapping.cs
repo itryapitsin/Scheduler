@@ -5,7 +5,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Timetable.Base.Entities.Scheduler;
+using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Data.Mapping
 {
@@ -16,14 +16,14 @@ namespace Timetable.Data.Mapping
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            HasMany(x => x.Faculties)
-                .WithMany(x => x.Departments)
-                .Map(x =>
-                {
-                    x.MapLeftKey("Department_Id");
-                    x.MapRightKey("Faculty_Id");
-                    x.ToTable("DepartmentsToFaculties");
-                });
+            //HasMany(x => x.Faculties)
+            //    .WithMany(x => x.Departments)
+            //    .Map(x =>
+            //    {
+            //        x.MapLeftKey("Department_Id");
+            //        x.MapRightKey("Faculty_Id");
+            //        x.ToTable("DepartmentsToFaculties");
+            //    });
         }
     }
 }

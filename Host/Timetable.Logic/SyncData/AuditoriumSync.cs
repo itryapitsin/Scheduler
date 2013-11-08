@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Timetable.Base.Entities.Scheduler;
-using Timetable.Base.Interfaces.DataSources;
-using Timetable.Data.IIAS.Context;
+using Timetable.Data.Models.Scheduler;
 
-namespace Timetable.Logic.SyncData
+namespace Timetable.Sync.Logic.SyncData
 {
     public class AuditoriumSync: BaseSync
     {

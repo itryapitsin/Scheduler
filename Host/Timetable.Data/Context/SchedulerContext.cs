@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-
-using Timetable.Base.Entities.Scheduler;
-using Timetable.Base.Interfaces.DataSources;
+using Timetable.Data.Context.Interfaces;
 using Timetable.Data.Mapping;
+using Timetable.Data.Models.Scheduler;
 
 
 namespace Timetable.Data.Context
@@ -55,7 +54,6 @@ namespace Timetable.Data.Context
         public IDbSet<TimetableEntity> TimetableEntities { get; set; }
 
         #endregion
-        
         public SchedulerContext()
         {
             Configuration.AutoDetectChangesEnabled = true;

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Timetable.Base.Entities.Scheduler;
+using Timetable.Data.Models.Scheduler;
 
-namespace Timetable.Logic.SyncData
+namespace Timetable.Sync.Logic.SyncData
 {
     public class StudyYearSync : BaseSync
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Timetable.Base.Entities;
+using Timetable.Data.Models;
 
 namespace Timetable.Host.Interfaces
 {

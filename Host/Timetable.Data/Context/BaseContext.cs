@@ -10,6 +10,7 @@ using System.Reflection.Emit;
 using System.Threading.Tasks;
 using Timetable.Base.Entities;
 using Timetable.Data.Context.Interfaces;
+using Timetable.Data.Models;
 
 namespace Timetable.Data.Context
 {

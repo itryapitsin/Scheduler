@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
-using System.Threading.Tasks;
-using Timetable.Base.Entities;
 
-namespace Timetable.Data.Context.Interfaces
+namespace Timetable.Data.IIAS.Interfaces
 {
     public interface IDataContext
     {
         IEnumerable<DbEntityValidationResult> GetValidationErrors();
 
-        IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity;
+        IDbSet<TEntity> Set<TEntity>() where TEntity : class;
 
         IQueryable<TEntity> RawSqlQuery<TEntity>(
             string query, 
