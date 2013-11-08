@@ -13,6 +13,8 @@ namespace Timetable.Base.Entities.Scheduler
         [DataMember(Name = "Name")]
         public string Name { get; set; }
 
+        public string Pattern { get; set; }
+
         [DataMember(Name = "Auditoriums")]
         public virtual ICollection<Auditorium> Auditoriums { get; set; }
     }

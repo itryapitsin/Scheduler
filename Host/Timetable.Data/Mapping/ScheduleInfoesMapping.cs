@@ -71,15 +71,6 @@ namespace Timetable.Data.Mapping
             HasRequired(x => x.Department)
                 .WithMany()
                 .HasForeignKey(x => x.DepartmentId);
-
-//            Invalid column name 'Lecturer_Id'.
-//Invalid column name 'Tutorial_Id'.
-//Invalid column name 'Lecturer_Id'.
-//Invalid column name 'Tutorial_Id'.
-//Invalid column name 'Branch_Id'.
-//Invalid column name 'Lecturer_Id'.
-//Invalid column name 'Tutorial_Id'.
-
         }
     }
 }

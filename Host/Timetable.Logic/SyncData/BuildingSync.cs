@@ -20,11 +20,11 @@ namespace Timetable.Logic.SyncData
             Task.WaitAll(task1, task2);
 
             var iiasBuildings = await task1;
-            var schedulerBuildings = await task2;
+            var schedulerEntities = await task2;
 
             foreach (var iiasBuilding in iiasBuildings)
             {
-                var schedulerBuilding = schedulerBuildings.FirstOrDefault(x => x.IIASKey == iiasBuilding.Id);
+                var schedulerBuilding = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasBuilding.Id);
                 if (schedulerBuilding == null)
                 {
                     var building = new Building
@@ -46,7 +46,6 @@ namespace Timetable.Logic.SyncData
                     schedulerBuilding.IIASKey = iiasBuilding.Id;
                     schedulerBuilding.Name = iiasBuilding.Fullname;
                     schedulerBuilding.ShortName = iiasBuilding.ShortName;
-                    schedulerBuilding.IsActual = true;
 
                     SchedulerDatabase.Update(schedulerBuilding);
                 }

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Timetable.Site.Controllers.Api;
+using Timetable.Site.DataService;
 using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
@@ -21,6 +22,18 @@ namespace Timetable.Site.Controllers
             model.Branches = DataService
                 .GetBranches()
                 .Select(x => new BranchViewModel(x));
+
+            model.WeekTypes = DataService
+                .GetWeekTypes()
+                .Select(x => new WeekTypeViewModel(x));
+
+            model.Courses = DataService
+                .GetCources()
+                .Select(x => new CourseViewModel(x));
+
+            model.StudyYears = DataService
+                .GetStudyYears()
+                .Select(x => new StudyYearViewModel(x));
 
             return PartialView("_Index", model);
         }

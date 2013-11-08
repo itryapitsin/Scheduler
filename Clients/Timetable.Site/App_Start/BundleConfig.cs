@@ -39,6 +39,7 @@ namespace Timetable.Site
             bundles.Add(new ScriptBundle("~/Scripts/App").Include(
                 "~/App/app.js",
                 "~/App/directives/daterangepicker.js",
+                "~/App/services/groupService.js",
                 "~/App/Controllers/schedulerController.js"));
 
             bundles.Add(new StyleBundle("~/Content/Site").Include("~/Content/Site.css"));

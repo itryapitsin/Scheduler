@@ -16,5 +16,9 @@ namespace Timetable.Site.Models.ViewModels
         public IEnumerable<BranchViewModel> Branches { get; set; }
 
         public BuildingViewModel SelectedBuidling { get; set; }
+
+        public IEnumerable<CourseViewModel> Courses { get; set; }
+
+        public IEnumerable<StudyYearViewModel> StudyYears { get; set; }
     }
 }

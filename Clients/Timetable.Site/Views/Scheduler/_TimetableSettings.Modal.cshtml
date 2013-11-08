@@ -4,20 +4,20 @@
         <h3 id="myModalLabel">Параметры расписания</h3>
     </div>
     <div class="modal-body">
+        <label class="control-label">Учебный год</label>
+        <select class="span8" ng-model="settingsModal.studyYear" ng-options="studyYear.Name for studyYear in pageModel.StudyYears"></select>
+        
+        <label class="control-label">Семестр</label>
+        <select class="span8" ng-model="settingsModal.semestr" ng-options="semestr.Name for semestr in settingsModal.semestrs"></select>
+
         <label class="control-label">Корпус</label>
-        <select class="span8" ng-model="building" ng-options="building.Name for building in pageModel.Buildings"></select>
+        <select class="span8" ng-model="settingsModal.building" ng-options="building.Name for building in pageModel.Buildings"></select>
 
         <label class="control-label">Тип недели</label>
-        <select class="span8"></select>
-
-        <label class="control-label">Подгруппа</label>
-        <select class="span8"></select>
-
-        <label class="control-label">Период</label>
-        <input type="text" daterangepicker class="span8" />
+        <select class="span8" ng-model="settingsModal.weekType" ng-options="weekType.Name for weekType in pageModel.WeekTypes"></select>
     </div>
     <div class="modal-footer">
-        <a class="btn btn-success">Применить</a>&nbsp;
+        <a class="btn btn-success" ng-click="settingsModal.apply(settingsModal)" data-dismiss="modal" aria-hidden="true">Применить</a>&nbsp;
         <a data-dismiss="modal" aria-hidden="true">Закрыть</a>
     </div>
 </div>

@@ -46,11 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyncData\AuditoriumTypeSync.cs" />
+    <Compile Include="SyncData\AuditoriumSync.cs" />
     <Compile Include="SyncData\BaseSync.cs" />
     <Compile Include="SyncData\FacultySync.cs" />
     <Compile Include="SyncData\DepartmentSync.cs" />
     <Compile Include="SyncData\BranchSync.cs" />
+    <Compile Include="SyncData\SpecialityInfoSync.cs" />
     <Compile Include="SyncData\SpecialitySync.cs" />
     <Compile Include="SyncData\TimeSync.cs" />
     <Compile Include="SyncData\TutorialTypeSync.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="SyncData\OrganizationSync.cs" />
     <Compile Include="SyncData\LecturerSync.cs" />
     <Compile Include="SyncData\BuildingSync.cs" />
+    <Compile Include="SyncData\StudyYearSync.cs" />
+    <Compile Include="SyncData\WeekTypeSync.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Timetable.Base\Timetable.Base.csproj">

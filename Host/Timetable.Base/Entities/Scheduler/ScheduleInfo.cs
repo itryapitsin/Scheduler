@@ -47,7 +47,7 @@ namespace Timetable.Base.Entities.Scheduler
         public int SubgroupCount { get; set; }
 
         [DataMember(Name = "HoursPerWeek")]
-        public int HoursPerWeek { get; set; }
+        public decimal HoursPerWeek { get; set; }
 
         [DataMember(Name = "Tutorial")]
         public virtual Tutorial Tutorial { get; set; }
@@ -56,10 +56,10 @@ namespace Timetable.Base.Entities.Scheduler
         public int TutorialId { get; set; }
 
         [DataMember(Name = "StartDate")]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [DataMember(Name = "EndDate")]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [DataMember(Name = "StudyYear")]
         public virtual StudyYear StudyYear { get; set; }

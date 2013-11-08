@@ -12,6 +12,16 @@ namespace Timetable.Sync
     {
         static void Main(string[] args)
         {
+            var conn = new OracleConnection("DATA SOURCE=iias.karelia.ru:1521/iias;USER ID=DPYATIN;Password=xgmst321");
+
+            Console.Write(@"Loading study years...");
+            DoSync(new StudyYearSync(conn));
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading week types...");
+            DoSync(new WeekTypeSync(conn));
+            Console.WriteLine(@"done!");
+
             Console.Write(@"Loading organizations...");
             DoSync(new OrganizationSync());
             Console.WriteLine(@"done!");
@@ -22,6 +32,10 @@ namespace Timetable.Sync
 
             Console.Write(@"Loading buildings...");
             DoSync(new BuildingSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading auditoriums...");
+            DoSync(new AuditoriumSync());
             Console.WriteLine(@"done!");
 
             Console.Write(@"Loading faculties...");
@@ -50,6 +64,10 @@ namespace Timetable.Sync
 
             Console.Write(@"Loading times...");
             DoSync(new TimeSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading schedule infoes...");
+            DoSync(new ScheduleInfoSync());
             Console.WriteLine(@"done!");
         }
 

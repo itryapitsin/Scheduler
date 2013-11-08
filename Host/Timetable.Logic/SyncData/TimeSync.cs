@@ -39,7 +39,6 @@ namespace Timetable.Logic.SyncData
                     schedulerEntity.IIASKey = iiasEntity.Id;
                     schedulerEntity.Start = TimeSpan.Parse(iiasEntity.Start);
                     schedulerEntity.End = TimeSpan.Parse(iiasEntity.Finish);
-                    schedulerEntity.IsActual = true;
 
                     SchedulerDatabase.Update(schedulerEntity);
                 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Configuration;
 using System.ServiceModel;
@@ -18,7 +20,13 @@ namespace Timetable.Site.Controllers
             DataService = new DataServiceClient();
         }
 
-        
+        protected List<int> GetListFromString(string str)
+        {
+            var result = new List<int>();
+            if (!String.IsNullOrEmpty(str))
+                result = str.Split(',').Select(int.Parse).ToList();
+            return result;
+        }
 
         protected T GetService<T>(string serviceName)
         {

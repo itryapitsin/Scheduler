@@ -17,6 +17,9 @@ namespace Timetable.Logic.SyncData
             var iiasEntities = await task1;
             var schedulerEntities = await task2;
 
+            var departments2 = IIASContext.GetDepartments2().ToList().Where(x => !iiasEntities.Select(y => y.Id).Contains(x.Id));
+            iiasEntities.AddRange(departments2);
+
             foreach (var iiasEntity in iiasEntities)
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasEntity.Id);
@@ -39,7 +42,6 @@ namespace Timetable.Logic.SyncData
                     schedulerEntity.IIASKey = iiasEntity.Id;
                     schedulerEntity.Name = iiasEntity.Name;
                     schedulerEntity.ShortName = iiasEntity.ShortName;
-                    schedulerEntity.IsActual = true;
 
                     SchedulerDatabase.Update(schedulerEntity);
                 }

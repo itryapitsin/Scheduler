@@ -79,3 +79,4 @@ D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\System.Web.Http.xml
 D:\Senichev\Git\Scheduler\Host\Timetable.Base\bin\Debug\System.Net.Http.Formatting.xml
 D:\Senichev\Git\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.dll
 D:\Senichev\Git\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Base\obj\Debug\Timetable.Base.csprojResolveAssemblyReference.cache

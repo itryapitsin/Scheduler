@@ -41,7 +41,6 @@ namespace Timetable.Logic.SyncData
                     schedulerEntity.Name = iiasEntity.Name;
                     schedulerEntity.ShortName = iiasEntity.ShortName;
                     schedulerEntity.Code = iiasEntity.Code;
-                    schedulerEntity.IsActual = true;
 
                     SchedulerDatabase.Update(schedulerEntity);
                 }

@@ -10,6 +10,8 @@ namespace Timetable.Data.IIAS.Context
     {
         IQueryable<Building> GetBuildings();
 
+        IQueryable<AuditoriumType> GetAuditoriumTypes();
+
         IQueryable<Organization> GetOrganizations();
 
         IQueryable<Branche> GetBranches();
@@ -18,7 +20,11 @@ namespace Timetable.Data.IIAS.Context
 
         IQueryable<Department> GetDepartments();
 
+        IQueryable<Department> GetDepartments2();
+
         IQueryable<Lecturer> GetLecturers();
+
+        IQueryable<Lecturer> GetLecturers2();
 
         IQueryable<Tutorial> GetTutorials();
 
@@ -27,5 +33,9 @@ namespace Timetable.Data.IIAS.Context
         IQueryable<TutorialType> GetTutorialTypes();
 
         IQueryable<Time> GetTimes();
+
+        IQueryable<Auditorium> GetAuditoriums();
+
+        IQueryable<ScheduleInfo> GetScheduleInfoes();
     }
 }

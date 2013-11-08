@@ -8,8 +8,7 @@ namespace Timetable.Data.IIAS.Models
 {
     public class Tutorial
     {
-        public int Id { get; set; }
-
+        public Int32 Id { get; set; }
         public string Name { get; set; }
     }
 }

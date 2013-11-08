@@ -37,7 +37,6 @@ namespace Timetable.Logic.SyncData
                     schedulerEntity.UpdatedDate = DateTime.Now;
                     schedulerEntity.IIASKey = iiasEntity.Id;
                     schedulerEntity.Name = iiasEntity.Name;
-                    schedulerEntity.IsActual = true;
 
                     SchedulerDatabase.Update(schedulerEntity);
                 }

@@ -13,9 +13,13 @@ namespace Timetable.Logic.SyncData
             var task2 = Task.Factory.StartNew(() => SchedulerDatabase.Lecturers.ToList());
 
             Task.WaitAll(task1, task2);
-
+            
             var iiasEntities = await task1;
             var schedulerEntities = await task2;
+
+            var lecturers2 = IIASContext.GetLecturers2().Where(x => !iiasEntities.Select(y => y.Id).Contains(x.Id));
+
+            iiasEntities.AddRange(lecturers2);
 
             foreach (var iiasEntity in iiasEntities)
             {
@@ -41,7 +45,6 @@ namespace Timetable.Logic.SyncData
                     schedulerEntity.Firstname = iiasEntity.Firstname;
                     schedulerEntity.Middlename = iiasEntity.Middlename;
                     schedulerEntity.Lastname = iiasEntity.Lastname;
-                    schedulerEntity.IsActual = true;
 
                     SchedulerDatabase.Update(schedulerEntity, false);
                 }

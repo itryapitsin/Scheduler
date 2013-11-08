@@ -6,9 +6,11 @@ using Timetable.Data.IIAS.Models;
 
 namespace Timetable.Data.IIAS.Context
 {
-    public class IIASContext: BaseContext, IIIASContext
+    public class IIASContext : BaseContext, IIIASContext
     {
         public DbSet<Building> Buildings { get; set; }
+
+        public DbSet<Auditorium> Auditoriums { get; set; }
 
         public DbSet<Branche> Branches { get; set; }
 
@@ -28,7 +30,10 @@ namespace Timetable.Data.IIAS.Context
 
         public DbSet<Time> Times { get; set; }
 
-        public IIASContext(OracleConnection connection) : base(connection, true)
+        public DbSet<ScheduleInfo> ScheduleInfoes { get; set; }
+
+        public IIASContext(OracleConnection connection)
+            : base(connection, true)
         {
             Configuration.LazyLoadingEnabled = false;
         }
@@ -47,7 +52,7 @@ namespace Timetable.Data.IIAS.Context
                         (STATUS = 'Y')");
         }
 
-        public IQueryable<AuditoriumType> GetAuditoriumType()
+        public IQueryable<AuditoriumType> GetAuditoriumTypes()
         {
             return RawSqlQuery<AuditoriumType>(@"");
         }
@@ -104,16 +109,47 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.V_PED_PERS_ALL.BUN_ID = SDMS.O_BASE_UNIT.BUN_ID");
         }
 
+        public IQueryable<Department> GetDepartments2(){
+            return RawSqlQuery<Department>(@"
+                    SELECT DISTINCT
+                        SDMS.O_USE_BASE_UNITS.UBU_ID AS Id, 
+                        SDMS.O_USE_BASE_UNITS.NAME_LONG AS Name, 
+                        SDMS.O_USE_BASE_UNITS.NAME_SHORT AS ShortName
+                    FROM            
+                        SDMS.V_UPL_RASP, 
+                        SDMS.O_USE_BASE_UNITS
+                    WHERE        
+                        SDMS.V_UPL_RASP.UBU_ID = SDMS.O_USE_BASE_UNITS.UBU_ID");
+        }
+
         public IQueryable<Lecturer> GetLecturers()
         {
             return RawSqlQuery<Lecturer>(@"
                     SELECT DISTINCT 
-                        PCARD_ID AS Id, 
-                        I_NAME AS FirstName, 
-                        O_NAME AS MiddleName, 
-                        F_NAME AS LastName
+                         SDMS.V_PED_PERS_ALL.PCARD_ID AS Id, 
+                        SDMS.V_PED_PERS_ALL.I_NAME AS FirstName, 
+                        SDMS.V_PED_PERS_ALL.O_NAME AS MiddleName, 
+                        SDMS.V_PED_PERS_ALL.F_NAME AS LastName
                     FROM            
-                        SDMS.V_PED_PERS_ALL");
+                        SDMS.V_PED_PERS_ALL, 
+                        SDMS.O_BASE_UNIT
+                    WHERE        
+                        SDMS.V_PED_PERS_ALL.PCARD_ID = SDMS.O_BASE_UNIT.BUN_ID");
+        }
+
+        public IQueryable<Lecturer> GetLecturers2()
+        {
+            return RawSqlQuery<Lecturer>(@"
+                    SELECT DISTINCT 
+                         SDMS.O_PERSONAL_CARD.PCARD_ID AS Id, 
+                        SDMS.O_PERSONAL_CARD.I_NAME AS FirstName, 
+                        SDMS.O_PERSONAL_CARD.O_NAME AS MiddleName, 
+                        SDMS.O_PERSONAL_CARD.F_NAME AS LastName
+                    FROM            
+                        SDMS.O_PERSONAL_CARD, 
+                        SDMS.V_UPL_RASP
+                    WHERE       
+                        SDMS.O_PERSONAL_CARD.PCARD_ID = SDMS.V_UPL_RASP.PCARD_ID");
         }
 
         public IQueryable<Tutorial> GetTutorials()
@@ -163,6 +199,56 @@ namespace Timetable.Data.IIAS.Context
                     ORDER BY 
                         ""Start"", 
                         ""Finish""");
+        }
+
+        public IQueryable<Auditorium> GetAuditoriums()
+        {
+            return RawSqlQuery<Auditorium>(@"
+                    SELECT        
+                        SDMS.B_QUARTERS.ID AS Id, 
+                        SDMS.B_QUARTERS.CODE AS Num, 
+                        SDMS.B_QUARTERS.NAMEFULL AS Name, 
+                        SDMS.B_QUARTERS.BLD_ID AS BuildingId
+                    FROM    
+                        SDMS.B_QUARTERS, 
+                        SDMS.B_PRODUCTIVITY
+                    WHERE
+                        SDMS.B_QUARTERS.ID = SDMS.B_PRODUCTIVITY.ID 
+                        AND (SDMS.B_QUARTERS.STATUS = 'Y')");
+        }
+
+        public IQueryable<ScheduleInfo> GetScheduleInfoes()
+        {
+            return RawSqlQuery<ScheduleInfo>(@"
+                    SELECT DISTINCT 
+                        CES_ID AS Id, 
+                        MIN(HOURS_WEEK) AS HoursPerWeek, 
+                        MIN(PCARD_ID) AS LecturerId, 
+                        MIN(EW_ID) AS TutorialTypeId, 
+                        MIN(DIS_CODE) AS TutorialId, 
+                        MIN(UBU_ID) AS DepartmentId, 
+                        UCH_GOG as StudyYear,
+                        PERIOD_NUM As Semestr
+                    FROM 
+                        SDMS.V_UPL_RASP
+                    WHERE        
+                        (HOURS_WEEK IS NOT NULL) 
+                        AND (PCARD_ID IS NOT NULL) 
+                        AND (EW_ID IS NOT NULL) 
+                        AND (DIS_CODE IS NOT NULL) 
+                        AND (UBU_ID IS NOT NULL) 
+                        AND (GR_UBU_ID > 0) 
+                        AND (GR_UBU_ID IS NOT NULL) 
+                        AND (KURS_CODE > 0) 
+                        AND (KURS_CODE IS NOT NULL) 
+                        AND (SPEC_CODE IS NOT NULL) 
+                        AND (FACULT_CODE IS NOT NULL)
+                    GROUP BY 
+                        CES_ID, 
+                        UCH_GOG,
+                        PERIOD_NUM
+                    ORDER BY 
+                        UCH_GOG");
         }
     }
 }

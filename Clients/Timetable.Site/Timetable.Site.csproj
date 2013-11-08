@@ -90,31 +90,23 @@
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Libs\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Libs\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Libs\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
     </Reference>
@@ -144,8 +136,10 @@
     <Compile Include="Controllers\Extends\TempScheduleInfoes.cs" />
     <Compile Include="Controllers\Extends\TempSchedules.cs" />
     <Compile Include="Controllers\Extends\TempSpecialities.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\PrintScheduleController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\ScheduleInfoController.cs" />
     <Compile Include="Controllers\SchedulerController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\Api\AuditoriumController.cs" />
@@ -239,8 +233,13 @@
     <Compile Include="Models\Validators\StateModel.cs" />
     <Compile Include="Models\ViewModels\BranchViewModel.cs" />
     <Compile Include="Models\ViewModels\BuildingViewModel.cs" />
+    <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\FacultyViewModel.cs" />
+    <Compile Include="Models\ViewModels\GroupViewModel.cs" />
+    <Compile Include="Models\ViewModels\ScheduleInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\SchedulerViewModel.cs" />
+    <Compile Include="Models\ViewModels\SpecialityViewModel.cs" />
+    <Compile Include="Models\ViewModels\StudyYearViewModel.cs" />
     <Compile Include="Models\ViewModels\TimeViewModel.cs" />
     <Compile Include="Models\ViewModels\WeekTypeViewModel.cs" />
     <Compile Include="Models\WeekTypes\SendModel.cs" />
@@ -272,6 +271,7 @@
     <Content Include="App\models\loginModel.js" />
     <Content Include="App\models\registrationModel.js" />
     <Content Include="App\services\auth.js" />
+    <Content Include="App\services\groupService.js" />
     <Content Include="App\services\transactionService.js" />
     <Content Include="App_GlobalResources\Message.resx">
       <SubType>Designer</SubType>

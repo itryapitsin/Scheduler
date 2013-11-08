@@ -113,6 +113,18 @@
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Migrations\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs" />
+    <Compile Include="Migrations\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.Designer.cs">
+      <DependentUpon>201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.cs" />
+    <Compile Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.Designer.cs">
+      <DependentUpon>201311081028124_ScheduleInfoesHoursPerWeekChangeType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Schedule\201311072242140_AuditoriumTypesAdded.cs" />
+    <Compile Include="Migrations\Schedule\201311072242140_AuditoriumTypesAdded.Designer.cs">
+      <DependentUpon>201311072242140_AuditoriumTypesAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.cs" />
     <Compile Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.Designer.cs">
       <DependentUpon>201311042153355_RemoveBuildingFromTimes.cs</DependentUpon>
@@ -205,6 +217,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.resx">
+      <DependentUpon>201311081108537_ScheduleInfoesStartDateAndEndDateIsNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Schedule\201311081028124_ScheduleInfoesHoursPerWeekChangeType.resx">
+      <DependentUpon>201311081028124_ScheduleInfoesHoursPerWeekChangeType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Schedule\201311072242140_AuditoriumTypesAdded.resx">
+      <DependentUpon>201311072242140_AuditoriumTypesAdded.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Schedule\201311042153355_RemoveBuildingFromTimes.resx">
       <DependentUpon>201311042153355_RemoveBuildingFromTimes.cs</DependentUpon>
     </EmbeddedResource>

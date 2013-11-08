@@ -50,6 +50,7 @@
     <Compile Include="Context\IIIASContext.cs" />
     <Compile Include="Interfaces\IDataContext.cs" />
     <Compile Include="Mapping\BuildingMapping.cs" />
+    <Compile Include="Models\Auditorium.cs" />
     <Compile Include="Models\AuditoriumType.cs" />
     <Compile Include="Models\Branche.cs" />
     <Compile Include="Models\Building.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\ScheduleInfo.cs" />
     <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Tutorial.cs" />
     <Compile Include="Models\Speciality.cs" />

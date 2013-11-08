@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using Timetable.Site.DataService;
 using Timetable.Site.Models.Groups;
-using System.Web.Http;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers.Api
 {
@@ -67,7 +69,7 @@ namespace Timetable.Site.Controllers.Api
                                     var qSpeciality = new Speciality();
                                     qSpeciality.Id = ispecialityId;
 
-                       
+
                                     var tmp = DataService.GetGroupsForSpeciality(qCourse, qSpeciality);
 
                                     //var tmp = GetTempGroups(qCourse, qSpeciality);
@@ -90,7 +92,7 @@ namespace Timetable.Site.Controllers.Api
                     }
                 }
             }
-           
+
             return result.AsEnumerable();
         }
 
@@ -144,7 +146,7 @@ namespace Timetable.Site.Controllers.Api
 
             var qFaculty = new Faculty();
             qFaculty.Id = facultyId;
-            
+
             foreach (var courseId in courseIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 if (courseId != " ")
@@ -210,7 +212,7 @@ namespace Timetable.Site.Controllers.Api
         }
 
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Add(AddModel model)
         {
             return CreateResponse(privateAdd, model);
@@ -222,14 +224,14 @@ namespace Timetable.Site.Controllers.Api
 
             aGroup.Code = model.Code;
             aGroup.StudentsCount = model.StudentsCount;
-           
+
             aGroup.Course = new Course();
             aGroup.Course.Id = model.CourseId;
             aGroup.Parent = new Group();
             aGroup.Parent.Id = model.ParentId;
             aGroup.Speciality = new Speciality();
             aGroup.Speciality.Id = model.SpecialityId;
-           
+
 
             aGroup.UpdateDate = DateTime.Now.Date;
             aGroup.CreatedDate = DateTime.Now.Date;
@@ -238,7 +240,7 @@ namespace Timetable.Site.Controllers.Api
             DataService.Add(aGroup);
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Delete(DeleteModel model)
         {
             return CreateResponse(privateDelete, model.Id);

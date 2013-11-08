@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using Timetable.Site.DataService;
 using Timetable.Site.Models.Specialities;
 using System.Web.Http;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers.Api
 {
@@ -34,7 +36,14 @@ namespace Timetable.Site.Controllers.Api
             return result;
         }
 
-        [HttpPost]
+        public IEnumerable<SpecialityViewModel> Get(int facultyId)
+        {
+            return DataService
+                .GetSpecialities(new Faculty {Id = facultyId})
+                .Select(x => new SpecialityViewModel(x));
+        }
+            
+            [HttpPost]
         public HttpResponseMessage Add(AddModel model)
         {
             return CreateResponse(privateAdd, model);

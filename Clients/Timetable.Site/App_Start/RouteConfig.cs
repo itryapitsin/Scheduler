@@ -15,25 +15,6 @@ namespace Timetable.Site
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
            
-            /*
-            routes.MapHttpRoute(
-                name: "GroupGetApi",
-                routeTemplate: "api/v1.0/group/get/{facultyid}/{courseid}",
-                defaults: new { controller = "GroupController", action = "GetByNumber" }
-            );*/
-
-            /*
-            routes.MapHttpRoute(
-              name: "ScheduleGetApi",
-              routeTemplate: "api/v1.0/schedule/getall/{fucultyid}/{courseid}/{groupid}",
-              defaults: new { controller = "Schedule", action = "GetAll", fucultyid = UrlParameter.Optional,
-                                                                               courseid = UrlParameter.Optional,
-                                                                               groupid = UrlParameter.Optional
-              }
-            );*/
-            
-
-
             routes.MapHttpRoute(
               name: "LecturerGetApi",
               routeTemplate: "api/v1.0/lecturer/get/{tutorialid}",
@@ -71,32 +52,7 @@ namespace Timetable.Site
                routeTemplate: "api/v1.0/speciality/Getbyfaculty/{facultyid}",
                defaults: new { controller = "Speciality", action = "GetByFaculty" }
            );
-
-            /*
-            routes.MapHttpRoute(
-                name: "ScheduleGetForGroupApi",
-                routeTemplate: "api/v1.0/schedule/getforgroup/{groupid}",
-                defaults: new { controller = "Schedule", action = "GetForGroup" }
-            );
-
-            routes.MapHttpRoute(
-                name: "AuditoriumGetByIdApi",
-                routeTemplate: "api/v1.0/auditorium/getbynumber/{number}/{buildingid}",
-                defaults: new { controller = "Auditorium", action = "GetByNumber" }
-            );
-
-            routes.MapHttpRoute(
-                name: "ScheduleGetForAuditoriumApi",
-                routeTemplate: "api/v1.0/schedule/getforauditorium/{auditoriumid}",
-                defaults: new { controller = "Schedule", action = "GetForAuditorium" }
-            );
-
-            routes.MapHttpRoute(
-                name: "ScheduleInfoUnscheduledApi",
-                routeTemplate: "api/v1.0/scheduleinfo/getunscheduled/{facultyId}/{courseId}/{groupId}/{specialityId}",
-                defaults: new { controller = "ScheduleInfo", action = "GetUnscheduled" }
-            );*/
-
+            
             routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/v1.0/{controller}/{action}/{id}",
