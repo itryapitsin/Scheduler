@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Data.Entity;
 using System.Data;
 using System.Reflection;
 using System.Data.Entity.Infrastructure;
-using System.Data.Metadata.Edm;
-using System.Data.Objects;
 
 namespace Timetable.Data.Context
 {
