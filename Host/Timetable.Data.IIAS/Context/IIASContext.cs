@@ -11,6 +11,10 @@ namespace Timetable.Data.IIAS.Context
     {
         public DbSet<Building> Buildings { get; set; }
 
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Group> Groups { get; set; }
+
         public DbSet<Auditorium> Auditoriums { get; set; }
 
         public DbSet<Branche> Branches { get; set; }
@@ -53,7 +57,7 @@ namespace Timetable.Data.IIAS.Context
                         (STATUS = 'Y')");
         }
 
-        public IQueryable<AuditoriumType> GetAuditoriumTypes()
+       public IQueryable<AuditoriumType> GetAuditoriumTypes()
         {
             return RawSqlQuery<AuditoriumType>(@"");
         }
@@ -121,6 +125,20 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.O_USE_BASE_UNITS
                     WHERE        
                         SDMS.V_UPL_RASP.UBU_ID = SDMS.O_USE_BASE_UNITS.UBU_ID");
+        }
+
+        public IQueryable<Course> GetCourses()
+        {
+            return RawSqlQuery<Course>(@"
+                    SELECT DISTINCT 
+                        SDMS.V_STUD_GR.KURS_BUN_ID AS Id, 
+                        SDMS.O_BASE_UNIT.NAME_LONG AS Name
+                    FROM            
+                        SDMS.V_STUD_GR, 
+                        SDMS.O_BASE_UNIT
+                    WHERE       
+                        SDMS.V_STUD_GR.KURS_BUN_ID = SDMS.O_BASE_UNIT.BUN_ID
+            ");
         }
 
         public IQueryable<Lecturer> GetLecturers()
@@ -250,6 +268,18 @@ namespace Timetable.Data.IIAS.Context
                         PERIOD_NUM
                     ORDER BY 
                         UCH_GOG");
+        }
+
+        public IQueryable<Group> GetGroups()
+        {
+            return RawSqlQuery<Group>(@"
+                    SELECT DISTINCT 
+                        UBU_ID AS Id, 
+                        GR_CODE AS Code, 
+                        SPEC_BUN_ID AS SpecialityId, 
+                        KURS_BUN_ID AS CourseId
+                    FROM
+                        SDMS.V_STUD_GR");
         }
     }
 }

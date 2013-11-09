@@ -14,7 +14,9 @@ namespace Timetable.Sync
         {
             var conn = new OracleConnection("DATA SOURCE=iias.karelia.ru:1521/iias;USER ID=DPYATIN;Password=xgmst321");
 
-
+            Console.Write(@"Loading courses...");
+            DoSync(new CourseSync());
+            Console.WriteLine(@"done!");
 
             Console.Write(@"Loading study years...");
             DoSync(new StudyYearSync(conn));
@@ -48,7 +50,7 @@ namespace Timetable.Sync
             DoSync(new DepartmentSync());
             Console.WriteLine(@"done!");
 
-            Console.Write(@"Loading schedule infoes...");
+            Console.Write(@"Loading departments to faculties...");
             DoSync(new DepartmentsToFacultiesSync(conn));
             Console.WriteLine(@"done!");
 
@@ -60,8 +62,16 @@ namespace Timetable.Sync
             DoSync(new TutorialSync());
             Console.WriteLine(@"done!");
 
+            Console.Write(@"Loading faculties to tutorials...");
+            DoSync(new FacultiesToTutorialsSync(conn));
+            Console.WriteLine(@"done!");
+
             Console.Write(@"Loading specialities...");
             DoSync(new SpecialitySync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading groups...");
+            DoSync(new GroupSync());
             Console.WriteLine(@"done!");
 
             Console.Write(@"Loading tutorial types...");
@@ -76,7 +86,29 @@ namespace Timetable.Sync
             DoSync(new ScheduleInfoSync());
             Console.WriteLine(@"done!");
 
+            Console.Write(@"Loading schedule infoes to faculties...");
+            DoSync(new ScheduleInfoesToFacultiesSync(conn));
+            Console.WriteLine(@"done!");
 
+            Console.Write(@"Loading schedule infoes to courses...");
+            DoSync(new ScheduleInfoesToCoursesSync(conn));
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading schedule infoes to groups...");
+            DoSync(new ScheduleInfoesToGroupsSync(conn));
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading schedule infoes to specialities...");
+            DoSync(new ScheduleInfoesToSpecialitiesSync(conn));
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading specialities to faculties...");
+            DoSync(new SpecialitiesToFacultiesSync(conn));
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading specialities to tutorials...");
+            DoSync(new SpecialitiesToTutorialsSync(conn));
+            Console.WriteLine(@"done!");
         }
 
         public static void DoSync(BaseSync sync)

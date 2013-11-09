@@ -116,6 +116,10 @@
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Migrations\201311091134408_InitialDatabase.cs" />
+    <Compile Include="Migrations\201311091134408_InitialDatabase.Designer.cs">
+      <DependentUpon>201311091134408_InitialDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -156,6 +160,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311091134408_InitialDatabase.resx">
+      <DependentUpon>201311091134408_InitialDatabase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>

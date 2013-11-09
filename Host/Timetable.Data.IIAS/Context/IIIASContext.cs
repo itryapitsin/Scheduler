@@ -37,5 +37,9 @@ namespace Timetable.Data.IIAS.Context
         IQueryable<Auditorium> GetAuditoriums();
 
         IQueryable<ScheduleInfo> GetScheduleInfoes();
+
+        IQueryable<Group> GetGroups();
+
+        IQueryable<Course> GetCourses();
     }
 }

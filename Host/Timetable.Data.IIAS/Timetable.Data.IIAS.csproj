@@ -53,8 +53,10 @@
     <Compile Include="Models\AuditoriumType.cs" />
     <Compile Include="Models\Branche.cs" />
     <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Faculty.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\ScheduleInfo.cs" />

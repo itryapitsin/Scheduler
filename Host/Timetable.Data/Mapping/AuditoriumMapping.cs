@@ -25,6 +25,15 @@ namespace Timetable.Data.Mapping
                 .WithMany()
                 .HasForeignKey(x => x.BuildingId)
                 .WillCascadeOnDelete(false);
+
+            HasMany(x => x.TutorialApplicabilities)
+                .WithMany(x => x.AuditoriumApplicabilities)
+                .Map(x =>
+                {
+                    x.ToTable("TutorialTypesToAuditoriums");
+                    x.MapLeftKey("Auditorium_Id");
+                    x.MapRightKey("TutorialType_Id");
+                });
         }
     }
 }

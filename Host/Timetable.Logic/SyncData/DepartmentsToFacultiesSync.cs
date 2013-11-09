@@ -26,14 +26,14 @@ namespace Timetable.Sync.Logic.SyncData
                                      SDMS.V_UPL_RASP.UBU_ID = SDMS.O_USE_BASE_UNITS.UBU_ID
                                 ORDER BY DepartmentId";
             var reader = cmd.ExecuteReader();
-            var schedulerEntities = SchedulerDatabase.Faculties.ToList();
+            var schedulerEntities = SchedulerDatabase.Faculties.Include("Departments").ToList();
 
             while (reader.Read())
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.Name == reader.GetString(1));
                 var depId = reader.GetInt64(0);
                 var dep = SchedulerDatabase.Departments.First(x => x.IIASKey == depId);
-                if (schedulerEntity != null)
+                if (schedulerEntity != null && dep != null && !schedulerEntity.Departments.Contains(dep))
                 {
                     schedulerEntity.Departments.Add(dep);
                     SchedulerDatabase.Update(schedulerEntity);
