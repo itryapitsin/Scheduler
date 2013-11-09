@@ -80,7 +80,7 @@ function threadModal(
 
     this.changeBranch = function () {
         $http
-            .get($http.prefix + 'api/v1.0/faculty/get', { params: { branchId: self.branch.Id } })
+            .get($http.prefix + 'faculty/get', { params: { branchId: self.branch.Id } })
             .success(function (response) {
                 self.faculties = response;
             });

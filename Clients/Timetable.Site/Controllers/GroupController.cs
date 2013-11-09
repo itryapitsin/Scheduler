@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Timetable.Site.DataService;
 using Timetable.Site.Models;
 using Timetable.Site.Models.ViewModels;
+using Timetable.Site.NewDataService;
+using Course = Timetable.Site.DataService.Course;
 
 namespace Timetable.Site.Controllers
 {
-    public class GroupController : BaseController
+    public class GroupController : NewBaseController
     {
         [HttpGet]
         public ActionResult Get(int facultyId, string courseIdsStr)
@@ -20,8 +21,8 @@ namespace Timetable.Site.Controllers
             {
                 var result = DataService
                     .GetGroupsForCourse(
-                        new Faculty { Id = facultyId },
-                        new Course { Id = courseId })
+                        new FacultyDataTransfer { Id = facultyId },
+                        new CourseDataTransfer { Id = courseId })
                     .Select(x => new GroupViewModel(x));
 
                 groups.AddRange(result);

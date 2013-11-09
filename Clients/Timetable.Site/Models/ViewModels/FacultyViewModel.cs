@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Timetable.Site.DataService;
+using Timetable.Site.NewDataService;
+using Faculty = Timetable.Site.DataService.Faculty;
 
 namespace Timetable.Site.Models.ViewModels
 {
@@ -16,6 +17,12 @@ namespace Timetable.Site.Models.ViewModels
         {
             Id = branch.Id;
             Name = branch.Name;
+        }
+
+        public FacultyViewModel(FacultyDataTransfer faculty)
+        {
+            Id = faculty.Id;
+            Name = faculty.Name;
         }
     }
 }

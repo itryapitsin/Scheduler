@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Timetable.Site.DataService;
+using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Models.ViewModels
 {
@@ -12,10 +13,10 @@ namespace Timetable.Site.Models.ViewModels
 
         public string Name { get; set; }
 
-        public StudyYearViewModel(StudyYear studyYear)
+        public StudyYearViewModel(StudyYearDataTransfer studyYear)
         {
             Id = studyYear.Id;
-            Name = string.Format("{0}/{1}", studyYear.StartYear, studyYear.StartYear + studyYear.Length);
+            Name = string.Format("{0}/{1}", studyYear.StartYear, studyYear.EndYear);
         }
     }
 }

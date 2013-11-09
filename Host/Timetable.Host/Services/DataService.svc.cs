@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.ServiceModel;
 using System.Text.RegularExpressions;
 using Timetable.Data.Context.Interfaces;
 using Timetable.Data.Models.Scheduler;
@@ -10,6 +11,7 @@ using Timetable.Host.Models.Scheduler;
 
 namespace Timetable.Host.Services
 {
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class DataService : BaseService, IDataService
     {
         public IEnumerable<TimetableEntityDataTransfer> GetTimetableEntities()
@@ -175,6 +177,7 @@ namespace Timetable.Host.Services
                 .Select(x => new FacultyDataTransfer(x));
         }
 
+        
         public GroupDataTransfer GetGroupById(int groupId)
         {
             return new GroupDataTransfer(
