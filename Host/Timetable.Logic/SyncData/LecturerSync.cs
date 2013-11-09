@@ -36,7 +36,7 @@ namespace Timetable.Sync.Logic.SyncData
                         Lastname = iiasEntity.Lastname,
                         IsActual = true
                     };
-                    SchedulerDatabase.Add(schedulerEntity, false);
+                    SchedulerDatabase.Add(schedulerEntity);
                 }
                 else
                 {
@@ -46,11 +46,9 @@ namespace Timetable.Sync.Logic.SyncData
                     schedulerEntity.Middlename = iiasEntity.Middlename;
                     schedulerEntity.Lastname = iiasEntity.Lastname;
 
-                    SchedulerDatabase.Update(schedulerEntity, false);
+                    SchedulerDatabase.Update(schedulerEntity);
                 }
             }
-
-            SchedulerDatabase.SaveChanges();
         }
     }
 }
