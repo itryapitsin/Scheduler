@@ -1,16 +1,18 @@
 ﻿using System;
-using Ninject;
-using Timetable.Base.Entities;
-using Timetable.Data.Context.Interfaces;
+using Timetable.Data.Context;
 using Timetable.Data.Models;
 using Timetable.Host.Interfaces;
 
 namespace Timetable.Host.Services
 {
-    public class BaseService<TDatabase>: IBaseService where TDatabase: IDatabase
+    public class BaseService: IBaseService
     {
-        [Inject]
-        public TDatabase Database { get; set; }
+        public SchedulerContext Database { get; set; }
+
+        protected BaseService()
+        {
+            Database = new SchedulerContext();
+        }
 
         protected OperationResult Crud<T>(Action<T> crud, T entity) where T: BaseEntity
         {

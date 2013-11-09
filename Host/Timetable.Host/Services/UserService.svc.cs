@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Timetable.Base.Entities.Personalization;
 using Timetable.Data.Context.Interfaces;
 using Timetable.Host.Interfaces;
 
 namespace Timetable.Host.Services
 {
-    public class UserService : BaseService<IUserDatabase>, IUserService
+    public class UserService : BaseService, IUserService
     {
         #region Operations implementation
 
@@ -13,15 +14,16 @@ namespace Timetable.Host.Services
         {
             //return login.ToLower().Equals("admin") 
             //    && password.Equals("Admin");
-
-            return Database.Users
-                .Any(x => x.Login == login && x.Password == password);
+            return true;
+            //return Database.Users
+            //    .Any(x => x.Login == login && x.Password == password);
         }
 
         public User GetUserByLogin(string login)
         {
-            return Database.Users
-                .FirstOrDefault(x => x.Login == login);
+            throw new NotImplementedException();
+            //return Database.Users
+            //    .FirstOrDefault(x => x.Login == login);
         }
 
         #endregion

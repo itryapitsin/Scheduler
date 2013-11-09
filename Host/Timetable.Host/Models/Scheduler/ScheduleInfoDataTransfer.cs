@@ -1,26 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Host.Models.Scheduler
 {
+    [DataContract]
     public class ScheduleInfoDataTransfer : BaseDataTransfer
     {
+        [DataMember]
         public IEnumerable<FacultyDataTransfer> Faculties { get; set; }
+        [DataMember]
         public IEnumerable<CourseDataTransfer> Courses { get; set; }
+        [DataMember]
         public IEnumerable<SpecialityDataTransfer> Specialities { get; set; }
+        [DataMember]
         public IEnumerable<GroupDataTransfer> Groups { get; set; }
+        [DataMember]
         public IEnumerable<AuditoriumDataTransfer> LikeAuditoriums { get; set; }
+        [DataMember]
         public LecturerDataTransfer Lecturer { get; set; }
+        [DataMember]
         public TutorialTypeDataTransfer TutorialType { get; set; }
+        [DataMember]
         public DepartmentDataTransfer Department { get; set; }
+        [DataMember]
         public int SubgroupCount { get; set; }
+        [DataMember]
         public decimal HoursPerWeek { get; set; }
+        [DataMember]
         public TutorialDataTransfer Tutorial { get; set; }
+        [DataMember]
         public DateTime? StartDate { get; set; }
+        [DataMember]
         public DateTime? EndDate { get; set; }
+        [DataMember]
         public StudyYearDataTransfer StudyYear { get; set; }
+        [DataMember]
         public int Semester { get; set; }
         public ScheduleInfoDataTransfer()
         {

@@ -13,7 +13,7 @@ namespace Timetable.Host.Interfaces
     {
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<ScheduleDataTransfer> GetSchedulesForDayTimeDate(
                                 int? dayOfWeek,
@@ -28,7 +28,7 @@ namespace Timetable.Host.Interfaces
             );
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<ScheduleDataTransfer> GetSchedulesForAll(
                                 LecturerDataTransfer lecturerDataTransfer,
@@ -42,7 +42,7 @@ namespace Timetable.Host.Interfaces
 
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<ScheduleDataTransfer> GetSchedulesForGroupOnlyId(
            GroupDataTransfer groupDataTransfer,
@@ -52,12 +52,12 @@ namespace Timetable.Host.Interfaces
            DateTime endDate);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<TimetableEntityDataTransfer> GetTimetableEntities();
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<GroupDataTransfer> GetGroupsByCode(string code, int count);
 
@@ -67,19 +67,19 @@ namespace Timetable.Host.Interfaces
         bool ValidateSchedule(ScheduleDataTransfer scheduleDataTransfer);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<BranchDataTransfer> GetBranches();
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<AuditoriumDataTransfer> GetAuditoriums(
             BuildingDataTransfer buildingDataTransfer,
             AuditoriumTypeDataTransfer auditoriumTypeDataTransfer);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<AuditoriumDataTransfer> GetFreeAuditoriums(
             BuildingDataTransfer buildingDataTransfer,
@@ -93,70 +93,70 @@ namespace Timetable.Host.Interfaces
             DateTime endDate);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<AuditoriumTypeDataTransfer> GetAuditoriumTypes();
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<BuildingDataTransfer> GetBuildings();
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<CourseDataTransfer> GetCources();
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<DepartmentDataTransfer> GetDeparmtents();
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<FacultyDataTransfer> GetFaculties(BranchDataTransfer branchDataTransfer = null);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         GroupDataTransfer GetGroupById(
             int groupId);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<GroupDataTransfer> GetsSubGroupsByGroupId(
             int groupId);
 
         [OperationContract(Name = "GetGroupsForCourse")]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<GroupDataTransfer> GetGroups(
             FacultyDataTransfer facultyDataTransfer,
             CourseDataTransfer courseDataTransfer);
 
         [OperationContract(Name = "GetGroupsForSpeciality")]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<GroupDataTransfer> GetGroups(
             CourseDataTransfer courseDataTransfer,
             SpecialityDataTransfer specialityDataTransfer);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<LecturerDataTransfer> GetLecturersByDeparmentId(
             DepartmentDataTransfer departmentDataTransfer);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<LecturerDataTransfer> GetLecturersByTutorialId(
             TutorialDataTransfer tutorialDataTransfer);
 
         [OperationContract]
-        [ApplyDataContractResolver]
+        //[ApplyDataContractResolver]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IQueryable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
             TutorialDataTransfer tutorialDataTransfer,

@@ -10,7 +10,7 @@ using Timetable.Host.Models.Scheduler;
 
 namespace Timetable.Host.Services
 {
-    public class DataService : BaseService<ISchedulerDatabase>, IDataService
+    public class DataService : BaseService, IDataService
     {
         public IQueryable<TimetableEntityDataTransfer> GetTimetableEntities()
         {
