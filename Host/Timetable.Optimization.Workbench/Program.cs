@@ -10,11 +10,11 @@ namespace Timetable.Optimization.Workbench
     {
         static void Main(string[] args)
         {
-            var database = new SchedulerContext();
+            //var database = new SchedulerContext();
 
-            var neigborhoodProvider = new OneSwapNeighborhoodProvider<ScheduleInfo>();
-            var combineProvider = new OneSplitCombineProvider<ScheduleInfo>();
-            var costProvider = new CostProvider(database);
+            //var neigborhoodProvider = new OneSwapNeighborhoodProvider<ScheduleInfo>();
+            //var combineProvider = new OneSplitCombineProvider<ScheduleInfo>();
+            //var costProvider = new CostProvider(database);
 
             //var providerContainer = new ProviderContainer(costProvider, neigborhoodProvider, combineProvider);
 

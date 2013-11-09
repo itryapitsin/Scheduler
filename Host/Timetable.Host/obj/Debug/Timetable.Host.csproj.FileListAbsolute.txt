@@ -83,6 +83,7 @@ C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\bin\Microsoft.Web.
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.dll
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.pdb
+D:\Senichev\Git\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll.config
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.pdb
@@ -91,12 +92,11 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Host.dll.lastcode
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Microsoft.Web.Infrastructure.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\System.Spatial.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.dll
+E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Sync.Dispatcher.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Data.pdb
+E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Sync.Dispatcher.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Microsoft.Web.Infrastructure.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\System.Spatial.xml
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.pdb
-D:\Senichev\Git\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csprojResolveAssemblyReference.cache
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Sync.Dispatcher.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\Timetable.Sync.Dispatcher.pdb

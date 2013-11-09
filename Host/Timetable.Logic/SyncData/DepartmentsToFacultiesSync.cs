@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Linq;
-using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {

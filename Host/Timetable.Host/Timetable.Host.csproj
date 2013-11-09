@@ -120,6 +120,27 @@
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\OperationResult.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumTypeDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\BaseDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\BranchDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\BuildingDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\CourseDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\DepartamentDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\FacultyDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\GroupDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\LecturerDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\OrganizationDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\PositionDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\ScheduleDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\ScheduleInfoDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\SpecialityDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\StudyYearDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TimeDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TimetableEntityDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TutorialDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TutorialTypeDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\WeekTypeDataTransfer.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\DataService.svc.cs">
       <DependentUpon>DataService.svc</DependentUpon>

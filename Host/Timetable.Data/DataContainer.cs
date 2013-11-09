@@ -10,8 +10,8 @@ namespace Timetable.Data
 
         public override void Load()
         {
-            Kernel.Bind<ISchedulerDatabase>().To<SchedulerContext>();
-            Kernel.Bind<IUserDatabase>().To<UserContext>();
+            //Kernel.Bind<ISchedulerDatabase>().To<SchedulerContext>();
+            //Kernel.Bind<IUserDatabase>().To<UserContext>();
         }
 
         #endregion

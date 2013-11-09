@@ -24,15 +24,6 @@ namespace Timetable.Data.Mapping
                 .WithMany(x => x.Groups)
                 .HasForeignKey(x => x.SpecialityId)
                 .WillCascadeOnDelete(false);
-
-            //HasMany(x => x.ScheduleInfoes)
-            //    .WithMany(x => x.Groups)
-            //    .Map(x =>
-            //        {
-            //            x.MapLeftKey("ScheduleInfo_Id");
-            //            x.MapRightKey("Group_Id");
-            //            x.ToTable("ScheduleInfoesToGroups");
-            //        });
         }
     }
 }

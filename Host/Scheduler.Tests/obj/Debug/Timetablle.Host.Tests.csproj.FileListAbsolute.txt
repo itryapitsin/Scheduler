@@ -17,11 +17,6 @@ C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetab
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetablle.Host.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.dll
 C:\Users\Iliya\Documents\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.pdb
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll.config
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.pdb
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.dll
-E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.pdb
 D:\Senichev\Git\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll.config
 D:\Senichev\Git\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll
 D:\Senichev\Git\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.pdb
@@ -30,3 +25,9 @@ D:\Senichev\Git\Scheduler\Host\Scheduler.Tests\bin\Debug\nunit.framework.xml
 D:\Senichev\Git\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetablle.Host.Tests.csprojResolveAssemblyReference.cache
 D:\Senichev\Git\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.dll
 D:\Senichev\Git\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.pdb
+E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll.config
+E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.dll
+E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.pdb
+E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.dll
+E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.pdb
+E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetablle.Host.Tests.csprojResolveAssemblyReference.cache

@@ -6,228 +6,241 @@ using System.Text.RegularExpressions;
 using Timetable.Data.Context.Interfaces;
 using Timetable.Data.Models.Scheduler;
 using Timetable.Host.Interfaces;
-using Group = Timetable.Data.Models.Scheduler.Group;
+using Timetable.Host.Models.Scheduler;
 
 namespace Timetable.Host.Services
 {
     public class DataService : BaseService<ISchedulerDatabase>, IDataService
     {
-        public IQueryable<TimetableEntity> GetTimetableEntities()
+        public IQueryable<TimetableEntityDataTransfer> GetTimetableEntities()
         {
             return Database.TimetableEntities
-                .Where(x => x.IsActual);
+                .Where(x => x.IsActual)
+                .Select(x => new TimetableEntityDataTransfer(x));
         }
 
-        public bool ValidateSchedule(Schedule schedule)
+        public bool ValidateSchedule(ScheduleDataTransfer scheduleDataTransfer)
         {
             var schedulesCount = 0;
-            var schedules = Database.Schedules.Where(
-                    x => x.IsActual &&
-                    x.AuditoriumId == schedule.AuditoriumId &&
-                    x.PeriodId == schedule.PeriodId &&
-                    x.DayOfWeek == schedule.DayOfWeek &&
-                   (x.StartDate >= schedule.StartDate && x.StartDate <= schedule.EndDate ||
-                    x.EndDate >= schedule.StartDate && x.EndDate <= schedule.EndDate)
-                    );
+            var schedules = Database.Schedules
+                .Where(x => x.IsActual 
+                        && x.AuditoriumId == scheduleDataTransfer.AuditoriumId 
+                        && x.PeriodId == scheduleDataTransfer.PeriodId 
+                        && x.DayOfWeek == scheduleDataTransfer.DayOfWeek 
+                        && (x.StartDate >= scheduleDataTransfer.StartDate && x.StartDate <= scheduleDataTransfer.EndDate 
+                        || x.EndDate >= scheduleDataTransfer.StartDate && x.EndDate <= scheduleDataTransfer.EndDate));
 
 
-            if (schedule.WeekTypeId == 1)
+            if (scheduleDataTransfer.WeekTypeId == 1)
                 schedulesCount = schedules.Count();
 
-            if (schedule.WeekTypeId == 2)
+            if (scheduleDataTransfer.WeekTypeId == 2)
                 schedulesCount = schedules.Count(x => x.WeekTypeId == 1 || x.WeekTypeId == 2);
 
-            if (schedule.WeekTypeId == 3)
+            if (scheduleDataTransfer.WeekTypeId == 3)
                 schedulesCount = schedules.Count(x => x.WeekTypeId == 1 || x.WeekTypeId == 3);
 
             return schedulesCount == 0;
         }
 
-        public IQueryable<Branch> GetBranches()
+        public IQueryable<BranchDataTransfer> GetBranches()
         {
             return Database.Branches
-                .Where(x => x.IsActual);
+                .Where(x => x.IsActual)
+                .Select(x => new BranchDataTransfer(x));
         }
 
-        public IQueryable<Auditorium> GetAuditoriums(Building building, AuditoriumType auditoriumType)
+        public IQueryable<AuditoriumDataTransfer> GetAuditoriums(Models.Scheduler.BuildingDataTransfer buildingDataTransfer, AuditoriumTypeDataTransfer auditoriumTypeDataTransfer)
         {
-            if (auditoriumType != null)
+            if (auditoriumTypeDataTransfer != null)
             {
                 // TODO: Need tutorial type reference
                 return Database.Auditoriums
-                    .Where(x => x.Building.Id.Equals(building.Id))
-                    .Where(x => x.AuditoriumType.Id == auditoriumType.Id)
-                    .Include(x => x.Building);
+                    .Where(x => x.Building.Id.Equals(buildingDataTransfer.Id))
+                    .Where(x => x.AuditoriumType.Id == auditoriumTypeDataTransfer.Id)
+                    .Include(x => x.Building)
+                    .Select(x => new AuditoriumDataTransfer(x));
             }
             else
             {
                 return Database.Auditoriums
-                    .Where(x => x.Building.Id.Equals(building.Id))
+                    .Where(x => x.Building.Id.Equals(buildingDataTransfer.Id))
                     .Where(x => x.AuditoriumType == null)
-                    .Include(x => x.Building);
+                    .Include(x => x.Building)
+                    .Select(x => new AuditoriumDataTransfer(x));
             }
 
         }
 
-        public IQueryable<Auditorium> GetFreeAuditoriums(
-            Building building,
+        public IQueryable<AuditoriumDataTransfer> GetFreeAuditoriums(
+            BuildingDataTransfer buildingDataTransfer,
             int dayOfWeek,
-            WeekType weekType,
-            Time time,
-            TutorialType tutorialType,
-            AuditoriumType auditoriumType,
+            WeekTypeDataTransfer weekTypeDataTransfer,
+            TimeDataTransfer timeDataTransfer,
+            TutorialTypeDataTransfer tutorialTypeDataTransfer,
+            AuditoriumTypeDataTransfer auditoriumTypeDataTransfer,
             int capacity,
             DateTime startDate,
             DateTime endDate)
         {
            
-            IQueryable<Auditorium> freeAuditoriums;
-            IQueryable<Auditorium> scheduledAuditoriums;
+            IQueryable<AuditoriumDataTransfer> freeAuditoriums;
+            IQueryable<AuditoriumDataTransfer> scheduledAuditoriums;
 
-            if (weekType.Id == 1)
+            if (weekTypeDataTransfer.Id == 1)
             {
                 scheduledAuditoriums = Database.Schedules
                      .Where(x => x.IsActual)
                      .Where(x => x.StartDate <= endDate && x.EndDate >= startDate) 
-                     .Where(x => x.Period.Id == time.Id)
+                     .Where(x => x.Period.Id == timeDataTransfer.Id)
                      .Where(x => x.DayOfWeek == dayOfWeek)
-                     .Where(x => (x.WeekType.Id == weekType.Id || x.WeekType.Id == 2 || x.WeekType.Id == 3))
-                     .Select(x => x.Auditorium);
+                     .Where(x => (x.WeekType.Id == weekTypeDataTransfer.Id || x.WeekType.Id == 2 || x.WeekType.Id == 3))
+                     .Select(x => new AuditoriumDataTransfer(x.Auditorium));
             }
             else
             {
                 scheduledAuditoriums = Database.Schedules
                      .Where(x => x.IsActual)
                      .Where(x => x.StartDate <= endDate && x.EndDate >= startDate) 
-                     .Where(x => x.Period.Id == time.Id)
+                     .Where(x => x.Period.Id == timeDataTransfer.Id)
                      .Where(x => x.DayOfWeek == dayOfWeek)
-                     .Where(x => (x.WeekType.Id == weekType.Id || x.WeekType.Id == 1))
-                     .Select(x => x.Auditorium);
+                     .Where(x => (x.WeekType.Id == weekTypeDataTransfer.Id || x.WeekType.Id == 1))
+                     .Select(x => new AuditoriumDataTransfer(x.Auditorium));
             }
 
 
 
-            if (tutorialType == null)
+            if (tutorialTypeDataTransfer == null)
             {
                 freeAuditoriums = Database.Auditoriums
-                    .Where(x => x.Building.Id == building.Id)
+                    .Where(x => x.Building.Id == buildingDataTransfer.Id)
                     .Where(x => x.Capacity >= capacity)
-                    .Where(x => x.AuditoriumType.Id == auditoriumType.Id)
-                    .Where(x => !scheduledAuditoriums.Any(y => y.Id == x.Id));
-            }
-            else
-            {
-                freeAuditoriums = Database.Auditoriums
-                    .Where(x => x.Building.Id == building.Id)
-                    .Where(x => x.Capacity >= capacity)
-                    .Where(x => x.AuditoriumType.Id == auditoriumType.Id)
+                    .Where(x => x.AuditoriumType.Id == auditoriumTypeDataTransfer.Id)
                     .Where(x => !scheduledAuditoriums.Any(y => y.Id == x.Id))
-                    .Where(x => x.TutorialApplicabilities.Any(y => y.Id == tutorialType.Id));
+                    .Select(x => new AuditoriumDataTransfer(x));
+            }
+            else
+            {
+                freeAuditoriums = Database.Auditoriums
+                    .Where(x => x.Building.Id == buildingDataTransfer.Id)
+                    .Where(x => x.Capacity >= capacity)
+                    .Where(x => x.AuditoriumType.Id == auditoriumTypeDataTransfer.Id)
+                    .Where(x => !scheduledAuditoriums.Any(y => y.Id == x.Id))
+                    .Where(x => x.TutorialApplicabilities.Any(y => y.Id == tutorialTypeDataTransfer.Id))
+                    .Select(x => new AuditoriumDataTransfer(x));
 
             }
 
             return freeAuditoriums;
         }
 
-        public IQueryable<Building> GetBuildings()
+        public IQueryable<BuildingDataTransfer> GetBuildings()
         {
-            return Database.Buildings.AsQueryable();
+            return Database.Buildings.Select(x => new BuildingDataTransfer(x));
         }
 
-        public IQueryable<Course> GetCources()
+        public IQueryable<CourseDataTransfer> GetCources()
         {
-            return Database.Courses
-                .Where(x => x.IsActual);
+            return Database.Courses.Where(x => x.IsActual).Select(x => new CourseDataTransfer(x));
         }
 
-        public IQueryable<Department> GetDeparmtents()
+        public IQueryable<DepartmentDataTransfer> GetDeparmtents()
         {
-            return Database.Departments.AsQueryable();
+            return Database.Departments.Select(x => new DepartmentDataTransfer(x));
         }
 
 
-        public IQueryable<Faculty> GetFaculties(Branch branch = null)
+        public IQueryable<FacultyDataTransfer> GetFaculties(BranchDataTransfer branchDataTransfer = null)
         {
-            if (branch == null)
+            if (branchDataTransfer == null)
                 return Database.Faculties
                     .Where(x => x.IsActual)
-                    .Where(x => x.Branch == null);
+                    .Where(x => x.Branch == null)
+                    .Select(x => new FacultyDataTransfer(x));
 
             return Database.Faculties
                 .Where(x => x.IsActual)
-                .Where(x => x.BranchId == branch.Id);
+                .Where(x => x.BranchId == branchDataTransfer.Id)
+                .Select(x => new FacultyDataTransfer(x));
         }
 
-        public Group GetGroupById(int groupId)
+        public GroupDataTransfer GetGroupById(int groupId)
+        {
+            return new GroupDataTransfer(
+                Database.Groups.FirstOrDefault(x => x.Id == groupId));
+        }
+
+        public IQueryable<GroupDataTransfer> GetGroupsByCode(string code, int count)
         {
             return Database.Groups
-                .FirstOrDefault(x => x.Id == groupId);
+                .Where(x => x.Code.Contains(code))
+                .Take(count)
+                .Select(x => new GroupDataTransfer(x));
         }
 
-        public IQueryable<Group> GetGroupsByCode(string code, int count)
-        {
-            return Database.Groups.Where(x => x.Code.Contains(code)).Take(count);
-        }
-
-        public IQueryable<Group> GetsSubGroupsByGroupId(int groupId)
+        public IQueryable<GroupDataTransfer> GetsSubGroupsByGroupId(int groupId)
         {
             return Database.Groups
-                .Where(x => x.Parent.Id.Equals(groupId));
+                .Where(x => x.Parent.Id.Equals(groupId))
+                .Select(x => new GroupDataTransfer(x));
         }
 
-        public IQueryable<Group> GetGroups(Faculty faculty, Course course)
+        public IQueryable<GroupDataTransfer> GetGroups(FacultyDataTransfer facultyDataTransfer, CourseDataTransfer courseDataTransfer)
         {
             return Database.Groups
                 .Where(x => x.IsActual)
-                .Where(x => x.Course.Id.Equals(course.Id))
+                .Where(x => x.Course.Id.Equals(courseDataTransfer.Id))
                 .Where(x => x.Speciality.Faculties
-                    .Any(y => y.Id.Equals(faculty.Id)));
+                    .Any(y => y.Id.Equals(facultyDataTransfer.Id)))
+                .Select(x => new GroupDataTransfer(x));
         }
 
-        public IQueryable<Group> GetGroups(Course course, Speciality speciality)
+        public IQueryable<GroupDataTransfer> GetGroups(CourseDataTransfer courseDataTransfer, SpecialityDataTransfer specialityDataTransfer)
         {
             return Database.Groups
                 .Where(x => x.IsActual)
-                .Where(x => x.Speciality.Id.Equals(speciality.Id))
-                .Where(x => x.Course.Id.Equals(course.Id));
+                .Where(x => x.Speciality.Id.Equals(specialityDataTransfer.Id))
+                .Where(x => x.Course.Id.Equals(courseDataTransfer.Id))
+                .Select(x => new GroupDataTransfer(x));
         }
 
-        public IQueryable<Lecturer> GetLecturersByDeparmentId(Department department)
+        public IQueryable<LecturerDataTransfer> GetLecturersByDeparmentId(DepartmentDataTransfer departmentDataTransfer)
         {
             return Database.Lecturers
                 .Where(x => x.Departments
-                    .Any(y => y.Id.Equals(department.Id)));
+                    .Any(y => y.Id.Equals(departmentDataTransfer.Id)))
+                .Select(x => new LecturerDataTransfer(x));
         }
 
-        public IQueryable<Lecturer> GetLecturersByTutorialId(Tutorial tutorial)
+        public IQueryable<LecturerDataTransfer> GetLecturersByTutorialId(TutorialDataTransfer tutorialDataTransfer)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Tutorial.Id.Equals(tutorial.Id))
-                .Select(x => x.Lecturer);
+                .Where(x => x.Tutorial.Id.Equals(tutorialDataTransfer.Id))
+                .Select(x => new LecturerDataTransfer(x.Lecturer));
         }
 
-        public IQueryable<Lecturer> GetLecturersByTutorialIdAndTutorialTypeId(
-            Tutorial tutorial,
-            TutorialType tutorialType)
+        public IQueryable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
+            TutorialDataTransfer tutorialDataTransfer,
+            TutorialTypeDataTransfer tutorialTypeDataTransfer)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Tutorial.Id.Equals(tutorial.Id))
-                .Where(x => x.TutorialType.Id.Equals(tutorialType.Id))
-                .Select(x => x.Lecturer);
+                .Where(x => x.Tutorial.Id.Equals(tutorialDataTransfer.Id))
+                .Where(x => x.TutorialType.Id.Equals(tutorialTypeDataTransfer.Id))
+                .Select(x => new LecturerDataTransfer(x.Lecturer));
         }
 
 
-        public Lecturer GetLecturerByFirstMiddleLastname(string arg)
+        public LecturerDataTransfer GetLecturerByFirstMiddleLastname(string arg)
         {
             return GetLecturersByFirstMiddleLastname(arg)
                 .FirstOrDefault();
         }
 
-        public IQueryable<Lecturer> GetLecturersByFirstMiddleLastname(string arg)
+        public IQueryable<LecturerDataTransfer> GetLecturersByFirstMiddleLastname(string arg)
         {
             var match = Regex.Match(arg, "[а-яА-Я]*");
 
-            var result = new List<Lecturer>();
+            var result = new List<LecturerDataTransfer>();
 
             while (match.Success)
             {
@@ -237,7 +250,8 @@ namespace Timetable.Host.Services
                         .Where(x => x.Lastname.Contains(match.Value)
                                     || x.Middlename.Contains(match.Value)
                                     || x.Firstname.Contains(match.Value))
-                        .Include(x => x.Departments);
+                        .Include(x => x.Departments)
+                        .Select(x => new LecturerDataTransfer(x));
 
                     result.AddRange(query);
                 }
@@ -248,77 +262,80 @@ namespace Timetable.Host.Services
             return result.AsQueryable();
         }
 
-        public ScheduleInfo GetScheduleInfoById(int id)
+        public ScheduleInfoDataTransfer GetScheduleInfoById(int id)
         {
-            return GetScheduleInfoes()
-                .FirstOrDefault(scheduleInfo => scheduleInfo.Id == id);
+            return new ScheduleInfoDataTransfer(
+                GetScheduleInfoes().FirstOrDefault(scheduleInfo => scheduleInfo.Id == id));
         }
 
-        public IQueryable<ScheduleInfo> GetScheduleInfoesForCourse(
-            Faculty faculty,
-            Course course,
-            StudyYear studyYear,
+        public IQueryable<ScheduleInfoDataTransfer> GetScheduleInfoesForCourse(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester)
         {
             return GetScheduleInfoes()
-                .Where(x => x.StudyYear.Id == studyYear.Id)
+                .Where(x => x.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.Semester == semester)
-                .Where(x => x.Faculties.Any(f => f.Id.Equals(faculty.Id)))
-                .Where(x => x.Courses.Any(c => c.Id.Equals(course.Id)));
+                .Where(x => x.Faculties.Any(f => f.Id.Equals(facultyDataTransfer.Id)))
+                .Where(x => x.Courses.Any(c => c.Id.Equals(courseDataTransfer.Id)))
+                .Select(x => new ScheduleInfoDataTransfer(x));
         }
 
-        public IQueryable<ScheduleInfo> GetScheduleInfoesForSpeciality(
-            Faculty faculty,
-            Course course,
-            Speciality speciality,
-            StudyYear studyYear,
+        public IQueryable<ScheduleInfoDataTransfer> GetScheduleInfoesForSpeciality(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            SpecialityDataTransfer specialityDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester)
         {
-            return GetScheduleInfoesForCourse(faculty, course, studyYear, semester)
-                .Where(x => x.Specialities.Any(y => y.Id.Equals(speciality.Id)));
+            return GetScheduleInfoesForCourse(facultyDataTransfer, courseDataTransfer, studyYearDataTransfer, semester)
+                .Where(x => x.Specialities.Any(y => y.Id.Equals(specialityDataTransfer.Id)));
         }
 
-        public IQueryable<ScheduleInfo> GetScheduleInfoesForGroup(
-            Faculty faculty,
-            Course course,
-            Group group,
-            TutorialType tutorialtype,
-            StudyYear studyYear,
+        public IQueryable<ScheduleInfoDataTransfer> GetScheduleInfoesForGroup(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            GroupDataTransfer groupDataTransfer,
+            TutorialTypeDataTransfer tutorialtype,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester)
         {
             return GetScheduleInfoes()
-                .Where(x => x.StudyYear.Id == studyYear.Id)
+                .Where(x => x.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.Semester == semester)
-                .Where(x => x.TutorialType.Id.Equals(tutorialtype.Id));
+                .Where(x => x.TutorialType.Id.Equals(tutorialtype.Id))
+                .Select(x => new ScheduleInfoDataTransfer(x));
             //.Where(x => x.Groups.Any(y => groups.Any(z => z.Id.Equals(y.Id))))
         }
 
 
 
-        public IQueryable<ScheduleInfo> GetScheduleInfoesForDepartment(
-            Department department,
-            StudyYear studyYear,
+        public IQueryable<ScheduleInfoDataTransfer> GetScheduleInfoesForDepartment(
+            DepartmentDataTransfer departmentDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester)
         {
             return GetScheduleInfoes()
-                .Where(x => x.StudyYear.Id == studyYear.Id)
+                .Where(x => x.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.Semester == semester)
-                .Where(x => x.Department.Id.Equals(department.Id));
+                .Where(x => x.Department.Id.Equals(departmentDataTransfer.Id))
+                .Select(x => new ScheduleInfoDataTransfer(x));
         }
 
-        public IQueryable<ScheduleInfo> GetUnscheduledInfoes(
-            Faculty faculty,
-            Course course,
-            Speciality speciality,
-            Group group)
+        public IQueryable<ScheduleInfoDataTransfer> GetUnscheduledInfoes(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            SpecialityDataTransfer specialityDataTransfer,
+            GroupDataTransfer groupDataTransfer)
         {
             var test = GetScheduleInfoes()
                 .Where(x => x.Schedules.Count == 0)
-                .Where(x => x.Faculties.Any(y => y.Id == faculty.Id))
-                .Where(x => x.Courses.Any(y => y.Id == course.Id))
-                .Where(x => x.Groups.Any(y => y.Id == group.Id));
+                .Where(x => x.Faculties.Any(y => y.Id == facultyDataTransfer.Id))
+                .Where(x => x.Courses.Any(y => y.Id == courseDataTransfer.Id))
+                .Where(x => x.Groups.Any(y => y.Id == groupDataTransfer.Id));
 
-            return test.AsQueryable();
+            return test.Select(x => new ScheduleInfoDataTransfer(x));
         }
 
         private IQueryable<ScheduleInfo> GetScheduleInfoes()
@@ -333,25 +350,25 @@ namespace Timetable.Host.Services
                 .Include(x => x.Specialities);
         }
 
-        public IQueryable<AuditoriumType> GetAuditoriumTypes()
+        public IQueryable<AuditoriumTypeDataTransfer> GetAuditoriumTypes()
         {
-            return Database.AuditoriumTypes;
+            return Database.AuditoriumTypes.Select(x => new AuditoriumTypeDataTransfer(x));
         }
 
-        public IQueryable<Schedule> GetSchedulesForAll(
-            Lecturer lecturer, 
-            Auditorium auditorium,
-            IEnumerable<Group> groups,
-            WeekType weekType,
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForAll(
+            LecturerDataTransfer lecturerDataTransfer, 
+            AuditoriumDataTransfer auditoriumDataTransfer,
+            IEnumerable<GroupDataTransfer> groups,
+            WeekTypeDataTransfer weekTypeDataTransfer,
             string subGroup,
             DateTime startDate,
             DateTime endDate)
         {
-            var result = GetSchedules().Where(x => x.IsActual);
-            if(lecturer != null)
-                result = result.Where(x => x.ScheduleInfo.Lecturer.Id == lecturer.Id);
-            if(auditorium != null)
-                result = result.Where(x => x.Auditorium.Id == auditorium.Id);
+            var result = GetSchedules();
+            if(lecturerDataTransfer != null)
+                result = result.Where(x => x.ScheduleInfo.Lecturer.Id == lecturerDataTransfer.Id);
+            if(auditoriumDataTransfer != null)
+                result = result.Where(x => x.Auditorium.Id == auditoriumDataTransfer.Id);
 
             foreach(var group in groups)
                     result = result.Where(x => x.ScheduleInfo.Groups.Any(y => y.Id == group.Id));
@@ -365,31 +382,31 @@ namespace Timetable.Host.Services
             if(endDate != null)
                     result = result.Where(x => x.StartDate <= endDate);
 
-            if(weekType != null)
-                    if(weekType.Id == 2)
+            if(weekTypeDataTransfer != null)
+                    if(weekTypeDataTransfer.Id == 2)
                         result = result.Where(x => x.WeekType.Id != 3);
-                    else if(weekType.Id == 3)
+                    else if(weekTypeDataTransfer.Id == 3)
                         result = result.Where(x => x.WeekType.Id != 2);
                     
             //TODO: order by priority
             var query = result.GroupBy(x => new { x.DayOfWeek, x.Period.Id });
 
             //TODO: improuve speed
-            var answer = new List<Schedule>();
+            var answer = new List<ScheduleDataTransfer>();
             foreach(var q in query)
-                answer.Add(q.OrderBy(x => x.CreatedDate).First());
+                answer.Add(new ScheduleDataTransfer(q.OrderBy(x => x.CreatedDate).First()));
 
             return answer.AsQueryable();
         }
 
 
-        public IQueryable<Schedule> GetSchedulesForDayTimeDate(
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForDayTimeDate(
             int? dayOfWeek, 
-            Time period,
-            WeekType weekType,
-            Lecturer lecturer, 
-            Auditorium auditorium,
-            IEnumerable<Group> groups,
+            TimeDataTransfer period,
+            WeekTypeDataTransfer weekTypeDataTransfer,
+            LecturerDataTransfer lecturerDataTransfer, 
+            AuditoriumDataTransfer auditoriumDataTransfer,
+            IEnumerable<GroupDataTransfer> groups,
             string subGroup,
             DateTime startDate,
             DateTime endDate)
@@ -402,10 +419,10 @@ namespace Timetable.Host.Services
             if(period != null)
                 result = result.Where(x => x.Period.Id == period.Id);
 
-            if (lecturer != null)
-                result = result.Where(x => x.ScheduleInfo.Lecturer.Id == lecturer.Id);
-            if (auditorium != null)
-                result = result.Where(x => x.Auditorium.Id == auditorium.Id);
+            if (lecturerDataTransfer != null)
+                result = result.Where(x => x.ScheduleInfo.Lecturer.Id == lecturerDataTransfer.Id);
+            if (auditoriumDataTransfer != null)
+                result = result.Where(x => x.Auditorium.Id == auditoriumDataTransfer.Id);
             foreach (var group in groups)
                 result = result.Where(x => x.ScheduleInfo.Groups.Any(y => y.Id == group.Id));
             if (subGroup != null)
@@ -417,141 +434,148 @@ namespace Timetable.Host.Services
                 result = result.Where(x => x.StartDate <= endDate);
 
             //TODO: order by priority
-            return result.OrderBy(x => x.CreatedDate);
+            return result.OrderBy(x => x.CreatedDate).Select(x => new ScheduleDataTransfer(x));
         }
 
         public int CountScheduleCollisions(
             int day,
-            Time time,
-            WeekType weekType)
+            TimeDataTransfer timeDataTransfer,
+            WeekTypeDataTransfer weekTypeDataTransfer)
         {
-            return Database.Schedules.Count(x => x.Period.Id.Equals(time.Id) && x.DayOfWeek.Equals(day) &&
-                (x.WeekType.Id == 1 || x.WeekType.Id == weekType.Id));
+            return Database.Schedules.Count(x => x.Period.Id.Equals(timeDataTransfer.Id) && x.DayOfWeek.Equals(day) &&
+                (x.WeekType.Id == 1 || x.WeekType.Id == weekTypeDataTransfer.Id));
         }
 
-        public IQueryable<Schedule> GetSchedulesByDayTime(int day, Time time)
+        public IQueryable<ScheduleDataTransfer> GetSchedulesByDayTime(int day, TimeDataTransfer timeDataTransfer)
         {
             return GetSchedules()
-                .Where(x => (x.DayOfWeek == day && x.Period.Id == time.Id));
+                .Where(x => (x.DayOfWeek == day && x.Period.Id == timeDataTransfer.Id))
+                .Select(x => new ScheduleDataTransfer(x));
         }
 
-        public IQueryable<Schedule> GetSchedulesForCourse(
-            Faculty faculty,
-            Course course,
-            StudyYear studyYear,
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForCourse(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester,
             DateTime StartDate,
             DateTime EndDate)
         {
             return GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
+                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.ScheduleInfo.Semester == semester)
-                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id.Equals(faculty.Id))
-                            && x.ScheduleInfo.Courses.Any(y => y.Id.Equals(course.Id)));
+                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id.Equals(facultyDataTransfer.Id))
+                            && x.ScheduleInfo.Courses.Any(y => y.Id.Equals(courseDataTransfer.Id)))
+                .Select(x => new ScheduleDataTransfer(x));
 
         }
 
-        public IQueryable<Schedule> GetSchedulesForGroup(
-            Faculty faculty,
-            Course course,
-            Group group,
-            StudyYear studyYear,
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForGroup(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            GroupDataTransfer groupDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester,
             DateTime startDate,
             DateTime endDate,
             string subGroup)
         {
             var result =  GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
+                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.ScheduleInfo.Semester == semester)
-                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id.Equals(faculty.Id))
-                            && x.ScheduleInfo.Courses.Any(y => y.Id.Equals(course.Id))
-                            && x.ScheduleInfo.Groups.Any(y => y.Id.Equals(group.Id)));
+                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id.Equals(facultyDataTransfer.Id))
+                            && x.ScheduleInfo.Courses.Any(y => y.Id.Equals(courseDataTransfer.Id))
+                            && x.ScheduleInfo.Groups.Any(y => y.Id.Equals(groupDataTransfer.Id)));
             if (subGroup != null)
                 result = result.Where(x => x.SubGroup == subGroup);
 
-            return result;
+            return result.Select(x => new ScheduleDataTransfer(x));
         }
 
-        public IQueryable<Schedule> GetSchedulesForGroupOnlyId(
-           Group group,
-           StudyYear studyYear,
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForGroupOnlyId(
+           GroupDataTransfer groupDataTransfer,
+           StudyYearDataTransfer studyYearDataTransfer,
            int semester,
            DateTime startDate,
            DateTime endDate)
         {
             return GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
+                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.ScheduleInfo.Semester == semester)
                 .Where(x => x.StartDate <= endDate && x.EndDate >= startDate)
-                .Where(x => x.ScheduleInfo.Groups.Any(y => y.Id.Equals(group.Id)));
+                .Where(x => x.ScheduleInfo.Groups.Any(y => y.Id.Equals(groupDataTransfer.Id)))
+                .Select(x => new ScheduleDataTransfer(x));
 
         }
 
-        public IQueryable<Schedule> GetSchedulesForSpeciality(
-            Faculty faculty,
-            Course course,
-            Speciality speciality,
-            StudyYear studyYear,
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForSpeciality(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            SpecialityDataTransfer specialityDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester,
             DateTime startDate,
             DateTime endDate)
         {
             return GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
+                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.ScheduleInfo.Semester == semester)
-                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id.Equals(faculty.Id))
-                            && x.ScheduleInfo.Courses.Any(y => y.Id.Equals(course.Id))
-                            && x.ScheduleInfo.Specialities.Any(y => y.Id.Equals(speciality.Id)));
+                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id.Equals(facultyDataTransfer.Id))
+                            && x.ScheduleInfo.Courses.Any(y => y.Id.Equals(courseDataTransfer.Id))
+                            && x.ScheduleInfo.Specialities.Any(y => y.Id.Equals(specialityDataTransfer.Id)))
+                .Select(x => new ScheduleDataTransfer(x));
 
         }
 
-        public IQueryable<Schedule> GetSchedulesForLecturer(
-            Lecturer lecturer,
-            StudyYear studyYear,
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForLecturer(
+            LecturerDataTransfer lecturerDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester,
             DateTime startDate,
             DateTime endDate)
         {
             var result =  GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
+                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
                 .Where(x => x.ScheduleInfo.Semester == semester)
-                .Where(x => x.ScheduleInfo.Lecturer.Id.Equals(lecturer.Id));
+                .Where(x => x.ScheduleInfo.Lecturer.Id.Equals(lecturerDataTransfer.Id))
+                .Select(x => new ScheduleDataTransfer(x));
 
             return result;
         }
 
-        public IQueryable<Schedule> GetSchedulesForAuditorium(
-            Auditorium auditorium,
-            StudyYear studyYear,
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForAuditorium(
+            AuditoriumDataTransfer auditoriumDataTransfer,
+            StudyYearDataTransfer studyYearDataTransfer,
             int semester,
             DateTime startDate,
             DateTime endDate)
         {
             var result = GetSchedules()
-               .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear.Id)
+               .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
                .Where(x => x.ScheduleInfo.Semester == semester)
-               .Where(x => x.Auditorium.Id.Equals(auditorium.Id));
+               .Where(x => x.Auditorium.Id.Equals(auditoriumDataTransfer.Id))
+               .Select(x => new ScheduleDataTransfer(x));
          
             return result;
         }
 
 
-        public int CountSchedulesForScheduleInfoes(ScheduleInfo scheduleInfo)
+        public int CountSchedulesForScheduleInfoes(ScheduleInfoDataTransfer scheduleInfoDataTransfer)
         {
-            return Database.Schedules.Count(x => x.ScheduleInfo.Id.Equals(scheduleInfo.Id));
+            return Database.Schedules.Count(x => x.ScheduleInfo.Id.Equals(scheduleInfoDataTransfer.Id));
         }
 
-        public IQueryable<Schedule> GetSchedulesForScheduleInfoes(ScheduleInfo scheduleInfo)
+        public IQueryable<ScheduleDataTransfer> GetSchedulesForScheduleInfoes(ScheduleInfoDataTransfer scheduleInfoDataTransfer)
         {
             return GetSchedules()
-                .Where(x => x.ScheduleInfo.Id.Equals(scheduleInfo.Id));
+                .Where(x => x.ScheduleInfo.Id.Equals(scheduleInfoDataTransfer.Id))
+                .Select(x => new ScheduleDataTransfer(x));
         }
 
-        public Schedule GetScheduleById(int id)
+        public ScheduleDataTransfer GetScheduleById(int id)
         {
-            return GetSchedules()
-                .FirstOrDefault(schedule => schedule.Id == id);
+            return new ScheduleDataTransfer(
+                GetSchedules().FirstOrDefault(schedule => schedule.Id == id));
 
         }
 
@@ -570,79 +594,80 @@ namespace Timetable.Host.Services
                 .Include(x => x.Period);
         }
 
-        public Tutorial GetTutorialById(Tutorial tutorial)
+        public TutorialDataTransfer GetTutorialById(TutorialDataTransfer tutorialDataTransfer)
         {
-            return Database.Tutorials
-                .FirstOrDefault(x => x.Id == tutorial.Id);
+            return new TutorialDataTransfer(
+                Database.Tutorials.FirstOrDefault(x => x.Id == tutorialDataTransfer.Id));
         }
 
-        public IQueryable<Tutorial> GetTutorialsForGroup(
-            Faculty faculty,
-            Course course,
-            Group group)
-        {
-            return Database.ScheduleInfoes
-                .Where(x => x.Faculties.Any(y => y.Id == faculty.Id))
-                .Where(x => x.Courses.Any(y => y.Id == course.Id))
-                .Where(x => x.Groups.Any(y => y.Id == group.Id))
-                .Select(x => x.Tutorial);
-        }
-
-        public IQueryable<Tutorial> GetTutorialsForSpeciality(
-            Faculty faculty,
-            Course course,
-            Speciality speciality)
+        public IQueryable<TutorialDataTransfer> GetTutorialsForGroup(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            GroupDataTransfer groupDataTransfer)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Faculties.Any(y => y.Id == faculty.Id))
-                .Where(x => x.Courses.Any(y => y.Id == course.Id))
-                .Where(x => x.Specialities.Any(y => y.Id == speciality.Id))
-                .Select(x => x.Tutorial);
+                .Where(x => x.Faculties.Any(y => y.Id == facultyDataTransfer.Id))
+                .Where(x => x.Courses.Any(y => y.Id == courseDataTransfer.Id))
+                .Where(x => x.Groups.Any(y => y.Id == groupDataTransfer.Id))
+                .Select(x => new TutorialDataTransfer(x.Tutorial));
         }
 
-        public IQueryable<Tutorial> GetTutorialsForCourse(
-            Faculty faculty,
-            Course course)
+        public IQueryable<TutorialDataTransfer> GetTutorialsForSpeciality(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            SpecialityDataTransfer specialityDataTransfer)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Faculties.Any(y => y.Id == faculty.Id))
-                .Where(x => x.Courses.Any(y => y.Id == course.Id))
-                .Select(x => x.Tutorial);
+                .Where(x => x.Faculties.Any(y => y.Id == facultyDataTransfer.Id))
+                .Where(x => x.Courses.Any(y => y.Id == courseDataTransfer.Id))
+                .Where(x => x.Specialities.Any(y => y.Id == specialityDataTransfer.Id))
+                .Select(x => new TutorialDataTransfer(x.Tutorial));
         }
 
-        public IQueryable<Speciality> GetSpecialities(Faculty faculty)
+        public IQueryable<TutorialDataTransfer> GetTutorialsForCourse(
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer)
+        {
+            return Database.ScheduleInfoes
+                .Where(x => x.Faculties.Any(y => y.Id == facultyDataTransfer.Id))
+                .Where(x => x.Courses.Any(y => y.Id == courseDataTransfer.Id))
+                .Select(x => new TutorialDataTransfer(x.Tutorial));
+        }
+
+        public IQueryable<SpecialityDataTransfer> GetSpecialities(FacultyDataTransfer facultyDataTransfer)
         {
             return Database.Specialities
                 .Where(x => x.Faculties
-                    .Any(y => y.Id.Equals(faculty.Id)));
+                    .Any(y => y.Id.Equals(facultyDataTransfer.Id)))
+                .Select(x => new SpecialityDataTransfer(x));
         }
 
-        public IQueryable<Time> GetTimes(Building building)
+        public IQueryable<TimeDataTransfer> GetTimes(BuildingDataTransfer buildingDataTransfer)
         {
-            return Database.Times;
-            //.Where(x => x.Building.Id.Equals(building.Id))
+            return Database.Times.Select(x => new TimeDataTransfer(x));
+            //.Where(x => x.Building.Id.Equals(Building.Id))
             //.Include(x => x.Building);
         }
 
-        public IQueryable<TutorialType> GetTutorialTypes()
+        public IQueryable<TutorialTypeDataTransfer> GetTutorialTypes()
         {
-            return Database.TutorialTypes;
+            return Database.TutorialTypes.Select(x => new TutorialTypeDataTransfer(x));
         }
 
-        public TutorialType GetTutorialTypeById(TutorialType tutorialType)
+        public TutorialTypeDataTransfer GetTutorialTypeById(TutorialTypeDataTransfer tutorialTypeDataTransfer)
         {
-            return Database.TutorialTypes
-                .FirstOrDefault(x => x.Id == tutorialType.Id);
+            return new TutorialTypeDataTransfer(
+                Database.TutorialTypes.FirstOrDefault(x => x.Id == tutorialTypeDataTransfer.Id));
         }
 
-        public IQueryable<WeekType> GetWeekTypes()
+        public IQueryable<WeekTypeDataTransfer> GetWeekTypes()
         {
-            return Database.WeekTypes;
+            return Database.WeekTypes.Select(x => new WeekTypeDataTransfer(x));
         }
 
-        public IQueryable<StudyYear> GetStudyYears()
+        public IQueryable<StudyYearDataTransfer> GetStudyYears()
         {
-            return Database.StudyYears;
+            return Database.StudyYears.Select(x => new StudyYearDataTransfer(x));
         }
     }
 }

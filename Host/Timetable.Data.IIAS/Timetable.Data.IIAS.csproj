@@ -49,7 +49,6 @@
     <Compile Include="Context\IIASContext.cs" />
     <Compile Include="Context\IIIASContext.cs" />
     <Compile Include="Interfaces\IDataContext.cs" />
-    <Compile Include="Mapping\BuildingMapping.cs" />
     <Compile Include="Models\Auditorium.cs" />
     <Compile Include="Models\AuditoriumType.cs" />
     <Compile Include="Models\Branche.cs" />

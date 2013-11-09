@@ -1,96 +1,51 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using Timetable.Data.Context.Interfaces;
+using System.Reflection;
+using System.Reflection.Emit;
 using Timetable.Data.Mapping;
+using Timetable.Data.Models;
 using Timetable.Data.Models.Scheduler;
 
 
 namespace Timetable.Data.Context
 {
-    public sealed class SchedulerContext: BaseContext, ISchedulerDatabase
+    public class SchedulerContext: DbContext
     {
-        #region Tables
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Auditorium> Auditoriums { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<Building> Buildings { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Lecturer> Lecturers { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<TutorialType> TutorialTypes { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<Time> Times { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<Tutorial> Tutorials { get; set; }
+        public DbSet<ScheduleInfo> ScheduleInfoes { get; set; }
+        public DbSet<WeekType> WeekTypes { get; set; }
+        public DbSet<AuditoriumType> AuditoriumTypes { get; set; }
+        public DbSet<StudyYear> StudyYears { get; set; }
+        public DbSet<TimetableEntity> TimetableEntities { get; set; }
 
-        public IDbSet<Department> Departments { get; set; }
-
-        public IDbSet<Auditorium> Auditoriums { get; set; }
-
-        public IDbSet<Faculty> Faculties { get; set; }
-
-        public IDbSet<Organization> Organizations { get; set; }
-
-        public IDbSet<Building> Buildings { get; set; }
-
-        public IDbSet<Branch> Branches { get; set; }
-
-        public IDbSet<Course> Courses { get; set; }
-
-        public IDbSet<Group> Groups { get; set; }
-
-        public IDbSet<Lecturer> Lecturers { get; set; }
-
-        public IDbSet<Schedule> Schedules { get; set; }
-
-        public IDbSet<TutorialType> TutorialTypes { get; set; }
-
-        public IDbSet<Position> Positions { get; set; }
-
-        public IDbSet<Time> Times { get; set; }
-
-        public IDbSet<Speciality> Specialities { get; set; }
-
-        public IDbSet<Tutorial> Tutorials { get; set; }
-
-        public IDbSet<ScheduleInfo> ScheduleInfoes { get; set; }
-
-        public IDbSet<WeekType> WeekTypes { get; set; }
-
-        public IDbSet<AuditoriumType> AuditoriumTypes { get; set; }
-
-        public IDbSet<StudyYear> StudyYears { get; set; }
-
-        public IDbSet<TimetableEntity> TimetableEntities { get; set; }
-
-        #endregion
         public SchedulerContext()
         {
-            Configuration.AutoDetectChangesEnabled = true;
-            Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = false;
-            Configuration.ValidateOnSaveEnabled = true;
-
-            Initialize();
+            Configuration.LazyLoadingEnabled = true;
+            Configuration.AutoDetectChangesEnabled = true;
+            Configuration.ValidateOnSaveEnabled = false;
         }
         
-        protected override void Initialize()
-        {
-            Departments = Set<Department>();
-            Auditoriums = Set<Auditorium>();
-            Faculties = Set<Faculty>();
-            Buildings = Set<Building>();
-            Courses = Set<Course>();
-            Groups = Set<Group>();
-            Lecturers = Set<Lecturer>();
-            Schedules = Set<Schedule>();
-            TutorialTypes = Set<TutorialType>();
-            Positions = Set<Position>();
-            Times = Set<Time>();
-            Specialities = Set<Speciality>();
-            Tutorials = Set<Tutorial>();
-            ScheduleInfoes = Set<ScheduleInfo>();
-            WeekTypes = Set<WeekType>();
-            AuditoriumTypes = Set<AuditoriumType>();
-            StudyYears = Set<StudyYear>();
-            TimetableEntities = Set<TimetableEntity>();
-
-            base.Initialize();
-        }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             modelBuilder.Configurations.Add(new AuditoriumMapping());
             modelBuilder.Configurations.Add(new AuditoriumTypeMapping());
@@ -108,112 +63,146 @@ namespace Timetable.Data.Context
             modelBuilder.Configurations.Add(new LecturersMapping());
         }
         
-        #region ISchedulerDatabase implementation
-
-        IQueryable<Department> ISchedulerDatabase.Departments
+        public virtual void Add<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
         {
-            get { return Departments; }
+            AttachIfNotAttached(entity);
+            Set(entity.GetType()).Add(entity);
+            if (isApplyNow)
+                SaveChanges();
         }
 
-        IQueryable<Organization> ISchedulerDatabase.Organizations
+        public virtual void Update<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
         {
-            get { return Organizations; }
+            AttachIfNotAttached(entity);
+            Entry(entity).State = EntityState.Modified;
+            if (isApplyNow)
+                SaveChanges();
         }
 
-        IQueryable<Auditorium> ISchedulerDatabase.Auditoriums
+        public virtual void Delete<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
         {
-            get { return Auditoriums; }
+            AttachIfNotAttached(entity);
+            Set(entity.GetType()).Remove(entity);
+            Entry(entity).State = EntityState.Deleted;
+            if (isApplyNow)
+                SaveChanges();
         }
 
-        IQueryable<Faculty> ISchedulerDatabase.Faculties
+        public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
-            get { return Faculties; }
+            if (Entry(entity).State != EntityState.Detached)
+                return;
+            Set(entity.GetType()).Attach(entity);
         }
 
-        IQueryable<Speciality> ISchedulerDatabase.Specialities
+        public IQueryable<TEntity> RawSqlQuery<TEntity>(
+            string query,
+            params object[] parameters) where TEntity : class
         {
-            get { return Specialities; }
+            var result = base.Set<TEntity>().SqlQuery(query, parameters).AsQueryable();
+
+            return result;
         }
 
-        IQueryable<Time> ISchedulerDatabase.Times
+        public int RawSqlCommand(
+            string command,
+            params object[] parameters)
         {
-            get { return Times; }
+            return Database.ExecuteSqlCommand(command, parameters);
         }
 
-        IQueryable<Position> ISchedulerDatabase.Positions
+        public IQueryable<dynamic> RawSqlQuery(
+            List<Type> types,
+            List<string> names,
+            string query,
+            params object[] parameters)
         {
-            get { return Positions; }
+            var builder = CreateTypeBuilder("MyDynamicAssembly", "MyModule", "MyType");
+
+            var typesAndNames = types.Zip(names, (t, n) => new { Type = t, Name = n });
+            foreach (var tn in typesAndNames)
+            {
+                CreateAutoImplementedProperty(builder, tn.Name, tn.Type);
+            }
+
+            var resultType = builder.CreateType();
+
+            return Database.SqlQuery(resultType, query, parameters).Cast<dynamic>().AsQueryable();
         }
 
-        IQueryable<Branch> ISchedulerDatabase.Branches
+
+        private static TypeBuilder CreateTypeBuilder(
+           string assemblyName,
+            string moduleName,
+            string typeName)
         {
-            get { return Branches; }
+            var typeBuilder = AppDomain
+                .CurrentDomain
+                .DefineDynamicAssembly(
+                    new AssemblyName(assemblyName),
+                    AssemblyBuilderAccess.Run)
+                .DefineDynamicModule(moduleName)
+                .DefineType(typeName, TypeAttributes.Public);
+
+            typeBuilder.DefineDefaultConstructor(MethodAttributes.Public);
+            return typeBuilder;
         }
 
-            
-        IQueryable<TutorialType> ISchedulerDatabase.TutorialTypes
+        private static void CreateAutoImplementedProperty(
+            TypeBuilder builder,
+            string propertyName,
+            Type propertyType)
         {
-            get { return TutorialTypes; }
-        }
+            const string privateFieldPrefix = "m_";
+            const string getterPrefix = "get_";
+            const string setterPrefix = "set_";
 
-        IQueryable<Schedule> ISchedulerDatabase.Schedules
-        {
-            get { return Schedules; }
-        }
+            // Generate the field.
+            var fieldBuilder = builder.DefineField(
+                string.Concat(privateFieldPrefix, propertyName),
+                              propertyType, FieldAttributes.Private);
 
-        IQueryable<Lecturer> ISchedulerDatabase.Lecturers
-        {
-            get { return Lecturers; }
-        }
+            // Generate the property
+            var propertyBuilder = builder.DefineProperty(
+                propertyName, System.Reflection.PropertyAttributes.HasDefault, propertyType, null);
 
-        IQueryable<Group> ISchedulerDatabase.Groups
-        {
-            get { return Groups; }
-        }
+            // Property getter and setter attributes.
+            const MethodAttributes propertyMethodAttributes = MethodAttributes.Public
+                                                              | MethodAttributes.SpecialName
+                                                              | MethodAttributes.HideBySig;
 
-        IQueryable<Course> ISchedulerDatabase.Courses
-        {
-            get { return Courses; }
-        }
+            // Define the getter method.
+            var getterMethod = builder.DefineMethod(
+                string.Concat(getterPrefix, propertyName),
+                propertyMethodAttributes, propertyType, Type.EmptyTypes);
 
-        IQueryable<Building> ISchedulerDatabase.Buildings
-        {
-            get { return Buildings; }
-        }
+            // Emit the IL code.
+            // ldarg.0
+            // ldfld,_field
+            // ret
+            var getterILCode = getterMethod.GetILGenerator();
+            getterILCode.Emit(OpCodes.Ldarg_0);
+            getterILCode.Emit(OpCodes.Ldfld, fieldBuilder);
+            getterILCode.Emit(OpCodes.Ret);
 
-        IQueryable<Tutorial> ISchedulerDatabase.Tutorials
-        {
-            get { return Tutorials; }
-        }
+            // Define the setter method.
+            var setterMethod = builder.DefineMethod(
+                string.Concat(setterPrefix, propertyName),
+                propertyMethodAttributes, null, new[] { propertyType });
 
-        IQueryable<ScheduleInfo> ISchedulerDatabase.ScheduleInfoes
-        {
-            get { return ScheduleInfoes; }
-        }
-        IQueryable<WeekType> ISchedulerDatabase.WeekTypes
-        {
-            get { return WeekTypes; }
-        }
+            // Emit the IL code.
+            // ldarg.0
+            // ldarg.1
+            // stfld,_field
+            // ret
+            var setterILCode = setterMethod.GetILGenerator();
+            setterILCode.Emit(OpCodes.Ldarg_0);
+            setterILCode.Emit(OpCodes.Ldarg_1);
+            setterILCode.Emit(OpCodes.Stfld, fieldBuilder);
+            setterILCode.Emit(OpCodes.Ret);
 
-        IQueryable<AuditoriumType> ISchedulerDatabase.AuditoriumTypes
-        {
-            get { return AuditoriumTypes; }
-        }
-
-        IQueryable<StudyYear> ISchedulerDatabase.StudyYears
-        {
-            get { return StudyYears; }
-        }
-        IQueryable<TimetableEntity> ISchedulerDatabase.TimetableEntities
-        {
-            get { return TimetableEntities; }
-        }
-
-        #endregion
-
-        public void SaveChanges()
-        {
-            base.SaveChanges();
+            propertyBuilder.SetGetMethod(getterMethod);
+            propertyBuilder.SetSetMethod(setterMethod);
         }
     }
 }

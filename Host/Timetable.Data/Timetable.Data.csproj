@@ -72,10 +72,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\BaseContext.cs" />
     <Compile Include="Context\DbContextExtensions.cs" />
     <Compile Include="Context\SchedulerContext.cs" />
-    <Compile Include="Context\UserContext.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\RegistrationException.cs" />
     <Compile Include="Context\Interfaces\IDatabase.cs" />
@@ -118,18 +116,8 @@
     <Compile Include="Mapping\TutorialMapping.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Migrations\201311082049465_InitialDatabase.cs" />
-    <Compile Include="Migrations\201311082049465_InitialDatabase.Designer.cs">
-      <DependentUpon>201311082049465_InitialDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Auth\201304201431152_Add_users_and_roles.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Migrations\Auth\201304201431152_Add_users_and_roles.Designer.cs">
-      <DependentUpon>201304201431152_Add_users_and_roles.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
-    <Compile Include="Migrations\Schedule\SchedulerConfiguration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Personalization\User.cs" />
     <Compile Include="Models\Personalization\UserRole.cs" />
@@ -168,12 +156,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201311082049465_InitialDatabase.resx">
-      <DependentUpon>201311082049465_InitialDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Auth\201304201431152_Add_users_and_roles.resx">
-      <DependentUpon>201304201431152_Add_users_and_roles.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>

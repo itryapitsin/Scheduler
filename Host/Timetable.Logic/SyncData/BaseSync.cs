@@ -1,4 +1,5 @@
-﻿using Timetable.Data.Context.Interfaces;
+﻿using Timetable.Data.Context;
+using Timetable.Data.Context.Interfaces;
 using Timetable.Data.IIAS.Context;
 
 namespace Timetable.Sync.Logic.SyncData
@@ -7,7 +8,7 @@ namespace Timetable.Sync.Logic.SyncData
     {
         public IIIASContext IIASContext;
 
-        public ISchedulerDatabase SchedulerDatabase;
+        public SchedulerContext SchedulerDatabase;
         public abstract void Sync();
     }
 }
