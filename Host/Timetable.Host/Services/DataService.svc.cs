@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
-using Timetable.Data.Context.Interfaces;
 using Timetable.Data.Models.Scheduler;
 using Timetable.Host.Interfaces;
 using Timetable.Host.Models.Scheduler;
@@ -668,11 +667,18 @@ namespace Timetable.Host.Services
                 .Select(x => new TutorialDataTransfer(x.Tutorial));
         }
 
-        public IEnumerable<SpecialityDataTransfer> GetSpecialities(FacultyDataTransfer facultyDataTransfer)
+        public IEnumerable<SpecialityDataTransfer> GetSpecialities(int branchId)
         {
             return Database.Specialities
-                .Where(x => x.Faculties
-                    .Any(y => y.Id.Equals(facultyDataTransfer.Id)))
+                .Where(x => x.BranchId == branchId)
+                .ToList()
+                .Select(x => new SpecialityDataTransfer(x));
+        }
+
+        public IEnumerable<SpecialityDataTransfer> GetSpecialitiesForFaculti(int facultyId)
+        {
+            return Database.Specialities
+                .Where(x => x.Faculties.Any(y => y.Id == facultyId))
                 .ToList()
                 .Select(x => new SpecialityDataTransfer(x));
         }

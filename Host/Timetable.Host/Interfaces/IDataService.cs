@@ -271,8 +271,11 @@ namespace Timetable.Host.Interfaces
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<SpecialityDataTransfer> GetSpecialities(
-            FacultyDataTransfer facultyDataTransfer);
+        IEnumerable<SpecialityDataTransfer> GetSpecialities(int branchId);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<SpecialityDataTransfer> GetSpecialitiesForFaculti(int facultyId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]

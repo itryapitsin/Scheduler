@@ -1124,6 +1124,12 @@ namespace Timetable.Site.NewDataService {
     public partial class Speciality : Timetable.Site.NewDataService.BaseEntity {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Timetable.Site.NewDataService.Branch BranchField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BranchIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1143,6 +1149,32 @@ namespace Timetable.Site.NewDataService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Timetable.Site.NewDataService.Tutorial[] TutorialsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Timetable.Site.NewDataService.Branch Branch {
+            get {
+                return this.BranchField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BranchField, value) != true)) {
+                    this.BranchField = value;
+                    this.RaisePropertyChanged("Branch");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BranchId {
+            get {
+                return this.BranchIdField;
+            }
+            set {
+                if ((this.BranchIdField.Equals(value) != true)) {
+                    this.BranchIdField = value;
+                    this.RaisePropertyChanged("BranchId");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Code {

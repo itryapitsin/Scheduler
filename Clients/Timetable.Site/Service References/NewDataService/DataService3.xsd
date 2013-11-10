@@ -226,6 +226,8 @@
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q12="http://schemas.datacontract.org/2004/07/Timetable.Data.Models" base="q12:BaseEntity">
         <xs:sequence>
+          <xs:element minOccurs="0" name="Branch" nillable="true" type="tns:Branch" />
+          <xs:element minOccurs="0" name="BranchId" type="xs:int" />
           <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Faculties" nillable="true" type="tns:ArrayOfFaculty" />
           <xs:element minOccurs="0" name="Groups" nillable="true" type="tns:ArrayOfGroup" />
