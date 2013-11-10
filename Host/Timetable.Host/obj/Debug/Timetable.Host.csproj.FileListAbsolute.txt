@@ -101,6 +101,4 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.csproj
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\obj\Debug\Timetable.Host.pdb
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\EntityFramework.dll
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\EntityFramework.SqlServer.dll
 E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\EntityFramework.xml
-E:\Projects\GitHub\Scheduler\Host\Timetable.Host\bin\EntityFramework.SqlServer.xml

@@ -23,8 +23,8 @@ namespace Timetable.Host.Models.Scheduler
         {
             Id = group.Id;
             Code = group.Code;
-            CourseId = group.Course.Id;
-            SpecialityId = group.Speciality.Id;
+            CourseId = group.CourseId;
+            SpecialityId = group.SpecialityId;
 
             if(group.Parent != null)
                 ParentId = group.Parent.Id;

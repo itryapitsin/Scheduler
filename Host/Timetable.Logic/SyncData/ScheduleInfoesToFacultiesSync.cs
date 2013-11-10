@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Linq;
 
 namespace Timetable.Sync.Logic.SyncData
@@ -6,6 +7,8 @@ namespace Timetable.Sync.Logic.SyncData
     public class ScheduleInfoesToFacultiesSync: BaseSync
     {
         private DbConnection _connection;
+
+        private string _commandPattern = "INSERT INTO [dbo].[ScheduleInfoesToFaculties]([ScheduleInfo_Id],[Faculty_Id])VALUES({0},{1});";
 
         public ScheduleInfoesToFacultiesSync(DbConnection conn)
         {
@@ -36,19 +39,29 @@ namespace Timetable.Sync.Logic.SyncData
                     AND (FACULT_CODE IS NOT NULL)";
             var reader = cmd.ExecuteReader();
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Faculties").ToList();
-
-            while (reader.Read())
+            var faculties = SchedulerDatabase.Faculties.ToList();
+            var command = String.Empty;
+            try
             {
-                var scheduleInfoId = reader.GetInt64(0);
-                var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == scheduleInfoId);
-                var facultyId = reader.GetInt64(0);
-                var faculty = SchedulerDatabase.Faculties.First(x => x.IIASKey == facultyId);
-                if (schedulerEntity != null && faculty != null && !schedulerEntity.Faculties.Contains(faculty))
+                while (reader.Read())
                 {
-                    schedulerEntity.Faculties.Add(faculty);
-                    SchedulerDatabase.Update(schedulerEntity);
+                    var scheduleInfoId = reader.GetInt64(0);
+                    var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == scheduleInfoId);
+                    var facultyId = reader.GetString(1);
+                    var faculty = faculties.FirstOrDefault(x => x.Name == facultyId);
+                    if (schedulerEntity != null && faculty != null && !schedulerEntity.Faculties.Contains(faculty))
+                    {
+                        command += String.Format(_commandPattern, schedulerEntity.Id, faculty.Id);
+                    }
                 }
+
+                SchedulerDatabase.RawSqlCommand(command);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
 
             _connection.Close();
         }

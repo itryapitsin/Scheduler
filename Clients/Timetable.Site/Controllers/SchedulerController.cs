@@ -8,7 +8,7 @@ using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {
-    public class SchedulerController: BaseController
+    public class SchedulerController: NewBaseController
     {
         public PartialViewResult Index()
         {

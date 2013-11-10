@@ -7,7 +7,7 @@ namespace Timetable.Sync.Logic.SyncData
     public class ScheduleInfoesToCoursesSync: BaseSync
     {
         private DbConnection _connection;
-
+        private string _commandPattern = "INSERT INTO [dbo].[ScheduleInfoesToCourses]([ScheduleInfo_Id],[Course_Id])VALUES({0},{1});";
         public ScheduleInfoesToCoursesSync(DbConnection conn)
         {
             _connection = conn;
@@ -37,19 +37,23 @@ namespace Timetable.Sync.Logic.SyncData
                     AND (FACULT_CODE IS NOT NULL)";
             var reader = cmd.ExecuteReader();
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Courses").ToList();
-
+            var courses = SchedulerDatabase.Courses.ToList();
+            var command = String.Empty;
             while (reader.Read())
             {
                 var scheduleInfoId = reader.GetInt64(0);
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == scheduleInfoId);
                 var id = reader.GetString(1);
-                var course = SchedulerDatabase.Courses.First(x => x.Name == id);
+                var course = courses.FirstOrDefault(x => x.Name == id);
                 if (schedulerEntity != null && course != null && !schedulerEntity.Courses.Contains(course))
                 {
                     schedulerEntity.Courses.Add(course);
-                    SchedulerDatabase.Update(schedulerEntity);
+                    //SchedulerDatabase.Update(schedulerEntity);
+                    command += String.Format(_commandPattern, schedulerEntity.Id, course.Id);
                 }
             }
+
+            SchedulerDatabase.RawSqlCommand(command);
 
             _connection.Close();
         }

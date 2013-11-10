@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Timetable.Site.DataService;
+using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Models.ViewModels
 {
@@ -12,7 +12,7 @@ namespace Timetable.Site.Models.ViewModels
 
         public string Name { get; set; }
 
-        public BuildingViewModel(Building building)
+        public BuildingViewModel(BuildingDataTransfer building)
         {
             Id = building.Id;
             Name = building.Name;

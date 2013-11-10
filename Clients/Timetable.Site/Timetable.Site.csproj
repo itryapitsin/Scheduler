@@ -107,6 +107,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
     </Reference>
@@ -129,6 +130,8 @@
     <Compile Include="Controllers\Api\BranchController.cs" />
     <Compile Include="Controllers\Api\StudyYearController.cs" />
     <Compile Include="Controllers\Api\ValidatorController.cs" />
+    <Compile Include="Controllers\FacultyController.cs" />
+    <Compile Include="Controllers\NewBaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Extends\TempAuditoriums.cs" />
     <Compile Include="Controllers\Extends\TempData.cs" />
@@ -245,6 +248,11 @@
     <Compile Include="Models\WeekTypes\SendModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\DataService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\NewDataService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1546,6 +1554,13 @@
     <Content Include="Service References\DataService\Timetable.Site.DataService.WeekType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\NewDataService\DataService.disco" />
+    <None Include="Service References\NewDataService\configuration91.svcinfo" />
+    <None Include="Service References\NewDataService\configuration.svcinfo" />
+    <None Include="Service References\NewDataService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\UserService\Timetable.Site.UserService.User1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -1565,6 +1580,82 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\DataService\Timetable.Site.DataService.TimetableEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\NewDataService\DataService.wsdl" />
+    <None Include="Service References\NewDataService\DataService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\DataService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\DataService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\DataService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\DataService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\DataService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.AuditoriumDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.AuditoriumTypeDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.BranchDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.BuildingDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.CourseDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.DepartmentDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.FacultyDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.GroupDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.LecturerDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.OperationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.ScheduleDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.ScheduleInfoDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.SpecialityDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.StudyYearDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.TimeDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.TimetableEntityDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.TutorialDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.TutorialTypeDataTransfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.WeekTypeDataTransfer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <None Include="Service References\UserService\UserService.disco" />
@@ -1713,6 +1804,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\DataService\" />
+    <WCFMetadataStorage Include="Service References\NewDataService\" />
     <WCFMetadataStorage Include="Service References\UserService\" />
   </ItemGroup>
   <ItemGroup>

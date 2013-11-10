@@ -16,6 +16,8 @@ namespace Timetable.Sync.Logic.SyncData
 
             var task3 = Task.Factory.StartNew(() => SchedulerDatabase.AuditoriumTypes.ToList());
 
+            Task.WaitAll(task3);
+
             var iiasEntities = await task1;
             var schedulerEntyties = await task2;
             var schedulerAuditoriumTypes = await task3;

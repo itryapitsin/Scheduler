@@ -7,6 +7,7 @@ namespace Timetable.Sync.Logic.SyncData
     public class ScheduleInfoesToGroupsSync: BaseSync
     {
         private DbConnection _connection;
+        private string _commandPattern = "INSERT INTO [dbo].[ScheduleInfoesToGroups]([ScheduleInfo_Id],[Group_Id])VALUES({0},{1});";
 
         public ScheduleInfoesToGroupsSync(DbConnection conn)
         {
@@ -37,19 +38,24 @@ namespace Timetable.Sync.Logic.SyncData
                     AND (FACULT_CODE IS NOT NULL)";
             var reader = cmd.ExecuteReader();
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Groups").ToList();
+            var groups = SchedulerDatabase.Groups.ToList();
+            var command = String.Empty;
 
             while (reader.Read())
             {
                 var scheduleInfoId = reader.GetInt64(0);
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == scheduleInfoId);
                 var id = reader.GetInt64(1);
-                var @group = SchedulerDatabase.Groups.First(x => x.IIASKey == id);
+                var @group = groups.FirstOrDefault(x => x.IIASKey == id);
                 if (schedulerEntity != null && @group != null && !schedulerEntity.Groups.Contains(@group))
                 {
                     schedulerEntity.Groups.Add(@group);
-                    SchedulerDatabase.Update(schedulerEntity);
+                    //SchedulerDatabase.Update(schedulerEntity);
+                    command += String.Format(_commandPattern, schedulerEntity.Id, @group.Id);
                 }
             }
+
+            SchedulerDatabase.RawSqlCommand(command);
 
             _connection.Close();
         }

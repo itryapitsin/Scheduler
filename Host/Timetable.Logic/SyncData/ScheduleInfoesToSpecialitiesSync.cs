@@ -7,7 +7,13 @@ namespace Timetable.Sync.Logic.SyncData
     public class ScheduleInfoesToSpecialitiesSync: BaseSync
     {
         private DbConnection _connection;
-
+        private string _commandPattern = @"
+                INSERT INTO [dbo].[ScheduleInfoesToSpecialities]
+                    ([ScheduleInfo_Id]
+                    ,[Speciality_Id])
+                VALUES
+                    ({0}
+                    ,{1});";
         public ScheduleInfoesToSpecialitiesSync(DbConnection conn)
         {
             _connection = conn;
@@ -37,19 +43,25 @@ namespace Timetable.Sync.Logic.SyncData
                     AND (FACULT_CODE IS NOT NULL)";
             var reader = cmd.ExecuteReader();
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Specialities").ToList();
+            var specialities = SchedulerDatabase.Specialities.ToList();
+            var command = String.Empty;
 
             while (reader.Read())
             {
                 var scheduleInfoId = reader.GetInt64(0);
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == scheduleInfoId);
                 var id = reader.GetString(1);
-                var speciality = SchedulerDatabase.Specialities.First(x => x.Code == id);
+                var speciality = specialities.FirstOrDefault(x => x.Code == id);
                 if (schedulerEntity != null && speciality != null && !schedulerEntity.Specialities.Contains(speciality))
                 {
                     schedulerEntity.Specialities.Add(speciality);
-                    SchedulerDatabase.Update(schedulerEntity);
+                    //SchedulerDatabase.Update(schedulerEntity);
+                    command += String.Format(_commandPattern, schedulerEntity.Id, speciality.Id);
                 }
             }
+
+            if(!String.IsNullOrEmpty(command))
+                SchedulerDatabase.RawSqlCommand(command);
 
             _connection.Close();
         }

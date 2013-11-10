@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity.Migrations.Model;
 using System.Data.Entity.Migrations.Sql;
-using System.Data.Entity.SqlServer;
 
 namespace Timetable.Data.Migrations
 {
