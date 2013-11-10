@@ -130,6 +130,7 @@
     <Compile Include="Controllers\Api\BranchController.cs" />
     <Compile Include="Controllers\Api\StudyYearController.cs" />
     <Compile Include="Controllers\Api\ValidatorController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\NewBaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />

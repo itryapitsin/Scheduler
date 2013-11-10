@@ -15,5 +15,7 @@ namespace Timetable.Data.IIAS.Models
         public string ShortName { get; set; }
 
         public string Code { get; set; }
+
+        public Int64 BranchId { get; set; }
     }
 }

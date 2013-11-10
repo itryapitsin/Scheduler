@@ -10,6 +10,7 @@ namespace Timetable.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            SetSqlGenerator("System.Data.SqlClient", new NonSystemTableSqlGenerator()); 
         }
 
         protected override void Seed(Timetable.Data.Context.SchedulerContext context)

@@ -11,6 +11,8 @@ namespace Timetable.Data.Models.Scheduler
         public ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
         public ICollection<Tutorial> Tutorials { get; set; }
         public ICollection<Group> Groups { get; set; }
+        public virtual Branch Branch { get; set; }
+        public int BranchId { get; set; }
 
         public Speciality()
         {

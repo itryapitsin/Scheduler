@@ -16,10 +16,15 @@ namespace Timetable.Sync.Logic.SyncData
 
             var iiasEntities = await task1;
             var schedulerEntities = await task2;
+            var branches = SchedulerDatabase.Branches.ToList();
 
             foreach (var iiasEntity in iiasEntities)
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasEntity.Id);
+                var branch = branches.FirstOrDefault(x => x.IIASKey == iiasEntity.BranchId);
+                if(branch == null)
+                    continue;
+
                 if (schedulerEntity == null)
                 {
                     schedulerEntity = new Speciality
@@ -30,6 +35,7 @@ namespace Timetable.Sync.Logic.SyncData
                         Name = iiasEntity.Name,
                         ShortName = iiasEntity.ShortName,
                         Code = iiasEntity.Code,
+                        BranchId = branch.Id,
                         IsActual = true
                     };
                     SchedulerDatabase.Add(schedulerEntity);
@@ -41,6 +47,7 @@ namespace Timetable.Sync.Logic.SyncData
                     schedulerEntity.Name = iiasEntity.Name;
                     schedulerEntity.ShortName = iiasEntity.ShortName;
                     schedulerEntity.Code = iiasEntity.Code;
+                    schedulerEntity.BranchId = branch.Id;
 
                     SchedulerDatabase.Update(schedulerEntity);
                 }

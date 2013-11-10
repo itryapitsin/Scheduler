@@ -29,6 +29,7 @@ namespace Timetable.Site.Controllers
 
             model.Courses = DataService
                 .GetCources()
+                .OrderBy(x => x.Name)
                 .Select(x => new CourseViewModel(x));
 
             model.StudyYears = DataService

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Timetable.Site.Models;
 using Timetable.Site.Models.ViewModels;
 using Timetable.Site.NewDataService;
-using Course = Timetable.Site.DataService.Course;
 
 namespace Timetable.Site.Controllers
 {

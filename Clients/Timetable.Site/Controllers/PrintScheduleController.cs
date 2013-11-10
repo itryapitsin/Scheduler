@@ -146,23 +146,23 @@ namespace Timetable.Site.Controllers
                 targetCourseIds = s.courseIds;
             }
 
-            if (mode == "forSpecialities")
-            {
-                printScheduleModel.Groups = groupController.privateGetBySpecialities(s.specialityIds);
+            //if (mode == "forSpecialities")
+            //{
+            //    printScheduleModel.Groups = groupController.privateGetBySpecialities(s.specialityIds);
 
-                var courseController = new CourseController();
-                var courses = courseController.privateGetAll();
+            //    var courseController = new CourseController();
+            //    var courses = courseController.privateGetAll();
 
-                foreach (var c in courses)
-                {
-                    targetCourseIds += c.Id.ToString() + ", ";
-                }
+            //    foreach (var c in courses)
+            //    {
+            //        targetCourseIds += c.Id.ToString() + ", ";
+            //    }
 
-                foreach (var g in printScheduleModel.Groups)
-                {
-                    targetGroupsIds += g.Id.ToString() + ", ";
-                }
-            }
+            //    foreach (var g in printScheduleModel.Groups)
+            //    {
+            //        targetGroupsIds += g.Id.ToString() + ", ";
+            //    }
+            //}
               
 
 

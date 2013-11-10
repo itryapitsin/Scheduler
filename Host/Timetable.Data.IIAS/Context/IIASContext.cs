@@ -188,7 +188,8 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.V_STUD_GR.SPEC_BUN_ID AS Id, 
                         SDMS.O_BASE_UNIT.NAME_SHORT AS ShortName, 
                         SDMS.O_BASE_UNIT.NAME_LONG AS Name, 
-                        SDMS.O_BASE_UNIT.CODE AS Code
+                        SDMS.O_BASE_UNIT.CODE AS Code, 
+                        SDMS.V_STUD_GR.UBU_ID_PODR AS BranchId
                     FROM            
                         SDMS.V_STUD_GR, 
                         SDMS.O_BASE_UNIT

@@ -5,7 +5,7 @@ namespace Timetable.Data.Migrations
 {
     public class NonSystemTableSqlGenerator : SqlServerMigrationSqlGenerator
     {
-        protected void GenerateMakeSystemTable(CreateTableOperation createTableOperation)
+        protected override void GenerateMakeSystemTable(CreateTableOperation createTableOperation)
         {
         }
     }
