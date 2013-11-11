@@ -129,6 +129,12 @@ namespace Timetable.Host.Interfaces
             CourseDataTransfer courseDataTransfer,
             SpecialityDataTransfer specialityDataTransfer);
 
+        [OperationContract(Name = "GetGroupsForSpecialities")]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<GroupDataTransfer> GetGroupsBySpecialityIds(
+            int courseId,
+            int[] specialitysIds);
+
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(DepartmentDataTransfer departmentDataTransfer);

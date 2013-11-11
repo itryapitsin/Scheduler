@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Timetable.Site.Models.Groups;
-using Timetable.Site.NewDataService;
 using Course = Timetable.Site.DataService.Course;
 using Faculty = Timetable.Site.DataService.Faculty;
 using Group = Timetable.Site.DataService.Group;
@@ -41,70 +40,14 @@ namespace Timetable.Site.Controllers.Api
                 .Select(x => new GroupViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
-
-            return CreateResponse<int, string, string, IEnumerable<GroupViewModel>>(privateGetAll, facultyId, courseIds, specialityIds);
-        }
-
-        private IEnumerable<GroupViewModel> privateGetAll(int facultyId, string courseIds, string specialityIds)
-        {
-            var result = new List<GroupViewModel>();
-
-            var qFaculty = new Faculty();
-            qFaculty.Id = facultyId;
-
-            if (courseIds != null)
-            {
-                foreach (var courseId in courseIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (courseId != " ")
-                    {
-                        int icourseId = int.Parse(courseId);
-
-                        var qCourse = new Course();
-                        qCourse.Id = icourseId;
-
-                        if (specialityIds != null)
-                        {
-                            foreach (var specialityId in specialityIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                            {
-                                if (specialityId != " ")
-                                {
-                                    int ispecialityId = int.Parse(specialityId);
-
-                                    var qSpeciality = new Speciality();
-                                    qSpeciality.Id = ispecialityId;
-
-
-                                    var tmp = DataService.GetGroupsForSpeciality(qCourse, qSpeciality);
-
-                                    //var tmp = GetTempGroups(qCourse, qSpeciality);
-                                    foreach (var t in tmp)
-                                    {
-                                        result.Add(new GroupViewModel(t));
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            var tmp = DataService.GetGroupsForCourse(qFaculty, qCourse);
-                            //var tmp = GetTempGroups(qCourse, null);
-                            foreach (var t in tmp)
-                            {
-                                result.Add(new GroupViewModel(t));
-                            }
-                        }
-                    }
-                }
-            }
-
-            return result.AsEnumerable();
         }
 
         //Получить группы по специальностям
         public HttpResponseMessage GetBySpecialities(string specialityIds)
         {
-            return CreateResponse<string, IEnumerable<GroupViewModel>>(privateGetBySpecialities, specialityIds);
+            var ids = specialityIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
         }
 
         public IEnumerable<GroupViewModel> privateGetBySpecialities(string specialityIds)
