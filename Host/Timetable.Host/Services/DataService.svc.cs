@@ -176,7 +176,7 @@ namespace Timetable.Host.Services
                 .Select(x => new FacultyDataTransfer(x));
         }
 
-        
+        #region groups
         public GroupDataTransfer GetGroupById(int groupId)
         {
             return new GroupDataTransfer(
@@ -199,19 +199,8 @@ namespace Timetable.Host.Services
                 .ToList()
                 .Select(x => new GroupDataTransfer(x));
         }
-
-        public IEnumerable<GroupDataTransfer> GetGroups(FacultyDataTransfer facultyDataTransfer, CourseDataTransfer courseDataTransfer)
-        {
-            return Database.Groups
-                .Where(x => x.IsActual)
-                .Where(x => x.Course.Id.Equals(courseDataTransfer.Id))
-                .Where(x => x.Speciality.Faculties
-                    .Any(y => y.Id.Equals(facultyDataTransfer.Id)))
-                .ToList()
-                .Select(x => new GroupDataTransfer(x));
-        }
-
-        public IEnumerable<GroupDataTransfer> GetGroups(int facultyId, int[] courseIds)
+        
+        public IEnumerable<GroupDataTransfer> GetGroupsForFaculty(int facultyId, int[] courseIds)
         {
             var result = Database.Groups
                 .Where(x => x.IsActual)
@@ -224,25 +213,18 @@ namespace Timetable.Host.Services
             return result;
         }
 
-        public IEnumerable<GroupDataTransfer> GetGroups(CourseDataTransfer courseDataTransfer, SpecialityDataTransfer specialityDataTransfer)
+        public IEnumerable<GroupDataTransfer> GetGroupsForSpeciality(int specialityId, int[] courseIds)
         {
-            return Database.Groups
+            var result = Database.Groups
                 .Where(x => x.IsActual)
-                .Where(x => x.Speciality.Id.Equals(specialityDataTransfer.Id))
-                .Where(x => x.Course.Id.Equals(courseDataTransfer.Id))
+                .Where(x => courseIds.Contains(x.CourseId))
+                .Where(x => x.Speciality.Id == specialityId)
                 .ToList()
                 .Select(x => new GroupDataTransfer(x));
-        }
 
-        public IEnumerable<GroupDataTransfer> GetGroupsBySpecialityIds(int courseId, int[] specialitysIds)
-        {
-            return Database.Groups
-                .Where(x => x.IsActual)
-                .Where(x => specialitysIds.Contains(x.Id))
-                .Where(x => x.Course.Id.Equals(courseId))
-                .ToList()
-                .Select(x => new GroupDataTransfer(x));
+            return result;
         }
+        #endregion
 
         public IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(DepartmentDataTransfer departmentDataTransfer)
         {

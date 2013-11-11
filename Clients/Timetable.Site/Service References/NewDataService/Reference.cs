@@ -1284,6 +1284,12 @@ namespace Timetable.Site.NewDataService {
         private int CourseIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Timetable.Site.NewDataService.Faculty FacultyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FacultyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Timetable.Site.NewDataService.Group ParentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1333,6 +1339,32 @@ namespace Timetable.Site.NewDataService {
                 if ((this.CourseIdField.Equals(value) != true)) {
                     this.CourseIdField = value;
                     this.RaisePropertyChanged("CourseId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Timetable.Site.NewDataService.Faculty Faculty {
+            get {
+                return this.FacultyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FacultyField, value) != true)) {
+                    this.FacultyField = value;
+                    this.RaisePropertyChanged("Faculty");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FacultyId {
+            get {
+                return this.FacultyIdField;
+            }
+            set {
+                if ((this.FacultyIdField.Equals(value) != true)) {
+                    this.FacultyIdField = value;
+                    this.RaisePropertyChanged("FacultyId");
                 }
             }
         }

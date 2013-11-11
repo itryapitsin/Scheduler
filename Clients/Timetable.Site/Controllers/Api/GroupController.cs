@@ -43,7 +43,7 @@ namespace Timetable.Site.Controllers.Api
         }
 
         //Получить группы по специальностям
-        public HttpResponseMessage GetBySpecialities(int courseId, string specialityIds)
+        public HttpResponseMessage GetBySpecialities(string specialityIds, int courseId)
         {
             var ids = specialityIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
@@ -56,69 +56,19 @@ namespace Timetable.Site.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        public IEnumerable<GroupViewModel> privateGetBySpecialities(string specialityIds)
-        {
-            var result = new List<GroupViewModel>();
-
-            var courseController = new CourseController();
-            var courses = courseController.privateGetAll();
-
-            foreach (var cc in courses)
-            {
-                var qCourse = new Course();
-                qCourse.Id = cc.Id;
-                foreach (var specialityId in specialityIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (specialityId != " ")
-                    {
-                        int ispecialityId = int.Parse(specialityId);
-                        var qSpeciality = new Speciality();
-                        qSpeciality.Id = ispecialityId;
-
-
-                        var tmp = DataService.GetGroupsForSpeciality(qCourse, qSpeciality);
-                        foreach (var t in tmp)
-                        {
-                            result.Add(new GroupViewModel(t));
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
         //Получить группы по курсам
         public HttpResponseMessage GetByCourses(int facultyId, string courseIds)
         {
-            return CreateResponse<int, string, IEnumerable<GroupViewModel>>(privateGetByCourses, facultyId, courseIds);
+            var ids = courseIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            var result = NewDataService
+                .GetGroupsForCourses(facultyId, ids)
+                .Select(x => new GroupViewModel(x));
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-
-        public IEnumerable<GroupViewModel> privateGetByCourses(int facultyId, string courseIds)
-        {
-            var result = new List<GroupViewModel>();
-
-            var qFaculty = new Faculty();
-            qFaculty.Id = facultyId;
-
-            foreach (var courseId in courseIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                if (courseId != " ")
-                {
-                    int icourseId = int.Parse(courseId);
-                    var qCourse = new Course();
-                    qCourse.Id = icourseId;
-                    var tmp = DataService.GetGroupsForCourse(qFaculty, qCourse);
-                    foreach (var t in tmp)
-                    {
-                        result.Add(new GroupViewModel(t));
-                    }
-                }
-            }
-
-            return result;
-        }
-
 
         //Получить группы по курсу
         public HttpResponseMessage GetByCourse(int facultyId, int courseId)
@@ -167,47 +117,32 @@ namespace Timetable.Site.Controllers.Api
 
 
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage Add(AddModel model)
+        public HttpResponseMessage Add(GroupAddViewModel viewModel)
         {
-            return CreateResponse(privateAdd, model);
-        }
-
-        public void privateAdd(AddModel model)
-        {
-            var aGroup = new Group();
-
-            aGroup.Code = model.Code;
-            aGroup.StudentsCount = model.StudentsCount;
-
-            aGroup.Course = new Course();
-            aGroup.Course.Id = model.CourseId;
-            aGroup.Parent = new Group();
-            aGroup.Parent.Id = model.ParentId;
-            aGroup.Speciality = new Speciality();
-            aGroup.Speciality.Id = model.SpecialityId;
-
-
-            aGroup.UpdateDate = DateTime.Now.Date;
-            aGroup.CreatedDate = DateTime.Now.Date;
-            aGroup.IsActual = true;
+            var aGroup = new Group
+            {
+                Code = viewModel.Code,
+                StudentsCount = viewModel.StudentsCount,
+                Course = new Course {Id = viewModel.CourseId},
+                Parent = new Group {Id = viewModel.ParentId},
+                Speciality = new Speciality {Id = viewModel.SpecialityId},
+                UpdateDate = DateTime.Now.Date,
+                CreatedDate = DateTime.Now.Date,
+                IsActual = true
+            };
 
             DataService.Add(aGroup);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage Delete(DeleteModel model)
+        public HttpResponseMessage Delete(int id)
         {
-            return CreateResponse(privateDelete, model.Id);
-        }
-
-        public void privateDelete(int Id)
-        {
-            var dGroup = new Group();
-            dGroup.Id = Id;
+            var dGroup = new Group {Id = id};
             DataService.Delete(dGroup);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
-
-
-
 }

@@ -182,7 +182,7 @@
     <Compile Include="Models\Departments\DepartmentViewModel.cs" />
     <Compile Include="Models\Faculties\ForAllModel.cs" />
     <Compile Include="Models\Faculties\SendModel.cs" />
-    <Compile Include="Models\Groups\AddModel.cs" />
+    <Compile Include="Models\Groups\GroupAddViewModel.cs" />
     <Compile Include="Models\Groups\DeleteModel.cs" />
     <Compile Include="Models\Groups\ForAllModel.cs" />
     <Compile Include="Models\Groups\ForCodeModel.cs" />

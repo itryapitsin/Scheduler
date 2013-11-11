@@ -212,6 +212,8 @@
           <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Course" nillable="true" type="tns:Course" />
           <xs:element minOccurs="0" name="CourseId" type="xs:int" />
+          <xs:element minOccurs="0" name="Faculty" nillable="true" type="tns:Faculty" />
+          <xs:element minOccurs="0" name="FacultyId" type="xs:int" />
           <xs:element minOccurs="0" name="Parent" nillable="true" type="tns:Group" />
           <xs:element minOccurs="0" name="ScheduleInfoes" nillable="true" type="tns:ArrayOfScheduleInfo" />
           <xs:element minOccurs="0" name="Speciality" nillable="true" type="tns:Speciality" />

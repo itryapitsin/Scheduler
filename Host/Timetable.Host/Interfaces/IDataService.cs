@@ -103,6 +103,7 @@ namespace Timetable.Host.Interfaces
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<FacultyDataTransfer> GetFaculties(BranchDataTransfer branchDataTransfer = null);
 
+        #region groups
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         GroupDataTransfer GetGroupById(int groupId);
@@ -110,30 +111,20 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<GroupDataTransfer> GetsSubGroupsByGroupId(int groupId);
+        
 
-        [OperationContract(Name = "GetGroupsForCourse")]
+        [OperationContract(Name = "GetGroupsForFaculty")]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<GroupDataTransfer> GetGroups(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer);
-
-        [OperationContract(Name = "GetGroupsForCourses")]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<GroupDataTransfer> GetGroups(
+        IEnumerable<GroupDataTransfer> GetGroupsForFaculty(
             int facultyId,
             int[] courseIds);
 
         [OperationContract(Name = "GetGroupsForSpeciality")]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<GroupDataTransfer> GetGroups(
-            CourseDataTransfer courseDataTransfer,
-            SpecialityDataTransfer specialityDataTransfer);
-
-        [OperationContract(Name = "GetGroupsForSpecialities")]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<GroupDataTransfer> GetGroupsBySpecialityIds(
-            int courseId,
-            int[] specialitysIds);
+        IEnumerable<GroupDataTransfer> GetGroupsForSpeciality(
+            int specialityId,
+            int[] courseIds);
+        #endregion
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
