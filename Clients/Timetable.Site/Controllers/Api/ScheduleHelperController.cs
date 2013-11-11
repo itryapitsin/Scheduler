@@ -11,7 +11,7 @@ using SendTime = Timetable.Site.Models.Times.SendModel;
 namespace Timetable.Site.Controllers.Api
 {
    //Жадный алгоритм для подсказки
-   public class ScheduleHelperController : BaseApiController<BaseEntity>
+   public class ScheduleHelperController : BaseApiController
     {
      
        public HttpResponseMessage GetAll(ForAllModel model)

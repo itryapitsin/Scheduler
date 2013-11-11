@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Timetable.Data.Models;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Host.Models.Scheduler
@@ -13,9 +14,9 @@ namespace Timetable.Host.Models.Scheduler
 
         public AuditoriumTypeDataTransfer(AuditoriumType auditoriumType)
         {
-            Id = auditoriumType.Id;
             Name = auditoriumType.Name;
             Pattern = auditoriumType.Pattern;
+            Id = auditoriumType.Id;
         }
     }
 }

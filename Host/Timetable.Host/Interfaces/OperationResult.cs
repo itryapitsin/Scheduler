@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Timetable.Base.Entities;
-using Timetable.Data.Models;
+﻿using Timetable.Data.Models;
+using Timetable.Host.Models.Scheduler;
 
 namespace Timetable.Host.Interfaces
 {

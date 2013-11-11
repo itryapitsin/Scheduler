@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Timetable.Site.NewDataService;
-using Timetable.Site.Models.Courses;
 using System.Web.Http;
 using Timetable.Site.Models.ViewModels;
 
@@ -22,11 +21,11 @@ namespace Timetable.Site.Controllers.Api
         }
 
         [HttpPost]
-        public HttpResponseMessage Add(CourseAddViewModel viewModel)
+        public HttpResponseMessage Add(string name)
         {
             var course = new Course
             {
-                Name = viewModel.Name,
+                Name = name,
                 UpdateDate = DateTime.Now.Date,
                 CreatedDate = DateTime.Now.Date,
                 IsActual = true
@@ -38,9 +37,9 @@ namespace Timetable.Site.Controllers.Api
         }
 
         [HttpPost]
-        public HttpResponseMessage Delete(DeleteModel model)
+        public HttpResponseMessage Delete(int id)
         {
-            var dCourse = new Course {Id = model.Id};
+            var dCourse = new Course {Id = id};
             NewDataService.Delete(dCourse);
 
             return Request.CreateResponse(HttpStatusCode.OK);

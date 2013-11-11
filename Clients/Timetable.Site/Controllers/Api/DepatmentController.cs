@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Timetable.Site.DataService;
-using Timetable.Site.Models.Departments;
+using Timetable.Site.Models;
 
 namespace Timetable.Site.Controllers.Api
 {

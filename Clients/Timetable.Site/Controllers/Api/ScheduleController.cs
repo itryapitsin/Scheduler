@@ -11,7 +11,7 @@ using Timetable.Site.Controllers.Extends;
 namespace Timetable.Site.Controllers.Api
 {
     
-    public partial class ScheduleController : BaseApiController<Schedule>
+    public class ScheduleController : BaseApiController
     {
         //Получить расписание для преподавателя
         public HttpResponseMessage GetByLecturer(
@@ -22,7 +22,7 @@ namespace Timetable.Site.Controllers.Api
             string startTime,
             string endTime)
         {
-            return CreateResponse<int, int, int, int, string, string, IEnumerable<SendModel>>(privateGetByLecturer, 
+            return CreateResponse<int, int, int, int, string, string, IEnumerable<ScheduleViewModel>>(privateGetByLecturer, 
                 lecturerId,
                 studyYearId,
                 semesterId,
@@ -31,7 +31,7 @@ namespace Timetable.Site.Controllers.Api
                 endTime);
         }
 
-        public IEnumerable<SendModel> privateGetByLecturer(
+        public IEnumerable<ScheduleViewModel> privateGetByLecturer(
             int lecturerId,
             int studyYearId,
             int semesterId,
@@ -39,7 +39,7 @@ namespace Timetable.Site.Controllers.Api
             string startTime,
             string endTime)
         {
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
             var qLecturer = new Lecturer();
             qLecturer.Id = lecturerId;
 
@@ -64,7 +64,7 @@ namespace Timetable.Site.Controllers.Api
        
             foreach (var t in tmp)
             {
-                result.Add(new SendModel(t,true,false,false));
+                result.Add(new ScheduleViewModel(t,true,false,false));
             }
 
             return result;
@@ -79,7 +79,7 @@ namespace Timetable.Site.Controllers.Api
             string startTime,
             string endTime)
         {
-            return CreateResponse<int, int, int, int, string, string, IEnumerable<SendModel>>(privateGetByAuditorium, 
+            return CreateResponse<int, int, int, int, string, string, IEnumerable<ScheduleViewModel>>(privateGetByAuditorium, 
                 auditoriumId,
                 studyYearId,
                 semesterId,
@@ -88,7 +88,7 @@ namespace Timetable.Site.Controllers.Api
                 endTime);
         }
 
-        public IEnumerable<SendModel> privateGetByAuditorium(
+        public IEnumerable<ScheduleViewModel> privateGetByAuditorium(
             int auditoriumId,
             int studyYearId,
             int semesterId,
@@ -96,7 +96,7 @@ namespace Timetable.Site.Controllers.Api
             string startTime,
             string endTime)
         {
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
             var qAuditorium = new Auditorium();
             qAuditorium.Id = auditoriumId;
 
@@ -121,7 +121,7 @@ namespace Timetable.Site.Controllers.Api
 
             foreach (var t in tmp)
             {
-                result.Add(new SendModel(t,false,true,false));
+                result.Add(new ScheduleViewModel(t,false,true,false));
             }
 
             return result;
@@ -136,7 +136,7 @@ namespace Timetable.Site.Controllers.Api
             string startTime,
             string endTime)
         {
-            return CreateResponse<string, int, int, int, string, string, IEnumerable<SendModel>>(privateGetByGroupsOnlyIds,
+            return CreateResponse<string, int, int, int, string, string, IEnumerable<ScheduleViewModel>>(privateGetByGroupsOnlyIds,
               groupIds,
               studyYearId,
               semesterId,
@@ -145,7 +145,7 @@ namespace Timetable.Site.Controllers.Api
               endTime);
         }
 
-        public IEnumerable<SendModel> privateGetByGroupsOnlyIds(
+        public IEnumerable<ScheduleViewModel> privateGetByGroupsOnlyIds(
             string groupIds,
             int studyYearId,
             int semesterId,
@@ -153,7 +153,7 @@ namespace Timetable.Site.Controllers.Api
             string startTime,
             string endTime)
         {
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
 
             DateTime? StartDate = null;
             DateTime? EndDate = null;
@@ -173,7 +173,7 @@ namespace Timetable.Site.Controllers.Api
             var tmp = DataService.GetSchedulesForAll(null, null, qGroups.ToArray(), null, null, StartDate, EndDate);
 
             foreach (var t in tmp)
-                result.Add(new SendModel(t, false, false, true));
+                result.Add(new ScheduleViewModel(t, false, false, true));
 
             return result;
         }
@@ -189,7 +189,7 @@ namespace Timetable.Site.Controllers.Api
                 string startTime,
                 string endTime)
         {
-            return CreateResponse<int?, int?, int?, int?, int?, string, string, string, string, IEnumerable<SendModel>>(privateGetScheduleByDayPeriodDate,
+            return CreateResponse<int?, int?, int?, int?, int?, string, string, string, string, IEnumerable<ScheduleViewModel>>(privateGetScheduleByDayPeriodDate,
                 dayOfWeek,
                 periodId,
                 weekTypeId,
@@ -201,7 +201,7 @@ namespace Timetable.Site.Controllers.Api
                 endTime);
         }
 
-        private IEnumerable<SendModel> privateGetScheduleByDayPeriodDate(
+        private IEnumerable<ScheduleViewModel> privateGetScheduleByDayPeriodDate(
                 int? dayOfWeek,
                 int? periodId,
                 int? weekTypeId,
@@ -212,7 +212,7 @@ namespace Timetable.Site.Controllers.Api
                 string startTime,
                 string endTime)
         {
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
 
             DateTime? StartDate = null;
             DateTime? EndDate = null;
@@ -241,7 +241,7 @@ namespace Timetable.Site.Controllers.Api
             foreach (var t in tmp)
             {
                 //TODO: correct divide on types
-                result.Add(new SendModel(t, t.ScheduleInfo.LecturerId == lecturerId, t.AuditoriumId == auditoriumId, (t.ScheduleInfo.LecturerId != lecturerId) &&
+                result.Add(new ScheduleViewModel(t, t.ScheduleInfo.LecturerId == lecturerId, t.AuditoriumId == auditoriumId, (t.ScheduleInfo.LecturerId != lecturerId) &&
                                                                                                                      (t.AuditoriumId != auditoriumId)));
             }
 
@@ -252,14 +252,14 @@ namespace Timetable.Site.Controllers.Api
         public HttpResponseMessage GetScheduleById(
                 int Id)
         {
-            return CreateResponse<int, SendModel>(privateGetScheduleById, Id);
+            return CreateResponse<int, ScheduleViewModel>(privateGetScheduleById, Id);
         }
 
-        private SendModel privateGetScheduleById(
+        private ScheduleViewModel privateGetScheduleById(
                int Id)
         {
             var result = DataService.GetScheduleById(Id);
-            return new SendModel(result, false, false, false);
+            return new ScheduleViewModel(result, false, false, false);
         }
 
   
@@ -273,7 +273,7 @@ namespace Timetable.Site.Controllers.Api
                 string startTime,
                 string endTime)
         {
-            return CreateResponse<int?, int?, string, int?, string, string, string, IEnumerable<SendModel>>(privateGetScheduleByAll,
+            return CreateResponse<int?, int?, string, int?, string, string, string, IEnumerable<ScheduleViewModel>>(privateGetScheduleByAll,
                 lecturerId,
                 auditoriumId,
                 groupIds,
@@ -283,7 +283,7 @@ namespace Timetable.Site.Controllers.Api
                 endTime);
         }
 
-        private IEnumerable<SendModel> privateGetScheduleByAll(
+        private IEnumerable<ScheduleViewModel> privateGetScheduleByAll(
            int? lecturerId,
            int? auditoriumId,
            string groupIds,
@@ -292,7 +292,7 @@ namespace Timetable.Site.Controllers.Api
            string startTime,
            string endTime)
         {
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
 
             DateTime? StartDate = null;
             DateTime? EndDate = null;
@@ -326,7 +326,7 @@ namespace Timetable.Site.Controllers.Api
             foreach (var t in answer)
             {
                 //TODO: correct divide on types
-                result.Add(new SendModel(t, t.ScheduleInfo.LecturerId == lecturerId, t.AuditoriumId == auditoriumId, (t.ScheduleInfo.LecturerId != lecturerId) &&
+                result.Add(new ScheduleViewModel(t, t.ScheduleInfo.LecturerId == lecturerId, t.AuditoriumId == auditoriumId, (t.ScheduleInfo.LecturerId != lecturerId) &&
                                                                                                                      (t.AuditoriumId != auditoriumId)));
             }
 
@@ -346,7 +346,7 @@ namespace Timetable.Site.Controllers.Api
             string endTime,
             string subGroup)
         {
-            return CreateResponse<int, string, string, int, int, int, string, string, string, IEnumerable<SendModel>>(privateGetByGroups, 
+            return CreateResponse<int, string, string, int, int, int, string, string, string, IEnumerable<ScheduleViewModel>>(privateGetByGroups, 
                 facultyId,
                 courseIds,
                 groupIds,
@@ -358,7 +358,7 @@ namespace Timetable.Site.Controllers.Api
                 subGroup);
         }
 
-        public IEnumerable<SendModel> privateGetByGroups(
+        public IEnumerable<ScheduleViewModel> privateGetByGroups(
             int facultyId,
             string courseIds,
             string groupIds,
@@ -369,7 +369,7 @@ namespace Timetable.Site.Controllers.Api
             string endTime,
             string subGroup)
         {
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
             var qFaculty = new Faculty();
             qFaculty.Id = facultyId;
 
@@ -420,7 +420,7 @@ namespace Timetable.Site.Controllers.Api
                                     //var tmp = GetTempSchedulesForGroup(qGroup);
                                     foreach (var t in tmp)
                                     {
-                                        result.Add(new SendModel(t, false, false, true));
+                                        result.Add(new ScheduleViewModel(t, false, false, true));
                                     }
                                 }
                             }
@@ -433,12 +433,12 @@ namespace Timetable.Site.Controllers.Api
 
         public HttpResponseMessage GetByAllTest(ForAllModel model)
         {
-            return CreateResponse<ForAllModel, IEnumerable<SendModel>>(privateGetByAllTest, model);
+            return CreateResponse<ForAllModel, IEnumerable<ScheduleViewModel>>(privateGetByAllTest, model);
         }
 
-        public IEnumerable<SendModel> privateGetByAllTest(ForAllModel model)
+        public IEnumerable<ScheduleViewModel> privateGetByAllTest(ForAllModel model)
         {
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
 
             /*var tmp = GetTempSchedulesForGroup();
             foreach (var t in tmp)
@@ -464,7 +464,7 @@ namespace Timetable.Site.Controllers.Api
             string endTime,
             string subGroup)
         {
-            return CreateResponse<int, int, int, string, string, int, int, int, string, string, string, string, IEnumerable<SendModel>>(privateGetByAll, 
+            return CreateResponse<int, int, int, string, string, int, int, int, string, string, string, string, IEnumerable<ScheduleViewModel>>(privateGetByAll, 
                 lecturerId,
                 auditoriumId,
                 facultyId,
@@ -480,7 +480,7 @@ namespace Timetable.Site.Controllers.Api
         }
 
 
-        public IEnumerable<SendModel> privateGetByAll(
+        public IEnumerable<ScheduleViewModel> privateGetByAll(
             int lecturerId,
             int auditoriumId,
             int facultyId,
@@ -496,7 +496,7 @@ namespace Timetable.Site.Controllers.Api
         {
             
 
-            var result = new List<SendModel>();
+            var result = new List<ScheduleViewModel>();
 
             if (sequence != null)
             {

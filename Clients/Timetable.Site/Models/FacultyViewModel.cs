@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Timetable.Site.NewDataService;
-using Faculty = Timetable.Site.DataService.Faculty;
+﻿using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Models.ViewModels
 {

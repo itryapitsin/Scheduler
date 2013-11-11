@@ -5,7 +5,7 @@ using System.Web;
 using Timetable.Site.DataService;
 using System.Runtime.Serialization;
 using Timetable.Site.Models.Groups;
-using SendSchedule = Timetable.Site.Models.Schedules.SendModel;
+using Timetable.Site.Models.Schedules;
 using SendTime = Timetable.Site.Models.Times.SendModel;
 
 namespace Timetable.Site.Models
@@ -16,7 +16,7 @@ namespace Timetable.Site.Models
     }
     public class PrintScheduleModel
     {
-        public SendSchedule[,,] ScheduleTable { get; set; }
+        public ScheduleViewModel[,,] ScheduleTable { get; set; }
         public IEnumerable<SendTime> Times { get; set; }
         public string Header { get; set; }
         public IEnumerable<string> Days { get; set; }
@@ -26,7 +26,7 @@ namespace Timetable.Site.Models
 
     public class PrintScheduleForGroupsModel
     {
-        public SendSchedule[,,,] ScheduleTable { get; set; } //Group, Day, Time, Period
+        public ScheduleViewModel[,,,] ScheduleTable { get; set; } //Group, Day, Time, Period
         public int[, ,] Colspan { get; set; }
         public bool[, ,] Skip2 { get; set; }
         public int[] Rowspan { get; set; }

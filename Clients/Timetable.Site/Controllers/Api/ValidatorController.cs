@@ -8,7 +8,7 @@ using Timetable.Site.Models.Validators;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class ValidatorController : BaseApiController<BaseEntity>
+    public class ValidatorController : BaseApiController
     {
         public HttpResponseMessage GetByState(StateModel model)
         {

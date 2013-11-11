@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Timetable.Site.Models.Schedules;
 using ScheduleForAllModel = Timetable.Site.Models.Schedules.ForAllModel;
 using TimeForAllModel = Timetable.Site.Models.Times.ForAllModel;
-using SendSchedule = Timetable.Site.Models.Schedules.SendModel;
 using Timetable.Site.Models;
 using Timetable.Site.DataService;
 using System.Net.Http;
@@ -39,7 +39,7 @@ namespace Timetable.Site.Controllers
 
             printScheduleModel.Days = new List<string>() { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" }.AsEnumerable();
 
-            printScheduleModel.ScheduleTable = new SendSchedule[30, 30, 5];
+            printScheduleModel.ScheduleTable = new ScheduleViewModel[30, 30, 5];
 
             printScheduleModel.Mode = mode;
          
@@ -166,7 +166,7 @@ namespace Timetable.Site.Controllers
 
 
             printScheduleModel.Days = new List<string>() { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" }.AsEnumerable();
-            printScheduleModel.ScheduleTable = new SendSchedule[35, 35, 35, 35];
+            printScheduleModel.ScheduleTable = new ScheduleViewModel[35, 35, 35, 35];
 
             printScheduleModel.Colspan = new int[35, 35, 35];
             printScheduleModel.Rowspan = new int[35];

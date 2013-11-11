@@ -35,19 +35,19 @@ namespace Timetable.Host.Services
         }
 
 
-        public OperationResult Add(BaseEntity entity)
+        public OperationResult Add(BaseEntity dto)
         {
-            return Crud(e => Database.Add(e), entity);
+            return Crud(e => Database.Add(e), dto);
         }
 
-        public OperationResult Update(BaseEntity entity)
+        public OperationResult Update(BaseEntity dto)
         {
-            return Crud(e => Database.Update(e), entity);
+            return Crud(e => Database.Update(e), dto);
         }
 
-        public OperationResult Delete(BaseEntity entity)
+        public OperationResult Delete(BaseEntity dto)
         {
-            return Crud(e => Database.Delete(e), entity);
+            return Crud(e => Database.Delete(e), dto);
         }
     }
 }

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Timetable.Site.Models.Auditoriums
+﻿namespace Timetable.Site.Models
 {
-    public class UpdateModel
+    public class AuditoriumAddViewModel
     {
-        public int Id { get; set; }
         public int BuildingId { get; set; }
         public int AuditoriumTypeId { get; set; }
         public string Number { get; set; }

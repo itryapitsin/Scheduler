@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Timetable.Site.Models.Tutorials
 {
-    public class AddModel
+    public class TutorialAddViewModel
     {
         public int FacultyId { get; set; }
         public int SpecialityId { get; set; }

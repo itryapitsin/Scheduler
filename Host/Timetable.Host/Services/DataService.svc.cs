@@ -652,25 +652,23 @@ namespace Timetable.Host.Services
         }
 
         public IEnumerable<TutorialDataTransfer> GetTutorialsForSpeciality(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer,
-            SpecialityDataTransfer specialityDataTransfer)
+            int specialityId,
+            int courseId)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Faculties.Any(y => y.Id == facultyDataTransfer.Id))
-                .Where(x => x.Courses.Any(y => y.Id == courseDataTransfer.Id))
-                .Where(x => x.Specialities.Any(y => y.Id == specialityDataTransfer.Id))
+                .Where(x => x.Courses.Any(y => y.Id == courseId))
+                .Where(x => x.Specialities.Any(y => y.Id == specialityId))
                 .ToList()
                 .Select(x => new TutorialDataTransfer(x.Tutorial));
         }
 
         public IEnumerable<TutorialDataTransfer> GetTutorialsForCourse(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer)
+            int facultyId,
+            int courseId)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Faculties.Any(y => y.Id == facultyDataTransfer.Id))
-                .Where(x => x.Courses.Any(y => y.Id == courseDataTransfer.Id))
+                .Where(x => x.Faculties.Any(y => y.Id == facultyId))
+                .Where(x => x.Courses.Any(y => y.Id == courseId))
                 .ToList()
                 .Select(x => new TutorialDataTransfer(x.Tutorial));
         }

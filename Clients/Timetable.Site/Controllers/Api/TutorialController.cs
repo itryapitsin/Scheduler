@@ -1,65 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using System.Net.Http;
 using Timetable.Site.DataService;
 using Timetable.Site.Models.Tutorials;
-using System.Runtime.Serialization;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class TutorialController : BaseApiController<Tutorial>
+    public class TutorialController : BaseApiController
     {
-        public HttpResponseMessage GetAll(ForAllModel model)
+        public HttpResponseMessage GetForFaculty(int facultyId, int courseId)
         {
-            return CreateResponse<ForAllModel, IEnumerable<SendModel>>(privateGetAll, model);
-        }
+            var result = NewDataService
+                .GetTutorialsForCourse(facultyId, courseId)
+                .Select(x => new TutorialViewModel(x));
 
-        private IEnumerable<SendModel> privateGetAll(ForAllModel model)
-        {
-            var result = new List<SendModel>();
-
-            var qFaculty = new Faculty();
-            qFaculty.Id = model.FacultyId;
-
-            var qCourse = new Course();
-            qCourse.Id = model.CourseId;
-
-            var qSpeciality = new Speciality();
-            qSpeciality.Id = model.SpecialityId;
-
-            var tmp = DataService.GetTutorialsForSpeciality(qFaculty, qCourse, qSpeciality);
-
-            foreach (var t in tmp)
-            {
-                result.Add(new SendModel(t));
-            }
-
-            return result;
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         [HttpPost]
-        public HttpResponseMessage Add(AddModel model)
+        public HttpResponseMessage Add(TutorialAddViewModel viewModel)
         {
-            return CreateResponse(privateAdd, model);
+            return CreateResponse(privateAdd, viewModel);
         }
 
-        public void privateAdd(AddModel model)
+        public void privateAdd(TutorialAddViewModel viewModel)
         {
             var aTutorial = new Tutorial();
 
             var qFaculty = new Faculty();
-            qFaculty.Id = model.FacultyId;
+            qFaculty.Id = viewModel.FacultyId;
 
             aTutorial.Faculty = qFaculty;
 
             var qSpeciality = new Speciality();
-            qSpeciality.Id = model.SpecialityId;
+            qSpeciality.Id = viewModel.SpecialityId;
 
             aTutorial.Speciality = qSpeciality;
 
-            aTutorial.Name = model.Name;
-            aTutorial.ShortName = model.ShortName;
+            aTutorial.Name = viewModel.Name;
+            aTutorial.ShortName = viewModel.ShortName;
 
             aTutorial.UpdateDate = DateTime.Now.Date;
             aTutorial.CreatedDate = DateTime.Now.Date;

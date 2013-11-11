@@ -1,130 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Timetable.Site.DataService;
+using Timetable.Site.NewDataService;
 using Timetable.Site.Models.Lecturers;
 
 namespace Timetable.Site.Controllers.Api
 {
     public class LecturerController : BaseApiController
     {
-        //Получить преводавателей по идентификатору кафедры
         public HttpResponseMessage GetByDepartment(int departmentId)
         {
-            return CreateResponse<int, IEnumerable<SendModel>>(privateGetAll, departmentId);
+            var result = NewDataService
+                .GetLecturersByDeparmentId(departmentId)
+                .Select(x => new LecturerViewModel(x));
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        private IEnumerable<SendModel> privateGetAll(int departmentId)
-        {
-            var result = new List<SendModel>();
-            var qDepartment = new Department();
-            qDepartment.Id = departmentId;
-            var tmp = DataService.GetLecturersByDeparmentId(qDepartment);            
-            foreach(var t in tmp){
-                result.Add(new SendModel(t));
-            }
-            return result;
-        }
-
-        //Получить преподавателей по имени
         public HttpResponseMessage GetByMask(string mask)
         {
-            return CreateResponse<string, IEnumerable<SendModel>>(privateGetByMask, mask);
-        }
+            var result = new LecturerViewModel(
+                NewDataService.GetLecturerByFirstMiddleLastname(mask));
 
-        private IEnumerable<SendModel> privateGetByMask(string mask)
-        {
-            var result = new List<SendModel>();
-
-            mask = "Кузнецов Владимир Алексеевич";
-
-            var tmp = DataService.GetLecturersByFirstMiddleLastname(mask);
-            foreach (var t in tmp)
-            {
-                 result.Add(new SendModel(t));
-            }
-            return result;
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         [HttpPost]
-        public HttpResponseMessage Add(AddModel model)
+        public HttpResponseMessage Add(LecturerAddViewModel model)
         {
-            return CreateResponse(privateAdd, model);
-        }
+            var lecturer = model.ToLecturer();
+            NewDataService.Add(lecturer);
 
-        public void privateAdd(AddModel model)
-        {
-            var aLecturer = new Lecturer();
-
-            if (model.LFM != null)
-            {
-                int i = 1;
-                foreach (var name in model.LFM.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (i == 1)
-                    {
-                        aLecturer.Lastname = name;    
-                    }
-
-                    if(i == 2){
-                        aLecturer.Firstname = name;
-                    }
-
-                    if (i == 3)
-                    {
-                        aLecturer.Middlename = name;
-                    }
-                    i++;
-                }
-            }
-
-            aLecturer.Contacts = model.Contacts;
-
-            var Positions = new List<Position>();
-
-            if (model.PositionIds != null)
-            {
-                foreach (var departmentId in model.PositionIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    var p = new Position();
-                    Positions.Add(p);
-                }
-            }
-            aLecturer.Positions = Positions.ToArray();
-
-
-            var Departments = new List<Department>();
-
-            if (model.DepartmentIds != null)
-            {
-                foreach (var departmentId in model.DepartmentIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    var d = new Department();
-                    Departments.Add(d);
-                }
-            }
-
-            aLecturer.Departments = Departments.ToArray();
-            
-            aLecturer.UpdateDate = DateTime.Now.Date;
-            aLecturer.CreatedDate = DateTime.Now.Date;
-            aLecturer.IsActual = true;
-
-            DataService.Add(aLecturer);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public HttpResponseMessage Delete(DeleteModel model)
+        public HttpResponseMessage Delete(int id)
         {
-            return CreateResponse(privateDelete, model.Id);
-        }
+            var dLecturer = new Lecturer {Id = id};
+            NewDataService.Delete(dLecturer);
 
-        public void privateDelete(int Id)
-        {
-            var dLecturer = new Lecturer();
-            dLecturer.Id = Id;
-            DataService.Delete(dLecturer);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

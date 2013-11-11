@@ -301,15 +301,14 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<TutorialDataTransfer> GetTutorialsForSpeciality(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer,
-            SpecialityDataTransfer specialityDataTransfer);
+            int courseId,
+            int specialityId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<TutorialDataTransfer> GetTutorialsForCourse(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer);
+            int facultyId,
+            int courseId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]

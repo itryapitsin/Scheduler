@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Timetable.Data.Models;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Host.Models.Scheduler

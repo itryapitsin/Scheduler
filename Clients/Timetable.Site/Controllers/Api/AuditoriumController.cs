@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Timetable.Site.Models;
 using Timetable.Site.Models.Auditoriums;
 using Timetable.Site.NewDataService;
 using Auditorium = Timetable.Site.NewDataService.Auditorium;
@@ -90,9 +91,9 @@ namespace Timetable.Site.Controllers.Api
         }
 
         [HttpPost]
-        public HttpResponseMessage Delete(DeleteModel model)
+        public HttpResponseMessage Delete(int id)
         {
-            NewDataService.Delete(new Auditorium { Id = model.Id });
+            NewDataService.Delete(new Auditorium { Id = id });
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

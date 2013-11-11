@@ -21,11 +21,11 @@ namespace Timetable.Site.Controllers.Api
         }
 
         [HttpPost]
-        public HttpResponseMessage Add(AddModel model)
+        public HttpResponseMessage Add(string name)
         {
             var aAuditoriumType = new AuditoriumType
             {
-                Name = model.Name,
+                Name = name,
                 UpdateDate = DateTime.Now.Date,
                 CreatedDate = DateTime.Now.Date,
                 IsActual = true
@@ -37,9 +37,9 @@ namespace Timetable.Site.Controllers.Api
         }
 
         [HttpPost]
-        public HttpResponseMessage Delete(DeleteModel model)
+        public HttpResponseMessage Delete(int id)
         {
-            var dAuditoriumType = new Auditorium {Id = model.Id};
+            var dAuditoriumType = new Auditorium {Id = id};
             NewDataService.Delete(dAuditoriumType);
 
             return Request.CreateResponse(HttpStatusCode.OK);

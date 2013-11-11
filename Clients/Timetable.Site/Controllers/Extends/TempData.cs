@@ -9,7 +9,7 @@ using Timetable.Site.Models.ScheduleInfoes;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class TimeController : BaseApiController<Time>
+    public partial class TimeController : BaseApiController
     {
         public Time[] GetTempTimes()
         {
