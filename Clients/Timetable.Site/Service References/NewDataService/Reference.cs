@@ -3587,6 +3587,12 @@ namespace Timetable.Site.NewDataService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForCourse", ReplyAction="http://tempuri.org/IDataService/GetGroupsForCourseResponse")]
         System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForCourses", ReplyAction="http://tempuri.org/IDataService/GetGroupsForCoursesResponse")]
+        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForCourses(int facultyId, int[] courseIds);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForCourses", ReplyAction="http://tempuri.org/IDataService/GetGroupsForCoursesResponse")]
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCoursesAsync(int facultyId, int[] courseIds);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetGroupsForSpecialityResponse")]
         Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer);
         
@@ -3973,6 +3979,14 @@ namespace Timetable.Site.NewDataService {
         
         public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer) {
             return base.Channel.GetGroupsForCourseAsync(facultyDataTransfer, courseDataTransfer);
+        }
+        
+        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForCourses(int facultyId, int[] courseIds) {
+            return base.Channel.GetGroupsForCourses(facultyId, courseIds);
+        }
+        
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCoursesAsync(int facultyId, int[] courseIds) {
+            return base.Channel.GetGroupsForCoursesAsync(facultyId, courseIds);
         }
         
         public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer) {

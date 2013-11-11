@@ -30,10 +30,14 @@ namespace Timetable.Site.Controllers.Api
         //специальность может не выбираться
         public HttpResponseMessage GetAll(int facultyId, string courseIds, string specialityIds)
         {
+            var ids = courseIds.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
             var result = NewDataService
-                .GetGroupsForCourse(
-                    new FacultyDataTransfer{Id = facultyId},
-                    new CourseDataTransfer {Id = courseIds})
+                .GetGroupsForCourses(
+                    facultyId,
+                    ids)
                 .Select(x => new GroupViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, result);

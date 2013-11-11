@@ -8,6 +8,7 @@
       <xsd:import schemaLocation="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Timetable.Data.Models.Scheduler" />
       <xsd:import schemaLocation="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Interfaces" />
       <xsd:import schemaLocation="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" />
+      <xsd:import schemaLocation="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDataService_Add_InputMessage">
@@ -129,6 +130,12 @@
   </wsdl:message>
   <wsdl:message name="IDataService_GetGroupsForCourse_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsForCourseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetGroupsForCourses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsForCourses" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetGroupsForCourses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsForCoursesResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_GetGroupsForSpeciality_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsForSpeciality" />
@@ -408,6 +415,10 @@
     <wsdl:operation name="GetGroupsForCourse">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCourse" message="tns:IDataService_GetGroupsForCourse_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCourseResponse" message="tns:IDataService_GetGroupsForCourse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupsForCourses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCourses" message="tns:IDataService_GetGroupsForCourses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCoursesResponse" message="tns:IDataService_GetGroupsForCourses_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetGroupsForSpeciality">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpeciality" message="tns:IDataService_GetGroupsForSpeciality_InputMessage" />
@@ -717,6 +728,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGroupsForCourse">
       <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForCourse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupsForCourses">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForCourses" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

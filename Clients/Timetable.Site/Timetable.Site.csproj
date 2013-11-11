@@ -187,7 +187,7 @@
     <Compile Include="Models\Groups\ForAllModel.cs" />
     <Compile Include="Models\Groups\ForCodeModel.cs" />
     <Compile Include="Models\Groups\ForCourseModel.cs" />
-    <Compile Include="Models\Groups\SendModel.cs" />
+    <Compile Include="Models\Groups\GroupViewModel.cs" />
     <Compile Include="Models\Hints\ForAllModel.cs" />
     <Compile Include="Models\Hints\SendModel.cs" />
     <Compile Include="Models\JsonNetResult.cs" />
@@ -1571,6 +1571,9 @@
     <None Include="Service References\NewDataService\DataService.disco" />
     <None Include="Service References\NewDataService\configuration91.svcinfo" />
     <None Include="Service References\NewDataService\configuration.svcinfo" />
+    <None Include="Service References\NewDataService\DataService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\NewDataService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
