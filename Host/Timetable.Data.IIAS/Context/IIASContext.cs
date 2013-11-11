@@ -275,12 +275,16 @@ namespace Timetable.Data.IIAS.Context
         {
             return RawSqlQuery<Group>(@"
                     SELECT DISTINCT 
-                        UBU_ID AS Id, 
-                        GR_CODE AS Code, 
-                        SPEC_BUN_ID AS SpecialityId, 
-                        KURS_BUN_ID AS CourseId
-                    FROM
-                        SDMS.V_STUD_GR");
+                        SDMS.V_STUD_GR.UBU_ID AS Id, 
+                        SDMS.V_STUD_GR.GR_CODE AS Code, 
+                        SDMS.V_STUD_GR.SPEC_BUN_ID AS SpecialityId, 
+                        SDMS.V_STUD_GR.KURS_BUN_ID AS CourseId, 
+                        SDMS.V_STUD_GR.FACUL_BUN_ID AS FacultyId
+                    FROM            
+                        SDMS.V_STUD_GR,
+                        SDMS.O_BASE_UNIT
+                    WHERE        
+                        (SDMS.O_BASE_UNIT.STATUS = 'Y')");
         }
     }
 }

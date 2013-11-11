@@ -143,6 +143,12 @@
   <wsdl:message name="IDataService_GetGroupsForSpeciality_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsForSpecialityResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_GetGroupsForSpecialities_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsForSpecialities" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetGroupsForSpecialities_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsForSpecialitiesResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataService_GetLecturersByDeparmentId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetLecturersByDeparmentId" />
   </wsdl:message>
@@ -423,6 +429,10 @@
     <wsdl:operation name="GetGroupsForSpeciality">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpeciality" message="tns:IDataService_GetGroupsForSpeciality_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpecialityResponse" message="tns:IDataService_GetGroupsForSpeciality_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupsForSpecialities">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpecialities" message="tns:IDataService_GetGroupsForSpecialities_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpecialitiesResponse" message="tns:IDataService_GetGroupsForSpecialities_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetLecturersByDeparmentId">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetLecturersByDeparmentId" message="tns:IDataService_GetLecturersByDeparmentId_InputMessage" />
@@ -746,6 +756,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGroupsForSpeciality">
       <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForSpeciality" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupsForSpecialities">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForSpecialities" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

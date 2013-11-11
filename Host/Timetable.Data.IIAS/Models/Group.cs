@@ -15,5 +15,7 @@ namespace Timetable.Data.IIAS.Models
         public Int64 CourseId { get; set; }
 
         public Int64 SpecialityId { get; set; }
+
+        public Int64 FacultyId { get; set; }
     }
 }

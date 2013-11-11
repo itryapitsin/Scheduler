@@ -43,11 +43,17 @@ namespace Timetable.Site.Controllers.Api
         }
 
         //Получить группы по специальностям
-        public HttpResponseMessage GetBySpecialities(string specialityIds)
+        public HttpResponseMessage GetBySpecialities(int courseId, string specialityIds)
         {
             var ids = specialityIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToArray();
+
+            var result = NewDataService
+                .GetGroupsForSpecialities(courseId, ids)
+                .Select(x => new GroupViewModel(x));
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         public IEnumerable<GroupViewModel> privateGetBySpecialities(string specialityIds)
