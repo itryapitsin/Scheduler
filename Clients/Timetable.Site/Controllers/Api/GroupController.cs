@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using Timetable.Site.DataService;
 using Timetable.Site.Models.Groups;
-using Timetable.Site.Models.ViewModels;
+using Timetable.Site.NewDataService;
+using Course = Timetable.Site.DataService.Course;
+using Faculty = Timetable.Site.DataService.Faculty;
+using Group = Timetable.Site.DataService.Group;
+using GroupViewModel = Timetable.Site.Models.Groups.GroupViewModel;
+using Speciality = Timetable.Site.DataService.Speciality;
 
 namespace Timetable.Site.Controllers.Api
 {
@@ -16,20 +18,11 @@ namespace Timetable.Site.Controllers.Api
         //Получить все группы, чей код попадает под маску 
         public HttpResponseMessage GetByCode(string code)
         {
-            return CreateResponse<string, IEnumerable<SendModel>>(privateGetByCode, code);
-        }
+            var result = NewDataService
+                .GetGroupsByCode(code, 10)
+                .Select(x => new GroupViewModel(x));
 
-        private IEnumerable<SendModel> privateGetByCode(string code)
-        {
-            var result = new List<SendModel>();
-            var tmp = DataService.GetGroupsByCode(code, 10);
-
-            foreach (var t in tmp)
-            {
-                result.Add(new SendModel(t));
-            }
-
-            return result;
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
 
@@ -37,12 +30,20 @@ namespace Timetable.Site.Controllers.Api
         //специальность может не выбираться
         public HttpResponseMessage GetAll(int facultyId, string courseIds, string specialityIds)
         {
-            return CreateResponse<int, string, string, IEnumerable<SendModel>>(privateGetAll, facultyId, courseIds, specialityIds);
+            var result = NewDataService
+                .GetGroupsForCourse(
+                    new FacultyDataTransfer{Id = facultyId},
+                    new CourseDataTransfer {Id = courseIds})
+                .Select(x => new GroupViewModel(x));
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+
+            return CreateResponse<int, string, string, IEnumerable<GroupViewModel>>(privateGetAll, facultyId, courseIds, specialityIds);
         }
 
-        private IEnumerable<SendModel> privateGetAll(int facultyId, string courseIds, string specialityIds)
+        private IEnumerable<GroupViewModel> privateGetAll(int facultyId, string courseIds, string specialityIds)
         {
-            var result = new List<SendModel>();
+            var result = new List<GroupViewModel>();
 
             var qFaculty = new Faculty();
             qFaculty.Id = facultyId;
@@ -75,7 +76,7 @@ namespace Timetable.Site.Controllers.Api
                                     //var tmp = GetTempGroups(qCourse, qSpeciality);
                                     foreach (var t in tmp)
                                     {
-                                        result.Add(new SendModel(t));
+                                        result.Add(new GroupViewModel(t));
                                     }
                                 }
                             }
@@ -86,7 +87,7 @@ namespace Timetable.Site.Controllers.Api
                             //var tmp = GetTempGroups(qCourse, null);
                             foreach (var t in tmp)
                             {
-                                result.Add(new SendModel(t));
+                                result.Add(new GroupViewModel(t));
                             }
                         }
                     }
@@ -99,12 +100,12 @@ namespace Timetable.Site.Controllers.Api
         //Получить группы по специальностям
         public HttpResponseMessage GetBySpecialities(string specialityIds)
         {
-            return CreateResponse<string, IEnumerable<SendModel>>(privateGetBySpecialities, specialityIds);
+            return CreateResponse<string, IEnumerable<GroupViewModel>>(privateGetBySpecialities, specialityIds);
         }
 
-        public IEnumerable<SendModel> privateGetBySpecialities(string specialityIds)
+        public IEnumerable<GroupViewModel> privateGetBySpecialities(string specialityIds)
         {
-            var result = new List<SendModel>();
+            var result = new List<GroupViewModel>();
 
             var courseController = new CourseController();
             var courses = courseController.privateGetAll();
@@ -125,7 +126,7 @@ namespace Timetable.Site.Controllers.Api
                         var tmp = DataService.GetGroupsForSpeciality(qCourse, qSpeciality);
                         foreach (var t in tmp)
                         {
-                            result.Add(new SendModel(t));
+                            result.Add(new GroupViewModel(t));
                         }
                     }
                 }
@@ -137,12 +138,12 @@ namespace Timetable.Site.Controllers.Api
         //Получить группы по курсам
         public HttpResponseMessage GetByCourses(int facultyId, string courseIds)
         {
-            return CreateResponse<int, string, IEnumerable<SendModel>>(privateGetByCourses, facultyId, courseIds);
+            return CreateResponse<int, string, IEnumerable<GroupViewModel>>(privateGetByCourses, facultyId, courseIds);
         }
 
-        public IEnumerable<SendModel> privateGetByCourses(int facultyId, string courseIds)
+        public IEnumerable<GroupViewModel> privateGetByCourses(int facultyId, string courseIds)
         {
-            var result = new List<SendModel>();
+            var result = new List<GroupViewModel>();
 
             var qFaculty = new Faculty();
             qFaculty.Id = facultyId;
@@ -157,7 +158,7 @@ namespace Timetable.Site.Controllers.Api
                     var tmp = DataService.GetGroupsForCourse(qFaculty, qCourse);
                     foreach (var t in tmp)
                     {
-                        result.Add(new SendModel(t));
+                        result.Add(new GroupViewModel(t));
                     }
                 }
             }
@@ -169,12 +170,12 @@ namespace Timetable.Site.Controllers.Api
         //Получить группы по курсу
         public HttpResponseMessage GetByCourse(int facultyId, int courseId)
         {
-            return CreateResponse<int, int, IEnumerable<SendModel>>(privateGetByCourse, facultyId, courseId);
+            return CreateResponse<int, int, IEnumerable<GroupViewModel>>(privateGetByCourse, facultyId, courseId);
         }
 
-        private IEnumerable<SendModel> privateGetByCourse(int facultyId, int courseId)
+        private IEnumerable<GroupViewModel> privateGetByCourse(int facultyId, int courseId)
         {
-            var result = new List<SendModel>();
+            var result = new List<GroupViewModel>();
 
             var qFaculty = new Faculty();
             var qCourse = new Course();
@@ -185,15 +186,15 @@ namespace Timetable.Site.Controllers.Api
             //var tmp = GetTempGroups(qCourse, null);
             foreach (var t in tmp)
             {
-                result.Add(new SendModel(t));
+                result.Add(new GroupViewModel(t));
             }
 
             return result;
         }
 
-        public IEnumerable<SendModel> GetByIds(string groupIds)
+        public IEnumerable<GroupViewModel> GetByIds(string groupIds)
         {
-            var result = new List<SendModel>();
+            var result = new List<GroupViewModel>();
 
             if (groupIds != null)
             {
@@ -203,7 +204,7 @@ namespace Timetable.Site.Controllers.Api
                     {
                         var tmp = DataService.GetGroupById(int.Parse(groupId));
                         //var tmp = GetTempGroupById(int.Parse(groupId));
-                        result.Add(new SendModel(tmp));
+                        result.Add(new GroupViewModel(tmp));
                     }
                 }
             }

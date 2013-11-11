@@ -3722,10 +3722,16 @@ namespace Timetable.Site.NewDataService {
         System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer> GetScheduleByIdAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialities", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesResponse")]
-        Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialities(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer);
+        Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialities(int branchId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialities", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesAsync(int branchId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialitiesForFaculti", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesForFacultiResponse")]
+        Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialitiesForFaculti(int facultyId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialitiesForFaculti", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesForFacultiResponse")]
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesForFacultiAsync(int facultyId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTimes", ReplyAction="http://tempuri.org/IDataService/GetTimesResponse")]
         Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer);
@@ -4145,12 +4151,20 @@ namespace Timetable.Site.NewDataService {
             return base.Channel.GetScheduleByIdAsync(id);
         }
         
-        public Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialities(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer) {
-            return base.Channel.GetSpecialities(facultyDataTransfer);
+        public Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialities(int branchId) {
+            return base.Channel.GetSpecialities(branchId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer) {
-            return base.Channel.GetSpecialitiesAsync(facultyDataTransfer);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesAsync(int branchId) {
+            return base.Channel.GetSpecialitiesAsync(branchId);
+        }
+        
+        public Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialitiesForFaculti(int facultyId) {
+            return base.Channel.GetSpecialitiesForFaculti(facultyId);
+        }
+        
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesForFacultiAsync(int facultyId) {
+            return base.Channel.GetSpecialitiesForFacultiAsync(facultyId);
         }
         
         public Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer) {

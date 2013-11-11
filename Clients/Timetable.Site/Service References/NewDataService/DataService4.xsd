@@ -659,14 +659,28 @@
   <xs:element name="GetSpecialities">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="facultyDataTransfer" nillable="true" type="q109:FacultyDataTransfer" />
+        <xs:element minOccurs="0" name="branchId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetSpecialitiesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetSpecialitiesResult" nillable="true" type="q110:ArrayOfSpecialityDataTransfer" />
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetSpecialitiesResult" nillable="true" type="q109:ArrayOfSpecialityDataTransfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSpecialitiesForFaculti">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="facultyId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSpecialitiesForFacultiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetSpecialitiesForFacultiResult" nillable="true" type="q110:ArrayOfSpecialityDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -302,6 +302,7 @@ namespace Timetable.Site.Controllers.Api
         
             if (!string.IsNullOrEmpty(endTime))
                 EndDate = DateTime.ParseExact(endTime, "yyyy-MM-dd", null);
+
        
 
             var qLecturer = lecturerId != null ? new Lecturer {Id = lecturerId.Value} : null;
@@ -442,7 +443,7 @@ namespace Timetable.Site.Controllers.Api
             /*var tmp = GetTempSchedulesForGroup();
             foreach (var t in tmp)
             {
-                result.Add(new SendModel(t, false, true, false));
+                result.Add(new AuditoriumTypeViewModel(t, false, true, false));
             }*/
 
             return result;

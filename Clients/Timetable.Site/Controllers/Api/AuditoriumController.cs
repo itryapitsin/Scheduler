@@ -1,50 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Runtime.Serialization;
-using Timetable.Site.DataService;
 using Timetable.Site.Models.Auditoriums;
-using Timetable.Site.Controllers.Extends;
+using Timetable.Site.NewDataService;
+using Auditorium = Timetable.Site.DataService.Auditorium;
+using AuditoriumType = Timetable.Site.DataService.AuditoriumType;
+using Building = Timetable.Site.DataService.Building;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class AuditoriumController : BaseApiController<Auditorium>
+    public class AuditoriumController : BaseApiController<Auditorium>
     {
-        //Получает список всех аудиторий для здания
         public HttpResponseMessage GetByBuilding(
             int buildingId, 
             int auditoriumTypeId)
         {
-            return CreateResponse<int, int, IEnumerable<SendModel>>(privateGetByBuilding, buildingId, auditoriumTypeId);
+            var result = NewDataService
+                .GetAuditoriums(
+                    new BuildingDataTransfer {Id = buildingId},
+                    new AuditoriumTypeDataTransfer {Id = auditoriumTypeId})
+                .Select(x => new AuditoriumViewModel(x));
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        public IEnumerable<SendModel> privateGetByBuilding(
-            int buildingId,
-            int auditoriumTypeId)
-        {
-            var result = new List<SendModel>();
-
-            var qBuilding = new Building();
-            qBuilding.Id = buildingId;
-
-            var qAuditoriumType = new AuditoriumType();
-            qAuditoriumType.Id = auditoriumTypeId;
-
-            var tmp = DataService.GetAuditoriums(qBuilding, qAuditoriumType);
-
-            //var tmp = GetTempAuditoriums(qBuilding, qAuditoriumType);
-            foreach (var t in tmp)
-            {
-                result.Add(new SendModel(t));
-            }
-
-            return result;
-        }
-
-
-        //Получает свободные аудитории для выбранной клетки расписания
         public HttpResponseMessage GetFree(
             int buildingId,
             int weekTypeId,
@@ -56,113 +37,105 @@ namespace Timetable.Site.Controllers.Api
             string endTime)
         {
 
-            return CreateResponse<int, int, int, int, int, int, string, string, IEnumerable<SendModel>>(privateGetFree, 
-                buildingId, 
-                weekTypeId,
-                day,
-                timeId,
-                tutorialTypeId,
-                auditoriumTypeId,
-                startTime,
-                endTime);
-        }
+            var startDate = new DateTime();
+            var endDate = new DateTime();
 
-        private IEnumerable<SendModel> privateGetFree(
-            int buildingId,
-            int weekTypeId,
-            int day,
-            int timeId,
-            int tutorialTypeId,
-            int auditoriumTypeId,
-            string startTime,
-            string endTime)
-        {
+            if (!string.IsNullOrEmpty(startTime))
+                startDate = DateTime.ParseExact(startTime, "yyyy-MM-dd", null);
 
-
-            var StartDate = new DateTime();
-            var EndDate = new DateTime();
-            if (startTime != "" && startTime != null)
-            {
-                StartDate = DateTime.ParseExact(startTime, "yyyy-MM-dd", null);
-            }
-            if (endTime != "" && endTime != null)
-            {
-                EndDate = DateTime.ParseExact(endTime, "yyyy-MM-dd", null);
-            }
-
-            //TODO
-            var result = new List<SendModel>();
-
-            var qBuilding = new Building();
-            qBuilding.Id = buildingId;
-
-            var qWeekType = new WeekType();
-            qWeekType.Id = weekTypeId;
-
-            var qTime = new Time();
-            qTime.Id = timeId;
-
-            var dayOfWeek = day;
-
-            var qTutorialType = new TutorialType();
-            qTutorialType.Id = tutorialTypeId;
-
-            var qAuditoriumType = new AuditoriumType();
-            qAuditoriumType.Id = auditoriumTypeId;
+            if (!string.IsNullOrEmpty(endTime))
+                endDate = DateTime.ParseExact(endTime, "yyyy-MM-dd", null);
 
             var capacity = 0;
-    
-            var tmp = DataService.GetFreeAuditoriums(qBuilding, dayOfWeek, qWeekType, qTime, null, qAuditoriumType, capacity, StartDate, EndDate);
 
-            foreach(var t in tmp){
-                result.Add(new SendModel(t));
-            }
+            var result = NewDataService
+                .GetFreeAuditoriums(
+                    new BuildingDataTransfer{Id = buildingId}, 
+                    day, 
+                    new WeekTypeDataTransfer{Id= weekTypeId}, 
+                    new TimeDataTransfer{Id = timeId},
+                    null, 
+                    new AuditoriumTypeDataTransfer{Id = auditoriumTypeId}, 
+                    capacity, 
+                    startDate, 
+                    endDate)
+                .Select(x => new AuditoriumViewModel(x));
 
-            return result;
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        
         [HttpPost]
-        public HttpResponseMessage Add(AddModel model)
+        public HttpResponseMessage Add(AuditoriumAddViewModel viewModel)
         {
-            return CreateResponse(privateAdd, model);
-        }
-
-        public void privateAdd(AddModel model)
-        {
-            var aAuditorium = new Auditorium();
-
-            var qBuilding = new Building();
-            qBuilding.Id = model.BuildingId;
-            aAuditorium.Building = qBuilding;
-
-            var qAuditoriumType = new AuditoriumType();
-            qAuditoriumType.Id = model.AuditoriumTypeId;
-            aAuditorium.AuditoriumType = qAuditoriumType;
-
-            aAuditorium.Capacity = model.Capacity;
-            aAuditorium.Info = model.Info;
-            aAuditorium.Name = model.Name;
-            aAuditorium.Number = model.Number;
-
-            aAuditorium.UpdateDate = DateTime.Now.Date;
-            aAuditorium.CreatedDate = DateTime.Now.Date;
-            aAuditorium.IsActual = true;
-
+            var qBuilding = new Building { Id = viewModel.BuildingId };
+            var qAuditoriumType = new AuditoriumType { Id = viewModel.AuditoriumTypeId };
+            var aAuditorium = new Auditorium
+            {
+                Building = qBuilding,
+                AuditoriumType = qAuditoriumType,
+                Capacity = viewModel.Capacity,
+                Info = viewModel.Info,
+                Name = viewModel.Name,
+                Number = viewModel.Number,
+                UpdateDate = DateTime.Now.Date,
+                CreatedDate = DateTime.Now.Date,
+                IsActual = true
+            };
 
             DataService.Add(aAuditorium);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public HttpResponseMessage Delete(DeleteModel model)
         {
-            return CreateResponse(privateDelete, model.Id);
+            DataService.Delete(new Auditorium {Id = model.Id});
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public void privateDelete(int Id)
+        public Auditorium CreateAuditorium(
+            int Id,
+            int AudTypeId,
+            int BuildId)
         {
-            var dAuditorium = new Auditorium();
-            dAuditorium.Id = Id;
-            DataService.Delete(dAuditorium);
+            var a1 = new Auditorium();
+
+            a1.AuditoriumType = new AuditoriumType();
+            a1.AuditoriumType.Id = AudTypeId;
+            if (AudTypeId == 1)
+                a1.AuditoriumType.Name = "Лекционная";
+
+            if (AudTypeId == 2)
+                a1.AuditoriumType.Name = "Лабораторная";
+
+            if (AudTypeId == 3)
+                a1.AuditoriumType.Name = "Дисплейная";
+
+            if (AudTypeId == 4)
+                a1.AuditoriumType.Name = "Кабинет";
+
+            a1.Building = new Building();
+            a1.Building.Id = BuildId;
+            if (BuildId == 1)
+            {
+                a1.Building.Name = "Главный корпус";
+                a1.Building.ShortName = "ГК";
+            }
+            if (BuildId == 2)
+            {
+                a1.Building.Name = "Теоритический корпус";
+                a1.Building.ShortName = "ГК";
+            }
+
+            a1.Capacity = 30;
+            a1.Number = Id.ToString();
+            a1.Id = 2;
+
+            return a1;
         }
     }
 }

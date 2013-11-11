@@ -16,7 +16,7 @@
     };
 }
 
-function thread() {
+function thread(savedThread) {
     this.branch = { Name: "<Филиал не выбран>" };
     this.faculty = { Name: "<Факультет не выбран>" };
     this.courses = [{ Name: "<Курс не выбрана>" }];
@@ -33,6 +33,21 @@ function thread() {
             && this.courses.length > 0
             && this.groups.length > 0;
     };
+
+    if (savedThread.branch)
+        this.branch = savedThread.branch;
+
+    if (savedThread.faculty)
+        this.facult = savedThread.faculty;
+    
+    if (savedThread.courses)
+        this.courses = savedThread.courses;
+    
+    if (savedThread.specialities)
+        this.specialities = savedThread.specialities;
+    
+    if (savedThread.groups)
+        this.groups = savedThread.groups;
 }
 
 function settingsModal($scope) {
@@ -83,6 +98,12 @@ function threadModal(
             .get($http.prefix + 'faculty/get', { params: { branchId: self.branch.Id } })
             .success(function (response) {
                 self.faculties = response;
+            });
+        
+        $http
+            .get($http.prefix + 'speciality/GetForBranch', { params: { branchId: self.branch.Id } })
+            .success(function (response) {
+                self.specialities = response;
             });
     };
 
@@ -153,15 +174,33 @@ function schedulerController(
     $locale,
     $http,
     $resource,
-    localStorageService) {
+    localStorageService,
+    facultyService,
+    specialityService,
+    groupService) {
 
+    $scope.facultyService = facultyService;
+    $scope.specialityService = specialityService;
+    $scope.groupService = groupService;
     $scope.pageModel = pageModel;
-    $scope.settings = new settings();
+    $scope.settings = new settings(
+        localStorageService.get("settings"));
     $scope.settings.changedEvent = function() {
         var t = $scope.isValid();
     };
-    $scope.thread = new thread();
+    $scope.thread = new thread(
+        localStorageService.get("thread"));
     $scope.thread.changedEvent = function () {
+        var params = {
+            facultyId: this.faculty.Id,
+            courseIdsStr: $.Enumerable.From(this.courses).Select(function (item) { return item.Id; }).ToArray(),
+            groupIdsStr: $.Enumerable.From(this.groups).Select(function (item) { return item.Id; }).ToArray(),
+            studyYearId: $scope.settings.studyYear.Id,
+            semestr: $scope.settings.semestr.Id
+        };
+
+        localStorageService.add("thread", $scope.thread);
+
         if (!this.isValid())
             // Add error message support
             return;
@@ -169,14 +208,6 @@ function schedulerController(
         if(!$scope.settings.isValid())
             // Add error message support
             return;
-        
-        var params = {
-            facultyId: this.faculty.Id,
-            courseIdsStr: $.Enumerable.From(this.courses).Select(function (item) { return item.Id; }).ToArray(),
-            groupIdsStr: $.Enumerable.From(this.groups).Select(function (item) { return item.Id; }).ToArray(),
-            studyYearId: $scope.settings.studyYear.Id,
-            semestr: $scope.settings.semestr.Id
-    };
 
         var transactions = $resource(
                 $http.prefix + 'scheduleInfo/get',

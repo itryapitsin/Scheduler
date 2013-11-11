@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization;
 using Timetable.Site.DataService;
 using Timetable.Site.Models.Departments;
 
@@ -8,24 +8,13 @@ namespace Timetable.Site.Controllers.Api
 {
     public class DepartmentController : BaseApiController<Department>
     {
-        //Получить список кафедр университета
         public HttpResponseMessage GetAll()
         {
-            return CreateResponse<IEnumerable<SendModel>>(privateGetAll);
-        }
+            var result = NewDataService
+                .GetDeparmtents()
+                .Select(x => new DepartmentViewModel(x));
 
-        private IEnumerable<SendModel> privateGetAll()
-        {
-            var result = new List<SendModel>();
-
-            var tmp = DataService.GetDeparmtents();
-
-            foreach (var t in tmp)
-            {
-                result.Add(new SendModel(t));
-            }
-
-            return result;
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
     }
 }

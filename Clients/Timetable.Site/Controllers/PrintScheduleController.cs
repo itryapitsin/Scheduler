@@ -10,8 +10,6 @@ using Timetable.Site.Models;
 using Timetable.Site.DataService;
 using System.Net.Http;
 using Timetable.Site.Controllers.Api;
-using AudSendModel = Timetable.Site.Models.Auditoriums.SendModel;
-using SendGroup = Timetable.Site.Models.Groups.SendModel;
 using Timetable.Site.Controllers.Extends;
 
 namespace Timetable.Site.Controllers

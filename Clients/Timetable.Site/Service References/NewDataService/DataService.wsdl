@@ -268,6 +268,12 @@
   <wsdl:message name="IDataService_GetSpecialities_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSpecialitiesResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_GetSpecialitiesForFaculti_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpecialitiesForFaculti" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetSpecialitiesForFaculti_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpecialitiesForFacultiResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataService_GetTimes_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTimes" />
   </wsdl:message>
@@ -494,6 +500,10 @@
     <wsdl:operation name="GetSpecialities">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetSpecialities" message="tns:IDataService_GetSpecialities_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetSpecialitiesResponse" message="tns:IDataService_GetSpecialities_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialitiesForFaculti">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetSpecialitiesForFaculti" message="tns:IDataService_GetSpecialitiesForFaculti_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetSpecialitiesForFacultiResponse" message="tns:IDataService_GetSpecialitiesForFaculti_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTimes">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetTimes" message="tns:IDataService_GetTimes_InputMessage" />
@@ -914,6 +924,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSpecialities">
       <soap:operation soapAction="http://tempuri.org/IDataService/GetSpecialities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialitiesForFaculti">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetSpecialitiesForFaculti" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

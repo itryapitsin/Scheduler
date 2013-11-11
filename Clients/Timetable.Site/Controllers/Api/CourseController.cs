@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization;
 using Timetable.Site.DataService;
 using Timetable.Site.Models.Courses;
 using System.Web.Http;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class CourseController : BaseApiController<Course>
+    public class CourseController : BaseApiController<Course>
     {
         //Получить список курсов
         public HttpResponseMessage GetAll()
         {
-            return CreateResponse<IEnumerable<SendModel>>(privateGetAll);
+            var result = NewDataService
+                .GetCources()
+                .Select(x => new CourseViewModel(x));
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         public IEnumerable<SendModel> privateGetAll()
@@ -31,35 +37,28 @@ namespace Timetable.Site.Controllers.Api
         }
 
         [HttpPost]
-        public HttpResponseMessage Add(AddModel model)
+        public HttpResponseMessage Add(CourseAddViewModel viewModel)
         {
-            return CreateResponse(privateAdd, model);
-        }
+            var course = new Course
+            {
+                Name = viewModel.Name,
+                UpdateDate = DateTime.Now.Date,
+                CreatedDate = DateTime.Now.Date,
+                IsActual = true
+            };
 
-        public void privateAdd(AddModel model)
-        {
-            var aCourse = new Course();
+            DataService.Add(course);
 
-            aCourse.Name = model.Name;
-         
-            aCourse.UpdateDate = DateTime.Now.Date;
-            aCourse.CreatedDate = DateTime.Now.Date;
-            aCourse.IsActual = true;
-
-            DataService.Add(aCourse);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public HttpResponseMessage Delete(DeleteModel model)
         {
-            return CreateResponse(privateDelete, model.Id);
-        }
-
-        public void privateDelete(int Id)
-        {
-            var dCourse = new Course();
-            dCourse.Id = Id;
+            var dCourse = new Course {Id = model.Id};
             DataService.Delete(dCourse);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

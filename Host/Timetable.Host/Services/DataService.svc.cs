@@ -211,6 +211,15 @@ namespace Timetable.Host.Services
                 .Select(x => new GroupDataTransfer(x));
         }
 
+        public IEnumerable<GroupDataTransfer> GetGroups(int facultyId, int[] courseIds)
+        {
+            return Database.Groups
+                .Where(x => x.IsActual)
+                .Where(x => courseIds.Contains(x.CourseId))
+                .ToList()
+                .Select(x => new GroupDataTransfer(x));
+        }
+
         public IEnumerable<GroupDataTransfer> GetGroups(CourseDataTransfer courseDataTransfer, SpecialityDataTransfer specialityDataTransfer)
         {
             return Database.Groups

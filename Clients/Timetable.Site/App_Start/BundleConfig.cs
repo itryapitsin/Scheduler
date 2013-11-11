@@ -22,6 +22,7 @@ namespace Timetable.Site
                 "~/Scripts/angular-promise-tracker.js",
                 "~/Scripts/angular-resource.js",
                 "~/Scripts/angular-route.js",
+                "~/Scripts/angular-select2.js",
                 "~/Scripts/angular-sanitize.js",
                 "~/Scripts/angular-scenario.js",
                 "~/Scripts/angular-sanitize.js",
@@ -33,6 +34,7 @@ namespace Timetable.Site
                 "~/Scripts/ui-bootstrap-{version}.js",
                 "~/Scripts/ui-bootstrap-tpls-{version}.js",
                 "~/Scripts/i18n/angular-locale_ru-ru.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/select2").Include("~/Scripts/select2.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/jqwidgets").Include("~/Scripts/jqxcore.js"));
             bundles.Add(new ScriptBundle("~/Scripts/Site/Index").Include("~/Scripts/Site/main.index.viewmodel.js"));
@@ -40,6 +42,8 @@ namespace Timetable.Site
             bundles.Add(new ScriptBundle("~/Scripts/App").Include(
                 "~/App/app.js",
                 "~/App/directives/daterangepicker.js",
+                "~/App/services/facultyService.js",
+                "~/App/services/specialityService.js",
                 "~/App/services/groupService.js",
                 "~/App/Controllers/schedulerController.js"));
 
@@ -49,7 +53,7 @@ namespace Timetable.Site
                 "~/Content/jqwidgets/jqx.classic.css"));
             bundles.Add(new StyleBundle("~/Content/jquery").Include("~/Content/themes/base/jquery*"));
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap*"));
-            
+            bundles.Add(new StyleBundle("~/Content/select2").Include("~/Content/css/select2.css"));
 
             BundleTable.EnableOptimizations = false;
         }

@@ -16,6 +16,7 @@ namespace Timetable.Site.Controllers.Api
         #region Services
         protected readonly IDataService DataService;
         protected readonly IUserService UserService;
+        public readonly NewDataService.DataServiceClient NewDataService = new NewDataService.DataServiceClient();
         #endregion
 
         public BaseApiController()
