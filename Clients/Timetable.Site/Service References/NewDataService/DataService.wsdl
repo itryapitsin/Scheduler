@@ -125,29 +125,17 @@
   <wsdl:message name="IDataService_GetsSubGroupsByGroupId_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetsSubGroupsByGroupIdResponse" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetGroupsForCourse_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetGroupsForCourse" />
+  <wsdl:message name="IDataService_GetGroupsForFaculty_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsForFaculty" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetGroupsForCourse_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetGroupsForCourseResponse" />
-  </wsdl:message>
-  <wsdl:message name="IDataService_GetGroupsForCourses_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetGroupsForCourses" />
-  </wsdl:message>
-  <wsdl:message name="IDataService_GetGroupsForCourses_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetGroupsForCoursesResponse" />
+  <wsdl:message name="IDataService_GetGroupsForFaculty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsForFacultyResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_GetGroupsForSpeciality_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsForSpeciality" />
   </wsdl:message>
   <wsdl:message name="IDataService_GetGroupsForSpeciality_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsForSpecialityResponse" />
-  </wsdl:message>
-  <wsdl:message name="IDataService_GetGroupsForSpecialities_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetGroupsForSpecialities" />
-  </wsdl:message>
-  <wsdl:message name="IDataService_GetGroupsForSpecialities_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetGroupsForSpecialitiesResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_GetLecturersByDeparmentId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetLecturersByDeparmentId" />
@@ -418,21 +406,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetsSubGroupsByGroupId" message="tns:IDataService_GetsSubGroupsByGroupId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetsSubGroupsByGroupIdResponse" message="tns:IDataService_GetsSubGroupsByGroupId_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetGroupsForCourse">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCourse" message="tns:IDataService_GetGroupsForCourse_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCourseResponse" message="tns:IDataService_GetGroupsForCourse_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetGroupsForCourses">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCourses" message="tns:IDataService_GetGroupsForCourses_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForCoursesResponse" message="tns:IDataService_GetGroupsForCourses_OutputMessage" />
+    <wsdl:operation name="GetGroupsForFaculty">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForFaculty" message="tns:IDataService_GetGroupsForFaculty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForFacultyResponse" message="tns:IDataService_GetGroupsForFaculty_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetGroupsForSpeciality">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpeciality" message="tns:IDataService_GetGroupsForSpeciality_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpecialityResponse" message="tns:IDataService_GetGroupsForSpeciality_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetGroupsForSpecialities">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpecialities" message="tns:IDataService_GetGroupsForSpecialities_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGroupsForSpecialitiesResponse" message="tns:IDataService_GetGroupsForSpecialities_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetLecturersByDeparmentId">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetLecturersByDeparmentId" message="tns:IDataService_GetLecturersByDeparmentId_InputMessage" />
@@ -736,17 +716,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetGroupsForCourse">
-      <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForCourse" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetGroupsForCourses">
-      <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForCourses" style="document" />
+    <wsdl:operation name="GetGroupsForFaculty">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForFaculty" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -756,15 +727,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetGroupsForSpeciality">
       <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForSpeciality" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetGroupsForSpecialities">
-      <soap:operation soapAction="http://tempuri.org/IDataService/GetGroupsForSpecialities" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

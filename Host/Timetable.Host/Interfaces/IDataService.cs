@@ -104,22 +104,23 @@ namespace Timetable.Host.Interfaces
         IEnumerable<FacultyDataTransfer> GetFaculties(BranchDataTransfer branchDataTransfer = null);
 
         #region groups
+
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        GroupDataTransfer GetGroupById(int groupId);
+        IEnumerable<GroupDataTransfer> GetGroupByIds(int[] groupIds);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<GroupDataTransfer> GetsSubGroupsByGroupId(int groupId);
         
 
-        [OperationContract(Name = "GetGroupsForFaculty")]
+        [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<GroupDataTransfer> GetGroupsForFaculty(
             int facultyId,
             int[] courseIds);
 
-        [OperationContract(Name = "GetGroupsForSpeciality")]
+        [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<GroupDataTransfer> GetGroupsForSpeciality(
             int specialityId,

@@ -29,28 +29,18 @@ namespace Timetable.Site.Controllers.Api
         //специальность может не выбираться
         public HttpResponseMessage GetAll(int facultyId, string courseIds, string specialityIds)
         {
-            var ids = courseIds.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray();
-
-            var result = NewDataService
-                .GetGroupsForCourses(
-                    facultyId,
-                    ids)
-                .Select(x => new GroupViewModel(x));
-
-            return Request.CreateResponse(HttpStatusCode.OK, result);
+            throw new NotImplementedException();
         }
 
         //Получить группы по специальностям
-        public HttpResponseMessage GetBySpecialities(string specialityIds, int courseId)
+        public HttpResponseMessage GetBySpeciality(int specialityId, string courseIds)
         {
-            var ids = specialityIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
+            var ids = courseIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToArray();
 
             var result = NewDataService
-                .GetGroupsForSpecialities(courseId, ids)
+                .GetGroupsForSpeciality(specialityId, ids)
                 .Select(x => new GroupViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -64,35 +54,10 @@ namespace Timetable.Site.Controllers.Api
                 .ToArray();
 
             var result = NewDataService
-                .GetGroupsForCourses(facultyId, ids)
+                .GetGroupsForFaculty(facultyId, ids)
                 .Select(x => new GroupViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
-        }
-
-        //Получить группы по курсу
-        public HttpResponseMessage GetByCourse(int facultyId, int courseId)
-        {
-            return CreateResponse<int, int, IEnumerable<GroupViewModel>>(privateGetByCourse, facultyId, courseId);
-        }
-
-        private IEnumerable<GroupViewModel> privateGetByCourse(int facultyId, int courseId)
-        {
-            var result = new List<GroupViewModel>();
-
-            var qFaculty = new Faculty();
-            var qCourse = new Course();
-            qFaculty.Id = facultyId;
-            qCourse.Id = courseId;
-
-            var tmp = DataService.GetGroupsForCourse(qFaculty, qCourse);
-            //var tmp = GetTempGroups(qCourse, null);
-            foreach (var t in tmp)
-            {
-                result.Add(new GroupViewModel(t));
-            }
-
-            return result;
         }
 
         public IEnumerable<GroupViewModel> GetByIds(string groupIds)

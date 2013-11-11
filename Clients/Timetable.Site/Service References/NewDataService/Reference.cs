@@ -2213,9 +2213,9 @@ namespace Timetable.Site.NewDataService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.CourseDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.DepartmentDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.FacultyDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.SpecialityDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TutorialDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.ScheduleInfoDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.SpecialityDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TimeDataTransfer))]
     public partial class BaseDataTransfer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -3101,61 +3101,6 @@ namespace Timetable.Site.NewDataService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SpecialityDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class SpecialityDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ShortNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Code {
-            get {
-                return this.CodeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
-                    this.CodeField = value;
-                    this.RaisePropertyChanged("Code");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ShortName {
-            get {
-                return this.ShortNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
-                    this.ShortNameField = value;
-                    this.RaisePropertyChanged("ShortName");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TutorialDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
     [System.SerializableAttribute()]
     public partial class TutorialDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
@@ -3442,6 +3387,61 @@ namespace Timetable.Site.NewDataService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SpecialityDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class SpecialityDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShortNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShortName {
+            get {
+                return this.ShortNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
+                    this.ShortNameField = value;
+                    this.RaisePropertyChanged("ShortName");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TimeDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
     [System.SerializableAttribute()]
     public partial class TimeDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
@@ -3613,29 +3613,17 @@ namespace Timetable.Site.NewDataService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetsSubGroupsByGroupId", ReplyAction="http://tempuri.org/IDataService/GetsSubGroupsByGroupIdResponse")]
         System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetsSubGroupsByGroupIdAsync(int groupId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForCourse", ReplyAction="http://tempuri.org/IDataService/GetGroupsForCourseResponse")]
-        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForFaculty", ReplyAction="http://tempuri.org/IDataService/GetGroupsForFacultyResponse")]
+        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForFaculty(int facultyId, int[] courseIds);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForCourse", ReplyAction="http://tempuri.org/IDataService/GetGroupsForCourseResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForCourses", ReplyAction="http://tempuri.org/IDataService/GetGroupsForCoursesResponse")]
-        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForCourses(int facultyId, int[] courseIds);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForCourses", ReplyAction="http://tempuri.org/IDataService/GetGroupsForCoursesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCoursesAsync(int facultyId, int[] courseIds);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForFaculty", ReplyAction="http://tempuri.org/IDataService/GetGroupsForFacultyResponse")]
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForFacultyAsync(int facultyId, int[] courseIds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetGroupsForSpecialityResponse")]
-        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer);
+        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(int specialityId, int[] courseIds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetGroupsForSpecialityResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialityAsync(Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForSpecialities", ReplyAction="http://tempuri.org/IDataService/GetGroupsForSpecialitiesResponse")]
-        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpecialities(int courseId, int[] specialitysIds);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForSpecialities", ReplyAction="http://tempuri.org/IDataService/GetGroupsForSpecialitiesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialitiesAsync(int courseId, int[] specialitysIds);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialityAsync(int specialityId, int[] courseIds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByDeparmentId", ReplyAction="http://tempuri.org/IDataService/GetLecturersByDeparmentIdResponse")]
         Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByDeparmentId(Timetable.Site.NewDataService.DepartmentDataTransfer departmentDataTransfer);
@@ -4011,36 +3999,20 @@ namespace Timetable.Site.NewDataService {
             return base.Channel.GetsSubGroupsByGroupIdAsync(groupId);
         }
         
-        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer) {
-            return base.Channel.GetGroupsForCourse(facultyDataTransfer, courseDataTransfer);
+        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForFaculty(int facultyId, int[] courseIds) {
+            return base.Channel.GetGroupsForFaculty(facultyId, courseIds);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer) {
-            return base.Channel.GetGroupsForCourseAsync(facultyDataTransfer, courseDataTransfer);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForFacultyAsync(int facultyId, int[] courseIds) {
+            return base.Channel.GetGroupsForFacultyAsync(facultyId, courseIds);
         }
         
-        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForCourses(int facultyId, int[] courseIds) {
-            return base.Channel.GetGroupsForCourses(facultyId, courseIds);
+        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(int specialityId, int[] courseIds) {
+            return base.Channel.GetGroupsForSpeciality(specialityId, courseIds);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForCoursesAsync(int facultyId, int[] courseIds) {
-            return base.Channel.GetGroupsForCoursesAsync(facultyId, courseIds);
-        }
-        
-        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer) {
-            return base.Channel.GetGroupsForSpeciality(courseDataTransfer, specialityDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialityAsync(Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer) {
-            return base.Channel.GetGroupsForSpecialityAsync(courseDataTransfer, specialityDataTransfer);
-        }
-        
-        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpecialities(int courseId, int[] specialitysIds) {
-            return base.Channel.GetGroupsForSpecialities(courseId, specialitysIds);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialitiesAsync(int courseId, int[] specialitysIds) {
-            return base.Channel.GetGroupsForSpecialitiesAsync(courseId, specialitysIds);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialityAsync(int specialityId, int[] courseIds) {
+            return base.Channel.GetGroupsForSpecialityAsync(specialityId, courseIds);
         }
         
         public Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByDeparmentId(Timetable.Site.NewDataService.DepartmentDataTransfer departmentDataTransfer) {

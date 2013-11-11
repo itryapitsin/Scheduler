@@ -177,10 +177,12 @@ namespace Timetable.Host.Services
         }
 
         #region groups
-        public GroupDataTransfer GetGroupById(int groupId)
+        public IEnumerable<GroupDataTransfer> GetGroupByIds(int[] groupIds)
         {
-            return new GroupDataTransfer(
-                Database.Groups.FirstOrDefault(x => x.Id == groupId));
+            return Database.Groups
+                .Where(x => groupIds.Contains(x.Id))
+                .ToList()
+                .Select(x => new GroupDataTransfer(x));
         }
 
         public IEnumerable<GroupDataTransfer> GetGroupsByCode(string code, int count)
