@@ -6,7 +6,7 @@ using Timetable.Site.Models.Departments;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class DepartmentController : BaseApiController<Department>
+    public class DepartmentController : BaseApiController
     {
         public HttpResponseMessage GetAll()
         {

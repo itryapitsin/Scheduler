@@ -3601,11 +3601,11 @@ namespace Timetable.Site.NewDataService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetFaculties", ReplyAction="http://tempuri.org/IDataService/GetFacultiesResponse")]
         System.Threading.Tasks.Task<Timetable.Site.NewDataService.FacultyDataTransfer[]> GetFacultiesAsync(Timetable.Site.NewDataService.BranchDataTransfer branchDataTransfer);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupById", ReplyAction="http://tempuri.org/IDataService/GetGroupByIdResponse")]
-        Timetable.Site.NewDataService.GroupDataTransfer GetGroupById(int groupId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupByIds", ReplyAction="http://tempuri.org/IDataService/GetGroupByIdsResponse")]
+        Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupByIds(int[] groupIds);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupById", ReplyAction="http://tempuri.org/IDataService/GetGroupByIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer> GetGroupByIdAsync(int groupId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupByIds", ReplyAction="http://tempuri.org/IDataService/GetGroupByIdsResponse")]
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupByIdsAsync(int[] groupIds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetsSubGroupsByGroupId", ReplyAction="http://tempuri.org/IDataService/GetsSubGroupsByGroupIdResponse")]
         Timetable.Site.NewDataService.GroupDataTransfer[] GetsSubGroupsByGroupId(int groupId);
@@ -3983,12 +3983,12 @@ namespace Timetable.Site.NewDataService {
             return base.Channel.GetFacultiesAsync(branchDataTransfer);
         }
         
-        public Timetable.Site.NewDataService.GroupDataTransfer GetGroupById(int groupId) {
-            return base.Channel.GetGroupById(groupId);
+        public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupByIds(int[] groupIds) {
+            return base.Channel.GetGroupByIds(groupIds);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer> GetGroupByIdAsync(int groupId) {
-            return base.Channel.GetGroupByIdAsync(groupId);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupByIdsAsync(int[] groupIds) {
+            return base.Channel.GetGroupByIdsAsync(groupIds);
         }
         
         public Timetable.Site.NewDataService.GroupDataTransfer[] GetsSubGroupsByGroupId(int groupId) {

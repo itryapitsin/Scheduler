@@ -10,7 +10,7 @@ using Timetable.Site.UserService;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public abstract class BaseApiController<T> : System.Web.Http.ApiController, INotifyPropertyChanged
+    public abstract class BaseApiController : System.Web.Http.ApiController, INotifyPropertyChanged
     {
 
         #region Services

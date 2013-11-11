@@ -177,7 +177,7 @@ namespace Timetable.Host.Services
         }
 
         #region groups
-        public IEnumerable<GroupDataTransfer> GetGroupByIds(int[] groupIds)
+        public IEnumerable<GroupDataTransfer> GetGroupsByIds(int[] groupIds)
         {
             return Database.Groups
                 .Where(x => groupIds.Contains(x.Id))
@@ -228,34 +228,34 @@ namespace Timetable.Host.Services
         }
         #endregion
 
-        public IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(DepartmentDataTransfer departmentDataTransfer)
+        #region lecturers
+        public IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(int departmentId)
         {
             return Database.Lecturers
                 .Where(x => x.Departments
-                    .Any(y => y.Id.Equals(departmentDataTransfer.Id)))
+                    .Any(y => y.Id.Equals(departmentId)))
                 .ToList()
                 .Select(x => new LecturerDataTransfer(x));
         }
 
-        public IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(TutorialDataTransfer tutorialDataTransfer)
+        public IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Tutorial.Id.Equals(tutorialDataTransfer.Id))
+                .Where(x => x.Tutorial.Id.Equals(tutorialId))
                 .ToList()
                 .Select(x => new LecturerDataTransfer(x.Lecturer));
         }
 
         public IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
-            TutorialDataTransfer tutorialDataTransfer,
-            TutorialTypeDataTransfer tutorialTypeDataTransfer)
+            int tutorialId,
+            int tutorialTypeId)
         {
             return Database.ScheduleInfoes
-                .Where(x => x.Tutorial.Id.Equals(tutorialDataTransfer.Id))
-                .Where(x => x.TutorialType.Id.Equals(tutorialTypeDataTransfer.Id))
+                .Where(x => x.Tutorial.Id.Equals(tutorialId))
+                .Where(x => x.TutorialType.Id.Equals(tutorialTypeId))
                 .ToList()
                 .Select(x => new LecturerDataTransfer(x.Lecturer));
         }
-
 
         public LecturerDataTransfer GetLecturerByFirstMiddleLastname(string arg)
         {
@@ -288,6 +288,7 @@ namespace Timetable.Host.Services
 
             return result.AsQueryable();
         }
+        #endregion
 
         public ScheduleInfoDataTransfer GetScheduleInfoById(int id)
         {

@@ -135,7 +135,6 @@
     <Compile Include="Controllers\NewBaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Extends\TempData.cs" />
-    <Compile Include="Controllers\Extends\TempGroups.cs" />
     <Compile Include="Controllers\Extends\TempScheduleInfoes.cs" />
     <Compile Include="Controllers\Extends\TempSchedules.cs" />
     <Compile Include="Controllers\Extends\TempSpecialities.cs" />

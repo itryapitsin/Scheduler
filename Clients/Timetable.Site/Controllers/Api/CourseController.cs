@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Timetable.Site.DataService;
+using Timetable.Site.NewDataService;
 using Timetable.Site.Models.Courses;
 using System.Web.Http;
 using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class CourseController : BaseApiController<Course>
+    public class CourseController : BaseApiController
     {
         //Получить список курсов
         public HttpResponseMessage GetAll()
@@ -20,20 +19,6 @@ namespace Timetable.Site.Controllers.Api
                 .Select(x => new CourseViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
-        }
-
-        public IEnumerable<SendModel> privateGetAll()
-        {
-            var result = new List<SendModel>();
-            var tmp = DataService.GetCources();
-            //var tmp = GetTempCourses();
-
-            foreach (var t in tmp)
-            {
-                result.Add(new SendModel(t));
-            }
-
-            return result;
         }
 
         [HttpPost]
@@ -47,7 +32,7 @@ namespace Timetable.Site.Controllers.Api
                 IsActual = true
             };
 
-            DataService.Add(course);
+            NewDataService.Add(course);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -56,7 +41,7 @@ namespace Timetable.Site.Controllers.Api
         public HttpResponseMessage Delete(DeleteModel model)
         {
             var dCourse = new Course {Id = model.Id};
-            DataService.Delete(dCourse);
+            NewDataService.Delete(dCourse);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

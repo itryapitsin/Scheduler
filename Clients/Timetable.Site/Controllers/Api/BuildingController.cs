@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Timetable.Site.DataService;
 using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class BuildingController : BaseApiController<Building>
+    public class BuildingController : BaseApiController
     {
         public HttpResponseMessage GetAll()
         {

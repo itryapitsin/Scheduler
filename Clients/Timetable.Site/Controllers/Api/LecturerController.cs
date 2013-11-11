@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
-using System.Runtime.Serialization;
 using Timetable.Site.DataService;
 using Timetable.Site.Models.Lecturers;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class LecturerController : BaseApiController<Lecturer>
+    public class LecturerController : BaseApiController
     {
         //Получить преводавателей по идентификатору кафедры
-        public HttpResponseMessage GetAll(int departmentId)
+        public HttpResponseMessage GetByDepartment(int departmentId)
         {
             return CreateResponse<int, IEnumerable<SendModel>>(privateGetAll, departmentId);
         }

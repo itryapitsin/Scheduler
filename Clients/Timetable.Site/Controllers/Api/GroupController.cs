@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Timetable.Site.Models.Groups;
-using Course = Timetable.Site.DataService.Course;
-using Faculty = Timetable.Site.DataService.Faculty;
-using Group = Timetable.Site.DataService.Group;
-using GroupViewModel = Timetable.Site.Models.Groups.GroupViewModel;
-using Speciality = Timetable.Site.DataService.Speciality;
+using Timetable.Site.NewDataService;
+
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class GroupController : BaseApiController<Group>
+    public class GroupController : BaseApiController
     {
-        //Получить все группы, чей код попадает под маску 
         public HttpResponseMessage GetByCode(string code)
         {
             var result = NewDataService
@@ -24,15 +19,6 @@ namespace Timetable.Site.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-
-        //Получить все группы по факультету, курсу и специальности (обзательно должен быть выбран факультет и курс, 
-        //специальность может не выбираться
-        public HttpResponseMessage GetAll(int facultyId, string courseIds, string specialityIds)
-        {
-            throw new NotImplementedException();
-        }
-
-        //Получить группы по специальностям
         public HttpResponseMessage GetBySpeciality(int specialityId, string courseIds)
         {
             var ids = courseIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
@@ -46,7 +32,6 @@ namespace Timetable.Site.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        //Получить группы по курсам
         public HttpResponseMessage GetByCourses(int facultyId, string courseIds)
         {
             var ids = courseIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
@@ -60,24 +45,17 @@ namespace Timetable.Site.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        public IEnumerable<GroupViewModel> GetByIds(string groupIds)
+        public HttpResponseMessage GetByIds(string groupIds)
         {
-            var result = new List<GroupViewModel>();
+            var ids = groupIds.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
 
-            if (groupIds != null)
-            {
-                foreach (var groupId in groupIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (groupId != " ")
-                    {
-                        var tmp = DataService.GetGroupById(int.Parse(groupId));
-                        //var tmp = GetTempGroupById(int.Parse(groupId));
-                        result.Add(new GroupViewModel(tmp));
-                    }
-                }
-            }
+            var result = NewDataService
+                .GetGroupByIds(ids)
+                .Select(x => new GroupViewModel(x));
 
-            return result;
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
 
@@ -96,7 +74,7 @@ namespace Timetable.Site.Controllers.Api
                 IsActual = true
             };
 
-            DataService.Add(aGroup);
+            NewDataService.Add(aGroup);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -105,7 +83,7 @@ namespace Timetable.Site.Controllers.Api
         public HttpResponseMessage Delete(int id)
         {
             var dGroup = new Group {Id = id};
-            DataService.Delete(dGroup);
+            NewDataService.Delete(dGroup);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

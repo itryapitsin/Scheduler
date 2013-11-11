@@ -5,13 +5,13 @@ using System.Net.Http;
 using System.Web.Http;
 using Timetable.Site.Models.Auditoriums;
 using Timetable.Site.NewDataService;
-using Auditorium = Timetable.Site.DataService.Auditorium;
-using AuditoriumType = Timetable.Site.DataService.AuditoriumType;
-using Building = Timetable.Site.DataService.Building;
+using Auditorium = Timetable.Site.NewDataService.Auditorium;
+using AuditoriumType = Timetable.Site.NewDataService.AuditoriumType;
+using Building = Timetable.Site.NewDataService.Building;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class AuditoriumController : BaseApiController<Auditorium>
+    public class AuditoriumController : BaseApiController
     {
         public HttpResponseMessage GetByBuilding(
             int buildingId, 
@@ -84,7 +84,7 @@ namespace Timetable.Site.Controllers.Api
                 IsActual = true
             };
 
-            DataService.Add(aAuditorium);
+            NewDataService.Add(aAuditorium);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -92,7 +92,7 @@ namespace Timetable.Site.Controllers.Api
         [HttpPost]
         public HttpResponseMessage Delete(DeleteModel model)
         {
-            DataService.Delete(new Auditorium {Id = model.Id});
+            NewDataService.Delete(new Auditorium { Id = model.Id });
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

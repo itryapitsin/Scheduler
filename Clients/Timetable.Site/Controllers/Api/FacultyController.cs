@@ -4,11 +4,10 @@ using System.Net.Http;
 using System.Web.Http;
 using Timetable.Site.Models.ViewModels;
 using Timetable.Site.NewDataService;
-using Faculty = Timetable.Site.DataService.Faculty;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class FacultyController : BaseApiController<Faculty>
+    public class FacultyController : BaseApiController
     {
         //TODO: Is need?
         //Получить список всех факультетов

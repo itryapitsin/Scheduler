@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Timetable.Site.DataService;
 using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public class BranchController : BaseApiController<Branch>
+    public class BranchController : BaseApiController
     {
         //Получить список всех подразделений
         public HttpResponseMessage GetAll()

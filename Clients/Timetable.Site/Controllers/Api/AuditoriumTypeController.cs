@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Timetable.Site.DataService;
+using Timetable.Site.NewDataService;
 using Timetable.Site.Models.AuditoriumTypes;
 using System.Web.Http;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class AuditoriumTypeController : BaseApiController<AuditoriumType>
+    public class AuditoriumTypeController : BaseApiController
     {
         [HttpGet]
         public HttpResponseMessage GetAll()
@@ -31,7 +31,7 @@ namespace Timetable.Site.Controllers.Api
                 IsActual = true
             };
 
-            DataService.Add(aAuditoriumType);
+            NewDataService.Add(aAuditoriumType);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -40,7 +40,7 @@ namespace Timetable.Site.Controllers.Api
         public HttpResponseMessage Delete(DeleteModel model)
         {
             var dAuditoriumType = new Auditorium {Id = model.Id};
-            DataService.Delete(dAuditoriumType);
+            NewDataService.Delete(dAuditoriumType);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

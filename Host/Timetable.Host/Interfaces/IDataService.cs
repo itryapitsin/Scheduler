@@ -107,7 +107,7 @@ namespace Timetable.Host.Interfaces
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<GroupDataTransfer> GetGroupByIds(int[] groupIds);
+        IEnumerable<GroupDataTransfer> GetGroupsByIds(int[] groupIds);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -127,19 +127,20 @@ namespace Timetable.Host.Interfaces
             int[] courseIds);
         #endregion
 
+        #region lecturers
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(DepartmentDataTransfer departmentDataTransfer);
+        IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(int departmentId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(TutorialDataTransfer tutorialDataTransfer);
+        IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
-            TutorialDataTransfer tutorialDataTransfer,
-            TutorialTypeDataTransfer tutorialTypeDataTransfer);
+            int tutorialId, 
+            int tutorialTypeId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -148,6 +149,7 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<LecturerDataTransfer> GetLecturersByFirstMiddleLastname(string arg);
+        #endregion
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
