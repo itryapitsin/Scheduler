@@ -208,6 +208,15 @@ namespace Timetable.Host.Interfaces
         #region schedule
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<ScheduleDataTransfer> GetSchedulesForGroups(
+            int facultyId,
+            int courseId,
+            int[] groupIds,
+            int studyYear,
+            int semester);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<ScheduleDataTransfer> GetSchedulesForScheduleInfoes(int scheduleInfoId);
 
         [OperationContract]

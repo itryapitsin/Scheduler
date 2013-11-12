@@ -516,23 +516,6 @@ namespace Timetable.Host.Services
             return result.ToList().Select(x => new ScheduleDataTransfer(x));
         }
 
-        //public IEnumerable<ScheduleDataTransfer> GetSchedulesForGroupOnlyId(
-        //   GroupDataTransfer groupDataTransfer,
-        //   StudyYearDataTransfer studyYearDataTransfer,
-        //   int semester,
-        //   DateTime startDate,
-        //   DateTime endDate)
-        //{
-        //    return GetSchedules()
-        //        .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
-        //        .Where(x => x.ScheduleInfo.Semester == semester)
-        //        .Where(x => x.StartDate <= endDate && x.EndDate >= startDate)
-        //        .Where(x => x.ScheduleInfo.Groups.Any(y => y.Id.Equals(groupDataTransfer.Id)))
-        //        .ToList()
-        //        .Select(x => new ScheduleDataTransfer(x));
-
-        //}
-
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForSpeciality(
             int specialityId,
             int courseId,
@@ -548,6 +531,23 @@ namespace Timetable.Host.Services
                 .ToList()
                 .Select(x => new ScheduleDataTransfer(x));
 
+        }
+
+        public IEnumerable<ScheduleDataTransfer> GetSchedulesForGroups(
+            int facultyId,
+            int courseId,
+            int[] groupIds,
+            int studyYear,
+            int semester)
+        {
+            return GetSchedules()
+                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear)
+                .Where(x => x.ScheduleInfo.Semester == semester)
+                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id == facultyId))
+                .Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))
+                .Where(x => x.ScheduleInfo.Groups.Any(y => groupIds.Contains(y.Id)))
+                .ToList()
+                .Select(x => new ScheduleDataTransfer(x));
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForLecturer(
