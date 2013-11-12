@@ -265,8 +265,8 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
-            AuditoriumDataTransfer auditoriumDataTransfer,
-            StudyYearDataTransfer studyYearDataTransfer,
+            int auditoriumId,
+            int studyYearId,
             int semester,
             DateTime startDate,
             DateTime endDate);

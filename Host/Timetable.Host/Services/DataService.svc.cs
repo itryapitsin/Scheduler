@@ -580,16 +580,16 @@ namespace Timetable.Host.Services
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
-            AuditoriumDataTransfer auditoriumDataTransfer,
-            StudyYearDataTransfer studyYearDataTransfer,
+            int auditoriumId,
+            int studyYearId,
             int semester,
             DateTime startDate,
             DateTime endDate)
         {
             var result = GetSchedules()
-               .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearDataTransfer.Id)
+               .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearId)
                .Where(x => x.ScheduleInfo.Semester == semester)
-               .Where(x => x.Auditorium.Id.Equals(auditoriumDataTransfer.Id))
+               .Where(x => x.Auditorium.Id == auditoriumId)
                .ToList()
                .Select(x => new ScheduleDataTransfer(x));
 
