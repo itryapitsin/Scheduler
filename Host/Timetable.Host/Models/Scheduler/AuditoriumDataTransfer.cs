@@ -22,9 +22,7 @@ namespace Timetable.Host.Models.Scheduler
         public int BuildingId { get; set; }
         [DataMember]
         public int AuditoriumTypeId { get; set; }
-        public AuditoriumDataTransfer()
-        {
-        }
+        public AuditoriumDataTransfer() {}
 
         public AuditoriumDataTransfer(Auditorium auditorium)
         {

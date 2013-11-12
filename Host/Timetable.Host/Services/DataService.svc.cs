@@ -26,20 +26,20 @@ namespace Timetable.Host.Services
             var schedulesCount = 0;
             var schedules = Database.Schedules
                 .Where(x => x.IsActual
-                        && x.AuditoriumId == scheduleDataTransfer.AuditoriumId
-                        && x.PeriodId == scheduleDataTransfer.PeriodId
+                        && x.AuditoriumId == scheduleDataTransfer.Auditorium.Id
+                        && x.PeriodId == scheduleDataTransfer.Time.Id
                         && x.DayOfWeek == scheduleDataTransfer.DayOfWeek
                         && (x.StartDate >= scheduleDataTransfer.StartDate && x.StartDate <= scheduleDataTransfer.EndDate
                         || x.EndDate >= scheduleDataTransfer.StartDate && x.EndDate <= scheduleDataTransfer.EndDate));
 
 
-            if (scheduleDataTransfer.WeekTypeId == 1)
+            if (scheduleDataTransfer.WeekType.Id == 1)
                 schedulesCount = schedules.Count();
 
-            if (scheduleDataTransfer.WeekTypeId == 2)
+            if (scheduleDataTransfer.WeekType.Id == 2)
                 schedulesCount = schedules.Count(x => x.WeekTypeId == 1 || x.WeekTypeId == 2);
 
-            if (scheduleDataTransfer.WeekTypeId == 3)
+            if (scheduleDataTransfer.WeekType.Id == 3)
                 schedulesCount = schedules.Count(x => x.WeekTypeId == 1 || x.WeekTypeId == 3);
 
             return schedulesCount == 0;

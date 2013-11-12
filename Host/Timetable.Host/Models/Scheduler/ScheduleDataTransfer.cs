@@ -8,15 +8,15 @@ namespace Timetable.Host.Models.Scheduler
     public class ScheduleDataTransfer : BaseDataTransfer
     {
         [DataMember]
-        public int AuditoriumId { get; set; }
+        public AuditoriumDataTransfer Auditorium { get; set; }
         [DataMember]
         public int DayOfWeek { get; set; }
         [DataMember]
-        public int PeriodId { get; set; }
+        public TimeDataTransfer Time { get; set; }
         [DataMember]
-        public int ScheduleInfoId { get; set; }
+        public ScheduleInfoDataTransfer ScheduleInfo { get; set; }
         [DataMember]
-        public int WeekTypeId { get; set; }
+        public WeekTypeDataTransfer WeekType { get; set; }
         [DataMember]
         public DateTime StartDate { get; set; }
         [DataMember]
@@ -24,7 +24,7 @@ namespace Timetable.Host.Models.Scheduler
         [DataMember]
         public bool AutoDelete { get; set; }
         [DataMember]
-        public int Timetable { get; set; }
+        public TimetableEntityDataTransfer Timetable { get; set; }
         [DataMember]
         public string SubGroup { get; set; }
 
@@ -35,19 +35,17 @@ namespace Timetable.Host.Models.Scheduler
             Id = schedule.Id;
 
             if (schedule.Auditorium != null)
-                AuditoriumId = schedule.Auditorium.Id;
+                Auditorium = new AuditoriumDataTransfer(schedule.Auditorium);
 
             DayOfWeek = schedule.DayOfWeek;
 
             if(schedule.Period != null)
-                PeriodId = schedule.Period.Id;
+                Time = new TimeDataTransfer(schedule.Period);
 
-            ScheduleInfoId = schedule.ScheduleInfo.Id;
-            WeekTypeId = schedule.WeekType.Id;
-            StartDate = schedule.StartDate;
-            EndDate = schedule.EndDate;
+            ScheduleInfo = new ScheduleInfoDataTransfer(schedule.ScheduleInfo);
+            WeekType = new WeekTypeDataTransfer(schedule.WeekType);
             AutoDelete = schedule.AutoDelete;
-            Timetable = schedule.Timetable.Id;
+            Timetable = new TimetableEntityDataTransfer(schedule.Timetable);
             SubGroup = schedule.SubGroup;
         }
     }
