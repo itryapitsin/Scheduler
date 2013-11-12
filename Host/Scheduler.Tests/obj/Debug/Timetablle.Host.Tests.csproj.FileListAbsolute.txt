@@ -30,3 +30,4 @@ E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests
 E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\bin\Debug\Timetable.Host.Tests.pdb
 E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.dll
 E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetable.Host.Tests.pdb
+E:\Projects\GitHub\Scheduler\Host\Scheduler.Tests\obj\Debug\Timetablle.Host.Tests.csprojResolveAssemblyReference.cache

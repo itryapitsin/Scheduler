@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using Timetable.Data.Models;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Host.Models.Scheduler
@@ -19,9 +15,9 @@ namespace Timetable.Host.Models.Scheduler
         [DataMember]
         public string Info { get; set; }
         [DataMember]
-        public int BuildingId { get; set; }
+        public BuildingDataTransfer Building { get; set; }
         [DataMember]
-        public int AuditoriumTypeId { get; set; }
+        public AuditoriumTypeDataTransfer AuditoriumType { get; set; }
         public AuditoriumDataTransfer() {}
 
         public AuditoriumDataTransfer(Auditorium auditorium)
@@ -31,8 +27,8 @@ namespace Timetable.Host.Models.Scheduler
             Name = auditorium.Name;
             Capacity = auditorium.Capacity;
             Info = auditorium.Info;
-            BuildingId = auditorium.Building.Id;
-            AuditoriumTypeId = auditorium.AuditoriumType.Id;
+            Building = new BuildingDataTransfer(auditorium.Building);
+            AuditoriumType = new AuditoriumTypeDataTransfer(auditorium.AuditoriumType);
         }
     }
 }

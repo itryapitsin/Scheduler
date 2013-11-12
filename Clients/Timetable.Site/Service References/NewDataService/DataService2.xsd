@@ -104,21 +104,114 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseDataTransfer">
         <xs:sequence>
-          <xs:element minOccurs="0" name="AuditoriumId" type="xs:int" />
+          <xs:element minOccurs="0" name="Auditorium" nillable="true" type="tns:AuditoriumDataTransfer" />
           <xs:element minOccurs="0" name="AutoDelete" type="xs:boolean" />
           <xs:element minOccurs="0" name="DayOfWeek" type="xs:int" />
           <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="PeriodId" type="xs:int" />
-          <xs:element minOccurs="0" name="ScheduleInfoId" type="xs:int" />
+          <xs:element minOccurs="0" name="ScheduleInfo" nillable="true" type="tns:ScheduleInfoDataTransfer" />
           <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
           <xs:element minOccurs="0" name="SubGroup" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Timetable" type="xs:int" />
-          <xs:element minOccurs="0" name="WeekTypeId" type="xs:int" />
+          <xs:element minOccurs="0" name="Time" nillable="true" type="tns:TimeDataTransfer" />
+          <xs:element minOccurs="0" name="Timetable" nillable="true" type="tns:TimetableEntityDataTransfer" />
+          <xs:element minOccurs="0" name="WeekType" nillable="true" type="tns:WeekTypeDataTransfer" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ScheduleDataTransfer" nillable="true" type="tns:ScheduleDataTransfer" />
+  <xs:complexType name="ScheduleInfoDataTransfer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDataTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Courses" nillable="true" type="tns:ArrayOfCourseDataTransfer" />
+          <xs:element minOccurs="0" name="Department" nillable="true" type="tns:DepartmentDataTransfer" />
+          <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Faculties" nillable="true" type="tns:ArrayOfFacultyDataTransfer" />
+          <xs:element minOccurs="0" name="Groups" nillable="true" type="tns:ArrayOfGroupDataTransfer" />
+          <xs:element minOccurs="0" name="HoursPerWeek" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Lecturer" nillable="true" type="tns:LecturerDataTransfer" />
+          <xs:element minOccurs="0" name="LikeAuditoriums" nillable="true" type="tns:ArrayOfAuditoriumDataTransfer" />
+          <xs:element minOccurs="0" name="Semester" type="xs:int" />
+          <xs:element minOccurs="0" name="Specialities" nillable="true" type="tns:ArrayOfSpecialityDataTransfer" />
+          <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="StudyYear" nillable="true" type="tns:StudyYearDataTransfer" />
+          <xs:element minOccurs="0" name="SubgroupCount" type="xs:int" />
+          <xs:element minOccurs="0" name="Tutorial" nillable="true" type="tns:TutorialDataTransfer" />
+          <xs:element minOccurs="0" name="TutorialType" nillable="true" type="tns:TutorialTypeDataTransfer" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ScheduleInfoDataTransfer" nillable="true" type="tns:ScheduleInfoDataTransfer" />
+  <xs:complexType name="ArrayOfCourseDataTransfer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseDataTransfer" nillable="true" type="tns:CourseDataTransfer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCourseDataTransfer" nillable="true" type="tns:ArrayOfCourseDataTransfer" />
+  <xs:complexType name="CourseDataTransfer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDataTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CourseDataTransfer" nillable="true" type="tns:CourseDataTransfer" />
+  <xs:complexType name="DepartmentDataTransfer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDataTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DepartmentDataTransfer" nillable="true" type="tns:DepartmentDataTransfer" />
+  <xs:complexType name="ArrayOfFacultyDataTransfer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FacultyDataTransfer" nillable="true" type="tns:FacultyDataTransfer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFacultyDataTransfer" nillable="true" type="tns:ArrayOfFacultyDataTransfer" />
+  <xs:complexType name="FacultyDataTransfer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDataTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BranchId" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FacultyDataTransfer" nillable="true" type="tns:FacultyDataTransfer" />
+  <xs:complexType name="ArrayOfAuditoriumDataTransfer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditoriumDataTransfer" nillable="true" type="tns:AuditoriumDataTransfer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAuditoriumDataTransfer" nillable="true" type="tns:ArrayOfAuditoriumDataTransfer" />
+  <xs:complexType name="ArrayOfSpecialityDataTransfer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SpecialityDataTransfer" nillable="true" type="tns:SpecialityDataTransfer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSpecialityDataTransfer" nillable="true" type="tns:ArrayOfSpecialityDataTransfer" />
+  <xs:complexType name="SpecialityDataTransfer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDataTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SpecialityDataTransfer" nillable="true" type="tns:SpecialityDataTransfer" />
   <xs:complexType name="StudyYearDataTransfer">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseDataTransfer">
@@ -130,12 +223,27 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="StudyYearDataTransfer" nillable="true" type="tns:StudyYearDataTransfer" />
-  <xs:complexType name="ArrayOfTimetableEntityDataTransfer">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimetableEntityDataTransfer" nillable="true" type="tns:TimetableEntityDataTransfer" />
-    </xs:sequence>
+  <xs:complexType name="TutorialDataTransfer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDataTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
-  <xs:element name="ArrayOfTimetableEntityDataTransfer" nillable="true" type="tns:ArrayOfTimetableEntityDataTransfer" />
+  <xs:element name="TutorialDataTransfer" nillable="true" type="tns:TutorialDataTransfer" />
+  <xs:complexType name="TutorialTypeDataTransfer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDataTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TutorialTypeDataTransfer" nillable="true" type="tns:TutorialTypeDataTransfer" />
   <xs:complexType name="TimetableEntityDataTransfer">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseDataTransfer">
@@ -147,6 +255,12 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="TimetableEntityDataTransfer" nillable="true" type="tns:TimetableEntityDataTransfer" />
+  <xs:complexType name="ArrayOfTimetableEntityDataTransfer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimetableEntityDataTransfer" nillable="true" type="tns:TimetableEntityDataTransfer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimetableEntityDataTransfer" nillable="true" type="tns:ArrayOfTimetableEntityDataTransfer" />
   <xs:complexType name="ArrayOfBranchDataTransfer">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BranchDataTransfer" nillable="true" type="tns:BranchDataTransfer" />
@@ -187,22 +301,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="AuditoriumTypeDataTransfer" nillable="true" type="tns:AuditoriumTypeDataTransfer" />
-  <xs:complexType name="ArrayOfAuditoriumDataTransfer">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditoriumDataTransfer" nillable="true" type="tns:AuditoriumDataTransfer" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfAuditoriumDataTransfer" nillable="true" type="tns:ArrayOfAuditoriumDataTransfer" />
-  <xs:complexType name="TutorialTypeDataTransfer">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseDataTransfer">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="TutorialTypeDataTransfer" nillable="true" type="tns:TutorialTypeDataTransfer" />
   <xs:complexType name="ArrayOfAuditoriumTypeDataTransfer">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditoriumTypeDataTransfer" nillable="true" type="tns:AuditoriumTypeDataTransfer" />
@@ -215,116 +313,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBuildingDataTransfer" nillable="true" type="tns:ArrayOfBuildingDataTransfer" />
-  <xs:complexType name="ArrayOfCourseDataTransfer">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseDataTransfer" nillable="true" type="tns:CourseDataTransfer" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfCourseDataTransfer" nillable="true" type="tns:ArrayOfCourseDataTransfer" />
-  <xs:complexType name="CourseDataTransfer">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseDataTransfer">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="CourseDataTransfer" nillable="true" type="tns:CourseDataTransfer" />
   <xs:complexType name="ArrayOfDepartmentDataTransfer">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DepartmentDataTransfer" nillable="true" type="tns:DepartmentDataTransfer" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfDepartmentDataTransfer" nillable="true" type="tns:ArrayOfDepartmentDataTransfer" />
-  <xs:complexType name="DepartmentDataTransfer">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseDataTransfer">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="DepartmentDataTransfer" nillable="true" type="tns:DepartmentDataTransfer" />
-  <xs:complexType name="ArrayOfFacultyDataTransfer">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="FacultyDataTransfer" nillable="true" type="tns:FacultyDataTransfer" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfFacultyDataTransfer" nillable="true" type="tns:ArrayOfFacultyDataTransfer" />
-  <xs:complexType name="FacultyDataTransfer">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseDataTransfer">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="BranchId" type="xs:int" />
-          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="FacultyDataTransfer" nillable="true" type="tns:FacultyDataTransfer" />
   <xs:complexType name="ArrayOfLecturerDataTransfer">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="LecturerDataTransfer" nillable="true" type="tns:LecturerDataTransfer" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfLecturerDataTransfer" nillable="true" type="tns:ArrayOfLecturerDataTransfer" />
-  <xs:complexType name="ScheduleInfoDataTransfer">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseDataTransfer">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Courses" nillable="true" type="tns:ArrayOfCourseDataTransfer" />
-          <xs:element minOccurs="0" name="Department" nillable="true" type="tns:DepartmentDataTransfer" />
-          <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="Faculties" nillable="true" type="tns:ArrayOfFacultyDataTransfer" />
-          <xs:element minOccurs="0" name="Groups" nillable="true" type="tns:ArrayOfGroupDataTransfer" />
-          <xs:element minOccurs="0" name="HoursPerWeek" type="xs:decimal" />
-          <xs:element minOccurs="0" name="Lecturer" nillable="true" type="tns:LecturerDataTransfer" />
-          <xs:element minOccurs="0" name="LikeAuditoriums" nillable="true" type="tns:ArrayOfAuditoriumDataTransfer" />
-          <xs:element minOccurs="0" name="Semester" type="xs:int" />
-          <xs:element minOccurs="0" name="Specialities" nillable="true" type="tns:ArrayOfSpecialityDataTransfer" />
-          <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="StudyYear" nillable="true" type="tns:StudyYearDataTransfer" />
-          <xs:element minOccurs="0" name="SubgroupCount" type="xs:int" />
-          <xs:element minOccurs="0" name="Tutorial" nillable="true" type="tns:TutorialDataTransfer" />
-          <xs:element minOccurs="0" name="TutorialType" nillable="true" type="tns:TutorialTypeDataTransfer" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="ScheduleInfoDataTransfer" nillable="true" type="tns:ScheduleInfoDataTransfer" />
-  <xs:complexType name="ArrayOfSpecialityDataTransfer">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="SpecialityDataTransfer" nillable="true" type="tns:SpecialityDataTransfer" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfSpecialityDataTransfer" nillable="true" type="tns:ArrayOfSpecialityDataTransfer" />
-  <xs:complexType name="SpecialityDataTransfer">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseDataTransfer">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="SpecialityDataTransfer" nillable="true" type="tns:SpecialityDataTransfer" />
-  <xs:complexType name="TutorialDataTransfer">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseDataTransfer">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ShortName" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="TutorialDataTransfer" nillable="true" type="tns:TutorialDataTransfer" />
   <xs:complexType name="ArrayOfScheduleInfoDataTransfer">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ScheduleInfoDataTransfer" nillable="true" type="tns:ScheduleInfoDataTransfer" />
