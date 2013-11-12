@@ -9,7 +9,7 @@ using Timetable.Host.Models.Scheduler;
 namespace Timetable.Host.Interfaces
 {
     [ServiceContract]
-    public interface IDataService: IBaseService
+    public interface IDataService : IBaseService
     {
 
         [OperationContract]
@@ -39,14 +39,14 @@ namespace Timetable.Host.Interfaces
                                 );
 
 
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<ScheduleDataTransfer> GetSchedulesForGroupOnlyId(
-           GroupDataTransfer groupDataTransfer,
-           StudyYearDataTransfer studyYearDataTransfer,
-           int semester,
-           DateTime startDate,
-           DateTime endDate);
+        //[OperationContract]
+        //[WebGet(ResponseFormat = WebMessageFormat.Json)]
+        //IEnumerable<ScheduleDataTransfer> GetSchedulesForGroupOnlyId(
+        //   GroupDataTransfer groupDataTransfer,
+        //   StudyYearDataTransfer studyYearDataTransfer,
+        //   int semester,
+        //   DateTime startDate,
+        //   DateTime endDate);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -112,7 +112,7 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<GroupDataTransfer> GetsSubGroupsByGroupId(int groupId);
-        
+
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -139,7 +139,7 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
-            int tutorialId, 
+            int tutorialId,
             int tutorialTypeId);
 
         [OperationContract]
@@ -151,21 +151,18 @@ namespace Timetable.Host.Interfaces
         IEnumerable<LecturerDataTransfer> GetLecturersByFirstMiddleLastname(string arg);
         #endregion
 
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<ScheduleDataTransfer> GetSchedulesForScheduleInfoes(ScheduleInfoDataTransfer scheduleInfoDataTransfer);
+        
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        ScheduleInfoDataTransfer GetScheduleInfoById(
-            int id);
+        ScheduleInfoDataTransfer GetScheduleInfoById(int id);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForCourse(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer,
-            StudyYearDataTransfer studyYearDataTransfer, 
+        IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForFaculty(
+            int facultyId,
+            int courseId,
+            int studyYear,
             int semester);
 
         [OperationContract]
@@ -179,12 +176,11 @@ namespace Timetable.Host.Interfaces
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForGroup(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer,
-            GroupDataTransfer groupDataTransfer,
-            TutorialTypeDataTransfer tutorialtype,
-            StudyYearDataTransfer studyYearDataTransfer,
+        IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForGroups(
+            int facultyId,
+            int courseId,
+            int[] groupIds,
+            int studyYear,
             int semester);
 
         [OperationContract]
@@ -197,17 +193,22 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<ScheduleInfoDataTransfer> GetUnscheduledInfoes(
-            FacultyDataTransfer facultyDataTransfer, 
-            CourseDataTransfer courseDataTransfer, 
-            SpecialityDataTransfer specialityDataTransfer, 
+            FacultyDataTransfer facultyDataTransfer,
+            CourseDataTransfer courseDataTransfer,
+            SpecialityDataTransfer specialityDataTransfer,
             GroupDataTransfer groupDataTransfer);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         int CountScheduleCollisions(
-            int day, 
-            TimeDataTransfer timeDataTransfer, 
+            int day,
+            TimeDataTransfer timeDataTransfer,
             WeekTypeDataTransfer weekTypeDataTransfer);
+
+        #region schedule
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<ScheduleDataTransfer> GetSchedulesForScheduleInfoes(int scheduleInfoId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -217,38 +218,25 @@ namespace Timetable.Host.Interfaces
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<ScheduleDataTransfer> GetSchedulesForCourse(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer,
-            StudyYearDataTransfer studyYearDataTransfer,
-            int semester,
-            DateTime StartDate,
-            DateTime EndDate);
-
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<ScheduleDataTransfer> GetSchedulesForGroup(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer,
-            GroupDataTransfer groupDataTransfer,
-            StudyYearDataTransfer studyYearDataTransfer,
+        IEnumerable<ScheduleDataTransfer> GetSchedulesForFaculty(
+            int facultyId,
+            int courseId,
+            int studyYearId,
             int semester,
             DateTime startDate,
-            DateTime endDate,
-            string subGroup);
+            DateTime endDate);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        int CountSchedulesForScheduleInfoes(ScheduleInfoDataTransfer scheduleInfoDataTransfer);
+        int CountSchedulesForScheduleInfoes(int scheduleInfoId);
 
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<ScheduleDataTransfer> GetSchedulesForSpeciality(
-            FacultyDataTransfer facultyDataTransfer,
-            CourseDataTransfer courseDataTransfer,
-            SpecialityDataTransfer specialityDataTransfer,
-            StudyYearDataTransfer studyYearDataTransfer,
+            int specialityId,
+            int courseId,
+            int studyYearId,
             int semester,
             DateTime startDate,
             DateTime endDate);
@@ -274,6 +262,7 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         ScheduleDataTransfer GetScheduleById(int id);
+        #endregion
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -306,7 +295,7 @@ namespace Timetable.Host.Interfaces
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<TutorialDataTransfer> GetTutorialsForCourse(
+        IEnumerable<TutorialDataTransfer> GetTutorialsForFaculty(
             int facultyId,
             int courseId);
 
