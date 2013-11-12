@@ -19,18 +19,17 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="DataService.xsd" MetadataType="Schema" ID="e087b420-48c0-4299-9d9e-3d830c093ec0" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd2" />
-    <MetadataFile FileName="DataService1.xsd" MetadataType="Schema" ID="eeab1462-6ddd-449d-9312-7c4efcdab521" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd4" />
-    <MetadataFile FileName="DataService6.xsd" MetadataType="Schema" ID="eecf0cc1-8216-47e4-8034-4843636dbd02" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd6" />
-    <MetadataFile FileName="DataService2.xsd" MetadataType="Schema" ID="a90777ce-e925-4589-b0ae-bd660c923e1f" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd5" />
-    <MetadataFile FileName="DataService3.xsd" MetadataType="Schema" ID="f30369a0-1029-457c-843d-9114fd438a55" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd3" />
-    <MetadataFile FileName="DataService.wsdl" MetadataType="Wsdl" ID="f8551a29-f0d1-4b2b-8769-8f293e8ccaf5" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?wsdl" />
-    <MetadataFile FileName="DataService4.xsd" MetadataType="Schema" ID="08e4dbc8-d624-4def-8049-0142e08eda53" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd0" />
-    <MetadataFile FileName="DataService.disco" MetadataType="Disco" ID="1ccc7fd8-fed8-44d1-a9e5-53973d94e331" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?disco" />
-    <MetadataFile FileName="DataService5.xsd" MetadataType="Schema" ID="681e0e36-5e2a-4513-aff1-e67d685436c5" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc?xsd=xsd1" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="380399e0-78e3-498a-8cb6-9d21b46ab828" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="f0636d30-419f-445e-9a4e-55386d3a8b4f" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="24e79ddc-1b59-4251-8345-28ac72371e1e" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
+    <MetadataFile FileName="Timetable.Data.Models.xsd" MetadataType="Schema" ID="86c2c778-5fea-49f2-9a03-70c616d9c406" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
+    <MetadataFile FileName="Timetable.Data.Models.Scheduler.xsd" MetadataType="Schema" ID="91bb2ba4-7072-49bb-8adf-39fd6a8f26c3" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
+    <MetadataFile FileName="Timetable.Host.Interfaces.xsd" MetadataType="Schema" ID="72d82ba8-e154-44d9-aa2f-f4daf8e449ae" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
+    <MetadataFile FileName="Timetable.Host.Models.Scheduler.xsd" MetadataType="Schema" ID="ed08c9d1-2111-4e04-8c1a-f5c38d71fb31" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="bb8cc8ce-a475-4364-91cf-f7d24179100d" SourceId="1" SourceUrl="http://193.232.254.196:6058/SchedulerHost/Services/DataService.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
