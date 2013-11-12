@@ -503,9 +503,7 @@ namespace Timetable.Host.Services
             int facultyId,
             int courseId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate)
+            int semester)
         {
             var result = GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearId)
@@ -520,9 +518,7 @@ namespace Timetable.Host.Services
             int specialityId,
             int courseId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate)
+            int semester)
         {
             return GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearId)
@@ -553,9 +549,7 @@ namespace Timetable.Host.Services
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForLecturer(
             int lecturerId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate)
+            int semester)
         {
             var result = GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearId)
@@ -570,9 +564,7 @@ namespace Timetable.Host.Services
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
             int auditoriumId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate)
+            int semester)
         {
             var result = GetSchedules()
                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearId)

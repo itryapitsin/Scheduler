@@ -231,9 +231,7 @@ namespace Timetable.Host.Interfaces
             int facultyId,
             int courseId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate);
+            int semester);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
@@ -246,27 +244,21 @@ namespace Timetable.Host.Interfaces
             int specialityId,
             int courseId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate);
+            int semester);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<ScheduleDataTransfer> GetSchedulesForLecturer(
             int lecturerId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate);
+            int semester);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
             int auditoriumId,
             int studyYearId,
-            int semester,
-            DateTime startDate,
-            DateTime endDate);
+            int semester);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
