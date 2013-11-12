@@ -7,7 +7,7 @@ namespace Timetable.Site.Models.Tutorials
         public int Id { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-        public TutorialViewModel(Tutorial tutorial)
+        public TutorialViewModel(TutorialDataTransfer tutorial)
         {
             Id = tutorial.Id;
             Name = tutorial.Name;

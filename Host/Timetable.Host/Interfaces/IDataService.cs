@@ -285,7 +285,7 @@ namespace Timetable.Host.Interfaces
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<TimeDataTransfer> GetTimes(BuildingDataTransfer buildingDataTransfer);
+        IEnumerable<TimeDataTransfer> GetTimes();
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]

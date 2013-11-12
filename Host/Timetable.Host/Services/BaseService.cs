@@ -47,7 +47,11 @@ namespace Timetable.Host.Services
 
         public OperationResult Delete(BaseEntity dto)
         {
-            return Crud(e => Database.Delete(e), dto);
+            return Crud(e =>
+            {
+                e.IsActual = false;
+                Database.Update(e);
+            }, dto);
         }
     }
 }

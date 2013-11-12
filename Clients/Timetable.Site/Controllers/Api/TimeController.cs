@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class TimeController : BaseApiController<Time>
+    public partial class TimeController : BaseApiController
     {
         public HttpResponseMessage TempGetAll(ForAllModel model)
         {

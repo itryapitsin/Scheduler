@@ -3500,22 +3500,22 @@ namespace Timetable.Site.NewDataService {
     public interface IDataService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Add", ReplyAction="http://tempuri.org/IBaseService/AddResponse")]
-        Timetable.Site.NewDataService.OperationResult Add(Timetable.Site.NewDataService.BaseEntity entity);
+        Timetable.Site.NewDataService.OperationResult Add(Timetable.Site.NewDataService.BaseEntity dto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Add", ReplyAction="http://tempuri.org/IBaseService/AddResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> AddAsync(Timetable.Site.NewDataService.BaseEntity entity);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> AddAsync(Timetable.Site.NewDataService.BaseEntity dto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Update", ReplyAction="http://tempuri.org/IBaseService/UpdateResponse")]
-        Timetable.Site.NewDataService.OperationResult Update(Timetable.Site.NewDataService.BaseEntity entity);
+        Timetable.Site.NewDataService.OperationResult Update(Timetable.Site.NewDataService.BaseEntity dto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Update", ReplyAction="http://tempuri.org/IBaseService/UpdateResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> UpdateAsync(Timetable.Site.NewDataService.BaseEntity entity);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> UpdateAsync(Timetable.Site.NewDataService.BaseEntity dto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Delete", ReplyAction="http://tempuri.org/IBaseService/DeleteResponse")]
-        Timetable.Site.NewDataService.OperationResult Delete(Timetable.Site.NewDataService.BaseEntity entity);
+        Timetable.Site.NewDataService.OperationResult Delete(Timetable.Site.NewDataService.BaseEntity dto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Delete", ReplyAction="http://tempuri.org/IBaseService/DeleteResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> DeleteAsync(Timetable.Site.NewDataService.BaseEntity entity);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> DeleteAsync(Timetable.Site.NewDataService.BaseEntity dto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForDayTimeDate", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForDayTimeDateResponse")]
         Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForDayTimeDate(System.Nullable<int> dayOfWeek, Timetable.Site.NewDataService.TimeDataTransfer period, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, string subGroup, System.DateTime startDate, System.DateTime endDate);
@@ -3784,16 +3784,16 @@ namespace Timetable.Site.NewDataService {
         System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForGroupAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForSpecialityResponse")]
-        Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForSpeciality(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer);
+        Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForSpeciality(int courseId, int specialityId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForSpecialityResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForSpecialityAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForSpecialityAsync(int courseId, int specialityId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForCourse", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForCourseResponse")]
-        Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer);
+        Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForCourse(int facultyId, int courseId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForCourse", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForCourseResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForCourseAsync(int facultyId, int courseId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialTypes", ReplyAction="http://tempuri.org/IDataService/GetTutorialTypesResponse")]
         Timetable.Site.NewDataService.TutorialTypeDataTransfer[] GetTutorialTypes();
@@ -3847,28 +3847,28 @@ namespace Timetable.Site.NewDataService {
                 base(binding, remoteAddress) {
         }
         
-        public Timetable.Site.NewDataService.OperationResult Add(Timetable.Site.NewDataService.BaseEntity entity) {
-            return base.Channel.Add(entity);
+        public Timetable.Site.NewDataService.OperationResult Add(Timetable.Site.NewDataService.BaseEntity dto) {
+            return base.Channel.Add(dto);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> AddAsync(Timetable.Site.NewDataService.BaseEntity entity) {
-            return base.Channel.AddAsync(entity);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> AddAsync(Timetable.Site.NewDataService.BaseEntity dto) {
+            return base.Channel.AddAsync(dto);
         }
         
-        public Timetable.Site.NewDataService.OperationResult Update(Timetable.Site.NewDataService.BaseEntity entity) {
-            return base.Channel.Update(entity);
+        public Timetable.Site.NewDataService.OperationResult Update(Timetable.Site.NewDataService.BaseEntity dto) {
+            return base.Channel.Update(dto);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> UpdateAsync(Timetable.Site.NewDataService.BaseEntity entity) {
-            return base.Channel.UpdateAsync(entity);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> UpdateAsync(Timetable.Site.NewDataService.BaseEntity dto) {
+            return base.Channel.UpdateAsync(dto);
         }
         
-        public Timetable.Site.NewDataService.OperationResult Delete(Timetable.Site.NewDataService.BaseEntity entity) {
-            return base.Channel.Delete(entity);
+        public Timetable.Site.NewDataService.OperationResult Delete(Timetable.Site.NewDataService.BaseEntity dto) {
+            return base.Channel.Delete(dto);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> DeleteAsync(Timetable.Site.NewDataService.BaseEntity entity) {
-            return base.Channel.DeleteAsync(entity);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> DeleteAsync(Timetable.Site.NewDataService.BaseEntity dto) {
+            return base.Channel.DeleteAsync(dto);
         }
         
         public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForDayTimeDate(System.Nullable<int> dayOfWeek, Timetable.Site.NewDataService.TimeDataTransfer period, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, string subGroup, System.DateTime startDate, System.DateTime endDate) {
@@ -4223,20 +4223,20 @@ namespace Timetable.Site.NewDataService {
             return base.Channel.GetTutorialsForGroupAsync(facultyDataTransfer, courseDataTransfer, groupDataTransfer);
         }
         
-        public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForSpeciality(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer) {
-            return base.Channel.GetTutorialsForSpeciality(facultyDataTransfer, courseDataTransfer, specialityDataTransfer);
+        public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForSpeciality(int courseId, int specialityId) {
+            return base.Channel.GetTutorialsForSpeciality(courseId, specialityId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForSpecialityAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer) {
-            return base.Channel.GetTutorialsForSpecialityAsync(facultyDataTransfer, courseDataTransfer, specialityDataTransfer);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForSpecialityAsync(int courseId, int specialityId) {
+            return base.Channel.GetTutorialsForSpecialityAsync(courseId, specialityId);
         }
         
-        public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer) {
-            return base.Channel.GetTutorialsForCourse(facultyDataTransfer, courseDataTransfer);
+        public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForCourse(int facultyId, int courseId) {
+            return base.Channel.GetTutorialsForCourse(facultyId, courseId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer) {
-            return base.Channel.GetTutorialsForCourseAsync(facultyDataTransfer, courseDataTransfer);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForCourseAsync(int facultyId, int courseId) {
+            return base.Channel.GetTutorialsForCourseAsync(facultyId, courseId);
         }
         
         public Timetable.Site.NewDataService.TutorialTypeDataTransfer[] GetTutorialTypes() {

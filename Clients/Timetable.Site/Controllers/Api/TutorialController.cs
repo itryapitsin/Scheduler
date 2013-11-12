@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Net.Http;
-using Timetable.Site.DataService;
 using Timetable.Site.Models.Tutorials;
+using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Controllers.Api
 {
@@ -22,45 +22,33 @@ namespace Timetable.Site.Controllers.Api
         [HttpPost]
         public HttpResponseMessage Add(TutorialAddViewModel viewModel)
         {
-            return CreateResponse(privateAdd, viewModel);
-        }
+            var tutorial = new Tutorial
+            {
+                Name = viewModel.Name,
+                ShortName = viewModel.ShortName,
+                CreatedDate = DateTime.Now,
+                UpdateDate = DateTime.Now,
+                IsActual = true,
+            };
 
-        public void privateAdd(TutorialAddViewModel viewModel)
-        {
-            var aTutorial = new Tutorial();
+            NewDataService.Add(tutorial);
 
-            var qFaculty = new Faculty();
-            qFaculty.Id = viewModel.FacultyId;
-
-            aTutorial.Faculty = qFaculty;
-
-            var qSpeciality = new Speciality();
-            qSpeciality.Id = viewModel.SpecialityId;
-
-            aTutorial.Speciality = qSpeciality;
-
-            aTutorial.Name = viewModel.Name;
-            aTutorial.ShortName = viewModel.ShortName;
-
-            aTutorial.UpdateDate = DateTime.Now.Date;
-            aTutorial.CreatedDate = DateTime.Now.Date;
-            aTutorial.IsActual = true;
-
-            
-            DataService.Add(aTutorial);
+            return Request.CreateResponse(HttpStatusCode.OK, tutorial);
         }
 
         [HttpPost]
         public HttpResponseMessage Delete(DeleteModel model)
         {
-            return CreateResponse(privateDelete, model.Id);
+            var dTutorial = new Tutorial();
+            dTutorial.Id = model.Id;
+            NewDataService.Delete(dTutorial);
         }
 
         public void privateDelete(int Id)
         {
             var dTutorial = new Tutorial();
             dTutorial.Id = Id;
-            DataService.Delete(dTutorial);
+            NewDataService.Delete(dTutorial);
         }
     }
 }
