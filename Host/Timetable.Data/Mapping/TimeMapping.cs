@@ -15,6 +15,15 @@ namespace Timetable.Data.Mapping
         {
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            HasMany(x => x.Buildings)
+                .WithMany(x => x.Times)
+                .Map(x =>
+                {
+                    x.ToTable("BuildingsToTimes");
+                    x.MapLeftKey("Time_Id");
+                    x.MapRightKey("Building_Id");
+                });
         }
     }
 }

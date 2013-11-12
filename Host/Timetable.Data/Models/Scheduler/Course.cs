@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace Timetable.Data.Models.Scheduler
 {

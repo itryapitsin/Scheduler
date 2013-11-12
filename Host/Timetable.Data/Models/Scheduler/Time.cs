@@ -1,5 +1,5 @@
 using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Timetable.Data.Models.Scheduler
 {
@@ -8,5 +8,10 @@ namespace Timetable.Data.Models.Scheduler
         public TimeSpan Start { get; set; }
         public TimeSpan End { get; set; }
         public int Position { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
+        public Time()
+        {
+            Buildings = new HashSet<Building>();
+        }
     }
 }

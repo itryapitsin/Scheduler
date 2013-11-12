@@ -669,9 +669,12 @@ namespace Timetable.Host.Services
                 .Select(x => new SpecialityDataTransfer(x));
         }
 
-        public IEnumerable<TimeDataTransfer> GetTimes()
+        public IEnumerable<TimeDataTransfer> GetTimes(int buidlingId)
         {
-            return Database.Times.ToList().Select(x => new TimeDataTransfer(x));
+            return Database.Times
+                .Where(x => x.Buildings.Any(y => y.Id == buidlingId))
+                .ToList()
+                .Select(x => new TimeDataTransfer(x));
         }
 
         public IEnumerable<TutorialTypeDataTransfer> GetTutorialTypes()

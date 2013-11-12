@@ -128,6 +128,10 @@
     <Compile Include="Migrations\201311111311085_AddFacultyRefToGroups.Designer.cs">
       <DependentUpon>201311111311085_AddFacultyRefToGroups.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311122113411_BuildinsToTimesAdded.cs" />
+    <Compile Include="Migrations\201311122113411_BuildinsToTimesAdded.Designer.cs">
+      <DependentUpon>201311122113411_BuildinsToTimesAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -175,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201311111311085_AddFacultyRefToGroups.resx">
       <DependentUpon>201311111311085_AddFacultyRefToGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311122113411_BuildinsToTimesAdded.resx">
+      <DependentUpon>201311122113411_BuildinsToTimesAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
