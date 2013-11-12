@@ -9,6 +9,10 @@ namespace Timetable.Site.Controllers.Api
 {
     public class TutorialTypeController : BaseApiController
     {
+        public TutorialTypeController(IDataService dataService) : base(dataService)
+        {
+        }
+
         public HttpResponseMessage GetAll()
         {
             var result = NewDataService

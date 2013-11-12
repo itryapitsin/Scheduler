@@ -5,11 +5,16 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using Timetable.Site.DataService;
 using Timetable.Site.Models.Validators;
+using IDataService = Timetable.Site.NewDataService.IDataService;
 
 namespace Timetable.Site.Controllers.Api
 {
     public class ValidatorController : BaseApiController
     {
+        public ValidatorController(IDataService dataService) : base(dataService)
+        {
+        }
+
         public HttpResponseMessage GetByState(StateModel model)
         {
             return CreateResponse<StateModel, IEnumerable<SendModel>>(privateGetByState, model);

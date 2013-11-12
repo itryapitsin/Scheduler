@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using Timetable.Site.Infrastructure;
 using Timetable.Site.Models;
-using Timetable.Site.Models.ViewModels;
 using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Controllers

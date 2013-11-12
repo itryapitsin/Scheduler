@@ -1,6 +1,6 @@
 ﻿using Timetable.Site.NewDataService;
 
-namespace Timetable.Site.Models.Tutorials
+namespace Timetable.Site.Models
 {
     public class TutorialViewModel
     {

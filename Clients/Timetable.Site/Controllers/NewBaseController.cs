@@ -22,7 +22,9 @@ namespace Timetable.Site.Controllers
         {
             var result = new List<int>();
             if (!String.IsNullOrEmpty(str))
-                result = str.Split(',').Select(int.Parse).ToList();
+                result = str.Split(new [] {"," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
+                    .ToList();
             return result;
         }
     }

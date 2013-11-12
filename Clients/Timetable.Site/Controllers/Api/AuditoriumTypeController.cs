@@ -2,14 +2,18 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Timetable.Site.Models;
 using Timetable.Site.NewDataService;
-using Timetable.Site.Models.AuditoriumTypes;
 using System.Web.Http;
 
 namespace Timetable.Site.Controllers.Api
 {
     public class AuditoriumTypeController : BaseApiController
     {
+        public AuditoriumTypeController(IDataService dataService) : base(dataService)
+        {
+        }
+
         [HttpGet]
         public HttpResponseMessage GetAll()
         {

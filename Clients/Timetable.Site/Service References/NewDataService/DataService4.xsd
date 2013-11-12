@@ -687,45 +687,43 @@
   </xs:element>
   <xs:element name="GetTimes">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="buildingDataTransfer" nillable="true" type="q106:BuildingDataTransfer" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTimesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTimesResult" nillable="true" type="q107:ArrayOfTimeDataTransfer" />
+        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTimesResult" nillable="true" type="q106:ArrayOfTimeDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTutorialById">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="tutorialDataTransfer" nillable="true" type="q108:TutorialDataTransfer" />
+        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="tutorialDataTransfer" nillable="true" type="q107:TutorialDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTutorialByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialByIdResult" nillable="true" type="q109:TutorialDataTransfer" />
+        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialByIdResult" nillable="true" type="q108:TutorialDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTutorialsForGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="facultyDataTransfer" nillable="true" type="q110:FacultyDataTransfer" />
-        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="courseDataTransfer" nillable="true" type="q111:CourseDataTransfer" />
-        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="groupDataTransfer" nillable="true" type="q112:GroupDataTransfer" />
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="facultyDataTransfer" nillable="true" type="q109:FacultyDataTransfer" />
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="courseDataTransfer" nillable="true" type="q110:CourseDataTransfer" />
+        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="groupDataTransfer" nillable="true" type="q111:GroupDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTutorialsForGroupResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialsForGroupResult" nillable="true" type="q113:ArrayOfTutorialDataTransfer" />
+        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialsForGroupResult" nillable="true" type="q112:ArrayOfTutorialDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -740,7 +738,7 @@
   <xs:element name="GetTutorialsForSpecialityResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialsForSpecialityResult" nillable="true" type="q114:ArrayOfTutorialDataTransfer" />
+        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialsForSpecialityResult" nillable="true" type="q113:ArrayOfTutorialDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -755,7 +753,7 @@
   <xs:element name="GetTutorialsForCourseResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialsForCourseResult" nillable="true" type="q115:ArrayOfTutorialDataTransfer" />
+        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialsForCourseResult" nillable="true" type="q114:ArrayOfTutorialDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -767,21 +765,21 @@
   <xs:element name="GetTutorialTypesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialTypesResult" nillable="true" type="q116:ArrayOfTutorialTypeDataTransfer" />
+        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialTypesResult" nillable="true" type="q115:ArrayOfTutorialTypeDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTutorialTypeById">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="tutorialTypeDataTransfer" nillable="true" type="q117:TutorialTypeDataTransfer" />
+        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="tutorialTypeDataTransfer" nillable="true" type="q116:TutorialTypeDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTutorialTypeByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialTypeByIdResult" nillable="true" type="q118:TutorialTypeDataTransfer" />
+        <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetTutorialTypeByIdResult" nillable="true" type="q117:TutorialTypeDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -793,7 +791,7 @@
   <xs:element name="GetWeekTypesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetWeekTypesResult" nillable="true" type="q119:ArrayOfWeekTypeDataTransfer" />
+        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetWeekTypesResult" nillable="true" type="q118:ArrayOfWeekTypeDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -805,7 +803,7 @@
   <xs:element name="GetStudyYearsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q120="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetStudyYearsResult" nillable="true" type="q120:ArrayOfStudyYearDataTransfer" />
+        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler" minOccurs="0" name="GetStudyYearsResult" nillable="true" type="q119:ArrayOfStudyYearDataTransfer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

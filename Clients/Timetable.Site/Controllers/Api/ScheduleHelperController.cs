@@ -21,9 +21,6 @@ namespace Timetable.Site.Controllers.Api
 
        private IEnumerable<SendModel> privateGetAll(ForAllModel model)
        {
-           var Schedule = new ScheduleController();
-           var Times = new TimeController();
-
            var result = new List<SendModel>();
 
            var qTutorialType = new TutorialType();

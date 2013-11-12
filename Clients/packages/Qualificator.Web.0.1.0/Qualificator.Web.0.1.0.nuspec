@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Qualificator.Web</id>
+    <version>0.1.0</version>
+    <title>Qualificator.Web</title>
+    <authors>IliyaTryapitsin</authors>
+    <owners>IliyaTryapitsin</owners>
+    <projectUrl>https://github.com/IliyaTryapitsin/Qualificator</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Tools for a unit-testing and integration-testing asp.net mvc applications</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <dependencies>
+      <dependency id="Qualificator.Kernel" version="0.1.0" />
+      <dependency id="Moq" version="4.1.1308.2316" />
+    </dependencies>
+  </metadata>
+</package>

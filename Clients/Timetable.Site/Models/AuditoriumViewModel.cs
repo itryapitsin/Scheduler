@@ -1,6 +1,6 @@
 ﻿using Timetable.Site.NewDataService;
 
-namespace Timetable.Site.Models.Auditoriums
+namespace Timetable.Site.Models
 {
     public class AuditoriumViewModel
     {

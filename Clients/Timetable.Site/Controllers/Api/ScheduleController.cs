@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Timetable.Site.Models.Schedules;
-using System.Runtime.Serialization;
-using Timetable.Site.DataService;
-using Timetable.Site.Controllers.Extends;
+using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Controllers.Api
 {
     
     public class ScheduleController : BaseApiController
     {
-        //Получить расписание для преподавателя
+        public ScheduleController(IDataService dataService) : base(dataService) {}
+
         public HttpResponseMessage GetByLecturer(
             int lecturerId,
             int studyYearId,
@@ -58,7 +58,7 @@ namespace Timetable.Site.Controllers.Api
             }
 
             //qLecturer.Id = 50834;
-            var tmp = DataService.GetSchedulesForLecturer(qLecturer, qStudyYear, semesterId, StartDate, EndDate);
+            var tmp = NewDataService.GetSchedulesForLecturer(qLecturer, qStudyYear, semesterId, StartDate, EndDate);
             //var tmp = GetTempSchedulesForLecturer(); 
     
        
@@ -249,19 +249,12 @@ namespace Timetable.Site.Controllers.Api
         }
 
         [HttpGet]
-        public HttpResponseMessage GetScheduleById(
-                int Id)
+        public HttpResponseMessage GetScheduleById(int Id)
         {
-            return CreateResponse<int, ScheduleViewModel>(privateGetScheduleById, Id);
-        }
+            var result = NewDataService.GetScheduleById(Id);
 
-        private ScheduleViewModel privateGetScheduleById(
-               int Id)
-        {
-            var result = DataService.GetScheduleById(Id);
-            return new ScheduleViewModel(result, false, false, false);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-
   
         [HttpGet]
         public HttpResponseMessage GetScheduleByAll(

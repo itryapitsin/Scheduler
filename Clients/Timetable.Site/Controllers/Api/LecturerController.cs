@@ -2,13 +2,17 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Timetable.Site.Models;
 using Timetable.Site.NewDataService;
-using Timetable.Site.Models.Lecturers;
 
 namespace Timetable.Site.Controllers.Api
 {
     public class LecturerController : BaseApiController
     {
+        public LecturerController(IDataService dataService) : base(dataService)
+        {
+        }
+
         public HttpResponseMessage GetByDepartment(int departmentId)
         {
             var result = NewDataService

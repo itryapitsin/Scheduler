@@ -1,6 +1,6 @@
 ﻿using Timetable.Site.NewDataService;
 
-namespace Timetable.Site.Models.ViewModels
+namespace Timetable.Site.Models
 {
     public class FacultyViewModel
     {

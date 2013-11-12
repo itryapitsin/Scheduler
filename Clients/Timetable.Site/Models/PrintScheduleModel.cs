@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Timetable.Site.DataService;
-using System.Runtime.Serialization;
-using Timetable.Site.Models.Groups;
+﻿using System.Collections.Generic;
 using Timetable.Site.Models.Schedules;
 using SendTime = Timetable.Site.Models.Times.SendModel;
 

@@ -4,16 +4,16 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Timetable.Site.Models;
-using Timetable.Site.Models.Auditoriums;
 using Timetable.Site.NewDataService;
-using Auditorium = Timetable.Site.NewDataService.Auditorium;
-using AuditoriumType = Timetable.Site.NewDataService.AuditoriumType;
-using Building = Timetable.Site.NewDataService.Building;
 
 namespace Timetable.Site.Controllers.Api
 {
     public class AuditoriumController : BaseApiController
     {
+        public AuditoriumController(IDataService dataService) : base(dataService)
+        {
+        }
+
         public HttpResponseMessage GetByBuilding(
             int buildingId, 
             int auditoriumTypeId)

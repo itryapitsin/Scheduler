@@ -11,7 +11,7 @@ using Timetable.Site.Controllers.Extends;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class ScheduleInfoController : BaseApiController<ScheduleInfo>
+    public partial class ScheduleInfoController : BaseApiController
     {
         //Получить сведения к расписанию по преподавателю
         public HttpResponseMessage GetByLecturer(

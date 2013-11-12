@@ -56,6 +56,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -68,15 +74,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.Web">
-      <HintPath>..\packages\Ninject.Web.3.0.0.5\lib\net45-full\Ninject.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.Web.Common">
-      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\Libs\System.Net.Http.dll</HintPath>
@@ -123,22 +120,15 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\NinjectWeb.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Api\AuditoriumTypeController.cs" />
     <Compile Include="Controllers\Api\BranchController.cs" />
     <Compile Include="Controllers\Api\StudyYearController.cs" />
-    <Compile Include="Controllers\Api\ValidatorController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\NewBaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\Extends\TempData.cs" />
-    <Compile Include="Controllers\Extends\TempScheduleInfoes.cs" />
-    <Compile Include="Controllers\Extends\TempSpecialities.cs" />
     <Compile Include="Controllers\GroupController.cs" />
-    <Compile Include="Controllers\PrintScheduleController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ScheduleInfoController.cs" />
     <Compile Include="Controllers\SchedulerController.cs" />
@@ -146,39 +136,29 @@
     <Compile Include="Controllers\Api\AuditoriumController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\BuildingController.cs" />
-    <Compile Include="Controllers\Api\ScheduleHelperController.cs" />
     <Compile Include="Controllers\Api\WeekTypeController.cs" />
     <Compile Include="Controllers\Api\DepatmentController.cs" />
     <Compile Include="Controllers\Api\GroupController.cs" />
     <Compile Include="Controllers\Api\CourseController.cs" />
     <Compile Include="Controllers\Api\FacultyController.cs" />
     <Compile Include="Controllers\Api\LecturerController.cs" />
-    <Compile Include="Controllers\Api\ScheduleController.cs" />
-    <Compile Include="Controllers\Api\ScheduleInfoController.cs" />
     <Compile Include="Controllers\Api\SpecialityController.cs" />
     <Compile Include="Controllers\Api\TimeController.cs" />
     <Compile Include="Controllers\Api\TutorialController.cs" />
     <Compile Include="Controllers\Api\TutorialTypeController.cs" />
-    <Compile Include="Controllers\Extends\ExtendClasses.cs" />
+    <Compile Include="Controllers\Extends\CutNameService.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpecialityController.cs" />
     <Compile Include="Models\AuditoriumTypeViewModel.cs" />
     <Compile Include="Models\AuditoriumAddViewModel.cs" />
     <Compile Include="Models\AuditoriumViewModel.cs" />
-    <Compile Include="Models\Faculties\ForAllModel.cs" />
-    <Compile Include="Models\Faculties\SendModel.cs" />
-    <Compile Include="Models\Groups\GroupAddViewModel.cs" />
-    <Compile Include="Models\Groups\DeleteModel.cs" />
-    <Compile Include="Models\Groups\ForAllModel.cs" />
-    <Compile Include="Models\Groups\ForCodeModel.cs" />
-    <Compile Include="Models\Groups\ForCourseModel.cs" />
-    <Compile Include="Models\Groups\GroupViewModel.cs" />
+    <Compile Include="Models\GroupAddViewModel.cs" />
+    <Compile Include="Models\GroupViewModel.cs" />
     <Compile Include="Models\Hints\ForAllModel.cs" />
     <Compile Include="Models\Hints\SendModel.cs" />
-    <Compile Include="Models\JsonNetResult.cs" />
-    <Compile Include="Models\Lecturers\LecturerAddViewModel.cs" />
-    <Compile Include="Models\Lecturers\DeleteModel.cs" />
-    <Compile Include="Models\Lecturers\LecturerViewModel.cs" />
+    <Compile Include="Infrastructure\JsonNetResult.cs" />
+    <Compile Include="Models\LecturerAddViewModel.cs" />
+    <Compile Include="Models\LecturerViewModel.cs" />
     <Compile Include="Models\PrintScheduleModel.cs" />
     <Compile Include="Models\ScheduleInfoes\AddModel.cs" />
     <Compile Include="Models\ScheduleInfoes\DeleteModel.cs" />
@@ -201,35 +181,22 @@
     <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Models\SignUpModel.cs" />
     <Compile Include="Models\Schedules\UpdateModel.cs" />
-    <Compile Include="Models\Specialities\AddModel.cs" />
-    <Compile Include="Models\Specialities\DeleteModel.cs" />
-    <Compile Include="Models\Specialities\ForAllModel.cs" />
-    <Compile Include="Models\Specialities\SendModel.cs" />
-    <Compile Include="Models\StudyYears\AddModel.cs" />
-    <Compile Include="Models\StudyYears\DeleteModel.cs" />
-    <Compile Include="Models\StudyYears\SendModel.cs" />
-    <Compile Include="Models\Times\AddModel.cs" />
-    <Compile Include="Models\Times\DeleteModel.cs" />
-    <Compile Include="Models\Times\ForAllModel.cs" />
+    <Compile Include="Models\SpecialityAddViewModel.cs" />
     <Compile Include="Models\Times\SendModel.cs" />
-    <Compile Include="Models\Tutorials\TutorialAddViewModel.cs" />
-    <Compile Include="Models\Tutorials\DeleteModel.cs" />
-    <Compile Include="Models\Tutorials\ForAllModel.cs" />
+    <Compile Include="Models\TutorialAddViewModel.cs" />
     <Compile Include="Models\TutorialViewModel.cs" />
     <Compile Include="Models\TutorialTypeViewModel.cs" />
     <Compile Include="Models\Validators\SendModel.cs" />
     <Compile Include="Models\Validators\StateModel.cs" />
-    <Compile Include="Models\ViewModels\BranchViewModel.cs" />
-    <Compile Include="Models\ViewModels\BuildingViewModel.cs" />
-    <Compile Include="Models\ViewModels\CourseViewModel.cs" />
+    <Compile Include="Models\BranchViewModel.cs" />
+    <Compile Include="Models\BuildingViewModel.cs" />
+    <Compile Include="Models\CourseViewModel.cs" />
     <Compile Include="Models\FacultyViewModel.cs" />
-    <Compile Include="Models\ViewModels\GroupViewModel.cs" />
-    <Compile Include="Models\ViewModels\ScheduleInfoViewModel.cs" />
-    <Compile Include="Models\ViewModels\SchedulerViewModel.cs" />
-    <Compile Include="Models\ViewModels\SpecialityViewModel.cs" />
-    <Compile Include="Models\ViewModels\StudyYearViewModel.cs" />
-    <Compile Include="Models\ViewModels\TimeViewModel.cs" />
-    <Compile Include="Models\ViewModels\WeekTypeViewModel.cs" />
+    <Compile Include="Models\ScheduleInfoViewModel.cs" />
+    <Compile Include="Models\SchedulerViewModel.cs" />
+    <Compile Include="Models\SpecialityViewModel.cs" />
+    <Compile Include="Models\StudyYearViewModel.cs" />
+    <Compile Include="Models\TimeViewModel.cs" />
     <Compile Include="Models\WeekTypeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\DataService\Reference.cs">
@@ -247,6 +214,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="SiteModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
@@ -1804,9 +1772,7 @@
     <WCFMetadataStorage Include="Service References\NewDataService\" />
     <WCFMetadataStorage Include="Service References\UserService\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Ranks\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

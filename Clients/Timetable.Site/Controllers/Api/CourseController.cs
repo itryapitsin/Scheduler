@@ -2,15 +2,19 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Timetable.Site.Models;
 using Timetable.Site.NewDataService;
 using System.Web.Http;
-using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers.Api
 {
     public class CourseController : BaseApiController
     {
         //Получить список курсов
+        public CourseController(IDataService dataService) : base(dataService)
+        {
+        }
+
         public HttpResponseMessage GetAll()
         {
             var result = NewDataService

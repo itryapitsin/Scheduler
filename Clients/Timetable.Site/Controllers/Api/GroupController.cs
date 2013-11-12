@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Timetable.Site.Models.Groups;
+using Timetable.Site.Models;
 using Timetable.Site.NewDataService;
 
 
@@ -10,6 +10,10 @@ namespace Timetable.Site.Controllers.Api
 {
     public class GroupController : BaseApiController
     {
+        public GroupController(IDataService dataService) : base(dataService)
+        {
+        }
+
         public HttpResponseMessage GetByCode(string code)
         {
             var result = NewDataService
@@ -52,7 +56,7 @@ namespace Timetable.Site.Controllers.Api
                 .ToArray();
 
             var result = NewDataService
-                .GetGroupByIds(ids)
+                .GetGroupsByIds(ids)
                 .Select(x => new GroupViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, result);

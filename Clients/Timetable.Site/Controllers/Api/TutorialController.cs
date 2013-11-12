@@ -3,13 +3,17 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Net.Http;
-using Timetable.Site.Models.Tutorials;
+using Timetable.Site.Models;
 using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Controllers.Api
 {
     public class TutorialController : BaseApiController
     {
+        public TutorialController(IDataService dataService) : base(dataService)
+        {
+        }
+
         public HttpResponseMessage GetForFaculty(int facultyId, int courseId)
         {
             var result = NewDataService
@@ -33,22 +37,17 @@ namespace Timetable.Site.Controllers.Api
 
             NewDataService.Add(tutorial);
 
-            return Request.CreateResponse(HttpStatusCode.OK, tutorial);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public HttpResponseMessage Delete(DeleteModel model)
+        public HttpResponseMessage Delete(int id)
         {
             var dTutorial = new Tutorial();
-            dTutorial.Id = model.Id;
+            dTutorial.Id = id;
             NewDataService.Delete(dTutorial);
-        }
 
-        public void privateDelete(int Id)
-        {
-            var dTutorial = new Tutorial();
-            dTutorial.Id = Id;
-            NewDataService.Delete(dTutorial);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

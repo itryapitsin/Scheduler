@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using Timetable.Site.Infrastructure;
 using Timetable.Site.Models;
-using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {

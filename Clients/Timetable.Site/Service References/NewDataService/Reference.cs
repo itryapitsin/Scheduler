@@ -3766,10 +3766,10 @@ namespace Timetable.Site.NewDataService {
         System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesForFacultiAsync(int facultyId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTimes", ReplyAction="http://tempuri.org/IDataService/GetTimesResponse")]
-        Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer);
+        Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTimes", ReplyAction="http://tempuri.org/IDataService/GetTimesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimeDataTransfer[]> GetTimesAsync(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer);
+        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimeDataTransfer[]> GetTimesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialById", ReplyAction="http://tempuri.org/IDataService/GetTutorialByIdResponse")]
         Timetable.Site.NewDataService.TutorialDataTransfer GetTutorialById(Timetable.Site.NewDataService.TutorialDataTransfer tutorialDataTransfer);
@@ -4199,12 +4199,12 @@ namespace Timetable.Site.NewDataService {
             return base.Channel.GetSpecialitiesForFacultiAsync(facultyId);
         }
         
-        public Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer) {
-            return base.Channel.GetTimes(buildingDataTransfer);
+        public Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes() {
+            return base.Channel.GetTimes();
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimeDataTransfer[]> GetTimesAsync(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer) {
-            return base.Channel.GetTimesAsync(buildingDataTransfer);
+        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimeDataTransfer[]> GetTimesAsync() {
+            return base.Channel.GetTimesAsync();
         }
         
         public Timetable.Site.NewDataService.TutorialDataTransfer GetTutorialById(Timetable.Site.NewDataService.TutorialDataTransfer tutorialDataTransfer) {
