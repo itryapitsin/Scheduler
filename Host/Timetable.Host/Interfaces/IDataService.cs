@@ -177,8 +177,6 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForGroups(
-            int facultyId,
-            int courseId,
             int[] groupIds,
             int studyYear,
             int semester);

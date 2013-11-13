@@ -337,8 +337,6 @@ namespace Timetable.Host.Services
         }
 
         public IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForGroups(
-            int facultyId,
-            int courseId,
             int[] groupIds,
             int studyYear,
             int semester)
@@ -346,8 +344,6 @@ namespace Timetable.Host.Services
             return GetScheduleInfoes()
                 .Where(x => x.StudyYear.Id == studyYear)
                 .Where(x => x.Semester == semester)
-                .Where(x => x.Faculties.Any(y => y.Id == facultyId))
-                .Where(x => x.Courses.Any(y => y.Id == courseId))
                 .Where(x => x.Groups.Any(y => groupIds.Contains(y.Id)))
                 .ToList()
                 .Select(x => new ScheduleInfoDataTransfer(x));
