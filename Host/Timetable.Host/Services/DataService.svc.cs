@@ -342,7 +342,7 @@ namespace Timetable.Host.Services
             int semester)
         {
             return GetScheduleInfoes()
-                .Where(x => x.StudyYear.Id == studyYear)
+                .Where(x => x.StudyYearId == studyYear)
                 .Where(x => x.Semester == semester)
                 .Where(x => x.Groups.Any(y => groupIds.Contains(y.Id)))
                 .ToList()

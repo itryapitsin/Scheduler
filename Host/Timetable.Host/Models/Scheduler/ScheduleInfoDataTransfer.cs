@@ -57,13 +57,17 @@ namespace Timetable.Host.Models.Scheduler
             LikeAuditoriums = scheduleInfo.LikeAuditoriums.Select(x => new AuditoriumDataTransfer(x));
             Lecturer = new LecturerDataTransfer(scheduleInfo.Lecturer);
             TutorialType = new TutorialTypeDataTransfer(scheduleInfo.TutorialType);
-            Department = new DepartmentDataTransfer(scheduleInfo.Department);
+            if (scheduleInfo.Department != null)
+                Department = new DepartmentDataTransfer(scheduleInfo.Department);
+
             SubgroupCount = scheduleInfo.SubgroupCount;
             HoursPerWeek = scheduleInfo.HoursPerWeek;
             Tutorial = new TutorialDataTransfer(scheduleInfo.Tutorial);
             StartDate = scheduleInfo.StartDate;
             EndDate = scheduleInfo.EndDate;
-            StudyYear = new StudyYearDataTransfer(scheduleInfo.StudyYear);
+
+            if (scheduleInfo.StudyYear != null)
+                StudyYear = new StudyYearDataTransfer(scheduleInfo.StudyYear);
             Semester = scheduleInfo.Semester;
         }
     }
