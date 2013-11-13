@@ -31,6 +31,7 @@ namespace Timetable.Site
                 "~/Scripts/angular-bootstrap.js",
                 "~/Scripts/angular-bootstrap-prettify.js",
                 "~/Scripts/angular-localstorage.js",
+                "~/Scripts/angular-progress.js",
                 "~/Scripts/ui-bootstrap-{version}.js",
                 "~/Scripts/ui-bootstrap-tpls-{version}.js",
                 "~/Scripts/i18n/angular-locale_ru-ru.js"));
@@ -45,6 +46,9 @@ namespace Timetable.Site
                 "~/App/services/facultyService.js",
                 "~/App/services/specialityService.js",
                 "~/App/services/groupService.js",
+                "~/App/models/settingsModel.js",
+                "~/App/models/threadModel.js",
+                "~/App/Controllers/baseController.js",
                 "~/App/Controllers/schedulerController.js"));
 
             bundles.Add(new StyleBundle("~/Content/Site").Include("~/Content/Site.css"));

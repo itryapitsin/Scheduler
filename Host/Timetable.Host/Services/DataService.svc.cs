@@ -207,8 +207,7 @@ namespace Timetable.Host.Services
             var result = Database.Groups
                 .Where(x => x.IsActual)
                 .Where(x => courseIds.Contains(x.CourseId))
-                .Where(x => x.Speciality.Faculties
-                    .Any(y => y.Id.Equals(facultyId)))
+                .Where(x => x.FacultyId == facultyId)
                 .ToList()
                 .Select(x => new GroupDataTransfer(x));
 

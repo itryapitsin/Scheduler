@@ -14,7 +14,7 @@ namespace Timetable.Site.Controllers.Api
 
         protected BaseApiController(IDataService dataService)
         {
-            NewDataService = dataService;
+            NewDataService = new DataServiceClient();
         }
 
         protected HttpResponseMessage CreateResponse<T1, T2>(Func<T1, T2> func, T1 arg)

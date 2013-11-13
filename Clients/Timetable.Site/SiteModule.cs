@@ -8,7 +8,7 @@ namespace Timetable.Site
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<IDataService>().As<DataServiceClient>();
+            builder.RegisterType<DataServiceClient>().As<IDataService>();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
         }
     }

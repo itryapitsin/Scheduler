@@ -6,12 +6,12 @@ namespace Timetable.Site.Controllers
 {
     public class SchedulerController: NewBaseController
     {
-        public PartialViewResult Index()
+        public PartialViewResult Index(int buildingId = 11)
         {
             var model = new SchedulerViewModel
             {
                 Times = DataService
-                    .GetTimes()
+                    .GetTimes(buildingId)
                     .Select(x => new TimeViewModel(x)),
 
                 Buildings = DataService
@@ -37,6 +37,16 @@ namespace Timetable.Site.Controllers
             };
 
             return PartialView("_Index", model);
+        }
+
+        public PartialViewResult TimetableSettingsModal()
+        {
+            return PartialView("_TimetableSettings.Modal");
+        }
+
+        public PartialViewResult ThreadModal()
+        {
+            return PartialView("_Thread.Modal");
         }
     }
 }

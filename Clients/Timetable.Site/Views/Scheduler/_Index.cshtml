@@ -1,25 +1,44 @@
 ﻿@using Newtonsoft.Json
+<script>
+    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+</script>
+
+<div class="navbar navbar-fixed-top" style="top:41px;">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <ul class="nav pull-left">
+                <li>
+                    <a><b>Сведения к расписанию для потока</b></a>
+                </li>
+            </ul>
+            <ul class="nav pull-right">
+                <li>
+                    <a>
+                        Параметры потока:
+                        <b>{{thread.getBranchName()}}</b>,
+                        <b>{{thread.faculty.Name}}</b>,
+                        <span ng-repeat="course in thread.courses"><b>{{course.Name}}</b> </span>,
+                        <span ng-repeat="group in thread.groups"><b>{{group.Code}}</b> </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid" style="padding-right: 0; padding-left: 0;">
     <div class="row-fluid" style="margin-top: 5px;">
         <div class="span2">
-            <div class="span2 affix" style="padding-left: 5px; background-color: white">
-                <b>Сведения к расписанию для потока</b>
+            <div class="span2 affix" style="padding-left: 5px;">
+
                 <ul ng-repeat="scheduleInfo in scheduleInfoes">
                     <li>
-                        
+
                     </li>
                 </ul>
             </div>
         </div>
         <div class="span10" style="width: 84.97872340425532%">
-            <div class="span12 affix" style="padding-left: 5px; padding-top: 2px; background-color: white">
-                Параметры потока:
-                <b>{{thread.branch.Name}}</b>, 
-                <b>{{thread.faculty.Name}}</b>, 
-                <span ng-repeat="course in thread.courses"><b>{{course.Name}}</b> </span>,
-                <span ng-repeat="group in thread.groups"><b>{{group.Code}}</b> </span>
-                <a style="margin-top: 0" class="btn btn-mini btn-success right" href="#scheduleInfoesModal" role="button" data-toggle="modal"><i class="icon-white icon-pencil"></i></a>
-            </div>
             <table class="table table-bordered" style="margin-top:30px;">
                 <thead>
                     <tr>
@@ -53,21 +72,42 @@
     <div class="navbar-inner">
         <div class="container-fluid">
 
-            <form class="navbar-form pull-right" style="margin-top: 7px">
-                Параметры расписания: 
-                <b>{{settings.building.Name}}</b>, 
-                <b>{{settings.studyYear.Name}}</b>, 
-                <b>{{settings.semestr.Name}}</b>, 
-                <b>{{settings.weekType.Name}}</b> 
-                <a style="margin-top: 0" class="btn btn-mini btn-success right" href="#timetableSettingsModal" role="button" data-toggle="modal"><i class="icon-white icon-pencil"></i></a>
-            </form>
+            <ul class="nav pull-left">
+                <li>
+                    <a>
+                        Параметры расписания:
+                        <b>{{settings.getBuildingName()}}</b>,
+                        <b>{{settings.getStudyYearName()}}</b>,
+                        <b>{{settings.getSemesterName()}}</b>,
+                        <b>{{settings.getWeekTypeName()}}</b>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav pull-right">
+                <li class="divider-vertical"></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-edit"></i>
+                        Параметры
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="" ng-click="settings.modal.show(this)">
+                                <i class="icon-calendar"></i>
+                                Расписание
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" ng-click="thread.modal.show(this)">
+                                <i class="icon-random"></i>
+                                Поток
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
 
-@Html.Partial("_SheduleInfoFilter.Modal")
-@Html.Partial("_TimetableSettings.Modal")
-
-<script>
-    var pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
-</script>

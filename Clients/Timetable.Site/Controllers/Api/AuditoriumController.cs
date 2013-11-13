@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Timetable.Site.Models;
+using Timetable.Site.Models.RequestModels;
 using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Controllers.Api
@@ -68,18 +69,18 @@ namespace Timetable.Site.Controllers.Api
 
         
         [HttpPost]
-        public HttpResponseMessage Add(AuditoriumAddViewModel viewModel)
+        public HttpResponseMessage Add(AuditoriumAddRequest request)
         {
-            var qBuilding = new Building { Id = viewModel.BuildingId };
-            var qAuditoriumType = new AuditoriumType { Id = viewModel.AuditoriumTypeId };
+            var qBuilding = new Building { Id = request.BuildingId };
+            var qAuditoriumType = new AuditoriumType { Id = request.AuditoriumTypeId };
             var aAuditorium = new Auditorium
             {
                 Building = qBuilding,
                 AuditoriumType = qAuditoriumType,
-                Capacity = viewModel.Capacity,
-                Info = viewModel.Info,
-                Name = viewModel.Name,
-                Number = viewModel.Number,
+                Capacity = request.Capacity,
+                Info = request.Info,
+                Name = request.Name,
+                Number = request.Number,
                 UpdateDate = DateTime.Now.Date,
                 CreatedDate = DateTime.Now.Date,
                 IsActual = true

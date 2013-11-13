@@ -1,24 +1,18 @@
 ﻿@{
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
-<div class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand" href="#">Расписание ПетрГУ</a>
-            <ul class="nav">
-                <li class="active"><a href="#">Создание расписаний</a></li>
-                <li><a href="#groups">Расписание групп</a></li>
-                <li><a href="#lecturers">Расписание преподавателей</a></li>
-                <li><a href="#auditoriums">Расписание аудиторий</a></li>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Создание расписаний</a></li>
+            <li><a href="#groups">Расписание групп</a></li>
+            <li><a href="#lecturers">Расписание преподавателей</a></li>
+            <li><a href="#auditoriums">Расписание аудиторий</a></li>
+        </ul>
     </div>
+</nav>
+<div id="content" ng-view style="margin-top: 41px;">
 </div>
-<div id="content" ng-view style="margin-top: 40px;">
-</div>
-
-
-
 
 
 

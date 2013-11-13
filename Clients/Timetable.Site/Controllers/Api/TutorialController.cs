@@ -17,7 +17,7 @@ namespace Timetable.Site.Controllers.Api
         public HttpResponseMessage GetForFaculty(int facultyId, int courseId)
         {
             var result = NewDataService
-                .GetTutorialsForCourse(facultyId, courseId)
+                .GetTutorialsForFaculty(facultyId, courseId)
                 .Select(x => new TutorialViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, result);

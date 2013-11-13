@@ -6,16 +6,16 @@ using Timetable.Site.NewDataService;
 
 namespace Timetable.Site.Controllers.Api
 {
-    public partial class TimeController : BaseApiController
+    public class TimeController : BaseApiController
     {
         public TimeController(IDataService dataService) : base(dataService)
         {
         }
 
-        public HttpResponseMessage Get()
+        public HttpResponseMessage Get(int buildingId)
         {
             var times = NewDataService
-                .GetTimes()
+                .GetTimes(buildingId)
                 .Select(x => new TimeViewModel(x));
 
             return Request.CreateResponse(HttpStatusCode.OK, times);

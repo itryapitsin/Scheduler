@@ -74,7 +74,7 @@ td
                         if(Model.Mode != "forLecturer"){
                               @:<span>@Model.ScheduleTable[i, j, 1].LecturerName</span>
                         }
-                        @:<span>@Model.ScheduleTable[i, j, 1].GroupNames</span>
+                        @:<span>@Model.ScheduleTable[i, j, 1].GroupCodes</span>
                      @:</div>
                  }else{
                      if (Model.ScheduleTable[i, j, 2] == null && Model.ScheduleTable[i, j, 3] != null)
@@ -95,7 +95,7 @@ td
                             if(Model.Mode != "forLecturer"){
                                 @:<span>@Model.ScheduleTable[i, j, 3].LecturerName</span>
                             }
-                            @:<span>@Model.ScheduleTable[i, j, 3].GroupNames</span>
+                            @:<span>@Model.ScheduleTable[i, j, 3].GroupCodes</span>
                         @:</div>
                      }else{
                         if (Model.ScheduleTable[i, j, 2] != null)
@@ -115,7 +115,7 @@ td
                             if(Model.Mode != "forLecturer"){
                                 @:<span>@Model.ScheduleTable[i, j, 2].LecturerName</span>
                             }
-                            @:<span>@Model.ScheduleTable[i, j, 2].GroupNames</span>
+                            @:<span>@Model.ScheduleTable[i, j, 2].GroupCodes</span>
                             @:</div>
 
                             
@@ -136,7 +136,7 @@ td
                             if(Model.Mode != "forLecturer"){
                                 @:<span>@Model.ScheduleTable[i, j, 3].LecturerName</span>
                             }
-                            @:<span>@Model.ScheduleTable[i, j, 3].GroupNames</span>
+                            @:<span>@Model.ScheduleTable[i, j, 3].GroupCodes</span>
                             @:</div>
                         }else{
                             @:<div style="max-height:62px; width:100%; right:0px; top:0px;">

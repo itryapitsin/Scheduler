@@ -56,6 +56,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
     </Reference>
@@ -123,6 +126,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Api\AuditoriumTypeController.cs" />
     <Compile Include="Controllers\Api\BranchController.cs" />
+    <Compile Include="Controllers\Api\ScheduleController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\Api\StudyYearController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
@@ -149,8 +155,19 @@
     <Compile Include="Controllers\Extends\CutNameService.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpecialityController.cs" />
+    <Compile Include="Infrastructure\CamelCaseToPascalCaseExpandoObjectConverter.cs" />
+    <Compile Include="Infrastructure\CollectionRequest.cs" />
+    <Compile Include="Models\RequestModels\ScheduleForAuditoriumRequest.cs" />
+    <Compile Include="Models\RequestModels\ScheduleForCreatorRequest.cs" />
+    <Compile Include="Models\ResponseModels\CollectionResponse.cs" />
+    <Compile Include="Infrastructure\EnumerableWithTotal.cs" />
+    <Compile Include="Infrastructure\EnumerableWithTotalExtensions.cs" />
+    <Compile Include="Infrastructure\EnumExtensions.cs" />
+    <Compile Include="Models\RequestModels\ICollectionRequest.cs" />
+    <Compile Include="Infrastructure\StringExtensions.cs" />
+    <Compile Include="Infrastructure\TypeExtensions.cs" />
     <Compile Include="Models\AuditoriumTypeViewModel.cs" />
-    <Compile Include="Models\AuditoriumAddViewModel.cs" />
+    <Compile Include="Models\RequestModels\AuditoriumAddRequest.cs" />
     <Compile Include="Models\AuditoriumViewModel.cs" />
     <Compile Include="Models\GroupAddViewModel.cs" />
     <Compile Include="Models\GroupViewModel.cs" />
@@ -160,6 +177,8 @@
     <Compile Include="Models\LecturerAddViewModel.cs" />
     <Compile Include="Models\LecturerViewModel.cs" />
     <Compile Include="Models\PrintScheduleModel.cs" />
+    <Compile Include="Models\RequestModels\ScheduleBaseRequest.cs" />
+    <Compile Include="Models\RequestModels\ScheduleForLecturerRequest.cs" />
     <Compile Include="Models\ScheduleInfoes\AddModel.cs" />
     <Compile Include="Models\ScheduleInfoes\DeleteModel.cs" />
     <Compile Include="Models\ScheduleInfoes\ForGroupModel.cs" />
@@ -178,6 +197,7 @@
     <Compile Include="Models\Schedules\ScheduleViewModel.cs" />
     <Compile Include="Models\Schedules\ValidateModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
+    <Compile Include="Models\ScheduleViewModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Models\SignUpModel.cs" />
     <Compile Include="Models\Schedules\UpdateModel.cs" />
@@ -218,19 +238,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\controllers\baseController.js" />
     <Content Include="App\controllers\schedulerController.js" />
-    <Content Include="App\controllers\loginController.js" />
-    <Content Include="App\controllers\logoutController.js" />
-    <Content Include="App\controllers\navbarController.js" />
-    <Content Include="App\controllers\registrationController.js" />
     <Content Include="App\directives\daterangepicker.js" />
     <Content Include="App\directives\chart.js" />
     <Content Include="App\directives\integer.js" />
     <Content Include="App\directives\smartFloat.js" />
-    <Content Include="App\models\financesChangesModel.js" />
-    <Content Include="App\models\financesEditModel.js" />
     <Content Include="App\models\loginModel.js" />
-    <Content Include="App\models\registrationModel.js" />
+    <Content Include="App\models\threadModel.js" />
+    <Content Include="App\models\settingsModel.js" />
     <Content Include="App\services\auth.js" />
     <Content Include="App\services\specialityService.js" />
     <Content Include="App\services\facultyService.js" />
@@ -242,16 +258,20 @@
       <LastGenOutput>Message.designer.cs</LastGenOutput>
     </Content>
     <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\select2-spinner.gif" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.png" />
     <Content Include="Content\css\select2x2.png" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\_bootstrap-daterangepicker-bs3.css" />
     <Content Include="Content\bootstrap-daterangepicker-bs2.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\classic-min.css" />
     <Content Include="Content\classic.css" />
     <Content Include="Content\ext-all.css" />
@@ -269,8 +289,6 @@
     <Content Include="Content\globalization\jquery.global.js" />
     <Content Include="Content\images\back_arrow.png" />
     <Content Include="Content\images\chosen-sprite.png" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\images\ui-bg_flat_10_000000_40x100.png" />
@@ -1047,8 +1065,11 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\ui.dropdownchecklist.standalone.css" />
     <Content Include="Content\ui.dropdownchecklist.themeroller.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
@@ -1059,6 +1080,7 @@
     <Content Include="Scripts\angular-loader.min.js" />
     <Content Include="Scripts\angular-localstorage.js" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-progress.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
@@ -1071,6 +1093,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-daterangepicker.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ext-all.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
@@ -1360,13 +1384,16 @@
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\jQDateRangeSlider-min.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ca.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.cs.js" />
@@ -1384,6 +1411,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.is.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.it.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ka.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.kr.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.lt.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.lv.js" />
@@ -1391,6 +1419,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.ms.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.nb.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.no.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pl.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pt-BR.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pt.js" />
@@ -1426,8 +1455,6 @@
     <Content Include="Scripts\Site\SignIn\signin.viewmodel.js" />
     <Content Include="Scripts\Site\unscheduled.viewmodel.js" />
     <Content Include="Scripts\ui.dropdownchecklist-1.4-min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\dateformat.js" />
     <Content Include="Scripts\jquery.autonumeric.js" />
     <Content Include="Scripts\jquery.cookie.js" />
@@ -1520,12 +1547,11 @@
     <None Include="Service References\DataService\DataService65.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\NewDataService\DataService.disco" />
-    <None Include="Service References\NewDataService\configuration91.svcinfo" />
-    <None Include="Service References\NewDataService\configuration.svcinfo" />
-    <None Include="Service References\NewDataService\DataService6.xsd">
+    <None Include="Service References\NewDataService\Arrays1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\NewDataService\configuration91.svcinfo" />
+    <None Include="Service References\NewDataService\configuration.svcinfo" />
     <None Include="Service References\NewDataService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1548,25 +1574,6 @@
     <Content Include="Service References\DataService\Timetable.Site.DataService.TimetableEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\NewDataService\DataService.wsdl" />
-    <None Include="Service References\NewDataService\DataService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NewDataService\DataService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NewDataService\DataService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NewDataService\DataService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NewDataService\DataService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NewDataService\DataService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.AuditoriumDataTransfer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -1624,6 +1631,25 @@
     <Content Include="Service References\NewDataService\Timetable.Site.NewDataService.WeekTypeDataTransfer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\NewDataService\service1.wsdl" />
+    <None Include="Service References\NewDataService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\Timetable.Data.Models.Scheduler1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\Timetable.Data.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\Timetable.Host.Interfaces1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NewDataService\Timetable.Host.Models.Scheduler1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\UserService\UserService.disco" />
     <None Include="Service References\UserService\configuration91.svcinfo" />
     <None Include="Service References\UserService\configuration.svcinfo" />
@@ -1752,7 +1778,7 @@
     <Content Include="Views\Scheduler\_Index.cshtml" />
     <Content Include="Views\Scheduler\_Calendar.cshtml" />
     <Content Include="Views\Scheduler\_Timetable.cshtml" />
-    <Content Include="Views\Scheduler\_SheduleInfoFilter.Modal.cshtml" />
+    <Content Include="Views\Scheduler\_Thread.Modal.cshtml" />
     <Content Include="Views\Scheduler\_TimetableSettings.Modal.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

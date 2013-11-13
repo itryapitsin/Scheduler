@@ -20,6 +20,7 @@ namespace Timetable.Site.NewDataService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Auditorium))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.AuditoriumType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Building))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Time))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.ScheduleInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Course))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Department))]
@@ -32,7 +33,6 @@ namespace Timetable.Site.NewDataService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Lecturer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Position))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Schedule))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.Time))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TimetableEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.WeekType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.StudyYear))]
@@ -366,6 +366,9 @@ namespace Timetable.Site.NewDataService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShortNameField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Timetable.Site.NewDataService.Time[] TimesField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Address {
             get {
@@ -414,6 +417,90 @@ namespace Timetable.Site.NewDataService {
                 if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
                     this.ShortNameField = value;
                     this.RaisePropertyChanged("ShortName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Timetable.Site.NewDataService.Time[] Times {
+            get {
+                return this.TimesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TimesField, value) != true)) {
+                    this.TimesField = value;
+                    this.RaisePropertyChanged("Times");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Time", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Data.Models.Scheduler", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class Time : Timetable.Site.NewDataService.BaseEntity {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Timetable.Site.NewDataService.Building[] BuildingsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.TimeSpan EndField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PositionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.TimeSpan StartField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Timetable.Site.NewDataService.Building[] Buildings {
+            get {
+                return this.BuildingsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BuildingsField, value) != true)) {
+                    this.BuildingsField = value;
+                    this.RaisePropertyChanged("Buildings");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.TimeSpan End {
+            get {
+                return this.EndField;
+            }
+            set {
+                if ((this.EndField.Equals(value) != true)) {
+                    this.EndField = value;
+                    this.RaisePropertyChanged("End");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Position {
+            get {
+                return this.PositionField;
+            }
+            set {
+                if ((this.PositionField.Equals(value) != true)) {
+                    this.PositionField = value;
+                    this.RaisePropertyChanged("Position");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.TimeSpan Start {
+            get {
+                return this.StartField;
+            }
+            set {
+                if ((this.StartField.Equals(value) != true)) {
+                    this.StartField = value;
+                    this.RaisePropertyChanged("Start");
                 }
             }
         }
@@ -1929,61 +2016,6 @@ namespace Timetable.Site.NewDataService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Time", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Data.Models.Scheduler", IsReference=true)]
-    [System.SerializableAttribute()]
-    public partial class Time : Timetable.Site.NewDataService.BaseEntity {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.TimeSpan EndField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PositionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.TimeSpan StartField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.TimeSpan End {
-            get {
-                return this.EndField;
-            }
-            set {
-                if ((this.EndField.Equals(value) != true)) {
-                    this.EndField = value;
-                    this.RaisePropertyChanged("End");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Position {
-            get {
-                return this.PositionField;
-            }
-            set {
-                if ((this.PositionField.Equals(value) != true)) {
-                    this.PositionField = value;
-                    this.RaisePropertyChanged("Position");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.TimeSpan Start {
-            get {
-                return this.StartField;
-            }
-            set {
-                if ((this.StartField.Equals(value) != true)) {
-                    this.StartField = value;
-                    this.RaisePropertyChanged("Start");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TimetableEntity", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Data.Models.Scheduler", IsReference=true)]
     [System.SerializableAttribute()]
     public partial class TimetableEntity : Timetable.Site.NewDataService.BaseEntity {
@@ -2202,20 +2234,20 @@ namespace Timetable.Site.NewDataService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.LecturerDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.PositionDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.AuditoriumDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.AuditoriumTypeDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.BuildingDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.GroupDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.ScheduleDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.StudyYearDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TimetableEntityDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.BranchDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.BuildingDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.AuditoriumTypeDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TutorialTypeDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.ScheduleInfoDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.CourseDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.DepartmentDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.FacultyDataTransfer))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.ScheduleInfoDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.SpecialityDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.StudyYearDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TutorialDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TutorialTypeDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TimetableEntityDataTransfer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.BranchDataTransfer))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Timetable.Site.NewDataService.TimeDataTransfer))]
     public partial class BaseDataTransfer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2398,10 +2430,10 @@ namespace Timetable.Site.NewDataService {
     public partial class AuditoriumDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int AuditoriumTypeIdField;
+        private Timetable.Site.NewDataService.AuditoriumTypeDataTransfer AuditoriumTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int BuildingIdField;
+        private Timetable.Site.NewDataService.BuildingDataTransfer BuildingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> CapacityField;
@@ -2416,27 +2448,27 @@ namespace Timetable.Site.NewDataService {
         private string NumberField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int AuditoriumTypeId {
+        public Timetable.Site.NewDataService.AuditoriumTypeDataTransfer AuditoriumType {
             get {
-                return this.AuditoriumTypeIdField;
+                return this.AuditoriumTypeField;
             }
             set {
-                if ((this.AuditoriumTypeIdField.Equals(value) != true)) {
-                    this.AuditoriumTypeIdField = value;
-                    this.RaisePropertyChanged("AuditoriumTypeId");
+                if ((object.ReferenceEquals(this.AuditoriumTypeField, value) != true)) {
+                    this.AuditoriumTypeField = value;
+                    this.RaisePropertyChanged("AuditoriumType");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int BuildingId {
+        public Timetable.Site.NewDataService.BuildingDataTransfer Building {
             get {
-                return this.BuildingIdField;
+                return this.BuildingField;
             }
             set {
-                if ((this.BuildingIdField.Equals(value) != true)) {
-                    this.BuildingIdField = value;
-                    this.RaisePropertyChanged("BuildingId");
+                if ((object.ReferenceEquals(this.BuildingField, value) != true)) {
+                    this.BuildingField = value;
+                    this.RaisePropertyChanged("Building");
                 }
             }
         }
@@ -2489,6 +2521,116 @@ namespace Timetable.Site.NewDataService {
                 if ((object.ReferenceEquals(this.NumberField, value) != true)) {
                     this.NumberField = value;
                     this.RaisePropertyChanged("Number");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AuditoriumTypeDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class AuditoriumTypeDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PatternField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Pattern {
+            get {
+                return this.PatternField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PatternField, value) != true)) {
+                    this.PatternField = value;
+                    this.RaisePropertyChanged("Pattern");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BuildingDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class BuildingDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string InfoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShortNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Info {
+            get {
+                return this.InfoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InfoField, value) != true)) {
+                    this.InfoField = value;
+                    this.RaisePropertyChanged("Info");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShortName {
+            get {
+                return this.ShortNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
+                    this.ShortNameField = value;
+                    this.RaisePropertyChanged("ShortName");
                 }
             }
         }
@@ -2588,7 +2730,7 @@ namespace Timetable.Site.NewDataService {
     public partial class ScheduleDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int AuditoriumIdField;
+        private Timetable.Site.NewDataService.AuditoriumDataTransfer AuditoriumField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool AutoDeleteField;
@@ -2600,10 +2742,7 @@ namespace Timetable.Site.NewDataService {
         private System.DateTime EndDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PeriodIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ScheduleInfoIdField;
+        private Timetable.Site.NewDataService.ScheduleInfoDataTransfer ScheduleInfoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime StartDateField;
@@ -2612,20 +2751,23 @@ namespace Timetable.Site.NewDataService {
         private string SubGroupField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TimetableField;
+        private Timetable.Site.NewDataService.TimeDataTransfer TimeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int WeekTypeIdField;
+        private Timetable.Site.NewDataService.TimetableEntityDataTransfer TimetableField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Timetable.Site.NewDataService.WeekTypeDataTransfer WeekTypeField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int AuditoriumId {
+        public Timetable.Site.NewDataService.AuditoriumDataTransfer Auditorium {
             get {
-                return this.AuditoriumIdField;
+                return this.AuditoriumField;
             }
             set {
-                if ((this.AuditoriumIdField.Equals(value) != true)) {
-                    this.AuditoriumIdField = value;
-                    this.RaisePropertyChanged("AuditoriumId");
+                if ((object.ReferenceEquals(this.AuditoriumField, value) != true)) {
+                    this.AuditoriumField = value;
+                    this.RaisePropertyChanged("Auditorium");
                 }
             }
         }
@@ -2670,27 +2812,14 @@ namespace Timetable.Site.NewDataService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PeriodId {
+        public Timetable.Site.NewDataService.ScheduleInfoDataTransfer ScheduleInfo {
             get {
-                return this.PeriodIdField;
+                return this.ScheduleInfoField;
             }
             set {
-                if ((this.PeriodIdField.Equals(value) != true)) {
-                    this.PeriodIdField = value;
-                    this.RaisePropertyChanged("PeriodId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ScheduleInfoId {
-            get {
-                return this.ScheduleInfoIdField;
-            }
-            set {
-                if ((this.ScheduleInfoIdField.Equals(value) != true)) {
-                    this.ScheduleInfoIdField = value;
-                    this.RaisePropertyChanged("ScheduleInfoId");
+                if ((object.ReferenceEquals(this.ScheduleInfoField, value) != true)) {
+                    this.ScheduleInfoField = value;
+                    this.RaisePropertyChanged("ScheduleInfo");
                 }
             }
         }
@@ -2722,12 +2851,25 @@ namespace Timetable.Site.NewDataService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Timetable {
+        public Timetable.Site.NewDataService.TimeDataTransfer Time {
+            get {
+                return this.TimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TimeField, value) != true)) {
+                    this.TimeField = value;
+                    this.RaisePropertyChanged("Time");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Timetable.Site.NewDataService.TimetableEntityDataTransfer Timetable {
             get {
                 return this.TimetableField;
             }
             set {
-                if ((this.TimetableField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.TimetableField, value) != true)) {
                     this.TimetableField = value;
                     this.RaisePropertyChanged("Timetable");
                 }
@@ -2735,365 +2877,14 @@ namespace Timetable.Site.NewDataService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int WeekTypeId {
+        public Timetable.Site.NewDataService.WeekTypeDataTransfer WeekType {
             get {
-                return this.WeekTypeIdField;
+                return this.WeekTypeField;
             }
             set {
-                if ((this.WeekTypeIdField.Equals(value) != true)) {
-                    this.WeekTypeIdField = value;
-                    this.RaisePropertyChanged("WeekTypeId");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="StudyYearDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class StudyYearDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EndYearField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StartYearField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EndYear {
-            get {
-                return this.EndYearField;
-            }
-            set {
-                if ((this.EndYearField.Equals(value) != true)) {
-                    this.EndYearField = value;
-                    this.RaisePropertyChanged("EndYear");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StartYear {
-            get {
-                return this.StartYearField;
-            }
-            set {
-                if ((this.StartYearField.Equals(value) != true)) {
-                    this.StartYearField = value;
-                    this.RaisePropertyChanged("StartYear");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TimetableEntityDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class TimetableEntityDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsActiveField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsActive {
-            get {
-                return this.IsActiveField;
-            }
-            set {
-                if ((this.IsActiveField.Equals(value) != true)) {
-                    this.IsActiveField = value;
-                    this.RaisePropertyChanged("IsActive");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BranchDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class BranchDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BuildingDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class BuildingDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AddressField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string InfoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ShortNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Address {
-            get {
-                return this.AddressField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
-                    this.AddressField = value;
-                    this.RaisePropertyChanged("Address");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Info {
-            get {
-                return this.InfoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.InfoField, value) != true)) {
-                    this.InfoField = value;
-                    this.RaisePropertyChanged("Info");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ShortName {
-            get {
-                return this.ShortNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
-                    this.ShortNameField = value;
-                    this.RaisePropertyChanged("ShortName");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AuditoriumTypeDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class AuditoriumTypeDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PatternField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Pattern {
-            get {
-                return this.PatternField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PatternField, value) != true)) {
-                    this.PatternField = value;
-                    this.RaisePropertyChanged("Pattern");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TutorialTypeDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class TutorialTypeDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CourseDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class CourseDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DepartmentDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class DepartmentDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ShortNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ShortName {
-            get {
-                return this.ShortNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
-                    this.ShortNameField = value;
-                    this.RaisePropertyChanged("ShortName");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FacultyDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
-    [System.SerializableAttribute()]
-    public partial class FacultyDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int BranchIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ShortNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int BranchId {
-            get {
-                return this.BranchIdField;
-            }
-            set {
-                if ((this.BranchIdField.Equals(value) != true)) {
-                    this.BranchIdField = value;
-                    this.RaisePropertyChanged("BranchId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ShortName {
-            get {
-                return this.ShortNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
-                    this.ShortNameField = value;
-                    this.RaisePropertyChanged("ShortName");
+                if ((object.ReferenceEquals(this.WeekTypeField, value) != true)) {
+                    this.WeekTypeField = value;
+                    this.RaisePropertyChanged("WeekType");
                 }
             }
         }
@@ -3348,6 +3139,123 @@ namespace Timetable.Site.NewDataService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CourseDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class CourseDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DepartmentDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class DepartmentDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShortNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShortName {
+            get {
+                return this.ShortNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
+                    this.ShortNameField = value;
+                    this.RaisePropertyChanged("ShortName");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FacultyDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class FacultyDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BranchIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShortNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BranchId {
+            get {
+                return this.BranchIdField;
+            }
+            set {
+                if ((this.BranchIdField.Equals(value) != true)) {
+                    this.BranchIdField = value;
+                    this.RaisePropertyChanged("BranchId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShortName {
+            get {
+                return this.ShortNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
+                    this.ShortNameField = value;
+                    this.RaisePropertyChanged("ShortName");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SpecialityDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
     [System.SerializableAttribute()]
     public partial class SpecialityDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
@@ -3403,6 +3311,45 @@ namespace Timetable.Site.NewDataService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StudyYearDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class StudyYearDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EndYearField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StartYearField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EndYear {
+            get {
+                return this.EndYearField;
+            }
+            set {
+                if ((this.EndYearField.Equals(value) != true)) {
+                    this.EndYearField = value;
+                    this.RaisePropertyChanged("EndYear");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StartYear {
+            get {
+                return this.StartYearField;
+            }
+            set {
+                if ((this.StartYearField.Equals(value) != true)) {
+                    this.StartYearField = value;
+                    this.RaisePropertyChanged("StartYear");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TutorialDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
     [System.SerializableAttribute()]
     public partial class TutorialDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
@@ -3435,6 +3382,91 @@ namespace Timetable.Site.NewDataService {
                 if ((object.ReferenceEquals(this.ShortNameField, value) != true)) {
                     this.ShortNameField = value;
                     this.RaisePropertyChanged("ShortName");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TutorialTypeDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class TutorialTypeDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TimetableEntityDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class TimetableEntityDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BranchDataTransfer", Namespace="http://schemas.datacontract.org/2004/07/Timetable.Host.Models.Scheduler")]
+    [System.SerializableAttribute()]
+    public partial class BranchDataTransfer : Timetable.Site.NewDataService.BaseDataTransfer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
                 }
             }
         }
@@ -3502,322 +3534,159 @@ namespace Timetable.Site.NewDataService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Add", ReplyAction="http://tempuri.org/IBaseService/AddResponse")]
         Timetable.Site.NewDataService.OperationResult Add(Timetable.Site.NewDataService.BaseEntity dto);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Add", ReplyAction="http://tempuri.org/IBaseService/AddResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> AddAsync(Timetable.Site.NewDataService.BaseEntity dto);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Update", ReplyAction="http://tempuri.org/IBaseService/UpdateResponse")]
         Timetable.Site.NewDataService.OperationResult Update(Timetable.Site.NewDataService.BaseEntity dto);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Update", ReplyAction="http://tempuri.org/IBaseService/UpdateResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> UpdateAsync(Timetable.Site.NewDataService.BaseEntity dto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Delete", ReplyAction="http://tempuri.org/IBaseService/DeleteResponse")]
         Timetable.Site.NewDataService.OperationResult Delete(Timetable.Site.NewDataService.BaseEntity dto);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseService/Delete", ReplyAction="http://tempuri.org/IBaseService/DeleteResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> DeleteAsync(Timetable.Site.NewDataService.BaseEntity dto);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForDayTimeDate", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForDayTimeDateResponse")]
         Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForDayTimeDate(System.Nullable<int> dayOfWeek, Timetable.Site.NewDataService.TimeDataTransfer period, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, string subGroup, System.DateTime startDate, System.DateTime endDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForDayTimeDate", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForDayTimeDateResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForDayTimeDateAsync(System.Nullable<int> dayOfWeek, Timetable.Site.NewDataService.TimeDataTransfer period, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, string subGroup, System.DateTime startDate, System.DateTime endDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForAll", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForAllResponse")]
         Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForAll(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, string subGroup, System.DateTime startDate, System.DateTime endDate);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForAll", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForAllResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForAllAsync(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, string subGroup, System.DateTime startDate, System.DateTime endDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForGroupOnlyId", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForGroupOnlyIdResponse")]
-        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForGroupOnlyId(Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForGroupOnlyId", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForGroupOnlyIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForGroupOnlyIdAsync(Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTimetableEntities", ReplyAction="http://tempuri.org/IDataService/GetTimetableEntitiesResponse")]
         Timetable.Site.NewDataService.TimetableEntityDataTransfer[] GetTimetableEntities();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTimetableEntities", ReplyAction="http://tempuri.org/IDataService/GetTimetableEntitiesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimetableEntityDataTransfer[]> GetTimetableEntitiesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsByCode", ReplyAction="http://tempuri.org/IDataService/GetGroupsByCodeResponse")]
         Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsByCode(string code, int count);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsByCode", ReplyAction="http://tempuri.org/IDataService/GetGroupsByCodeResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsByCodeAsync(string code, int count);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/ValidateSchedule", ReplyAction="http://tempuri.org/IDataService/ValidateScheduleResponse")]
         bool ValidateSchedule(Timetable.Site.NewDataService.ScheduleDataTransfer scheduleDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/ValidateSchedule", ReplyAction="http://tempuri.org/IDataService/ValidateScheduleResponse")]
-        System.Threading.Tasks.Task<bool> ValidateScheduleAsync(Timetable.Site.NewDataService.ScheduleDataTransfer scheduleDataTransfer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetBranches", ReplyAction="http://tempuri.org/IDataService/GetBranchesResponse")]
         Timetable.Site.NewDataService.BranchDataTransfer[] GetBranches();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetBranches", ReplyAction="http://tempuri.org/IDataService/GetBranchesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.BranchDataTransfer[]> GetBranchesAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetAuditoriums", ReplyAction="http://tempuri.org/IDataService/GetAuditoriumsResponse")]
         Timetable.Site.NewDataService.AuditoriumDataTransfer[] GetAuditoriums(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetAuditoriums", ReplyAction="http://tempuri.org/IDataService/GetAuditoriumsResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.AuditoriumDataTransfer[]> GetAuditoriumsAsync(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetFreeAuditoriums", ReplyAction="http://tempuri.org/IDataService/GetFreeAuditoriumsResponse")]
         Timetable.Site.NewDataService.AuditoriumDataTransfer[] GetFreeAuditoriums(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, int day, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer, int capacity, System.DateTime startDate, System.DateTime endDate);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetFreeAuditoriums", ReplyAction="http://tempuri.org/IDataService/GetFreeAuditoriumsResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.AuditoriumDataTransfer[]> GetFreeAuditoriumsAsync(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, int day, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer, int capacity, System.DateTime startDate, System.DateTime endDate);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetAuditoriumTypes", ReplyAction="http://tempuri.org/IDataService/GetAuditoriumTypesResponse")]
         Timetable.Site.NewDataService.AuditoriumTypeDataTransfer[] GetAuditoriumTypes();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetAuditoriumTypes", ReplyAction="http://tempuri.org/IDataService/GetAuditoriumTypesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.AuditoriumTypeDataTransfer[]> GetAuditoriumTypesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetBuildings", ReplyAction="http://tempuri.org/IDataService/GetBuildingsResponse")]
         Timetable.Site.NewDataService.BuildingDataTransfer[] GetBuildings();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetBuildings", ReplyAction="http://tempuri.org/IDataService/GetBuildingsResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.BuildingDataTransfer[]> GetBuildingsAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetCources", ReplyAction="http://tempuri.org/IDataService/GetCourcesResponse")]
         Timetable.Site.NewDataService.CourseDataTransfer[] GetCources();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetCources", ReplyAction="http://tempuri.org/IDataService/GetCourcesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.CourseDataTransfer[]> GetCourcesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetDeparmtents", ReplyAction="http://tempuri.org/IDataService/GetDeparmtentsResponse")]
         Timetable.Site.NewDataService.DepartmentDataTransfer[] GetDeparmtents();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetDeparmtents", ReplyAction="http://tempuri.org/IDataService/GetDeparmtentsResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.DepartmentDataTransfer[]> GetDeparmtentsAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetFaculties", ReplyAction="http://tempuri.org/IDataService/GetFacultiesResponse")]
         Timetable.Site.NewDataService.FacultyDataTransfer[] GetFaculties(Timetable.Site.NewDataService.BranchDataTransfer branchDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetFaculties", ReplyAction="http://tempuri.org/IDataService/GetFacultiesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.FacultyDataTransfer[]> GetFacultiesAsync(Timetable.Site.NewDataService.BranchDataTransfer branchDataTransfer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsByIds", ReplyAction="http://tempuri.org/IDataService/GetGroupsByIdsResponse")]
         Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsByIds(int[] groupIds);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsByIds", ReplyAction="http://tempuri.org/IDataService/GetGroupsByIdsResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsByIdsAsync(int[] groupIds);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetsSubGroupsByGroupId", ReplyAction="http://tempuri.org/IDataService/GetsSubGroupsByGroupIdResponse")]
         Timetable.Site.NewDataService.GroupDataTransfer[] GetsSubGroupsByGroupId(int groupId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetsSubGroupsByGroupId", ReplyAction="http://tempuri.org/IDataService/GetsSubGroupsByGroupIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetsSubGroupsByGroupIdAsync(int groupId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForFaculty", ReplyAction="http://tempuri.org/IDataService/GetGroupsForFacultyResponse")]
         Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForFaculty(int facultyId, int[] courseIds);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForFaculty", ReplyAction="http://tempuri.org/IDataService/GetGroupsForFacultyResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForFacultyAsync(int facultyId, int[] courseIds);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetGroupsForSpecialityResponse")]
         Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(int specialityId, int[] courseIds);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetGroupsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetGroupsForSpecialityResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialityAsync(int specialityId, int[] courseIds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByDeparmentId", ReplyAction="http://tempuri.org/IDataService/GetLecturersByDeparmentIdResponse")]
         Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByDeparmentId(int departmentId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByDeparmentId", ReplyAction="http://tempuri.org/IDataService/GetLecturersByDeparmentIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByDeparmentIdAsync(int departmentId);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByTutorialId", ReplyAction="http://tempuri.org/IDataService/GetLecturersByTutorialIdResponse")]
         Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByTutorialId(int tutorialId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByTutorialId", ReplyAction="http://tempuri.org/IDataService/GetLecturersByTutorialIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByTutorialIdAsync(int tutorialId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByTutorialIdAndTutorialTypeId", ReplyAction="http://tempuri.org/IDataService/GetLecturersByTutorialIdAndTutorialTypeIdResponse" +
             "")]
         Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByTutorialIdAndTutorialTypeId(int tutorialId, int tutorialTypeId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByTutorialIdAndTutorialTypeId", ReplyAction="http://tempuri.org/IDataService/GetLecturersByTutorialIdAndTutorialTypeIdResponse" +
-            "")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByTutorialIdAndTutorialTypeIdAsync(int tutorialId, int tutorialTypeId);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturerByFirstMiddleLastname", ReplyAction="http://tempuri.org/IDataService/GetLecturerByFirstMiddleLastnameResponse")]
         Timetable.Site.NewDataService.LecturerDataTransfer GetLecturerByFirstMiddleLastname(string arg);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturerByFirstMiddleLastname", ReplyAction="http://tempuri.org/IDataService/GetLecturerByFirstMiddleLastnameResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer> GetLecturerByFirstMiddleLastnameAsync(string arg);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByFirstMiddleLastname", ReplyAction="http://tempuri.org/IDataService/GetLecturersByFirstMiddleLastnameResponse")]
         Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByFirstMiddleLastname(string arg);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetLecturersByFirstMiddleLastname", ReplyAction="http://tempuri.org/IDataService/GetLecturersByFirstMiddleLastnameResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByFirstMiddleLastnameAsync(string arg);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForScheduleInfoes", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForScheduleInfoesResponse")]
-        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForScheduleInfoes(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForScheduleInfoes", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForScheduleInfoesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForScheduleInfoesAsync(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoById", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoByIdResponse")]
         Timetable.Site.NewDataService.ScheduleInfoDataTransfer GetScheduleInfoById(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoById", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoByIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer> GetScheduleInfoByIdAsync(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForCourse", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForCourseResponse")]
-        Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForCourse", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForCourseResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForFaculty", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForFacultyResponse")]
+        Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForFaculty(int facultyId, int courseId, int studyYear, int semester);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForSpecialityResponse")]
         Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForSpeciality(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForSpecialityResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForSpecialityAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForGroup", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForGroupResponse")]
-        Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForGroup(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialtype, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForGroup", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForGroupResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForGroupAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialtype, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForGroups", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForGroupsResponse")]
+        Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForGroups(int facultyId, int courseId, int[] groupIds, int studyYear, int semester);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForDepartment", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForDepartmentResponse")]
         Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForDepartment(Timetable.Site.NewDataService.DepartmentDataTransfer departmentDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleInfoesForDepartment", ReplyAction="http://tempuri.org/IDataService/GetScheduleInfoesForDepartmentResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForDepartmentAsync(Timetable.Site.NewDataService.DepartmentDataTransfer departmentDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetUnscheduledInfoes", ReplyAction="http://tempuri.org/IDataService/GetUnscheduledInfoesResponse")]
         Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetUnscheduledInfoes(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetUnscheduledInfoes", ReplyAction="http://tempuri.org/IDataService/GetUnscheduledInfoesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetUnscheduledInfoesAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CountScheduleCollisions", ReplyAction="http://tempuri.org/IDataService/CountScheduleCollisionsResponse")]
         int CountScheduleCollisions(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CountScheduleCollisions", ReplyAction="http://tempuri.org/IDataService/CountScheduleCollisionsResponse")]
-        System.Threading.Tasks.Task<int> CountScheduleCollisionsAsync(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForGroups", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForGroupsResponse")]
+        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForGroups(int facultyId, int courseId, int[] groupIds, int studyYear, int semester);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForScheduleInfoes", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForScheduleInfoesResponse")]
+        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForScheduleInfoes(int scheduleInfoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesByDayTime", ReplyAction="http://tempuri.org/IDataService/GetSchedulesByDayTimeResponse")]
         Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesByDayTime(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesByDayTime", ReplyAction="http://tempuri.org/IDataService/GetSchedulesByDayTimeResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesByDayTimeAsync(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForCourse", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForCourseResponse")]
-        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime StartDate, System.DateTime EndDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForCourse", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForCourseResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime StartDate, System.DateTime EndDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForGroup", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForGroupResponse")]
-        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForGroup(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate, string subGroup);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForGroup", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForGroupResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForGroupAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate, string subGroup);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForFaculty", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForFacultyResponse")]
+        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForFaculty(int facultyId, int courseId, int studyYearId, int semester);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CountSchedulesForScheduleInfoes", ReplyAction="http://tempuri.org/IDataService/CountSchedulesForScheduleInfoesResponse")]
-        int CountSchedulesForScheduleInfoes(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CountSchedulesForScheduleInfoes", ReplyAction="http://tempuri.org/IDataService/CountSchedulesForScheduleInfoesResponse")]
-        System.Threading.Tasks.Task<int> CountSchedulesForScheduleInfoesAsync(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer);
+        int CountSchedulesForScheduleInfoes(int scheduleInfoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForSpecialityResponse")]
-        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForSpeciality(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForSpecialityResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForSpecialityAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
+        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForSpeciality(int specialityId, int courseId, int studyYearId, int semester);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForLecturer", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForLecturerResponse")]
-        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForLecturer(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForLecturer", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForLecturerResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForLecturerAsync(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
+        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForLecturer(int lecturerId, int studyYearId, int semester);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForAuditorium", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForAuditoriumResponse")]
-        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForAuditorium(Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSchedulesForAuditorium", ReplyAction="http://tempuri.org/IDataService/GetSchedulesForAuditoriumResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForAuditoriumAsync(Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate);
+        Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForAuditorium(int auditoriumId, int studyYearId, int semester);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleById", ReplyAction="http://tempuri.org/IDataService/GetScheduleByIdResponse")]
         Timetable.Site.NewDataService.ScheduleDataTransfer GetScheduleById(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetScheduleById", ReplyAction="http://tempuri.org/IDataService/GetScheduleByIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer> GetScheduleByIdAsync(int id);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialities", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesResponse")]
         Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialities(int branchId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialities", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesAsync(int branchId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialitiesForFaculti", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesForFacultiResponse")]
         Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialitiesForFaculti(int facultyId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetSpecialitiesForFaculti", ReplyAction="http://tempuri.org/IDataService/GetSpecialitiesForFacultiResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesForFacultiAsync(int facultyId);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTimes", ReplyAction="http://tempuri.org/IDataService/GetTimesResponse")]
-        Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTimes", ReplyAction="http://tempuri.org/IDataService/GetTimesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimeDataTransfer[]> GetTimesAsync();
+        Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes(int buildingId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialById", ReplyAction="http://tempuri.org/IDataService/GetTutorialByIdResponse")]
         Timetable.Site.NewDataService.TutorialDataTransfer GetTutorialById(Timetable.Site.NewDataService.TutorialDataTransfer tutorialDataTransfer);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialById", ReplyAction="http://tempuri.org/IDataService/GetTutorialByIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer> GetTutorialByIdAsync(Timetable.Site.NewDataService.TutorialDataTransfer tutorialDataTransfer);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForGroup", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForGroupResponse")]
         Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForGroup(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForGroup", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForGroupResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForGroupAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForSpecialityResponse")]
         Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForSpeciality(int courseId, int specialityId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForSpeciality", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForSpecialityResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForSpecialityAsync(int courseId, int specialityId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForCourse", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForCourseResponse")]
-        Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForCourse(int facultyId, int courseId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForCourse", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForCourseResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForCourseAsync(int facultyId, int courseId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialsForFaculty", ReplyAction="http://tempuri.org/IDataService/GetTutorialsForFacultyResponse")]
+        Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForFaculty(int facultyId, int courseId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialTypes", ReplyAction="http://tempuri.org/IDataService/GetTutorialTypesResponse")]
         Timetable.Site.NewDataService.TutorialTypeDataTransfer[] GetTutorialTypes();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialTypes", ReplyAction="http://tempuri.org/IDataService/GetTutorialTypesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialTypeDataTransfer[]> GetTutorialTypesAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialTypeById", ReplyAction="http://tempuri.org/IDataService/GetTutorialTypeByIdResponse")]
         Timetable.Site.NewDataService.TutorialTypeDataTransfer GetTutorialTypeById(Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetTutorialTypeById", ReplyAction="http://tempuri.org/IDataService/GetTutorialTypeByIdResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialTypeDataTransfer> GetTutorialTypeByIdAsync(Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetWeekTypes", ReplyAction="http://tempuri.org/IDataService/GetWeekTypesResponse")]
         Timetable.Site.NewDataService.WeekTypeDataTransfer[] GetWeekTypes();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetWeekTypes", ReplyAction="http://tempuri.org/IDataService/GetWeekTypesResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.WeekTypeDataTransfer[]> GetWeekTypesAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetStudyYears", ReplyAction="http://tempuri.org/IDataService/GetStudyYearsResponse")]
         Timetable.Site.NewDataService.StudyYearDataTransfer[] GetStudyYears();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/GetStudyYears", ReplyAction="http://tempuri.org/IDataService/GetStudyYearsResponse")]
-        System.Threading.Tasks.Task<Timetable.Site.NewDataService.StudyYearDataTransfer[]> GetStudyYearsAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3851,424 +3720,208 @@ namespace Timetable.Site.NewDataService {
             return base.Channel.Add(dto);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> AddAsync(Timetable.Site.NewDataService.BaseEntity dto) {
-            return base.Channel.AddAsync(dto);
-        }
-        
         public Timetable.Site.NewDataService.OperationResult Update(Timetable.Site.NewDataService.BaseEntity dto) {
             return base.Channel.Update(dto);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> UpdateAsync(Timetable.Site.NewDataService.BaseEntity dto) {
-            return base.Channel.UpdateAsync(dto);
         }
         
         public Timetable.Site.NewDataService.OperationResult Delete(Timetable.Site.NewDataService.BaseEntity dto) {
             return base.Channel.Delete(dto);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.OperationResult> DeleteAsync(Timetable.Site.NewDataService.BaseEntity dto) {
-            return base.Channel.DeleteAsync(dto);
-        }
-        
         public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForDayTimeDate(System.Nullable<int> dayOfWeek, Timetable.Site.NewDataService.TimeDataTransfer period, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, string subGroup, System.DateTime startDate, System.DateTime endDate) {
             return base.Channel.GetSchedulesForDayTimeDate(dayOfWeek, period, weekTypeDataTransfer, lecturerDataTransfer, auditoriumDataTransfer, groups, subGroup, startDate, endDate);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForDayTimeDateAsync(System.Nullable<int> dayOfWeek, Timetable.Site.NewDataService.TimeDataTransfer period, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, string subGroup, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForDayTimeDateAsync(dayOfWeek, period, weekTypeDataTransfer, lecturerDataTransfer, auditoriumDataTransfer, groups, subGroup, startDate, endDate);
         }
         
         public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForAll(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, string subGroup, System.DateTime startDate, System.DateTime endDate) {
             return base.Channel.GetSchedulesForAll(lecturerDataTransfer, auditoriumDataTransfer, groups, weekTypeDataTransfer, subGroup, startDate, endDate);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForAllAsync(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer[] groups, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, string subGroup, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForAllAsync(lecturerDataTransfer, auditoriumDataTransfer, groups, weekTypeDataTransfer, subGroup, startDate, endDate);
-        }
-        
-        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForGroupOnlyId(Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForGroupOnlyId(groupDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForGroupOnlyIdAsync(Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForGroupOnlyIdAsync(groupDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
-        }
-        
         public Timetable.Site.NewDataService.TimetableEntityDataTransfer[] GetTimetableEntities() {
             return base.Channel.GetTimetableEntities();
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimetableEntityDataTransfer[]> GetTimetableEntitiesAsync() {
-            return base.Channel.GetTimetableEntitiesAsync();
         }
         
         public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsByCode(string code, int count) {
             return base.Channel.GetGroupsByCode(code, count);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsByCodeAsync(string code, int count) {
-            return base.Channel.GetGroupsByCodeAsync(code, count);
-        }
-        
         public bool ValidateSchedule(Timetable.Site.NewDataService.ScheduleDataTransfer scheduleDataTransfer) {
             return base.Channel.ValidateSchedule(scheduleDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ValidateScheduleAsync(Timetable.Site.NewDataService.ScheduleDataTransfer scheduleDataTransfer) {
-            return base.Channel.ValidateScheduleAsync(scheduleDataTransfer);
         }
         
         public Timetable.Site.NewDataService.BranchDataTransfer[] GetBranches() {
             return base.Channel.GetBranches();
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.BranchDataTransfer[]> GetBranchesAsync() {
-            return base.Channel.GetBranchesAsync();
-        }
-        
         public Timetable.Site.NewDataService.AuditoriumDataTransfer[] GetAuditoriums(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer) {
             return base.Channel.GetAuditoriums(buildingDataTransfer, auditoriumTypeDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.AuditoriumDataTransfer[]> GetAuditoriumsAsync(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer) {
-            return base.Channel.GetAuditoriumsAsync(buildingDataTransfer, auditoriumTypeDataTransfer);
         }
         
         public Timetable.Site.NewDataService.AuditoriumDataTransfer[] GetFreeAuditoriums(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, int day, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer, int capacity, System.DateTime startDate, System.DateTime endDate) {
             return base.Channel.GetFreeAuditoriums(buildingDataTransfer, day, weekTypeDataTransfer, timeDataTransfer, tutorialTypeDataTransfer, auditoriumTypeDataTransfer, capacity, startDate, endDate);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.AuditoriumDataTransfer[]> GetFreeAuditoriumsAsync(Timetable.Site.NewDataService.BuildingDataTransfer buildingDataTransfer, int day, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer, Timetable.Site.NewDataService.AuditoriumTypeDataTransfer auditoriumTypeDataTransfer, int capacity, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetFreeAuditoriumsAsync(buildingDataTransfer, day, weekTypeDataTransfer, timeDataTransfer, tutorialTypeDataTransfer, auditoriumTypeDataTransfer, capacity, startDate, endDate);
-        }
-        
         public Timetable.Site.NewDataService.AuditoriumTypeDataTransfer[] GetAuditoriumTypes() {
             return base.Channel.GetAuditoriumTypes();
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.AuditoriumTypeDataTransfer[]> GetAuditoriumTypesAsync() {
-            return base.Channel.GetAuditoriumTypesAsync();
         }
         
         public Timetable.Site.NewDataService.BuildingDataTransfer[] GetBuildings() {
             return base.Channel.GetBuildings();
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.BuildingDataTransfer[]> GetBuildingsAsync() {
-            return base.Channel.GetBuildingsAsync();
-        }
-        
         public Timetable.Site.NewDataService.CourseDataTransfer[] GetCources() {
             return base.Channel.GetCources();
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.CourseDataTransfer[]> GetCourcesAsync() {
-            return base.Channel.GetCourcesAsync();
         }
         
         public Timetable.Site.NewDataService.DepartmentDataTransfer[] GetDeparmtents() {
             return base.Channel.GetDeparmtents();
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.DepartmentDataTransfer[]> GetDeparmtentsAsync() {
-            return base.Channel.GetDeparmtentsAsync();
-        }
-        
         public Timetable.Site.NewDataService.FacultyDataTransfer[] GetFaculties(Timetable.Site.NewDataService.BranchDataTransfer branchDataTransfer) {
             return base.Channel.GetFaculties(branchDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.FacultyDataTransfer[]> GetFacultiesAsync(Timetable.Site.NewDataService.BranchDataTransfer branchDataTransfer) {
-            return base.Channel.GetFacultiesAsync(branchDataTransfer);
         }
         
         public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsByIds(int[] groupIds) {
             return base.Channel.GetGroupsByIds(groupIds);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsByIdsAsync(int[] groupIds) {
-            return base.Channel.GetGroupsByIdsAsync(groupIds);
-        }
-        
         public Timetable.Site.NewDataService.GroupDataTransfer[] GetsSubGroupsByGroupId(int groupId) {
             return base.Channel.GetsSubGroupsByGroupId(groupId);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetsSubGroupsByGroupIdAsync(int groupId) {
-            return base.Channel.GetsSubGroupsByGroupIdAsync(groupId);
         }
         
         public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForFaculty(int facultyId, int[] courseIds) {
             return base.Channel.GetGroupsForFaculty(facultyId, courseIds);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForFacultyAsync(int facultyId, int[] courseIds) {
-            return base.Channel.GetGroupsForFacultyAsync(facultyId, courseIds);
-        }
-        
         public Timetable.Site.NewDataService.GroupDataTransfer[] GetGroupsForSpeciality(int specialityId, int[] courseIds) {
             return base.Channel.GetGroupsForSpeciality(specialityId, courseIds);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.GroupDataTransfer[]> GetGroupsForSpecialityAsync(int specialityId, int[] courseIds) {
-            return base.Channel.GetGroupsForSpecialityAsync(specialityId, courseIds);
         }
         
         public Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByDeparmentId(int departmentId) {
             return base.Channel.GetLecturersByDeparmentId(departmentId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByDeparmentIdAsync(int departmentId) {
-            return base.Channel.GetLecturersByDeparmentIdAsync(departmentId);
-        }
-        
         public Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByTutorialId(int tutorialId) {
             return base.Channel.GetLecturersByTutorialId(tutorialId);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByTutorialIdAsync(int tutorialId) {
-            return base.Channel.GetLecturersByTutorialIdAsync(tutorialId);
         }
         
         public Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByTutorialIdAndTutorialTypeId(int tutorialId, int tutorialTypeId) {
             return base.Channel.GetLecturersByTutorialIdAndTutorialTypeId(tutorialId, tutorialTypeId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByTutorialIdAndTutorialTypeIdAsync(int tutorialId, int tutorialTypeId) {
-            return base.Channel.GetLecturersByTutorialIdAndTutorialTypeIdAsync(tutorialId, tutorialTypeId);
-        }
-        
         public Timetable.Site.NewDataService.LecturerDataTransfer GetLecturerByFirstMiddleLastname(string arg) {
             return base.Channel.GetLecturerByFirstMiddleLastname(arg);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer> GetLecturerByFirstMiddleLastnameAsync(string arg) {
-            return base.Channel.GetLecturerByFirstMiddleLastnameAsync(arg);
         }
         
         public Timetable.Site.NewDataService.LecturerDataTransfer[] GetLecturersByFirstMiddleLastname(string arg) {
             return base.Channel.GetLecturersByFirstMiddleLastname(arg);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.LecturerDataTransfer[]> GetLecturersByFirstMiddleLastnameAsync(string arg) {
-            return base.Channel.GetLecturersByFirstMiddleLastnameAsync(arg);
-        }
-        
-        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForScheduleInfoes(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer) {
-            return base.Channel.GetSchedulesForScheduleInfoes(scheduleInfoDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForScheduleInfoesAsync(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer) {
-            return base.Channel.GetSchedulesForScheduleInfoesAsync(scheduleInfoDataTransfer);
-        }
-        
         public Timetable.Site.NewDataService.ScheduleInfoDataTransfer GetScheduleInfoById(int id) {
             return base.Channel.GetScheduleInfoById(id);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer> GetScheduleInfoByIdAsync(int id) {
-            return base.Channel.GetScheduleInfoByIdAsync(id);
-        }
-        
-        public Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
-            return base.Channel.GetScheduleInfoesForCourse(facultyDataTransfer, courseDataTransfer, studyYearDataTransfer, semester);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
-            return base.Channel.GetScheduleInfoesForCourseAsync(facultyDataTransfer, courseDataTransfer, studyYearDataTransfer, semester);
+        public Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForFaculty(int facultyId, int courseId, int studyYear, int semester) {
+            return base.Channel.GetScheduleInfoesForFaculty(facultyId, courseId, studyYear, semester);
         }
         
         public Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForSpeciality(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
             return base.Channel.GetScheduleInfoesForSpeciality(facultyDataTransfer, courseDataTransfer, specialityDataTransfer, studyYearDataTransfer, semester);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForSpecialityAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
-            return base.Channel.GetScheduleInfoesForSpecialityAsync(facultyDataTransfer, courseDataTransfer, specialityDataTransfer, studyYearDataTransfer, semester);
-        }
-        
-        public Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForGroup(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialtype, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
-            return base.Channel.GetScheduleInfoesForGroup(facultyDataTransfer, courseDataTransfer, groupDataTransfer, tutorialtype, studyYearDataTransfer, semester);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForGroupAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialtype, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
-            return base.Channel.GetScheduleInfoesForGroupAsync(facultyDataTransfer, courseDataTransfer, groupDataTransfer, tutorialtype, studyYearDataTransfer, semester);
+        public Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForGroups(int facultyId, int courseId, int[] groupIds, int studyYear, int semester) {
+            return base.Channel.GetScheduleInfoesForGroups(facultyId, courseId, groupIds, studyYear, semester);
         }
         
         public Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetScheduleInfoesForDepartment(Timetable.Site.NewDataService.DepartmentDataTransfer departmentDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
             return base.Channel.GetScheduleInfoesForDepartment(departmentDataTransfer, studyYearDataTransfer, semester);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetScheduleInfoesForDepartmentAsync(Timetable.Site.NewDataService.DepartmentDataTransfer departmentDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester) {
-            return base.Channel.GetScheduleInfoesForDepartmentAsync(departmentDataTransfer, studyYearDataTransfer, semester);
-        }
-        
         public Timetable.Site.NewDataService.ScheduleInfoDataTransfer[] GetUnscheduledInfoes(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer) {
             return base.Channel.GetUnscheduledInfoes(facultyDataTransfer, courseDataTransfer, specialityDataTransfer, groupDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleInfoDataTransfer[]> GetUnscheduledInfoesAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer) {
-            return base.Channel.GetUnscheduledInfoesAsync(facultyDataTransfer, courseDataTransfer, specialityDataTransfer, groupDataTransfer);
         }
         
         public int CountScheduleCollisions(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer) {
             return base.Channel.CountScheduleCollisions(day, timeDataTransfer, weekTypeDataTransfer);
         }
         
-        public System.Threading.Tasks.Task<int> CountScheduleCollisionsAsync(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer, Timetable.Site.NewDataService.WeekTypeDataTransfer weekTypeDataTransfer) {
-            return base.Channel.CountScheduleCollisionsAsync(day, timeDataTransfer, weekTypeDataTransfer);
+        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForGroups(int facultyId, int courseId, int[] groupIds, int studyYear, int semester) {
+            return base.Channel.GetSchedulesForGroups(facultyId, courseId, groupIds, studyYear, semester);
+        }
+        
+        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForScheduleInfoes(int scheduleInfoId) {
+            return base.Channel.GetSchedulesForScheduleInfoes(scheduleInfoId);
         }
         
         public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesByDayTime(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer) {
             return base.Channel.GetSchedulesByDayTime(day, timeDataTransfer);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesByDayTimeAsync(int day, Timetable.Site.NewDataService.TimeDataTransfer timeDataTransfer) {
-            return base.Channel.GetSchedulesByDayTimeAsync(day, timeDataTransfer);
+        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForFaculty(int facultyId, int courseId, int studyYearId, int semester) {
+            return base.Channel.GetSchedulesForFaculty(facultyId, courseId, studyYearId, semester);
         }
         
-        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForCourse(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime StartDate, System.DateTime EndDate) {
-            return base.Channel.GetSchedulesForCourse(facultyDataTransfer, courseDataTransfer, studyYearDataTransfer, semester, StartDate, EndDate);
+        public int CountSchedulesForScheduleInfoes(int scheduleInfoId) {
+            return base.Channel.CountSchedulesForScheduleInfoes(scheduleInfoId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForCourseAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime StartDate, System.DateTime EndDate) {
-            return base.Channel.GetSchedulesForCourseAsync(facultyDataTransfer, courseDataTransfer, studyYearDataTransfer, semester, StartDate, EndDate);
+        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForSpeciality(int specialityId, int courseId, int studyYearId, int semester) {
+            return base.Channel.GetSchedulesForSpeciality(specialityId, courseId, studyYearId, semester);
         }
         
-        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForGroup(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate, string subGroup) {
-            return base.Channel.GetSchedulesForGroup(facultyDataTransfer, courseDataTransfer, groupDataTransfer, studyYearDataTransfer, semester, startDate, endDate, subGroup);
+        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForLecturer(int lecturerId, int studyYearId, int semester) {
+            return base.Channel.GetSchedulesForLecturer(lecturerId, studyYearId, semester);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForGroupAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate, string subGroup) {
-            return base.Channel.GetSchedulesForGroupAsync(facultyDataTransfer, courseDataTransfer, groupDataTransfer, studyYearDataTransfer, semester, startDate, endDate, subGroup);
-        }
-        
-        public int CountSchedulesForScheduleInfoes(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer) {
-            return base.Channel.CountSchedulesForScheduleInfoes(scheduleInfoDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<int> CountSchedulesForScheduleInfoesAsync(Timetable.Site.NewDataService.ScheduleInfoDataTransfer scheduleInfoDataTransfer) {
-            return base.Channel.CountSchedulesForScheduleInfoesAsync(scheduleInfoDataTransfer);
-        }
-        
-        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForSpeciality(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForSpeciality(facultyDataTransfer, courseDataTransfer, specialityDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForSpecialityAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.SpecialityDataTransfer specialityDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForSpecialityAsync(facultyDataTransfer, courseDataTransfer, specialityDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
-        }
-        
-        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForLecturer(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForLecturer(lecturerDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForLecturerAsync(Timetable.Site.NewDataService.LecturerDataTransfer lecturerDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForLecturerAsync(lecturerDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
-        }
-        
-        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForAuditorium(Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForAuditorium(auditoriumDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer[]> GetSchedulesForAuditoriumAsync(Timetable.Site.NewDataService.AuditoriumDataTransfer auditoriumDataTransfer, Timetable.Site.NewDataService.StudyYearDataTransfer studyYearDataTransfer, int semester, System.DateTime startDate, System.DateTime endDate) {
-            return base.Channel.GetSchedulesForAuditoriumAsync(auditoriumDataTransfer, studyYearDataTransfer, semester, startDate, endDate);
+        public Timetable.Site.NewDataService.ScheduleDataTransfer[] GetSchedulesForAuditorium(int auditoriumId, int studyYearId, int semester) {
+            return base.Channel.GetSchedulesForAuditorium(auditoriumId, studyYearId, semester);
         }
         
         public Timetable.Site.NewDataService.ScheduleDataTransfer GetScheduleById(int id) {
             return base.Channel.GetScheduleById(id);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.ScheduleDataTransfer> GetScheduleByIdAsync(int id) {
-            return base.Channel.GetScheduleByIdAsync(id);
-        }
-        
         public Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialities(int branchId) {
             return base.Channel.GetSpecialities(branchId);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesAsync(int branchId) {
-            return base.Channel.GetSpecialitiesAsync(branchId);
         }
         
         public Timetable.Site.NewDataService.SpecialityDataTransfer[] GetSpecialitiesForFaculti(int facultyId) {
             return base.Channel.GetSpecialitiesForFaculti(facultyId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.SpecialityDataTransfer[]> GetSpecialitiesForFacultiAsync(int facultyId) {
-            return base.Channel.GetSpecialitiesForFacultiAsync(facultyId);
-        }
-        
-        public Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes() {
-            return base.Channel.GetTimes();
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TimeDataTransfer[]> GetTimesAsync() {
-            return base.Channel.GetTimesAsync();
+        public Timetable.Site.NewDataService.TimeDataTransfer[] GetTimes(int buildingId) {
+            return base.Channel.GetTimes(buildingId);
         }
         
         public Timetable.Site.NewDataService.TutorialDataTransfer GetTutorialById(Timetable.Site.NewDataService.TutorialDataTransfer tutorialDataTransfer) {
             return base.Channel.GetTutorialById(tutorialDataTransfer);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer> GetTutorialByIdAsync(Timetable.Site.NewDataService.TutorialDataTransfer tutorialDataTransfer) {
-            return base.Channel.GetTutorialByIdAsync(tutorialDataTransfer);
-        }
-        
         public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForGroup(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer) {
             return base.Channel.GetTutorialsForGroup(facultyDataTransfer, courseDataTransfer, groupDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForGroupAsync(Timetable.Site.NewDataService.FacultyDataTransfer facultyDataTransfer, Timetable.Site.NewDataService.CourseDataTransfer courseDataTransfer, Timetable.Site.NewDataService.GroupDataTransfer groupDataTransfer) {
-            return base.Channel.GetTutorialsForGroupAsync(facultyDataTransfer, courseDataTransfer, groupDataTransfer);
         }
         
         public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForSpeciality(int courseId, int specialityId) {
             return base.Channel.GetTutorialsForSpeciality(courseId, specialityId);
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForSpecialityAsync(int courseId, int specialityId) {
-            return base.Channel.GetTutorialsForSpecialityAsync(courseId, specialityId);
-        }
-        
-        public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForCourse(int facultyId, int courseId) {
-            return base.Channel.GetTutorialsForCourse(facultyId, courseId);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialDataTransfer[]> GetTutorialsForCourseAsync(int facultyId, int courseId) {
-            return base.Channel.GetTutorialsForCourseAsync(facultyId, courseId);
+        public Timetable.Site.NewDataService.TutorialDataTransfer[] GetTutorialsForFaculty(int facultyId, int courseId) {
+            return base.Channel.GetTutorialsForFaculty(facultyId, courseId);
         }
         
         public Timetable.Site.NewDataService.TutorialTypeDataTransfer[] GetTutorialTypes() {
             return base.Channel.GetTutorialTypes();
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialTypeDataTransfer[]> GetTutorialTypesAsync() {
-            return base.Channel.GetTutorialTypesAsync();
-        }
-        
         public Timetable.Site.NewDataService.TutorialTypeDataTransfer GetTutorialTypeById(Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer) {
             return base.Channel.GetTutorialTypeById(tutorialTypeDataTransfer);
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.TutorialTypeDataTransfer> GetTutorialTypeByIdAsync(Timetable.Site.NewDataService.TutorialTypeDataTransfer tutorialTypeDataTransfer) {
-            return base.Channel.GetTutorialTypeByIdAsync(tutorialTypeDataTransfer);
         }
         
         public Timetable.Site.NewDataService.WeekTypeDataTransfer[] GetWeekTypes() {
             return base.Channel.GetWeekTypes();
         }
         
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.WeekTypeDataTransfer[]> GetWeekTypesAsync() {
-            return base.Channel.GetWeekTypesAsync();
-        }
-        
         public Timetable.Site.NewDataService.StudyYearDataTransfer[] GetStudyYears() {
             return base.Channel.GetStudyYears();
-        }
-        
-        public System.Threading.Tasks.Task<Timetable.Site.NewDataService.StudyYearDataTransfer[]> GetStudyYearsAsync() {
-            return base.Channel.GetStudyYearsAsync();
         }
     }
 }

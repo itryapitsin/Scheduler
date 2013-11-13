@@ -1,6 +1,6 @@
 ﻿
 
-var app = angular.module('scheduler', ['ui.select2', 'ngResource', '$strap.directives', '$strap', 'ngCookies', 'LocalStorageModule']);
+var app = angular.module('scheduler', ['ui.select2', 'ngResource', '$strap.directives', 'ngCookies', 'LocalStorageModule', 'ngProgress']);
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
@@ -11,7 +11,8 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
     var schedulerRoute = {
         templateUrl: prefix + 'scheduler',
-        controller: schedulerController
+        controller: schedulerController,
+        resolve: schedulerController.prototype.resolve
     };
 
     $routeProvider
