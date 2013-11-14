@@ -80,9 +80,12 @@ namespace Timetable.Sync.Logic.SyncData
                 var studyYear = studyYears.FirstOrDefault(x => x.StartYear == startYear && x.Length == length);
                 if (lecturer == null || tutorial == null || tutorialType == null || department == null || studyYear == null)
                     continue;
+                var semestr = iiasEntity.Semestr > 12 ? iiasEntity.Semestr % 2 : 3;
 
                 if (schedulerEntity == null)
                 {
+                    
+
                     command += string.Format(_insertPattern,
                         lecturer.Id,
                         tutorialType.Id,
@@ -90,28 +93,12 @@ namespace Timetable.Sync.Logic.SyncData
                         iiasEntity.HoursPerWeek.ToString("g2", CultureInfo.InvariantCulture),
                         tutorial.Id,
                         studyYear.Id,
-                        iiasEntity.Semestr,
+                        semestr,
                         '1',
                         DateTime.Now.ToString("s"), 
                         DateTime.Now.ToString("s"),
                         iiasEntity.Id,
                         0);
-
-                    //schedulerEntity = new ScheduleInfo
-                    //{
-                    //    CreatedDate = DateTime.Now,
-                    //    UpdatedDate = DateTime.Now,
-                    //    IIASKey = iiasEntity.Id,
-                    //    LecturerId = lecturer.Id,
-                    //    TutorialId = tutorial.Id,
-                    //    TutorialTypeId = tutorialType.Id,
-                    //    DepartmentId = department.Id,
-                    //    StudyYearId = studyYear.Id,
-                    //    Semester = iiasEntity.Semestr,
-                    //    HoursPerWeek = iiasEntity.HoursPerWeek,
-                    //    IsActual = true
-                    //};
-                    //SchedulerDatabase.Add(schedulerEntity, false);
                 }
                 else
                 {
@@ -123,21 +110,9 @@ namespace Timetable.Sync.Logic.SyncData
                         iiasEntity.HoursPerWeek.ToString("g2", CultureInfo.InvariantCulture),
                         tutorial.Id,
                         studyYear.Id,
-                        iiasEntity.Semestr,
+                        semestr,
                         iiasEntity.Id,
                         DateTime.Now.ToString("s"));
-
-                    //schedulerEntity.UpdatedDate = DateTime.Now;
-                    //schedulerEntity.IIASKey = iiasEntity.Id;
-                    //schedulerEntity.LecturerId = lecturer.Id;
-                    //schedulerEntity.TutorialId = tutorial.Id;
-                    //schedulerEntity.TutorialTypeId = tutorialType.Id;
-                    //schedulerEntity.DepartmentId = department.Id;
-                    //schedulerEntity.StudyYearId = studyYear.Id;
-                    //schedulerEntity.Semester = iiasEntity.Semestr;
-                    //schedulerEntity.HoursPerWeek = iiasEntity.HoursPerWeek;
-
-                    //SchedulerDatabase.Update(schedulerEntity, false);
                 }
             }
 

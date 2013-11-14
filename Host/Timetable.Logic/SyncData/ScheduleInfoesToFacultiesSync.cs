@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Timetable.Sync.Logic.SyncData
 {
-    public class ScheduleInfoesToFacultiesSync: BaseSync
+    public class ScheduleInfoesToFacultiesSync : BaseSync
     {
         private DbConnection _connection;
 
@@ -54,14 +54,14 @@ namespace Timetable.Sync.Logic.SyncData
                         command += String.Format(_commandPattern, schedulerEntity.Id, faculty.Id);
                     }
                 }
-
-                SchedulerDatabase.RawSqlCommand(command);
+                if (!String.IsNullOrEmpty(command))
+                    SchedulerDatabase.RawSqlCommand(command);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-            
+
 
             _connection.Close();
         }

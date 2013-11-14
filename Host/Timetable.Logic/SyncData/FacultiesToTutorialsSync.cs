@@ -29,7 +29,7 @@ namespace Timetable.Sync.Logic.SyncData
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.Name == reader.GetString(1));
                 var tutorialId = reader.GetInt64(0);
-                var tutorial = SchedulerDatabase.Tutorials.First(x => x.IIASKey == tutorialId);
+                var tutorial = SchedulerDatabase.Tutorials.FirstOrDefault(x => x.IIASKey == tutorialId);
                 if (schedulerEntity != null && tutorial != null && !schedulerEntity.Tutorials.Contains(tutorial))
                 {
                     schedulerEntity.Tutorials.Add(tutorial);

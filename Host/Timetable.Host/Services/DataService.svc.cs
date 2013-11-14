@@ -327,11 +327,14 @@ namespace Timetable.Host.Services
             int studyYear,
             int semester)
         {
-            return GetScheduleInfoes()
+            return Database.ScheduleInfoes
                 .Where(x => x.StudyYear.Id == studyYear)
                 .Where(x => x.Semester == semester)
                 .Where(x => x.Faculties.Any(y => y.Id == facultyId))
                 .Where(x => x.Courses.Any(y => y.Id == courseId))
+                .Include(x => x.Lecturer)
+                .Include(x => x.Tutorial)
+                .Include(x => x.TutorialType)
                 .ToList()
                 .Select(x => new ScheduleInfoDataTransfer(x));
         }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Timetable.Sync.Logic.SyncData
 {
-    public class ScheduleInfoesToGroupsSync: BaseSync
+    public class ScheduleInfoesToGroupsSync : BaseSync
     {
         private DbConnection _connection;
         private string _commandPattern = "INSERT INTO [dbo].[ScheduleInfoesToGroups]([ScheduleInfo_Id],[Group_Id])VALUES({0},{1});";
@@ -55,7 +55,8 @@ namespace Timetable.Sync.Logic.SyncData
                 }
             }
 
-            SchedulerDatabase.RawSqlCommand(command);
+            if (!String.IsNullOrEmpty(command))
+                SchedulerDatabase.RawSqlCommand(command);
 
             _connection.Close();
         }

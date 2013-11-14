@@ -51,7 +51,10 @@ VALUES
                     command += String.Format(_commandPattern, faculty.Id, schedulerEntity.Id);
                 }
             }
-            SchedulerDatabase.RawSqlCommand(command);
+
+            if(!String.IsNullOrEmpty(command))
+                SchedulerDatabase.RawSqlCommand(command);
+
             _connection.Close();
         }
     }
