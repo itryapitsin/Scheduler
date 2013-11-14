@@ -50,6 +50,7 @@ namespace Timetable.Host.Models.Scheduler
 
         public ScheduleInfoDataTransfer(ScheduleInfo scheduleInfo)
         {
+            Id = scheduleInfo.Id;
             Groups = scheduleInfo.Groups.Select(x => new GroupDataTransfer(x));
             Faculties = scheduleInfo.Faculties.Select(x => new FacultyDataTransfer(x));
             Courses = scheduleInfo.Courses.Select(x => new CourseDataTransfer(x));

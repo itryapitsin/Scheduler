@@ -341,10 +341,13 @@ namespace Timetable.Host.Services
             int studyYear,
             int semester)
         {
-            return GetScheduleInfoes()
+            return Database.ScheduleInfoes
                 .Where(x => x.StudyYearId == studyYear)
                 .Where(x => x.Semester == semester)
                 .Where(x => x.Groups.Any(y => groupIds.Contains(y.Id)))
+                .Include(x => x.Lecturer)
+                .Include(x => x.Tutorial)
+                .Include(x => x.TutorialType)
                 .ToList()
                 .Select(x => new ScheduleInfoDataTransfer(x));
         }
