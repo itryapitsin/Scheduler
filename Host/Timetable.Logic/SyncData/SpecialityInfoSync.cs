@@ -80,7 +80,9 @@ namespace Timetable.Sync.Logic.SyncData
                 var studyYear = studyYears.FirstOrDefault(x => x.StartYear == startYear && x.Length == length);
                 if (lecturer == null || tutorial == null || tutorialType == null || department == null || studyYear == null)
                     continue;
-                var semestr = iiasEntity.Semestr > 12 ? iiasEntity.Semestr % 2 : 3;
+                var semestr = iiasEntity.Semestr < 12 
+                    ? iiasEntity.Semestr % 2 
+                    : 3;
 
                 if (schedulerEntity == null)
                 {
