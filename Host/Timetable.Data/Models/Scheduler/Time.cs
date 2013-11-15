@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class Time : BaseEntity
+    public class Time : BaseIIASEntity
     {
         public TimeSpan Start { get; set; }
         public TimeSpan End { get; set; }

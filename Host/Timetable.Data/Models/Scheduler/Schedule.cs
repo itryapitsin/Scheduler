@@ -2,7 +2,7 @@ using System;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class Schedule : BaseEntity
+    public class Schedule : BaseIIASEntity
     {
         public virtual Auditorium Auditorium { get; set; }
         public int? AuditoriumId { get; set; }
@@ -16,8 +16,8 @@ namespace Timetable.Data.Models.Scheduler
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool AutoDelete { get; set; }
-        public virtual TimetableEntity Timetable { get; set; }
-        public int? TimetableEntityId { get; set; }
+        public virtual ScheduleType Type { get; set; }
+        public int? TypeId { get; set; }
         public string SubGroup { get; set; }
     }
 }

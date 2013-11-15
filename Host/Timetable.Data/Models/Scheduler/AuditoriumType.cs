@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class AuditoriumType : BaseEntity
+    public class AuditoriumType : BaseIIASEntity
     {
         public string Name { get; set; }
         public string Pattern { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class TutorialType : BaseEntity
+    public class TutorialType : BaseIIASEntity
     {
         public string Name { get; set; }
         public ICollection<Auditorium> AuditoriumApplicabilities { get; set; }

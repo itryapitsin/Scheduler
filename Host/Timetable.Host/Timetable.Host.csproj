@@ -134,6 +134,7 @@
     <Compile Include="Models\Scheduler\PositionDataTransfer.cs" />
     <Compile Include="Models\Scheduler\ScheduleDataTransfer.cs" />
     <Compile Include="Models\Scheduler\ScheduleInfoDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\ScheduleTypeDataTransfer.cs" />
     <Compile Include="Models\Scheduler\SpecialityDataTransfer.cs" />
     <Compile Include="Models\Scheduler\StudyYearDataTransfer.cs" />
     <Compile Include="Models\Scheduler\TimeDataTransfer.cs" />

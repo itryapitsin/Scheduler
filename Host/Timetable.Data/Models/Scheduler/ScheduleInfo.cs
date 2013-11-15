@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class ScheduleInfo : BaseEntity
+    public class ScheduleInfo : BaseIIASEntity
     {
         public ICollection<Faculty> Faculties { get; set; }
         public ICollection<Course> Courses { get; set; }

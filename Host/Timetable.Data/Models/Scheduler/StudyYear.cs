@@ -2,7 +2,7 @@
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class StudyYear: BaseEntity
+    public class StudyYear: BaseIIASEntity
     {
         public int StartYear { get; set; }
 

@@ -33,7 +33,7 @@ namespace Timetable.Data.Context
         public DbSet<WeekType> WeekTypes { get; set; }
         public DbSet<AuditoriumType> AuditoriumTypes { get; set; }
         public DbSet<StudyYear> StudyYears { get; set; }
-        public DbSet<TimetableEntity> TimetableEntities { get; set; }
+        public DbSet<ScheduleType> ScheduleTypes { get; set; }
 
         public SchedulerContext()
         {
@@ -63,7 +63,7 @@ namespace Timetable.Data.Context
             modelBuilder.Configurations.Add(new LecturersMapping());
         }
         
-        public virtual void Add<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
+        public virtual void Add<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseIIASEntity
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Add(entity);
@@ -71,7 +71,7 @@ namespace Timetable.Data.Context
                 SaveChanges();
         }
 
-        public virtual void Update<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
+        public virtual void Update<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseIIASEntity
         {
             AttachIfNotAttached(entity);
             Entry(entity).State = EntityState.Modified;
@@ -79,7 +79,7 @@ namespace Timetable.Data.Context
                 SaveChanges();
         }
 
-        public virtual void Delete<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseEntity
+        public virtual void Delete<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseIIASEntity
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Remove(entity);
@@ -88,7 +88,7 @@ namespace Timetable.Data.Context
                 SaveChanges();
         }
 
-        public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : BaseIIASEntity
         {
             if (Entry(entity).State != EntityState.Detached)
                 return;

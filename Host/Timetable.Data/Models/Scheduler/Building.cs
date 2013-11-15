@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class Building : BaseEntity
+    public class Building : BaseIIASEntity
     {
         public string Name { get; set; }
         public string Address { get; set; }

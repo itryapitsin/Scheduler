@@ -1,5 +1,6 @@
 ﻿using System.ServiceModel;
 using Timetable.Data.Models;
+using Timetable.Data.Models.Scheduler;
 using Timetable.Host.Models.Scheduler;
 
 namespace Timetable.Host.Interfaces
@@ -8,12 +9,12 @@ namespace Timetable.Host.Interfaces
     public interface IBaseService
     {
         [OperationContract]
-        OperationResult Add(BaseEntity dto);
+        OperationResult Add(BaseIIASEntity dto);
 
         [OperationContract]
-        OperationResult Update(BaseEntity dto);
+        OperationResult Update(BaseIIASEntity dto);
 
         [OperationContract]
-        OperationResult Delete(BaseEntity dto);
+        OperationResult Delete(BaseIIASEntity dto);
     }
 }

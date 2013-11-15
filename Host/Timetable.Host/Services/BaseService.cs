@@ -1,6 +1,7 @@
 ﻿using System;
 using Timetable.Data.Context;
 using Timetable.Data.Models;
+using Timetable.Data.Models.Scheduler;
 using Timetable.Host.Interfaces;
 
 namespace Timetable.Host.Services
@@ -14,7 +15,7 @@ namespace Timetable.Host.Services
             Database = new SchedulerContext();
         }
 
-        protected OperationResult Crud<T>(Action<T> crud, T entity) where T: BaseEntity
+        protected OperationResult Crud<T>(Action<T> crud, T entity) where T: BaseIIASEntity
         {
             var result = new OperationResult();
 
@@ -35,17 +36,17 @@ namespace Timetable.Host.Services
         }
 
 
-        public OperationResult Add(BaseEntity dto)
+        public OperationResult Add(BaseIIASEntity dto)
         {
             return Crud(e => Database.Add(e), dto);
         }
 
-        public OperationResult Update(BaseEntity dto)
+        public OperationResult Update(BaseIIASEntity dto)
         {
             return Crud(e => Database.Update(e), dto);
         }
 
-        public OperationResult Delete(BaseEntity dto)
+        public OperationResult Delete(BaseIIASEntity dto)
         {
             return Crud(e =>
             {

@@ -132,9 +132,18 @@
     <Compile Include="Migrations\201311122113411_BuildinsToTimesAdded.Designer.cs">
       <DependentUpon>201311122113411_BuildinsToTimesAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311141927467_RenameTimetableEntityesToScheduleTypes.cs" />
+    <Compile Include="Migrations\201311141927467_RenameTimetableEntityesToScheduleTypes.Designer.cs">
+      <DependentUpon>201311141927467_RenameTimetableEntityesToScheduleTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311141934185_DropTimetableEntityes.cs" />
+    <Compile Include="Migrations\201311141934185_DropTimetableEntityes.Designer.cs">
+      <DependentUpon>201311141934185_DropTimetableEntityes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Scheduler\BaseIIASEntity.cs" />
     <Compile Include="Models\Personalization\User.cs" />
     <Compile Include="Models\Personalization\UserRole.cs" />
     <Compile Include="Models\Personalization\UserRoleTypes.cs" />
@@ -154,7 +163,7 @@
     <Compile Include="Models\Scheduler\Speciality.cs" />
     <Compile Include="Models\Scheduler\StudyYear.cs" />
     <Compile Include="Models\Scheduler\Time.cs" />
-    <Compile Include="Models\Scheduler\TimetableEntity.cs" />
+    <Compile Include="Models\Scheduler\ScheduleType.cs" />
     <Compile Include="Models\Scheduler\Tutorial.cs" />
     <Compile Include="Models\Scheduler\TutorialType.cs" />
     <Compile Include="Models\Scheduler\WeekType.cs" />
@@ -182,6 +191,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201311122113411_BuildinsToTimesAdded.resx">
       <DependentUpon>201311122113411_BuildinsToTimesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311141927467_RenameTimetableEntityesToScheduleTypes.resx">
+      <DependentUpon>201311141927467_RenameTimetableEntityesToScheduleTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311141934185_DropTimetableEntityes.resx">
+      <DependentUpon>201311141934185_DropTimetableEntityes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

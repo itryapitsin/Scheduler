@@ -4,7 +4,7 @@ using System.Security;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class Group : BaseEntity
+    public class Group : BaseIIASEntity
     {
         public string Code { get; set; }
         public Course Course { get; set; }

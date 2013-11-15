@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class Branch: BaseEntity
+    public class Branch: BaseIIASEntity
     {
         public string Name { get; set; }
         public ICollection<Faculty> Faculties { get; set; }

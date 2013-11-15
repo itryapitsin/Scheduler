@@ -261,6 +261,10 @@ namespace Timetable.Host.Interfaces
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         ScheduleDataTransfer GetScheduleById(int id);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<ScheduleTypeDataTransfer> GetScheduleTypes();
         #endregion
 
         [OperationContract]

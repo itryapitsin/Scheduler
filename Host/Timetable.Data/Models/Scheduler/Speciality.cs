@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class Speciality: BaseEntity
+    public class Speciality: BaseIIASEntity
     {
         public string Name { get; set; }
 	    public string ShortName { get; set; }

@@ -13,11 +13,11 @@ namespace Timetable.Host.Models.Scheduler
 
         public TimetableEntityDataTransfer() { }
 
-        public TimetableEntityDataTransfer(TimetableEntity timetableEntity)
+        public TimetableEntityDataTransfer(ScheduleType scheduleType)
         {
-            Id = timetableEntity.Id;
-            Name = timetableEntity.Name;
-            IsActive = timetableEntity.IsActive;
+            Id = scheduleType.Id;
+            Name = scheduleType.Name;
+            IsActive = scheduleType.IsActive;
         }
     }
 }

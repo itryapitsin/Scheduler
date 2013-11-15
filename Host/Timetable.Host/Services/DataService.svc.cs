@@ -15,7 +15,7 @@ namespace Timetable.Host.Services
     {
         public IEnumerable<TimetableEntityDataTransfer> GetTimetableEntities()
         {
-            return Database.TimetableEntities
+            return Database.ScheduleTypes
                 .Where(x => x.IsActual)
                 .ToList()
                 .Select(x => new TimetableEntityDataTransfer(x));
@@ -400,6 +400,7 @@ namespace Timetable.Host.Services
             return Database.AuditoriumTypes.ToList().Select(x => new AuditoriumTypeDataTransfer(x));
         }
 
+        #region schedules
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForAll(
             LecturerDataTransfer lecturerDataTransfer,
             AuditoriumDataTransfer auditoriumDataTransfer,
@@ -491,7 +492,6 @@ namespace Timetable.Host.Services
                 (x.WeekType.Id == 1 || x.WeekType.Id == weekTypeDataTransfer.Id));
         }
 
-        #region schedule
         public IEnumerable<ScheduleDataTransfer> GetSchedulesByDayTime(int day, TimeDataTransfer timeDataTransfer)
         {
             return GetSchedules()
@@ -573,6 +573,15 @@ namespace Timetable.Host.Services
                .Where(x => x.Auditorium.Id == auditoriumId)
                .ToList()
                .Select(x => new ScheduleDataTransfer(x));
+
+            return result;
+        }
+
+        public IEnumerable<ScheduleTypeDataTransfer> GetScheduleTypes()
+        {
+            var result = Database.ScheduleTypes
+                .ToList()
+                .Select(x => new ScheduleTypeDataTransfer(x));
 
             return result;
         }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Timetable.Base.Entities;
 using Timetable.Data.Models;
+using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Data.Context.Interfaces
 {
@@ -13,7 +14,7 @@ namespace Timetable.Data.Context.Interfaces
     {
         IEnumerable<DbEntityValidationResult> GetValidationErrors();
 
-        IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity;
+        IDbSet<TEntity> Set<TEntity>() where TEntity : BaseIIASEntity;
 
         IQueryable<TEntity> RawSqlQuery<TEntity>(
             string query, 

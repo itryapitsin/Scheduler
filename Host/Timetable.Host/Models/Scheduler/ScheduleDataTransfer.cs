@@ -45,7 +45,7 @@ namespace Timetable.Host.Models.Scheduler
             ScheduleInfo = new ScheduleInfoDataTransfer(schedule.ScheduleInfo);
             WeekType = new WeekTypeDataTransfer(schedule.WeekType);
             AutoDelete = schedule.AutoDelete;
-            Timetable = new TimetableEntityDataTransfer(schedule.Timetable);
+            Timetable = new TimetableEntityDataTransfer(schedule.Type);
             SubGroup = schedule.SubGroup;
         }
     }

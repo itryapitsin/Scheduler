@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Timetable.Data.Models.Scheduler
 {
-    public class Department: BaseEntity 
+    public class Department: BaseIIASEntity 
     {
         public string Name { get; set; }
         public string ShortName { get; set; }

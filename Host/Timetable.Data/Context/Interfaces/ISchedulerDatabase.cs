@@ -43,6 +43,6 @@ namespace Timetable.Data.Context.Interfaces
 
         IQueryable<StudyYear> StudyYears { get; }
 
-        IQueryable<TimetableEntity> TimetableEntities { get; }
+        IQueryable<ScheduleType> TimetableEntities { get; }
     }
 }

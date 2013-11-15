@@ -201,3 +201,5 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrat
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.AddFacultyRefToGroups.resources
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.csprojResolveAssemblyReference.cache
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.BuildinsToTimesAdded.resources
+E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.RenameTimetableEntityesToScheduleTypes.resources
+E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.DropTimetableEntityes.resources

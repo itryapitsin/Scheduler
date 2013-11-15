@@ -1,6 +1,6 @@
 ﻿namespace Timetable.Data.Models.Scheduler
 {
-    public class TimetableEntity : BaseEntity
+    public class ScheduleType : BaseEntity
     {
         public string Name { get; set; }
         public bool IsActive { get; set; }
