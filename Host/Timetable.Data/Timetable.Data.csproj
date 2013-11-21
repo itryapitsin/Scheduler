@@ -78,7 +78,7 @@
     <Compile Include="Exceptions\RegistrationException.cs" />
     <Compile Include="Context\Interfaces\IDatabase.cs" />
     <Compile Include="Context\Interfaces\ISchedulerDatabase.cs" />
-    <Compile Include="Context\Interfaces\IUserDatabase.cs" />
+    <Compile Include="Mapping\UserMapping.cs" />
     <Compile Include="Mapping\AuditoriumMapping.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -140,9 +140,46 @@
     <Compile Include="Migrations\201311141934185_DropTimetableEntityes.Designer.cs">
       <DependentUpon>201311141934185_DropTimetableEntityes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311151428336_AddUsersAndUserRoles.cs" />
+    <Compile Include="Migrations\201311151428336_AddUsersAndUserRoles.Designer.cs">
+      <DependentUpon>201311151428336_AddUsersAndUserRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311151504270_AddSettingFieldsToUsers.cs" />
+    <Compile Include="Migrations\201311151504270_AddSettingFieldsToUsers.Designer.cs">
+      <DependentUpon>201311151504270_AddSettingFieldsToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311160958298_RenamedSelectedBranchId.cs" />
+    <Compile Include="Migrations\201311160958298_RenamedSelectedBranchId.Designer.cs">
+      <DependentUpon>201311160958298_RenamedSelectedBranchId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311162333324_RemoveSelectedWeekTypeIdFromUsers.cs" />
+    <Compile Include="Migrations\201311162333324_RemoveSelectedWeekTypeIdFromUsers.Designer.cs">
+      <DependentUpon>201311162333324_RemoveSelectedWeekTypeIdFromUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311171953297_AddIIASKeyToScheduleTypes.cs" />
+    <Compile Include="Migrations\201311171953297_AddIIASKeyToScheduleTypes.Designer.cs">
+      <DependentUpon>201311171953297_AddIIASKeyToScheduleTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311180918234_AddAuditoriumAndLecturerScheduleSettingsToUsers.cs" />
+    <Compile Include="Migrations\201311180918234_AddAuditoriumAndLecturerScheduleSettingsToUsers.Designer.cs">
+      <DependentUpon>201311180918234_AddAuditoriumAndLecturerScheduleSettingsToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311181936490_RenameSettingFieldsAndAddNew.cs" />
+    <Compile Include="Migrations\201311181936490_RenameSettingFieldsAndAddNew.Designer.cs">
+      <DependentUpon>201311181936490_RenameSettingFieldsAndAddNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311182006386_AddNewSettingFieldToUsers.cs" />
+    <Compile Include="Migrations\201311182006386_AddNewSettingFieldToUsers.Designer.cs">
+      <DependentUpon>201311182006386_AddNewSettingFieldToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311191951223_RenamePeriodToTime.cs" />
+    <Compile Include="Migrations\201311191951223_RenamePeriodToTime.Designer.cs">
+      <DependentUpon>201311191951223_RenamePeriodToTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumEqualityComparer.cs" />
     <Compile Include="Models\Scheduler\BaseIIASEntity.cs" />
     <Compile Include="Models\Personalization\User.cs" />
     <Compile Include="Models\Personalization\UserRole.cs" />
@@ -160,6 +197,7 @@
     <Compile Include="Models\Scheduler\Position.cs" />
     <Compile Include="Models\Scheduler\Schedule.cs" />
     <Compile Include="Models\Scheduler\ScheduleInfo.cs" />
+    <Compile Include="Models\Scheduler\Semester.cs" />
     <Compile Include="Models\Scheduler\Speciality.cs" />
     <Compile Include="Models\Scheduler\StudyYear.cs" />
     <Compile Include="Models\Scheduler\Time.cs" />
@@ -197,6 +235,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201311141934185_DropTimetableEntityes.resx">
       <DependentUpon>201311141934185_DropTimetableEntityes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311151428336_AddUsersAndUserRoles.resx">
+      <DependentUpon>201311151428336_AddUsersAndUserRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311151504270_AddSettingFieldsToUsers.resx">
+      <DependentUpon>201311151504270_AddSettingFieldsToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311160958298_RenamedSelectedBranchId.resx">
+      <DependentUpon>201311160958298_RenamedSelectedBranchId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311162333324_RemoveSelectedWeekTypeIdFromUsers.resx">
+      <DependentUpon>201311162333324_RemoveSelectedWeekTypeIdFromUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311171953297_AddIIASKeyToScheduleTypes.resx">
+      <DependentUpon>201311171953297_AddIIASKeyToScheduleTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311180918234_AddAuditoriumAndLecturerScheduleSettingsToUsers.resx">
+      <DependentUpon>201311180918234_AddAuditoriumAndLecturerScheduleSettingsToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311181936490_RenameSettingFieldsAndAddNew.resx">
+      <DependentUpon>201311181936490_RenameSettingFieldsAndAddNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311182006386_AddNewSettingFieldToUsers.resx">
+      <DependentUpon>201311182006386_AddNewSettingFieldToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311191951223_RenamePeriodToTime.resx">
+      <DependentUpon>201311191951223_RenamePeriodToTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

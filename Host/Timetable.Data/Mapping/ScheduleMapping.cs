@@ -15,9 +15,9 @@ namespace Timetable.Data.Mapping
                 .WithMany()
                 .HasForeignKey(x => x.AuditoriumId);
 
-            HasRequired(x => x.Period)
+            HasRequired(x => x.Time)
                 .WithMany()
-                .HasForeignKey(x => x.PeriodId);
+                .HasForeignKey(x => x.TimeId);
 
             HasRequired(x => x.ScheduleInfo)
                 .WithMany(x => x.Schedules)

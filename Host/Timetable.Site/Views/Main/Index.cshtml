@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<nav class="navbar navbar-default navbar-fixed-top" bs-navbar>
+    <div class="navbar-inner">
+        <ul class="nav navbar-nav">
+            <li data-match-route="/scheduler"><a href="#/">Создание расписаний</a></li>
+            <li data-match-route="/lecturerschedule"><a href="#/lecturerschedule">Расписание преподавателей</a></li>
+            <li data-match-route="/auditoriumschedule"><a href="#/auditoriumschedule">Расписание аудиторий</a></li>
+        </ul>
+        <form class="navbar-form pull-right">
+            <a href="@Url.Action("Logout", "Auth")" class="btn">Выход</a>
+        </form>
+    </div>
+</nav>
+<div id="content" ng-view style="margin-top: 41px;">
+</div>
+
+
+
+
+
+
+
+

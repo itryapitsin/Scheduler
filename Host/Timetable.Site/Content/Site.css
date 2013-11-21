@@ -1,0 +1,104 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+.row-fluid [class*="span"] {
+    margin-left: 0.127659574468085%;
+}
+
+.table-bordered,
+.table-bordered thead:first-child tr:first-child > th:first-child,
+.table-bordered tbody:first-child tr:first-child > td:first-child,
+.table-bordered tbody:first-child tr:first-child > th:first-child {
+    border-radius: 0;
+}
+
+body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+}
+
+    body #content .container-fluid .row-fluid .span12 .form-inline .control-group {
+        margin-bottom: 0px;
+    }
+
+.day-content {
+    min-width: 195px;
+    height: 180px;
+    padding: 0px;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+.modal {
+    width: 700px;
+}
+
+.schedule-card {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0px;
+    padding: 2px;
+}
+
+table td.full {
+    padding: 0 3px;
+    vertical-align: middle;
+}
+
+table td.even {
+    padding: 3px;
+    vertical-align: top;
+}
+
+.table td.odd {
+    padding: 3px;
+    vertical-align: bottom;
+}
+
+.even {
+    height: 85px;
+    margin-bottom: 1px;
+}
+
+.odd {
+    height: 85px;
+    margin-top: 1px;
+}
+
+.selected {
+    background-color: rgba(70, 130, 180, 0.15);
+}
+
+/* Styling for the ngProgress itself */
+#ngProgress {
+    margin: 0;
+    padding: 0;
+    z-index: 99998;
+    background-color: green;
+    color: green;
+    box-shadow: 0 0 10px 0; /* Inherits the font color */
+    height: 2px;
+    opacity: 0;
+    /* Add CSS3 styles for transition smoothing */
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Styling for the ngProgress-container */
+#ngProgress-container {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+}

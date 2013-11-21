@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11E24419-DB82-41B8-80F6-B0F4398B7D45}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Timetable.Logic</RootNamespace>
+    <AssemblyName>Timetable.Logic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IBaseService.cs" />
+    <Compile Include="Interfaces\IDataService.cs" />
+    <Compile Include="Models\AuditoriumScheduleSettings.cs" />
+    <Compile Include="Models\CreatorSettings.cs" />
+    <Compile Include="Models\LecturerScheduleSettings.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumTypeDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\BaseDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\BranchDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\BuildingDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\CourseDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\DepartamentDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\FacultyDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\GroupDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\LecturerDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\OrganizationDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\PositionDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\ScheduleDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\ScheduleInfoDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\ScheduleTypeDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\SemesterDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\SpecialityDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\StudyYearDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TimeDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TimetableEntityDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TutorialDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\TutorialTypeDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\WeekTypeDataTransfer.cs" />
+    <Compile Include="Models\UserDataTransfer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\SchedulerService.cs" />
+    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
+      <Project>{562ead51-a27a-47de-9cf6-554d0d793fb3}</Project>
+      <Name>Timetable.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

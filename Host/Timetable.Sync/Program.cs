@@ -14,6 +14,10 @@ namespace Timetable.Sync
         {
             var conn = new OracleConnection("DATA SOURCE=iias.karelia.ru:1521/iias;USER ID=DPYATIN;Password=xgmst321");
 
+            Console.Write(@"Loading schedule types...");
+            DoSync(new ScheduleTypeSync());
+            Console.WriteLine(@"done!");
+
             Console.Write(@"Loading courses...");
             DoSync(new CourseSync());
             Console.WriteLine(@"done!");

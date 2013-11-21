@@ -1,6 +1,4 @@
-﻿using Timetable.Base.Entities;
-using Timetable.Data.Models;
-using Timetable.Data.Models.Scheduler;
+﻿using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Data.Context.Interfaces
 {

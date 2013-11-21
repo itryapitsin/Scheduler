@@ -9,6 +9,8 @@ namespace Timetable.Data.IIAS.Context
 {
     public class IIASContext : BaseContext, IIIASContext
     {
+        public DbSet<ScheduleType> ScheduleTypes { get; set; }
+
         public DbSet<Building> Buildings { get; set; }
 
         public DbSet<Course> Courses { get; set; }
@@ -213,7 +215,8 @@ namespace Timetable.Data.IIAS.Context
                     SELECT DISTINCT 
                         TUP_ID AS Id, 
                         TIME_FROM_PAR AS ""Start"",
-                        TIME_TO_PAR AS ""Finish""
+                        TIME_TO_PAR AS ""Finish"",
+                        COD_PAR AS Position
                     FROM            
                         SDMS.U_TYPE_UCHPAR
                     ORDER BY 
@@ -285,6 +288,21 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.O_BASE_UNIT
                     WHERE        
                         (SDMS.O_BASE_UNIT.STATUS = 'Y')");
+        }
+
+        public IQueryable<ScheduleType> GetScheduleTypes()
+        {
+            return RawSqlQuery<ScheduleType>(@"
+                    SELECT        
+                        TRS_ID AS Id, 
+                        NAME AS Name
+                    FROM            
+                        SDMS.U_TYPE_RASP_STR");
+        }
+
+        public IQueryable<Schedule> GetSchedules()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Timetable.Data.IIAS.Models
         public string Start { get; set; }
 
         public string Finish { get; set; }
+        public Int64 Position { get; set; }
     }
 }

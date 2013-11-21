@@ -60,7 +60,9 @@
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\ScheduleInfo.cs" />
+    <Compile Include="Models\ScheduleType.cs" />
     <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Tutorial.cs" />
     <Compile Include="Models\Speciality.cs" />

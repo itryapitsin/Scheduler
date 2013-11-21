@@ -1,14 +1,12 @@
-﻿using System.Runtime.Serialization;
-
-namespace Timetable.Base.Entities.Personalization
+﻿
+namespace Timetable.Data.Models.Personalization
 {
-    [DataContract]
     public enum UserRoleTypes
     {
-        Banned,
+        Banned = 0,
 
-        Dispatcher,
+        Dispatcher = 1,
 
-        Administration
+        Administration = 2
     }
 }

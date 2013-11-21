@@ -1,0 +1,62 @@
+﻿@using Newtonsoft.Json
+<div class="navbar navbar-fixed-top" style="top:41px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav offset3">
+                <li>
+                    <a><b>ФИО преподавателя</b></a>
+                </li>
+            </ul>
+            <form class="navbar-search pull-left">
+                <input type="text" ng-model="query" class="span9" data-min-length="3" placeholder="Поиск: Введите ФИО..." style="height: 30px;margin-bottom: 0px;" @*bs-typeahead="searchLecturer"*@>
+                <button class="btn" style="margin-top: 0"><i class="icon icon-search"></i></button>
+                @*<span class="badge badge-important" ng-init="title='Часов в неделю'" bs-tooltip="title" data-original-title title>{{foundLecturersCount}}</span>*@
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="margin-bottom: 0; margin-top: 100px">
+    <thead>
+        <tr class="info">
+            <th style="min-width: 60px; width: 60px">Время</th>
+            <th>Пн</th>
+            <th>Вт</th>
+            <th>Ср</th>
+            <th>Чт</th>
+            <th>Пт</th>
+            <th>Сб</th>
+            <th>Вс</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="time in pageModel.Times">
+            <td style="min-width: 60px; width:60px;">{{moment(time.Start, 'HH:mm:ss').format('HH:mm')}}<br />{{moment(time.End, 'HH:mm:ss').format('HH:mm')}}</td>
+            <td style="padding: 1px;" class="day-content">
+                <div class="scheduleCard"></div>
+            </td>
+            <td class="day-content">
+                <div class="scheduleCard"></div>
+            </td>
+            <td class="day-content">
+                <div class="scheduleCard"></div>
+            </td>
+            <td class="day-content">
+                <div class="scheduleCard"></div>
+            </td>
+            <td class="day-content">
+                <div class="scheduleCard"></div>
+            </td>
+            <td class="day-content">
+                <div class="scheduleCard"></div>
+            </td>
+            <td class="day-content">
+                <div class="scheduleCard"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+</script>

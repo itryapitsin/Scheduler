@@ -25,7 +25,8 @@ namespace Timetable.Data.Models.Scheduler
         public DateTime? EndDate { get; set; }
         public virtual StudyYear StudyYear { get; set; }
         public int StudyYearId { get; set; }
-        public int Semester { get; set; }
+        public virtual Semester Semester { get; set; }
+        public int SemesterId { get; set; }
         public ScheduleInfo()
         {
             Groups = new HashSet<Group>();

@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Timetable.Base.Entities;
-using Timetable.Data.Models;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Data.Context.Interfaces

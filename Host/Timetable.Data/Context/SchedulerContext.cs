@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Timetable.Data.Mapping;
 using Timetable.Data.Models;
+using Timetable.Data.Models.Personalization;
 using Timetable.Data.Models.Scheduler;
 
 
@@ -14,6 +15,8 @@ namespace Timetable.Data.Context
 {
     public class SchedulerContext: DbContext
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Auditorium> Auditoriums { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
@@ -34,6 +37,8 @@ namespace Timetable.Data.Context
         public DbSet<AuditoriumType> AuditoriumTypes { get; set; }
         public DbSet<StudyYear> StudyYears { get; set; }
         public DbSet<ScheduleType> ScheduleTypes { get; set; }
+
+        public DbSet<Semester> Semesters { get; set; }
 
         public SchedulerContext()
         {
@@ -61,9 +66,10 @@ namespace Timetable.Data.Context
             modelBuilder.Configurations.Add(new TutorialMapping());
             modelBuilder.Configurations.Add(new ScheduleInfoMapping());
             modelBuilder.Configurations.Add(new LecturersMapping());
+            modelBuilder.Configurations.Add(new UserMapping());
         }
-        
-        public virtual void Add<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseIIASEntity
+
+        public virtual void Add<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : class
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Add(entity);
@@ -71,7 +77,7 @@ namespace Timetable.Data.Context
                 SaveChanges();
         }
 
-        public virtual void Update<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseIIASEntity
+        public virtual void Update<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : class
         {
             AttachIfNotAttached(entity);
             Entry(entity).State = EntityState.Modified;
@@ -79,7 +85,7 @@ namespace Timetable.Data.Context
                 SaveChanges();
         }
 
-        public virtual void Delete<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : BaseIIASEntity
+        public virtual void Delete<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : class
         {
             AttachIfNotAttached(entity);
             Set(entity.GetType()).Remove(entity);
@@ -88,7 +94,7 @@ namespace Timetable.Data.Context
                 SaveChanges();
         }
 
-        public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : BaseIIASEntity
+        public void AttachIfNotAttached<TEntity>(TEntity entity) where TEntity : class 
         {
             if (Entry(entity).State != EntityState.Detached)
                 return;
