@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Timetable.Data.Models.Personalization;
+using Timetable.Logic.Models.Scheduler;
 
 namespace Timetable.Logic.Models
 {

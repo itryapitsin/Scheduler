@@ -176,6 +176,14 @@
     <Compile Include="Migrations\201311191951223_RenamePeriodToTime.Designer.cs">
       <DependentUpon>201311191951223_RenamePeriodToTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311211742488_AddTrainingFieldToAuditoriumTypes.cs" />
+    <Compile Include="Migrations\201311211742488_AddTrainingFieldToAuditoriumTypes.Designer.cs">
+      <DependentUpon>201311211742488_AddTrainingFieldToAuditoriumTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.cs" />
+    <Compile Include="Migrations\201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.Designer.cs">
+      <DependentUpon>201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -262,6 +270,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201311191951223_RenamePeriodToTime.resx">
       <DependentUpon>201311191951223_RenamePeriodToTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311211742488_AddTrainingFieldToAuditoriumTypes.resx">
+      <DependentUpon>201311211742488_AddTrainingFieldToAuditoriumTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.resx">
+      <DependentUpon>201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

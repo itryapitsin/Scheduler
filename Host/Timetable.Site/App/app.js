@@ -24,11 +24,18 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
         controller: auditoriumScheduleController,
         resolve: auditoriumScheduleController.prototype.resolve
     };
+    
+    var auditoriumScheduleGeneralRoute = {
+        templateUrl: prefix + 'auditoriumschedule/general',
+        controller: auditoriumScheduleGeneralController,
+        resolve: auditoriumScheduleGeneralController.prototype.resolve
+    };
 
     $routeProvider
         .when('/scheduler', schedulerRoute)
         .when('/lecturerschedule', lecturerScheduleRoute)
         .when('/auditoriumschedule', auditoriumScheduleRoute)
+        .when('/auditoriumschedule/general', auditoriumScheduleGeneralRoute)
         .otherwise({ redirectTo: '/scheduler' });
 
     //var interceptor = ['$location', '$q', function ($location, $q) {
@@ -70,3 +77,4 @@ app.run(function ($rootScope, $http) {
     $rootScope.prefix = prefix;
     $http.prefix = prefix;
 });
+

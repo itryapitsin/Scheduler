@@ -1,13 +1,14 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Timetable.Site.Infrastructure;
-using Timetable.Site.Models;
 using Timetable.Site.Models.RequestModels;
 using Timetable.Site.Models.ResponseModels;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {
-    public class AuditoriumScheduleController : NewBaseController
+    public class AuditoriumScheduleController : AuthorizedController
     {
         public PartialViewResult Index()
         {
@@ -63,6 +64,69 @@ namespace Timetable.Site.Controllers
             return PartialView("_Index", model);
         }
 
+        public PartialViewResult General()
+        {
+            var model = new AuditoriumScheduleGeneralViewModel
+            {
+                Buildings = DataService
+                   .GetBuildings()
+                   .Select(x => new BuildingViewModel(x)),
+
+                StudyYears = DataService
+                    .GetStudyYears()
+                    .Select(x => new StudyYearViewModel(x)),
+
+                Semesters = DataService
+                    .GetSemesters()
+                    .Select(x => new SemesterViewModel(x)),
+
+                WeekTypes = DataService
+                    .GetWeekTypes()
+                    .Select(x => new WeekTypeViewModel(x)),
+
+                AuditoriumTypes = DataService
+                    .GetAuditoriumTypes(true)
+                    .Select(x => new AuditoriumTypeViewModel(x)),
+
+                BuildingId = UserData.AuditoriumScheduleSettings.BuildingId,
+
+                StudyYearId = UserData.AuditoriumScheduleSettings.StudyYearId,
+
+                Semester = UserData.AuditoriumScheduleSettings.SemesterId,
+
+                AuditoriumTypeId = UserData.AuditoriumScheduleSettings.AuditoriumTypeIds.FirstOrDefault()
+            };
+
+            if (UserData.AuditoriumScheduleSettings.BuildingId.HasValue)
+                model.Times = DataService
+                    .GetTimes(UserData.AuditoriumScheduleSettings.BuildingId.Value)
+                    .Select(x => new TimeViewModel(x));
+
+            if (UserData.AuditoriumScheduleSettings.BuildingId.HasValue
+                && UserData.AuditoriumScheduleSettings.AuditoriumTypeIds.Any()
+                && UserData.AuditoriumScheduleSettings.SemesterId.HasValue
+                && UserData.AuditoriumScheduleSettings.StudyYearId.HasValue)
+            {
+                var auditoriums = DataService
+                    .GetAuditoriums(
+                        UserData.AuditoriumScheduleSettings.BuildingId.Value,
+                        UserData.AuditoriumScheduleSettings.AuditoriumTypeIds.ToArray())
+                    .Select(x => x.Id)
+                    .ToArray();
+
+                model.BasyAuditoriums = DataService
+                    .GetSchedules(
+                        auditoriums,
+                        UserData.AuditoriumScheduleSettings.StudyYearId.Value, 
+                        UserData.AuditoriumScheduleSettings.SemesterId.Value)
+                    .ToList()
+                    .Select(x => new BusyAuditoriumViewModel(x));
+
+            }
+
+            return PartialView("_General", model);
+        }
+
         public ActionResult GetAuditoriums(int buildingId)
         {
             UserData.AuditoriumScheduleSettings.BuildingId = buildingId;
@@ -101,6 +165,41 @@ namespace Timetable.Site.Controllers
                 .Select(x => new ScheduleViewModel(x));
 
             return new JsonNetResult(schedules);
+        }
+
+        public ActionResult GetAuditoriumsAndSchedules(AuditoriumsScheduleRequest request)
+        {
+            UserData.AuditoriumScheduleSettings.SemesterId = request.Semester;
+            UserData.AuditoriumScheduleSettings.StudyYearId = request.StudyYearId;
+            UserData.AuditoriumScheduleSettings.AuditoriumTypeIds = new List<int> {request.AuditoriumTypeId};
+            UserService.SaveUserState(UserData);
+
+            var auditoriums = DataService
+                .GetAuditoriums(
+                    request.BuildingId,
+                    new[] {request.AuditoriumTypeId},
+                    true)
+                .Select(x => new AuditoriumViewModel(x));
+
+            var schedules = DataService
+                .GetSchedules(
+                    request.AuditoriumTypeId, 
+                    request.StudyYearId, 
+                    request.Semester)
+                .Select(x => new ScheduleViewModel(x));
+
+            var times = DataService
+                .GetTimes(request.BuildingId)
+                .Select(x => new TimeViewModel(x));
+
+            var model = new GetAuditoriumsAndSchedulesResponse
+                {
+                    Auditoriums = auditoriums,
+                    Schedules = schedules,
+                    Times = times
+                };
+
+            return new JsonNetResult(model);
         }
     }
 }

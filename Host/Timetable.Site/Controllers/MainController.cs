@@ -3,7 +3,7 @@
 namespace Timetable.Site.Controllers
 {
     [Authorize]
-    public class MainController : NewBaseController
+    public class MainController : AuthorizedController
     {
         public ActionResult Index()
         {

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Models.ResponseModels
 {

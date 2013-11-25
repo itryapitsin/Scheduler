@@ -3,10 +3,11 @@ using System.Web.Mvc;
 using Timetable.Site.Infrastructure;
 using Timetable.Site.Models;
 using Timetable.Site.Models.RequestModels;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {
-    public class UserController : NewBaseController
+    public class UserController : AuthorizedController
     {
         public ActionResult SaveState(UserStateChangedRequest request)
         {

@@ -2,15 +2,15 @@
 using System.Linq;
 using System.Web.Mvc;
 using Timetable.Data.Models.Scheduler;
-using Timetable.Logic.Models.Scheduler;
 using Timetable.Site.Infrastructure;
 using Timetable.Site.Models;
 using Timetable.Site.Models.RequestModels;
 using Timetable.Site.Models.ResponseModels;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {
-    public class SchedulerController : NewBaseController
+    public class SchedulerController : AuthorizedController
     {
         public PartialViewResult Index()
         {

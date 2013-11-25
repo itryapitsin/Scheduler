@@ -27,7 +27,7 @@ body {
 
 .day-content {
     min-width: 195px;
-    height: 180px;
+    height: 174px;
     padding: 0px;
 }
 
@@ -40,8 +40,7 @@ header, footer, nav, section {
 }
 
 .schedule-card {
-    width: 100%;
-    height: 100%;
+    height: 97%;
     margin-bottom: 0px;
     padding: 2px;
 }
@@ -61,6 +60,11 @@ table td.even {
     vertical-align: bottom;
 }
 
+.table > tbody > tr > td > .alert-error {
+    background-color: #ffaaaa;
+    height: 28px;
+}
+
 .even {
     height: 85px;
     margin-bottom: 1px;
@@ -69,6 +73,24 @@ table td.even {
 .odd {
     height: 85px;
     margin-top: 1px;
+}
+
+.general {}
+
+.general .even {
+    height: 10px;
+}
+
+.general .odd {
+    height: 10px;
+}
+
+.table > tbody > tr > td > .alert-error.even {
+    height: 14px;
+}
+
+.table > tbody > tr > td > .alert-error.odd {
+    height: 14px;
 }
 
 .selected {

@@ -34,7 +34,8 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<BranchDataTransfer> GetBranches();
         IEnumerable<AuditoriumDataTransfer> GetAuditoriums(
             int buildingId,
-            int? auditoriumType = null);
+            int[] auditoriumTypeIds = null,
+            bool? isTraining = null);
         IEnumerable<AuditoriumDataTransfer> GetAuditoriums(
             BuildingDataTransfer buildingDataTransfer,
             AuditoriumTypeDataTransfer auditoriumTypeDataTransfer);
@@ -53,7 +54,7 @@ namespace Timetable.Logic.Interfaces
             int dayOfWeek,
             int weekTypeId,
             int timeId);
-        IEnumerable<AuditoriumTypeDataTransfer> GetAuditoriumTypes();
+        IEnumerable<AuditoriumTypeDataTransfer> GetAuditoriumTypes(bool? isTraining = null);
         IEnumerable<BuildingDataTransfer> GetBuildings();
         IEnumerable<CourseDataTransfer> GetCources();
         IEnumerable<int> GetPairs();
@@ -138,6 +139,14 @@ namespace Timetable.Logic.Interfaces
             int facultyId,
             int courseId,
             int[] groupIds,
+            int studyYear,
+            int semester);
+        IEnumerable<ScheduleDataTransfer> GetSchedules(
+            int[] auditoriumIds,
+            int studyYear,
+            int semester);
+        IEnumerable<ScheduleDataTransfer> GetSchedules(
+            int auditoriumTypeId,
             int studyYear,
             int semester);
         IEnumerable<ScheduleDataTransfer> GetSchedulesForFaculty(

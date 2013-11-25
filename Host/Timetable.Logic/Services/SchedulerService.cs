@@ -58,23 +58,24 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<AuditoriumDataTransfer> GetAuditoriums(
             int buildingId,
-            int? auditoriumType = null)
+            int[] auditoriumTypeIds = null,
+            bool? isTraining = null)
         {
-            if (auditoriumType.HasValue)
-            {
-                return Database.Auditoriums
-                    .Where(x => x.Building.Id == buildingId)
-                    .Where(x => x.AuditoriumType.Id == auditoriumType.Value)
-                    .Include(x => x.Building)
-                    .Include(x => x.AuditoriumType)
-                    .ToList()
-                    .Select(x => new AuditoriumDataTransfer(x));
-            }
+            IQueryable<Auditorium> auditoriums;
 
-            return Database.Auditoriums
+            auditoriums = Database.Auditoriums
                 .Where(x => x.Building.Id == buildingId)
                 .Include(x => x.Building)
-                .Include(x => x.AuditoriumType)
+                .Include(x => x.AuditoriumType);
+
+            if (auditoriumTypeIds != null && auditoriumTypeIds.Count() > 0)
+                auditoriums = auditoriums.Where(x => auditoriumTypeIds.Contains(x.AuditoriumType.Id));
+
+            if (isTraining.HasValue)
+                auditoriums = auditoriums.Where(x => x.AuditoriumType.Training == isTraining.Value);
+
+            return auditoriums
+                .OrderBy(x => x.Number)
                 .ToList()
                 .Select(x => new AuditoriumDataTransfer(x));
         }
@@ -493,9 +494,16 @@ namespace Timetable.Logic.Services
                 .Include(x => x.Specialities);
         }
 
-        public IEnumerable<AuditoriumTypeDataTransfer> GetAuditoriumTypes()
+        public IEnumerable<AuditoriumTypeDataTransfer> GetAuditoriumTypes(bool? isTraining = null)
         {
-            return Database.AuditoriumTypes.ToList().Select(x => new AuditoriumTypeDataTransfer(x));
+            var result = Database.AuditoriumTypes.AsQueryable();
+
+            if (isTraining.HasValue)
+                result = result.Where(x => x.Training == isTraining.Value);
+
+            return result
+                .ToList()
+                .Select(x => new AuditoriumTypeDataTransfer(x));
         }
 
         #region schedules
@@ -608,6 +616,35 @@ namespace Timetable.Logic.Services
             if (groupIds.Count() > 0)
                 return GetSchedulesForGroups(facultyId, courseId, groupIds, studyYear, semester);
             return GetSchedulesForFaculty(facultyId, courseId, studyYear, semester);
+        }
+
+        public IEnumerable<ScheduleDataTransfer> GetSchedules(
+            int[] auditoriumIds,
+            int studyYear,
+            int semester)
+        {
+            if (auditoriumIds.Count() == 0)
+                return Enumerable.Empty<ScheduleDataTransfer>();
+
+            var result = GetSchedules()
+                .Where(x => auditoriumIds.Any(y => y == x.AuditoriumId))
+                .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
+                .Where(x => x.ScheduleInfo.SemesterId == semester);
+
+            return result.ToList().Select(x => new ScheduleDataTransfer(x));
+        }
+
+        public IEnumerable<ScheduleDataTransfer> GetSchedules(
+            int auditoriumTypeId,
+            int studyYear,
+            int semester)
+        {
+            var result = GetSchedules()
+                .Where(x => x.Auditorium.AuditoriumTypeId == auditoriumTypeId)
+                .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
+                .Where(x => x.ScheduleInfo.SemesterId == semester);
+
+            return result.ToList().Select(x => new ScheduleDataTransfer(x));
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForFaculty(

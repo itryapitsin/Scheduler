@@ -2,10 +2,11 @@
 using System.Web.Mvc;
 using Timetable.Site.Infrastructure;
 using Timetable.Site.Models;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {
-    public class GroupController : NewBaseController
+    public class GroupController : AuthorizedController
     {
         [HttpGet]
         public ActionResult Get(int facultyId, int courseId)

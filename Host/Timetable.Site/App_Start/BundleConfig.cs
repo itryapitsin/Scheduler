@@ -37,9 +37,8 @@ namespace Timetable.Site
                 "~/Scripts/ui-bootstrap-{version}.js",
                 "~/Scripts/ui-bootstrap-tpls-{version}.js",
                 "~/Scripts/i18n/angular-locale_ru-ru.js"));
-            bundles.Add(new ScriptBundle("~/Scripts/select2").Include("~/Scripts/select2.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/jqwidgets").Include("~/Scripts/jqxcore.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/select2").Include("~/Scripts/select2.js"));
             bundles.Add(new ScriptBundle("~/Scripts/Site/Index").Include("~/Scripts/Site/main.index.viewmodel.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/App").Include(
@@ -56,6 +55,7 @@ namespace Timetable.Site
                 "~/App/Controllers/schedulerController.js",
                 "~/App/Controllers/lecturerScheduleController.js",
                 "~/App/Controllers/auditoriumScheduleController.js",
+                "~/App/Controllers/auditoriumScheduleGeneralController.js",
                 "~/App/directives/scheduleCard.js"));
 
             bundles.Add(new StyleBundle("~/Content/Site").Include("~/Content/Site.css"));

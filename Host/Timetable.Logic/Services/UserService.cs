@@ -18,6 +18,7 @@ namespace Timetable.Logic.Services
         {
             return new UserDataTransfer(DataContext.Users
                 .Include(x => x.CreatorSelectedGroups)
+                .Include(x => x.AuditoriumScheduleSelectedAuditoriumTypes)
                 .FirstOrDefault(x => x.Login == login));
         }
 

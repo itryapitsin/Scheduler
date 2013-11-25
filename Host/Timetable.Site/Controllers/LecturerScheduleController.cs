@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using Timetable.Site.Infrastructure;
 using Timetable.Site.Models;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {
-    public class LecturerScheduleController : NewBaseController
+    public class LecturerScheduleController : AuthorizedController
     {
         public ActionResult Index()
         {

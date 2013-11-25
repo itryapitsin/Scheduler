@@ -19,6 +19,15 @@ namespace Timetable.Data.Mapping
                     x.MapLeftKey("User_Id");
                     x.MapRightKey("Group_Id");
                 });
+
+            HasMany(x => x.AuditoriumScheduleSelectedAuditoriumTypes)
+                .WithMany()
+                .Map(x =>
+                {
+                    x.ToTable("AuditoriumTypesToUsers");
+                    x.MapLeftKey("User_Id");
+                    x.MapRightKey("AuditoriumType_Id");
+                });
         }
     }
 }

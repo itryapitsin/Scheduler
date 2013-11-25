@@ -69,12 +69,27 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.Entity" />
@@ -124,53 +139,32 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Api\AuditoriumTypeController.cs" />
-    <Compile Include="Controllers\Api\BranchController.cs" />
-    <Compile Include="Controllers\Api\ScheduleController.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controllers\Api\StudyYearController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\AuditoriumScheduleController.cs" />
     <Compile Include="Controllers\LecturerScheduleController.cs" />
-    <Compile Include="Controllers\NewBaseController.cs" />
+    <Compile Include="Controllers\AuthorizedController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\SchedulerController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\Api\AuditoriumController.cs" />
-    <Compile Include="Controllers\Api\BaseApiController.cs" />
-    <Compile Include="Controllers\Api\BuildingController.cs" />
-    <Compile Include="Controllers\Api\WeekTypeController.cs" />
-    <Compile Include="Controllers\Api\DepatmentController.cs" />
-    <Compile Include="Controllers\Api\GroupController.cs" />
-    <Compile Include="Controllers\Api\CourseController.cs" />
-    <Compile Include="Controllers\Api\FacultyController.cs" />
-    <Compile Include="Controllers\Api\LecturerController.cs" />
-    <Compile Include="Controllers\Api\SpecialityController.cs" />
-    <Compile Include="Controllers\Api\TimeController.cs" />
-    <Compile Include="Controllers\Api\TutorialController.cs" />
-    <Compile Include="Controllers\Api\TutorialTypeController.cs" />
+    <Compile Include="DispatcherHub.cs" />
     <Compile Include="Infrastructure\CutNameService.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Infrastructure\CamelCaseToPascalCaseExpandoObjectConverter.cs" />
     <Compile Include="Infrastructure\CollectionRequest.cs" />
     <Compile Include="Infrastructure\EnumerableExtensions.cs" />
-    <Compile Include="Models\AuditoriumScheduleViewModel.cs" />
-    <Compile Include="Models\Hints\ForAllModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Hints\SendModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\PageViewModel.cs" />
+    <Compile Include="Models\RequestModels\AuditoriumsScheduleRequest.cs" />
+    <Compile Include="Models\ResponseModels\GetAuditoriumsAndSchedulesResponse.cs" />
+    <Compile Include="Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
+    <Compile Include="Models\ViewModels\AuditoriumScheduleViewModel.cs" />
+    <Compile Include="Models\ViewModels\AuditoriumTypeViewModel.cs" />
+    <Compile Include="Models\ViewModels\PageViewModel.cs" />
     <Compile Include="Models\RequestModels\AuditoriumScheduleRequest.cs" />
     <Compile Include="Models\RequestModels\CreateScheduleRequest.cs" />
     <Compile Include="Models\RequestModels\EditScheduleRequest.cs" />
     <Compile Include="Models\RequestModels\GetFreeAuditoiumsRequest.cs" />
     <Compile Include="Models\RequestModels\GetSchedulesAndInfoesRequest.cs" />
-    <Compile Include="Models\RequestModels\GetScheduleForAuditoriumRequest.cs" />
-    <Compile Include="Models\RequestModels\GetScheduleForCreatorRequest.cs" />
     <Compile Include="Models\RequestModels\UserStateChangedRequest.cs" />
     <Compile Include="Infrastructure\CollectionResponse.cs" />
     <Compile Include="Infrastructure\EnumerableWithTotal.cs" />
@@ -179,64 +173,37 @@
     <Compile Include="Infrastructure\ICollectionRequest.cs" />
     <Compile Include="Infrastructure\StringExtensions.cs" />
     <Compile Include="Infrastructure\TypeExtensions.cs" />
-    <Compile Include="Models\AuditoriumTypeViewModel.cs" />
-    <Compile Include="Models\RequestModels\AuditoriumAddRequest.cs" />
-    <Compile Include="Models\AuditoriumViewModel.cs" />
-    <Compile Include="Models\GroupAddViewModel.cs" />
-    <Compile Include="Models\GroupViewModel.cs" />
+    <Compile Include="Models\ViewModels\AuditoriumViewModel.cs" />
+    <Compile Include="Models\ViewModels\GroupViewModel.cs" />
     <Compile Include="Infrastructure\JsonNetResult.cs" />
-    <Compile Include="Models\LecturerAddViewModel.cs" />
-    <Compile Include="Models\LecturerViewModel.cs" />
-    <Compile Include="Models\PrintScheduleModel.cs" />
+    <Compile Include="Models\ViewModels\LecturerViewModel.cs" />
     <Compile Include="Models\RequestModels\GetScheduleBaseRequest.cs" />
     <Compile Include="Models\RequestModels\GetScheduleForLecturerRequest.cs" />
     <Compile Include="Models\ResponseModels\GetAuditoriumsResponse.cs" />
     <Compile Include="Models\ResponseModels\GetSchedulesAndInfoesResponse.cs" />
-    <Compile Include="Models\ScheduleInfoes\AddModel.cs" />
-    <Compile Include="Models\ScheduleInfoes\DeleteModel.cs" />
-    <Compile Include="Models\ScheduleInfoes\ForGroupModel.cs" />
-    <Compile Include="Models\ScheduleInfoes\ForLecturerModel.cs" />
-    <Compile Include="Models\ScheduleInfoes\SendModel.cs" />
-    <Compile Include="Models\ScheduleInfoes\UpdateModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Schedules\AddModel.cs" />
-    <Compile Include="Models\Schedules\DeleteModel.cs" />
-    <Compile Include="Models\Schedules\ForAllModel.cs" />
-    <Compile Include="Models\Schedules\ForAuditoriumModel.cs" />
-    <Compile Include="Models\Schedules\ForGroupModel.cs" />
-    <Compile Include="Models\Schedules\ForLecturerModel.cs" />
-    <Compile Include="Models\Schedules\ScheduleViewModel.cs" />
-    <Compile Include="Models\Schedules\ValidateModel.cs" />
-    <Compile Include="Models\DepartmentViewModel.cs" />
-    <Compile Include="Models\ScheduleTypeViewModel.cs" />
-    <Compile Include="Models\ScheduleViewModel.cs" />
+    <Compile Include="Models\ViewModels\ScheduleTypeViewModel.cs" />
+    <Compile Include="Models\ViewModels\ScheduleViewModel.cs" />
     <Compile Include="Models\RequestModels\SignInRequest.cs" />
-    <Compile Include="Models\Schedules\UpdateModel.cs" />
-    <Compile Include="Models\SemesterViewModel.cs" />
-    <Compile Include="Models\SpecialityAddViewModel.cs" />
-    <Compile Include="Models\Times\SendModel.cs" />
-    <Compile Include="Models\TutorialAddViewModel.cs" />
-    <Compile Include="Models\TutorialViewModel.cs" />
-    <Compile Include="Models\TutorialTypeViewModel.cs" />
-    <Compile Include="Models\Validators\SendModel.cs" />
-    <Compile Include="Models\Validators\StateModel.cs" />
-    <Compile Include="Models\BranchViewModel.cs" />
-    <Compile Include="Models\BuildingViewModel.cs" />
-    <Compile Include="Models\CourseViewModel.cs" />
-    <Compile Include="Models\FacultyViewModel.cs" />
-    <Compile Include="Models\ScheduleInfoViewModel.cs" />
-    <Compile Include="Models\SchedulerViewModel.cs" />
-    <Compile Include="Models\SpecialityViewModel.cs" />
-    <Compile Include="Models\StudyYearViewModel.cs" />
-    <Compile Include="Models\TimeViewModel.cs" />
-    <Compile Include="Models\WeekTypeViewModel.cs" />
+    <Compile Include="Models\ViewModels\SemesterViewModel.cs" />
+    <Compile Include="Models\ViewModels\BranchViewModel.cs" />
+    <Compile Include="Models\ViewModels\BuildingViewModel.cs" />
+    <Compile Include="Models\ViewModels\CourseViewModel.cs" />
+    <Compile Include="Models\ViewModels\FacultyViewModel.cs" />
+    <Compile Include="Models\ViewModels\ScheduleInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\SchedulerViewModel.cs" />
+    <Compile Include="Models\ViewModels\StudyYearViewModel.cs" />
+    <Compile Include="Models\ViewModels\TimeViewModel.cs" />
+    <Compile Include="Models\ViewModels\WeekTypeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteModule.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\controllers\auditoriumScheduleGeneralController.js" />
     <Content Include="App\controllers\baseController.js" />
     <Content Include="App\controllers\auditoriumScheduleController.js" />
     <Content Include="App\controllers\lecturerScheduleController.js" />
@@ -1106,7 +1073,6 @@
     <Content Include="Scripts\bootstrap-daterangepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\ext-all.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
@@ -1407,6 +1373,8 @@
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.0.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ca.js" />
@@ -1486,10 +1454,6 @@
     <Content Include="Scripts\jquery.linq.min.js" />
     <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\jquery.string-format.js" />
-    <Content Include="Scripts\jqxcore.js" />
-    <Content Include="Scripts\jqxsplitter.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\Site\base.viewmodel.js" />
     <Content Include="Scripts\Site\schedule.auditorium.viewmodel.js" />
     <Content Include="Scripts\Site\schedule.group.viewmodel.js" />
@@ -1511,8 +1475,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
-    <Content Include="Views\PrintSchedule\Index.cshtml" />
-    <Content Include="Views\PrintSchedule\IndexForGroups.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1527,6 +1489,7 @@
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\LecturerSchedule\_Index.cshtml" />
     <Content Include="Views\AuditoriumSchedule\_Index.cshtml" />
+    <Content Include="Views\AuditoriumSchedule\_General.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

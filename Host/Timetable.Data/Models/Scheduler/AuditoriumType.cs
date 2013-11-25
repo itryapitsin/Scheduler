@@ -8,6 +8,7 @@ namespace Timetable.Data.Models.Scheduler
     {
         public string Name { get; set; }
         public string Pattern { get; set; }
+        public bool Training { get; set; }
         public ICollection<Auditorium> Auditoriums { get; set; }
 
         public AuditoriumType()

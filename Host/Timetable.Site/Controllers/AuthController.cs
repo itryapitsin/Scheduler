@@ -4,7 +4,7 @@ using Timetable.Site.Models.RequestModels;
 
 namespace Timetable.Site.Controllers
 {
-    public class AuthController : NewBaseController
+    public class AuthController : BaseController
     {
         [HttpGet]
         public ActionResult Login(string returnUrl)
