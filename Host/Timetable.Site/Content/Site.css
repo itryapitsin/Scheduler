@@ -48,16 +48,19 @@ header, footer, nav, section {
 table td.full {
     padding: 0 3px;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 table td.even {
     padding: 3px;
     vertical-align: top;
+    cursor: pointer;
 }
 
 .table td.odd {
     padding: 3px;
     vertical-align: bottom;
+    cursor: pointer;
 }
 
 .table > tbody > tr > td > .alert-error {

@@ -107,26 +107,28 @@ namespace Timetable.Site.Controllers
                 && UserData.AuditoriumScheduleSettings.SemesterId.HasValue
                 && UserData.AuditoriumScheduleSettings.StudyYearId.HasValue)
             {
-                var auditoriums = DataService
+                model.Auditoriums = DataService
                     .GetAuditoriums(
                         UserData.AuditoriumScheduleSettings.BuildingId.Value,
                         UserData.AuditoriumScheduleSettings.AuditoriumTypeIds.ToArray())
-                    .Select(x => x.Id)
-                    .ToArray();
+                    .Select(x => new AuditoriumViewModel(x));
 
-                model.BasyAuditoriums = DataService
+                model.Schedules = DataService
                     .GetSchedules(
-                        auditoriums,
+                        model.Auditoriums.Select(x => x.Id).ToArray(),
                         UserData.AuditoriumScheduleSettings.StudyYearId.Value, 
                         UserData.AuditoriumScheduleSettings.SemesterId.Value)
-                    .ToList()
-                    .Select(x => new BusyAuditoriumViewModel(x));
+                    .Select(x => new ScheduleViewModel(x));
 
             }
 
             return PartialView("_General", model);
         }
 
+        /// <summary>
+        /// Used in auditoriumScheduleController.js
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetAuditoriums(int buildingId)
         {
             UserData.AuditoriumScheduleSettings.BuildingId = buildingId;
@@ -152,6 +154,11 @@ namespace Timetable.Site.Controllers
             return new JsonNetResult(model);
         }
 
+        /// <summary>
+        /// Used in auditoriumScheduleGeneralController.js & auditoriumScheduleController.js
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public ActionResult LoadAuditoriumSchedule(AuditoriumScheduleRequest request)
         {
             UserData.AuditoriumScheduleSettings.SemesterId = request.Semester;
@@ -167,8 +174,15 @@ namespace Timetable.Site.Controllers
             return new JsonNetResult(schedules);
         }
 
+        /// <summary>
+        /// Used in auditoriumScheduleGeneralController.js
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public ActionResult GetAuditoriumsAndSchedules(AuditoriumsScheduleRequest request)
         {
+            UserData.AuditoriumScheduleSettings.BuildingId = request.BuildingId;
+            UserData.AuditoriumScheduleSettings.AuditoriumId = null;
             UserData.AuditoriumScheduleSettings.SemesterId = request.Semester;
             UserData.AuditoriumScheduleSettings.StudyYearId = request.StudyYearId;
             UserData.AuditoriumScheduleSettings.AuditoriumTypeIds = new List<int> {request.AuditoriumTypeId};

@@ -29,6 +29,7 @@
 
         this.pairChanged = function () {
             self.getFreeAuditoriums();
+            self.getTimeForPair();
         };
 
         this.weekTypeChanged = function () {
@@ -46,6 +47,12 @@
                         .Where(function (item) { return item.Position == self.pair; })
                         .FirstOrDefault();
                 });
+        };
+
+        this.getTimeForPair = function() {
+            self.time = $.Enumerable.From(self.times)
+                .Where(function(item) { return item.Position == self.pair; })
+                .FirstOrDefault();
         };
 
         this.show = function ($scope) {
@@ -224,9 +231,10 @@
             self.modal.pair = pair;
             self.modal.dayOfWeek = dayOfWeek;
             self.modal.ui = ui;
-            self.modal.time = $.Enumerable.From(self.modal.times)
-                .Where(function (item) { return item.Position == self.modal.pair; })
-                .FirstOrDefault();
+            self.modal.getTimeForPair();
+            //self.modal.time = $.Enumerable.From(self.modal.times)
+            //    .Where(function (item) { return item.Position == self.modal.pair; })
+            //    .FirstOrDefault();
 
             $(ui.draggable[0]).addClass("hide");
         };

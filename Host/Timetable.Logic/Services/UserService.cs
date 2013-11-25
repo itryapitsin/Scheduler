@@ -47,6 +47,15 @@ namespace Timetable.Logic.Services
             user.AuditoriumScheduleSelectedStudyYearId = userDataTransfer.AuditoriumScheduleSettings.StudyYearId;
             user.AuditoriumScheduleSelectedSemesterId = userDataTransfer.AuditoriumScheduleSettings.SemesterId;
 
+            var auditoriumTypes = DataContext.AuditoriumTypes
+                .Where(x => userDataTransfer.AuditoriumScheduleSettings.AuditoriumTypeIds.Contains(x.Id))
+                .ToList();
+
+            foreach (var auditoriumType in user.AuditoriumScheduleSelectedAuditoriumTypes.ToArray())
+                user.AuditoriumScheduleSelectedAuditoriumTypes.Remove(auditoriumType);
+
+            user.AuditoriumScheduleSelectedAuditoriumTypes.AddRange(auditoriumTypes);
+
             DataContext.Update(user);
         }
     }

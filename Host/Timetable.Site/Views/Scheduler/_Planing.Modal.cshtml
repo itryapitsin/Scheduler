@@ -3,18 +3,21 @@
     <h4 id="myModalLabel">Редактирование расписания</h4>
 </div>
 <div class="modal-body">
-    <div class="row span2">
+    <div class="row span1">
         <label>№ пары</label>
-        <select class="span2" required="required" ng-model="creator.modal.pair" ng-change="creator.modal.pairChanged()" ng-options="pair as pair for pair in pageModel.Pairs"></select>
+        <select class="span1" required="required" ng-model="creator.modal.pair" ng-change="creator.modal.pairChanged()" ng-options="pair as pair for pair in pageModel.Pairs"></select>
     </div>
-    <div class="row span3">
+    <div class="row span2">
         <label>Время</label>
-        <input class="span3" type="text" readonly="readonly" ng-value="moment(creator.modal.time.Start, 'HH:mm:ss').format('HH:mm') + ' - ' + moment(creator.modal.time.End, 'HH:mm:ss').format('HH:mm')" style="height: 30px;" />
+        <input class="span2" type="text" readonly="readonly" ng-value="moment(creator.modal.time.Start, 'HH:mm:ss').format('HH:mm') + ' - ' + moment(creator.modal.time.End, 'HH:mm:ss').format('HH:mm')" />
     </div>
-
+    <div class="span1">
+        <label>Неделя</label>
+        <select class="span1" required="required" ng-model="creator.modal.weekType" ng-change="creator.modal.weekTypeChanged()" ng-options="weekType.Id as weekType.Name for weekType in creator.modal.weekTypes"></select>
+    </div>
     <div class="span2">
-        <label>Тип недели</label>
-        <select class="span2" required="required" ng-model="creator.modal.weekType" ng-change="creator.modal.weekTypeChanged()" ng-options="weekType.Id as weekType.Name for weekType in creator.modal.weekTypes"></select>
+        <label>Тип</label>
+        <select class="span2" ng-model="creator.modal.scheduleType" ng-options="scheduleType.Id as scheduleType.Name for scheduleType in creator.modal.scheduleTypes"></select>
     </div>
 
     <div class="span8">
@@ -25,10 +28,7 @@
         <label>Аудитория</label>
         <select class="span8" ng-disabled="!creator.modal.auditoriums" ng-model="creator.modal.auditorium" ng-options="auditorium.Id as auditorium.Name for auditorium in creator.modal.auditoriums"></select>
     </div>
-    <div class="span8">
-        <label>Тип</label>
-        <select class="span8" ng-model="creator.modal.scheduleType" ng-options="scheduleType.Id as scheduleType.Name for scheduleType in creator.modal.scheduleTypes"></select>
-    </div>
+    
 </div>
 <div class="modal-footer">
     <a class="btn btn-success" ng-click="creator.modal.apply(thread)">Применить</a>&nbsp;

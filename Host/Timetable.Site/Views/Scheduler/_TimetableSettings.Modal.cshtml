@@ -10,9 +10,6 @@
     <label class="control-label">Семестр</label>
     <select class="span8" required="required" ng-model="settings.modal.semestr" ng-options="semestr.Id as semestr.Name for semestr in settings.modal.semestrs"></select>
 
-    <label class="control-label">Корпус</label>
-    <select class="span8" required="required" ng-model="settings.modal.building" ng-options="building.Id as building.Name for building in settings.modal.buildings"></select>
-
     <div class="alert alert-error" ng-show="settings.modal.errorMessage">{{settings.modal.errorMessage}}</div>
 </div>
 <div class="modal-footer">

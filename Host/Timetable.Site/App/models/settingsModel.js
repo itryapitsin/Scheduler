@@ -4,12 +4,9 @@
         var self = this;
         this.saved = false;
         this.studyYears = pageModel.StudyYears;
-        this.buildings = pageModel.Buildings;
-        this.weekTypes = pageModel.WeekTypes;
         this.semestrs = pageModel.Semesters;
 
         this.studyYear = pageModel.CurrentStudyYearId;
-        this.building = pageModel.CurrentBuildingId;
         this.semestr = pageModel.CurrentSemesterId;
         this.changedEvent = null;
         this.onChanged = function () {
@@ -23,7 +20,6 @@
 
         this.isValid = function () {
             return this.studyYear
-                && this.building
                 && this.semestr;
         };
 
@@ -61,14 +57,10 @@
 
             this.close();
 
-            s.building = self.building;
-            s.weekType = self.weekType;
             s.studyYear = self.studyYear;
             s.semestr = self.semestr;
 
             var param = {
-                buildingId: self.building,
-                StudyYearId: self.studyYear,
                 SemesterId: self.semestr,
                 WeekTypeId: self.weekType
             };
@@ -93,8 +85,7 @@
                 this.changedEvent(this);
         };
         this.isValid = function () {
-            return this.building
-                && this.weekType
+            return this.weekType
                 && this.studyYear
                 && this.semestr;
         };
@@ -104,22 +95,6 @@
                 .From(pageModel.StudyYears)
                 .Where(function (x) { return x.Id == self.studyYear; })
                 .FirstOrDefault({ Name: "<Учебный год не выбран>" })
-                .Name;
-        };
-
-        this.getBuildingName = function () {
-            return $.Enumerable
-                .From(pageModel.Buildings)
-                .Where(function (x) { return x.Id == self.building; })
-                .FirstOrDefault({ Name: "<Корпус не выбран>" })
-                .Name;
-        };
-
-        this.getWeekTypeName = function () {
-            return $.Enumerable
-                .From(pageModel.WeekTypes)
-                .Where(function (x) { return x.Id == self.weekType; })
-                .FirstOrDefault({ Name: "<Тип недели не выбран>" })
                 .Name;
         };
 
@@ -133,8 +108,6 @@
 
         this.init = function () {
             this.studyYear = pageModel.CurrentStudyYearId;
-            this.building = pageModel.CurrentBuildingId;
-            this.weekType = pageModel.CurrentWeekTypeId;
             this.semestr = pageModel.CurrentSemesterId;
 
             this.onChanged();
