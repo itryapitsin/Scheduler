@@ -6,6 +6,6 @@ namespace Timetable.Data.Models.Personalization
     {
         public string Name { get; set; }
 
-        public UserRoleTypes Type { get; set; }
+        public UserRoleType Type { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Controllers
 {
@@ -7,7 +8,12 @@ namespace Timetable.Site.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var model = new PageViewModel
+            {
+                UserName = User.Identity.Name, 
+                UserType = UserData.Type
+            };
+            return View(model);
         }
     }
 }

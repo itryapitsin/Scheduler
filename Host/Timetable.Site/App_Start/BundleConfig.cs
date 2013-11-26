@@ -52,6 +52,8 @@ namespace Timetable.Site
                 "~/App/models/threadModel.js",
                 "~/App/models/scheduleCreatorModel.js",
                 "~/App/Controllers/baseController.js",
+                "~/App/Controllers/navbarController.js",
+                "~/App/Controllers/settingsController.js",
                 "~/App/Controllers/schedulerController.js",
                 "~/App/Controllers/lecturerScheduleController.js",
                 "~/App/Controllers/auditoriumScheduleController.js",

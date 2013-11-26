@@ -45,7 +45,7 @@ INSERT INTO [dbo].[UserRoles]
            ,[UpdatedDate])
      VALUES
            ('Администратор'
-           ,3
+           ,2
            ,1
            ,getdate()
            ,getdate())");

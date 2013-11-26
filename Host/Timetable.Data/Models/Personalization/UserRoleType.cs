@@ -1,7 +1,7 @@
 ﻿
 namespace Timetable.Data.Models.Personalization
 {
-    public enum UserRoleTypes
+    public enum UserRoleType
     {
         Banned = 0,
 

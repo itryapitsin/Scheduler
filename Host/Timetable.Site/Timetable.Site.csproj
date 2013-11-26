@@ -148,6 +148,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\SchedulerController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="DispatcherHub.cs" />
     <Compile Include="Infrastructure\CutNameService.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -207,7 +208,9 @@
     <Content Include="App\controllers\baseController.js" />
     <Content Include="App\controllers\auditoriumScheduleController.js" />
     <Content Include="App\controllers\lecturerScheduleController.js" />
+    <Content Include="App\controllers\navbarController.js" />
     <Content Include="App\controllers\schedulerController.js" />
+    <Content Include="App\controllers\settingsController.js" />
     <Content Include="App\directives\daterangepicker.js" />
     <Content Include="App\directives\chart.js" />
     <Content Include="App\directives\integer.js" />
@@ -1490,6 +1493,7 @@
     <Content Include="Views\LecturerSchedule\_Index.cshtml" />
     <Content Include="Views\AuditoriumSchedule\_Index.cshtml" />
     <Content Include="Views\AuditoriumSchedule\_General.cshtml" />
+    <Content Include="Views\Settings\_Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1511,6 +1515,10 @@
     <ProjectReference Include="..\Timetable.Logic\Timetable.Logic.csproj">
       <Project>{11e24419-db82-41b8-80f6-b0f4398b7d45}</Project>
       <Name>Timetable.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Timetable.Sync.Logic\Timetable.Sync.Logic.csproj">
+      <Project>{B8F9774C-3F0E-4A9E-9E73-8DF018CE46E8}</Project>
+      <Name>Timetable.Sync.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

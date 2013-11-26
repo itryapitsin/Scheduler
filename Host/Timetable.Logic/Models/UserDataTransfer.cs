@@ -6,6 +6,7 @@ namespace Timetable.Logic.Models
 {
     public class UserDataTransfer
     {
+        public UserRoleType Type { get; set; }
         public string Login { get; set; }
         public CreatorSettings CreatorSettings { get; set; }
         public LecturerScheduleSettings LecturerScheduleSettings { get; set; }
@@ -13,6 +14,7 @@ namespace Timetable.Logic.Models
         public UserDataTransfer(User user)
         {
             Login = user.Login;
+            Type = user.Role.Type;
 
             CreatorSettings = new CreatorSettings(user);
             LecturerScheduleSettings = new LecturerScheduleSettings(user);

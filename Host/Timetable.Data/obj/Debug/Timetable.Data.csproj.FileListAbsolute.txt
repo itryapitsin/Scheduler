@@ -213,4 +213,3 @@ E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrat
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.RenamePeriodToTime.resources
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.AddTrainingFieldToAuditoriumTypes.resources
 E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.Migrations.AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.resources
-E:\Projects\GitHub\Scheduler\Host\Timetable.Data\obj\Debug\Timetable.Data.csprojResolveAssemblyReference.cache

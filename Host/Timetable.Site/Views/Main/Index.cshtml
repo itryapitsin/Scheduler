@@ -1,7 +1,14 @@
-﻿@{
+﻿@using Newtonsoft.Json
+@using Timetable.Data.Models.Personalization
+@{
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
-<nav class="navbar navbar-default navbar-fixed-top" bs-navbar style="z-index: 1040;">
+
+<script>
+    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+</script>
+
+<nav class="navbar navbar-default navbar-fixed-top" bs-navbar style="z-index: 1040;" ng-controller="navbarController">
     <div class="navbar-inner">
         <ul class="nav navbar-nav">
             <li data-match-route="/scheduler"><a href="#/">Создание расписаний</a></li>
@@ -14,9 +21,18 @@
                 </ul>
             </li>
         </ul>
-        <form class="navbar-form pull-right">
-            <a href="@Url.Action("Logout", "Auth")" class="btn">Выход</a>
-        </form>
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">{{pageModel.UserName}} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    @if (Model.UserType != null && Model.UserType == UserRoleType.Administration)
+                    {
+                        <li><a href="#/settings">Настройки</a></li>
+                    }
+                    <li><a href="@Url.Action("Logout", "Auth")">Выход</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>
 <div id="content" ng-view style="margin-top: 41px;">

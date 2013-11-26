@@ -1,6 +1,6 @@
 ﻿var app = angular.module('scheduler', ['ui.select2', 'ngResource', '$strap.directives', 'ngCookies', 'LocalStorageModule', 'ngProgress', 'ngDragDrop']);
 
-app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+app.config(function ($routeProvider) {
 
     var prefix = window.location.pathname;
 
@@ -30,42 +30,20 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
         controller: auditoriumScheduleGeneralController,
         resolve: auditoriumScheduleGeneralController.prototype.resolve
     };
+    
+    var settingsRoute = {
+        templateUrl: prefix + 'settings',
+        controller: settingsController,
+        resolve: settingsController.prototype.resolve
+    };
 
     $routeProvider
         .when('/scheduler', schedulerRoute)
         .when('/lecturerschedule', lecturerScheduleRoute)
         .when('/auditoriumschedule', auditoriumScheduleRoute)
         .when('/auditoriumschedule/general', auditoriumScheduleGeneralRoute)
+        .when('/settings', settingsRoute)
         .otherwise({ redirectTo: '/scheduler' });
-
-    //var interceptor = ['$location', '$q', function ($location, $q) {
-    //    function success(response) {
-    //        return response;
-    //    }
-
-    //    function error(response) {
-
-    //        if (response.status === 401) {
-    //            $location.path('/login');
-    //            return $q.reject(response);
-    //        }
-    //        else {
-    //            return $q.reject(response);
-    //        }
-    //    }
-
-    //    return function (promise) {
-    //        return promise.then(success, error);
-    //    };
-    //}];
-
-    //$httpProvider.responseInterceptors.push(interceptor);
-});
-
-app.filter("owner", function () {
-    return _.memoize(function (collection) {
-        return collection;
-    });
 });
 
 app.run(function ($rootScope, $http) {

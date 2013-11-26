@@ -191,7 +191,7 @@
     <Compile Include="Models\Scheduler\BaseIIASEntity.cs" />
     <Compile Include="Models\Personalization\User.cs" />
     <Compile Include="Models\Personalization\UserRole.cs" />
-    <Compile Include="Models\Personalization\UserRoleTypes.cs" />
+    <Compile Include="Models\Personalization\UserRoleType.cs" />
     <Compile Include="Models\Scheduler\Auditorium.cs" />
     <Compile Include="Models\Scheduler\AuditoriumType.cs" />
     <Compile Include="Models\Scheduler\Branch.cs" />
