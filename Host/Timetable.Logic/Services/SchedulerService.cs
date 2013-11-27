@@ -724,6 +724,26 @@ namespace Timetable.Logic.Services
             return result;
         }
 
+        public IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
+            int auditoriumId,
+            DateTime date)
+        {
+            var studyYear = date.Month > 6
+                ? Database.StudyYears.FirstOrDefault(x => x.StartYear == date.Year)
+                : Database.StudyYears.FirstOrDefault(x => x.EndYear == date.Year);
+
+            if (studyYear == null)
+                return Enumerable.Empty<ScheduleDataTransfer>();
+
+            var result = GetSchedules()
+               .Where(x => x.ScheduleInfo.StudyYearId == studyYear.Id)
+               .Where(x => x.AuditoriumId == auditoriumId)
+               .ToList()
+               .Select(x => new ScheduleDataTransfer(x));
+
+            return result;
+        }
+
         public IEnumerable<ScheduleTypeDataTransfer> GetScheduleTypes()
         {
             var result = Database.ScheduleTypes
@@ -857,6 +877,15 @@ namespace Timetable.Logic.Services
         public IEnumerable<StudyYearDataTransfer> GetStudyYears()
         {
             return Database.StudyYears.ToList().Select(x => new StudyYearDataTransfer(x));
+        }
+
+        public StudyYearDataTransfer GetStudyYear(DateTime date)
+        {
+            var studyYear = date.Month > 6 
+                ? Database.StudyYears.FirstOrDefault(x => x.StartYear == date.Year) 
+                : Database.StudyYears.FirstOrDefault(x => x.EndYear == date.Year);
+
+            return new StudyYearDataTransfer(studyYear);
         }
     }
 }

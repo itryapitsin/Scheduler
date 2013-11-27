@@ -168,6 +168,9 @@ namespace Timetable.Logic.Interfaces
             int auditoriumId,
             int studyYearId,
             int semester);
+        IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
+            int auditoriumId,
+            DateTime date);
         ScheduleDataTransfer GetScheduleById(int id);
         IEnumerable<ScheduleTypeDataTransfer> GetScheduleTypes();
         #endregion
@@ -190,5 +193,6 @@ namespace Timetable.Logic.Interfaces
         TutorialTypeDataTransfer GetTutorialTypeById(TutorialTypeDataTransfer tutorialTypeDataTransfer);
         IEnumerable<WeekTypeDataTransfer> GetWeekTypes();
         IEnumerable<StudyYearDataTransfer> GetStudyYears();
+        StudyYearDataTransfer GetStudyYear(DateTime date);
     }
 }

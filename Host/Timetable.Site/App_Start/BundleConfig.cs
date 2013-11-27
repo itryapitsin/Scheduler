@@ -64,10 +64,9 @@ namespace Timetable.Site
                 "~/Areas/Students/Scripts/App/app.js",
                 "~/Areas/Students/Scripts/App/Directives/daterangepicker.js",
                 "~/Areas/Students/Scripts/App/Directives/scheduleCard.js",
-                "~/Areas/Students/Scripts/App/Services/facultyService.js",
-                "~/Areas/Students/Scripts/App/Services/specialityService.js",
-                "~/Areas/Students/Scripts/App/Services/groupService.js",
+                "~/Areas/Students/Scripts/App/Services/timetableService.js",
                 "~/Areas/Students/Scripts/App/Controllers/baseController.js",
+                "~/Areas/Students/Scripts/App/Controllers/navbarController.js",
                 "~/Areas/Students/Scripts/App/Controllers/threadScheduleController.js",
                 "~/Areas/Students/Scripts/App/Controllers/lecturerScheduleController.js",
                 "~/Areas/Students/Scripts/App/Controllers/auditoriumScheduleController.js"));
