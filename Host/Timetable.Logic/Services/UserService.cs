@@ -26,7 +26,7 @@ namespace Timetable.Logic.Services
         public void SaveUserState(UserDataTransfer userDataTransfer)
         {
             var user = DataContext.Users.Include(x => x.CreatorSelectedGroups).First(x => x.Login == userDataTransfer.Login);
-
+            
             user.CreatorSelectedBuildingId = userDataTransfer.CreatorSettings.CurrentBuildingId;
             user.CreatorSelectedSemesterId = userDataTransfer.CreatorSettings.CurrentSemesterId;
             user.CreatorSelectedStudyYearId = userDataTransfer.CreatorSettings.CurrentStudyYearId;
@@ -47,6 +47,10 @@ namespace Timetable.Logic.Services
             user.AuditoriumScheduleSelectedAuditoriumId = userDataTransfer.AuditoriumScheduleSettings.AuditoriumId;
             user.AuditoriumScheduleSelectedStudyYearId = userDataTransfer.AuditoriumScheduleSettings.StudyYearId;
             user.AuditoriumScheduleSelectedSemesterId = userDataTransfer.AuditoriumScheduleSettings.SemesterId;
+
+            user.LecturerScheduleSelectedLecturerId = userDataTransfer.LecturerScheduleSettings.LecturerId;
+            user.LecturerScheduleSelectedSemesterId = userDataTransfer.LecturerScheduleSettings.SemesterId;
+            user.LecturerScheduleSelectedStudyYearId = userDataTransfer.LecturerScheduleSettings.StudyYearId;
 
             var auditoriumTypes = DataContext.AuditoriumTypes
                 .Where(x => userDataTransfer.AuditoriumScheduleSettings.AuditoriumTypeIds.Contains(x.Id))
