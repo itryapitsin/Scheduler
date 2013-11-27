@@ -39,31 +39,40 @@ namespace Timetable.Site
                 "~/Scripts/i18n/angular-locale_ru-ru.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/select2").Include("~/Scripts/select2.js"));
-            bundles.Add(new ScriptBundle("~/Scripts/Site/Index").Include("~/Scripts/Site/main.index.viewmodel.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/App").Include(
+            bundles.Add(new ScriptBundle("~/Dispatcher/App").Include(
                 "~/Scripts/underscore.js",
-                "~/App/app.js",
-                "~/App/directives/daterangepicker.js",
-                "~/App/services/facultyService.js",
-                "~/App/services/specialityService.js",
-                "~/App/services/groupService.js",
-                "~/App/models/settingsModel.js",
-                "~/App/models/threadModel.js",
-                "~/App/models/scheduleCreatorModel.js",
-                "~/App/Controllers/baseController.js",
-                "~/App/Controllers/navbarController.js",
-                "~/App/Controllers/settingsController.js",
-                "~/App/Controllers/schedulerController.js",
-                "~/App/Controllers/lecturerScheduleController.js",
-                "~/App/Controllers/auditoriumScheduleController.js",
-                "~/App/Controllers/auditoriumScheduleGeneralController.js",
-                "~/App/directives/scheduleCard.js"));
+                "~/Areas/Dispatcher/Scripts/App/app.js",
+                "~/Areas/Dispatcher/Scripts/App/Directives/daterangepicker.js",
+                "~/Areas/Dispatcher/Scripts/App/Directives/scheduleCard.js",
+                "~/Areas/Dispatcher/Scripts/App/Services/facultyService.js",
+                "~/Areas/Dispatcher/Scripts/App/Services/specialityService.js",
+                "~/Areas/Dispatcher/Scripts/App/Services/groupService.js",
+                "~/Areas/Dispatcher/Scripts/App/Models/refreshDataLocker.js",
+                "~/Areas/Dispatcher/Scripts/App/Models/settingsModel.js",
+                "~/Areas/Dispatcher/Scripts/App/Models/threadModel.js",
+                "~/Areas/Dispatcher/Scripts/App/Models/scheduleCreatorModel.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/baseController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/navbarController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/settingsController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/schedulerController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/lecturerScheduleController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/auditoriumScheduleController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/auditoriumScheduleGeneralController.js"));
+
+            bundles.Add(new ScriptBundle("~/Students/App").Include(
+                "~/Areas/Students/Scripts/App/app.js",
+                "~/Areas/Students/Scripts/App/Directives/daterangepicker.js",
+                "~/Areas/Students/Scripts/App/Directives/scheduleCard.js",
+                "~/Areas/Students/Scripts/App/Services/facultyService.js",
+                "~/Areas/Students/Scripts/App/Services/specialityService.js",
+                "~/Areas/Students/Scripts/App/Services/groupService.js",
+                "~/Areas/Students/Scripts/App/Controllers/baseController.js",
+                "~/Areas/Students/Scripts/App/Controllers/threadScheduleController.js",
+                "~/Areas/Students/Scripts/App/Controllers/lecturerScheduleController.js",
+                "~/Areas/Students/Scripts/App/Controllers/auditoriumScheduleController.js"));
 
             bundles.Add(new StyleBundle("~/Content/Site").Include("~/Content/Site.css"));
-            bundles.Add(new StyleBundle("~/Content/jqwidgets").Include(
-                "~/Content/jqwidgets/jqx.base.css", 
-                "~/Content/jqwidgets/jqx.classic.css"));
             bundles.Add(new StyleBundle("~/Content/jquery").Include("~/Content/themes/base/jquery*"));
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap*"));
             bundles.Add(new StyleBundle("~/Content/select2").Include("~/Content/css/select2.css"));

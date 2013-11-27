@@ -1,0 +1,108 @@
+﻿@using Newtonsoft.Json
+<div class="navbar navbar-fixed-top" style="top:41px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <form class="navbar-search pull-left">
+                <select class="span5" required="required" ng-change="buildingChanged()" ng-model="building" ng-options="building.Id as building.Name for building in pageModel.Buildings"></select>
+                <select class="span2" required="required" ng-change="auditoriumTypeChanged()" ng-model="auditoriumType" ng-options="auditoriumType.Id as auditoriumType.Name for auditoriumType in pageModel.AuditoriumTypes"></select>
+                <select class="span2" required="required" ng-change="loadAuditoriumsSchedule()" ng-model="studyYear" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears"></select>
+                <select class="span2" required="required" ng-change="loadAuditoriumsSchedule()" ng-model="semester" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters"></select>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid" style="position: absolute; left: 0px; top: 90px; bottom:0; overflow-y: scroll;">
+        <table class="table table-bordered table-striped general" style="margin-bottom: 0">
+            <thead>
+                <tr class="info">
+                    <th style="min-width: 60px; width: 60px">№</th>
+                    <th style="min-width: 100px; width: 100px">Время</th>
+                    <th class="span3">Пн</th>
+                    <th class="span3">Вт</th>
+                    <th class="span3">Ср</th>
+                    <th class="span3">Чт</th>
+                    <th class="span3">Пт</th>
+                    <th class="span3">Сб</th>
+                    <th class="span3">Вс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="auditorium in auditoriums">
+                    <td style="min-width: 60px; width:60px;">{{auditorium.Number}}</td>
+                    <td colspan="8" style="padding: 0">
+                        <table class="table table-bordered table-striped" style="margin: 0; border-radius: 0">
+                            <tr ng-repeat="time in times">
+                                <td style="min-width: 99px; width: 99px;">{{moment(time.Start, 'HH:mm:ss').format('HH:mm')}} - {{moment(time.End, 'HH:mm:ss').format('HH:mm')}}</td>
+                                <td ng-init="dayOfWeek = 1" 
+                                    class="span3" 
+                                    style="padding: 1px" 
+                                    ng-class="{full: hasFullScheduleTicket(time, 1), even: hasEvenScheduleTicket(time, 1), odd: hasOddScheduleTicket(time, 1)}">
+                                    <div ng-repeat="schedule in findScheduleTickets(time, 1)"
+                                         ng-class="{'alert alert-error': isBusy(auditorium, 1, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                         style="margin: 1px; padding: 0;">
+                                    </div>
+                                </td>
+                                <td ng-init="dayOfWeek = 2"
+                                    class="span3" 
+                                    style="padding: 1px" 
+                                    ng-class="{full: hasFullScheduleTicket(time, 2), even: hasEvenScheduleTicket(time, 2), odd: hasOddScheduleTicket(time, 2)}">
+                                    <div ng-repeat="schedule in findScheduleTickets(time, 2)"
+                                         ng-class="{'alert alert-error': isBusy(auditorium, 2, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                         style="margin: 1px; padding: 0;">
+                                    </div>
+                                </td>
+                                <td ng-init="dayOfWeek = 3"
+                                    class="span3"
+                                    style="padding: 1px"
+                                    ng-class="{full: hasFullScheduleTicket(time, 3), even: hasEvenScheduleTicket(time, 3), odd: hasOddScheduleTicket(time, 3)}">
+                                    <div ng-repeat="schedule in findScheduleTickets(time, 3)"
+                                         ng-class="{'alert alert-error': isBusy(auditorium, 3, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                         style="margin: 1px; padding: 0;">
+                                    </div>
+                                </td>
+                                <td ng-init="dayOfWeek = 4"
+                                    class="span3" 
+                                    style="padding: 1px" 
+                                    ng-class="{full: hasFullScheduleTicket(time, 4), even: hasEvenScheduleTicket(time, 4), odd: hasOddScheduleTicket(time, 4)}">
+                                    <div ng-repeat="schedule in findScheduleTickets(time, 4)"
+                                         ng-class="{'alert alert-error': isBusy(auditorium, 4, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                         style="margin: 1px; padding: 0;"></div>
+                                </td>
+                                <td ng-init="dayOfWeek = 5"
+                                    class="span3"
+                                    style="padding: 1px"
+                                    ng-class="{full: hasFullScheduleTicket(time, 5), even: hasEvenScheduleTicket(time, 5), odd: hasOddScheduleTicket(time, 5)}">
+                                    <div ng-repeat="schedule in findScheduleTickets(time, 5)"
+                                         ng-class="{'alert alert': isBusy(auditorium, 5, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                         style="margin: 1px; padding: 0;"></div>
+                                </td>
+                                <td ng-init="dayOfWeek = 6"
+                                    class="span3"
+                                    style="padding: 1px"
+                                    ng-class="{full: hasFullScheduleTicket(time, 6), even: hasEvenScheduleTicket(time, 6), odd: hasOddScheduleTicket(time, 6)}">
+                                    <div ng-repeat="schedule in findScheduleTickets(time, 6)"
+                                         ng-class="{'alert alert-error': isBusy(auditorium, 6, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                         style="margin: 1px; padding: 0;"></div>
+                                </td>
+                                <td ng-init="dayOfWeek = 7"
+                                    class="span3"
+                                    style="padding: 1px"
+                                    ng-class="{full: hasFullScheduleTicket(time, 7), even: hasEvenScheduleTicket(time, 7), odd: hasOddScheduleTicket(time, 7)}">
+                                    <div ng-repeat="schedule in findScheduleTickets(time, 7)"
+                                         ng-class="{'alert alert-error': isBusy(auditorium, 7, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                         style="margin: 1px; padding: 0;"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+</script>
