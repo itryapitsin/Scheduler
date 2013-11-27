@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -9,7 +8,6 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Timetable.Site.Infrastructure;
 
 
 namespace Timetable.Site

@@ -11,7 +11,7 @@ namespace Timetable.Data.Models.Scheduler
         public string Address { get; set; }
         public string ShortName { get; set; }
         public string Info { get; set; }
-        public virtual ICollection<Time> Times { get; set; }
+        public ICollection<Time> Times { get; set; }
         public Building()
         {
             Times = new Collection<Time>();
