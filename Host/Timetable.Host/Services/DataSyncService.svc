@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Timetable.Host.Services.DataSyncService" CodeBehind="DataSyncService.svc.cs" %>
