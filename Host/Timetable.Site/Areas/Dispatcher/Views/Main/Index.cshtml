@@ -15,7 +15,7 @@
             <li data-match-route="/lecturerschedule"><a href="#/lecturerschedule">Расписание преподавателей</a></li>
             <li class="dropdown" data-match-route="/auditoriumschedule.*">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">Расписание аудиторий <b class="caret"></b></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="z-index:99999">
                     <li data-match-route="/auditoriumschedule"><a href="#/auditoriumschedule/">Подробное расписание для аудитории</a></li>
                     <li data-match-route="/auditoriumschedule/general"><a href="#/auditoriumschedule/general">Общее расписание всех аудиторий корпуса</a></li>
                 </ul>
@@ -24,7 +24,7 @@
         <ul class="nav navbar-nav pull-right">
             <li>
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">{{pageModel.UserName}} <b class="caret"></b></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="z-index:99999">
                     @if (Model.UserType != null && Model.UserType == UserRoleType.Administration)
                     {
                         <li><a href="#/settings">Настройки</a></li>
