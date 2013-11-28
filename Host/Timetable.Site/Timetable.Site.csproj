@@ -77,6 +77,7 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core">
       <HintPath>..\packages\JavaScriptEngineSwitcher.Core.0.9.2\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
@@ -180,46 +181,26 @@
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
     <Compile Include="Areas\Students\Controllers\BaseController.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumTypeViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\BranchViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\CourseViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\FacultyViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\GroupViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\LecturerViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\PageViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleInfoViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\SchedulerViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleTypeViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\TimeViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\WeekTypeViewModel.cs" />
     <Compile Include="Areas\Students\Controllers\AuditoriumScheduleController.cs" />
     <Compile Include="Areas\Students\Controllers\MainController.cs" />
+    <Compile Include="Areas\Students\Controllers\ThreadScheduleController.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
+    <Compile Include="Models\ResponseModels\GetAuditoriumsResponse.cs" />
+    <Compile Include="Models\ViewModels\AuditoriumViewModel.cs" />
     <Compile Include="Models\ViewModels\BuildingViewModel.cs" />
-    <Compile Include="Models\ViewModels\SemesterViewModel.cs" />
-    <Compile Include="Models\ViewModels\StudyYearViewModel.cs" />
+    <Compile Include="Models\ViewModels\GroupViewModel.cs" />
+    <Compile Include="Models\ViewModels\LecturerScheduleViewModel.cs" />
+    <Compile Include="Models\ViewModels\LecturerViewModel.cs" />
     <Compile Include="Areas\Students\StudentsAreaRegistration.cs" />
     <Compile Include="DispatcherHub.cs" />
     <Compile Include="Infrastructure\CutNameService.cs" />
     <Compile Include="Infrastructure\CamelCaseToPascalCaseExpandoObjectConverter.cs" />
     <Compile Include="Infrastructure\CollectionRequest.cs" />
     <Compile Include="Infrastructure\EnumerableExtensions.cs" />
-    <Compile Include="Models\RequestModels\AuditoriumsScheduleRequest.cs" />
     <Compile Include="Models\RequestModels\LecturerScheduleRequest.cs" />
-    <Compile Include="Models\ResponseModels\GetAuditoriumsAndSchedulesResponse.cs" />
-    <Compile Include="Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
-    <Compile Include="Models\ViewModels\AuditoriumScheduleViewModel.cs" />
     <Compile Include="Models\ViewModels\AuditoriumTypeViewModel.cs" />
-    <Compile Include="Models\ViewModels\LecturerScheduleViewModel.cs" />
-    <Compile Include="Models\ViewModels\PageViewModel.cs" />
-    <Compile Include="Models\RequestModels\AuditoriumScheduleRequest.cs" />
-    <Compile Include="Models\RequestModels\CreateScheduleRequest.cs" />
-    <Compile Include="Models\RequestModels\EditScheduleRequest.cs" />
-    <Compile Include="Models\RequestModels\GetFreeAuditoiumsRequest.cs" />
-    <Compile Include="Models\RequestModels\GetSchedulesAndInfoesRequest.cs" />
-    <Compile Include="Models\RequestModels\UserStateChangedRequest.cs" />
     <Compile Include="Infrastructure\CollectionResponse.cs" />
     <Compile Include="Infrastructure\EnumerableWithTotal.cs" />
     <Compile Include="Infrastructure\EnumerableWithTotalExtensions.cs" />
@@ -234,14 +215,11 @@
     <Compile Include="Models\ViewModels\ScheduleForLecturersWithTimesViewModel.cs" />
     <Compile Include="Models\ViewModels\ScheduleTypeViewModel.cs" />
     <Compile Include="Models\ViewModels\ScheduleViewModel.cs" />
-    <Compile Include="Models\RequestModels\SignInRequest.cs" />
     <Compile Include="Models\ViewModels\SemesterViewModel.cs" />
     <Compile Include="Models\ViewModels\BranchViewModel.cs" />
-    <Compile Include="Models\ViewModels\BuildingViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\FacultyViewModel.cs" />
     <Compile Include="Models\ViewModels\ScheduleInfoViewModel.cs" />
-    <Compile Include="Models\ViewModels\SchedulerViewModel.cs" />
     <Compile Include="Models\ViewModels\StudyYearViewModel.cs" />
     <Compile Include="Models\ViewModels\TimeViewModel.cs" />
     <Compile Include="Models\ViewModels\WeekTypeViewModel.cs" />
@@ -250,28 +228,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\app.js" />
-    <Content Include="App\controllers\auditoriumScheduleGeneralController.js" />
-    <Content Include="App\controllers\baseController.js" />
-    <Content Include="App\controllers\auditoriumScheduleController.js" />
-    <Content Include="App\controllers\lecturerScheduleController.js" />
-    <Content Include="App\controllers\navbarController.js" />
-    <Content Include="App\controllers\schedulerController.js" />
-    <Content Include="App\controllers\settingsController.js" />
-    <Content Include="App\directives\daterangepicker.js" />
-    <Content Include="App\directives\chart.js" />
-    <Content Include="App\directives\integer.js" />
-    <Content Include="App\directives\scheduleCard.js" />
-    <Content Include="App\directives\smartFloat.js" />
-    <Content Include="App\models\loginModel.js" />
-    <Content Include="App\models\scheduleCreatorModel.js" />
-    <Content Include="App\models\threadModel.js" />
-    <Content Include="App\models\settingsModel.js" />
-    <Content Include="App\services\auth.js" />
-    <Content Include="App\services\specialityService.js" />
-    <Content Include="App\services\facultyService.js" />
-    <Content Include="App\services\groupService.js" />
-    <Content Include="App\services\transactionService.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\app.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\auditoriumScheduleController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\auditoriumScheduleGeneralController.js" />
@@ -312,6 +268,7 @@
     <Content Include="Areas\Students\Scripts\App\services\facultyService.js" />
     <Content Include="Areas\Students\Scripts\App\services\groupService.js" />
     <Content Include="Areas\Students\Scripts\App\services\specialityService.js" />
+    <Content Include="Areas\Students\Scripts\App\services\timetableService.js" />
     <Content Include="Areas\Students\Scripts\App\services\transactionService.js" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-responsive.css" />
@@ -738,6 +695,7 @@
     <Content Include="Areas\Dispatcher\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Students\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Students\Views\AuditoriumSchedule\_Index.cshtml" />
+    <Content Include="Areas\Students\Views\ThreadSchedule\_Index.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -862,9 +820,7 @@
       <Name>Timetable.Sync.Logic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

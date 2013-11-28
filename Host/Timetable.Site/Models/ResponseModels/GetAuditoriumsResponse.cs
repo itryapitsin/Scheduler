@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Timetable.Site.Areas.Dispatcher.Models.ViewModels;
 using Timetable.Site.Models.ViewModels;
 
-namespace Timetable.Site.Areas.Dispatcher.Models.ResponseModels
+namespace Timetable.Site.Models.ResponseModels
 {
     public class GetAuditoriumsResponse
     {

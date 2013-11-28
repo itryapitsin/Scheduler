@@ -79,12 +79,12 @@ namespace Timetable.Logic.Interfaces
 
         #region lecturers
         LecturerDataTransfer GetLecturerBySearchQuery(string queryString);
+        LecturerDataTransfer GetLecturerById(int lecturerId);
         IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(int departmentId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
             int tutorialId,
             int tutorialTypeId);
-        LecturerDataTransfer GetLecturerById(int lecturerId);
         LecturerDataTransfer GetLecturerByFirstMiddleLastname(string arg);
         IEnumerable<LecturerDataTransfer> GetLecturersByFirstMiddleLastname(string arg);
         #endregion
@@ -170,14 +170,17 @@ namespace Timetable.Logic.Interfaces
             int auditoriumId,
             int studyYearId,
             int semester);
+        IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
+            int auditoriumId,
+            DateTime date);
         ScheduleDataTransfer GetScheduleById(int id);
         IEnumerable<ScheduleTypeDataTransfer> GetScheduleTypes();
         #endregion
 
         IEnumerable<SpecialityDataTransfer> GetSpecialities(int branchId);
         IEnumerable<SpecialityDataTransfer> GetSpecialitiesForFaculti(int facultyId);
-        IEnumerable<TimeDataTransfer> GetTimesByIds(IEnumerable<int> timeIds);
         IEnumerable<TimeDataTransfer> GetTimes(int buildingId);
+        IEnumerable<TimeDataTransfer> GetTimesByIds(IEnumerable<int> timeIds);
         TutorialDataTransfer GetTutorialById(TutorialDataTransfer tutorialDataTransfer);
         IEnumerable<TutorialDataTransfer> GetTutorialsForGroup(
             FacultyDataTransfer facultyDataTransfer,
@@ -193,5 +196,6 @@ namespace Timetable.Logic.Interfaces
         TutorialTypeDataTransfer GetTutorialTypeById(TutorialTypeDataTransfer tutorialTypeDataTransfer);
         IEnumerable<WeekTypeDataTransfer> GetWeekTypes();
         IEnumerable<StudyYearDataTransfer> GetStudyYears();
+        StudyYearDataTransfer GetStudyYear(DateTime date);
     }
 }
