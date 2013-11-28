@@ -78,11 +78,13 @@ namespace Timetable.Logic.Interfaces
         #endregion
 
         #region lecturers
+        LecturerDataTransfer GetLecturerBySearchQuery(string queryString);
         IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(int departmentId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
             int tutorialId,
             int tutorialTypeId);
+        LecturerDataTransfer GetLecturerById(int lecturerId);
         LecturerDataTransfer GetLecturerByFirstMiddleLastname(string arg);
         IEnumerable<LecturerDataTransfer> GetLecturersByFirstMiddleLastname(string arg);
         #endregion
@@ -177,6 +179,7 @@ namespace Timetable.Logic.Interfaces
 
         IEnumerable<SpecialityDataTransfer> GetSpecialities(int branchId);
         IEnumerable<SpecialityDataTransfer> GetSpecialitiesForFaculti(int facultyId);
+        IEnumerable<TimeDataTransfer> GetTimesByIds(IEnumerable<int> timeIds);
         IEnumerable<TimeDataTransfer> GetTimes(int buildingId);
         TutorialDataTransfer GetTutorialById(TutorialDataTransfer tutorialDataTransfer);
         IEnumerable<TutorialDataTransfer> GetTutorialsForGroup(

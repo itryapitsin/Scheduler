@@ -1,6 +1,0 @@
-﻿<%@ ServiceHost 
-    Language="C#" 
-    Debug="true" 
-    Service="Timetable.Host.Services.ScheduleService" 
-    CodeBehind="Schedule.svc.cs" 
-    Factory="Ninject.Extensions.Wcf.NinjectServiceHostFactory" %>
