@@ -74,6 +74,8 @@
   <ItemGroup>
     <Compile Include="Context\DbContextExtensions.cs" />
     <Compile Include="Context\SchedulerContext.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\RegistrationException.cs" />
     <Compile Include="Context\Interfaces\IDatabase.cs" />
     <Compile Include="Context\Interfaces\ISchedulerDatabase.cs" />
     <Compile Include="Mapping\UserMapping.cs" />

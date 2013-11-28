@@ -255,15 +255,6 @@
     <Content Include="Areas\Students\Scripts\App\controllers\baseController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\lecturerScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\threadScheduleController.js" />
-    <Content Include="Areas\Students\Scripts\App\directives\chart.js" />
-    <Content Include="Areas\Students\Scripts\App\directives\daterangepicker.js" />
-    <Content Include="Areas\Students\Scripts\App\directives\integer.js" />
-    <Content Include="Areas\Students\Scripts\App\directives\scheduleCard.js" />
-    <Content Include="Areas\Students\Scripts\App\directives\smartFloat.js" />
-    <Content Include="Areas\Students\Scripts\App\models\loginModel.js" />
-    <Content Include="Areas\Students\Scripts\App\models\scheduleCreatorModel.js" />
-    <Content Include="Areas\Students\Scripts\App\models\settingsModel.js" />
-    <Content Include="Areas\Students\Scripts\App\models\threadModel.js" />
     <Content Include="Areas\Students\Scripts\App\services\auth.js" />
     <Content Include="Areas\Students\Scripts\App\services\facultyService.js" />
     <Content Include="Areas\Students\Scripts\App\services\groupService.js" />
