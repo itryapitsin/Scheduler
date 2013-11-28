@@ -186,6 +186,7 @@
     <Compile Include="Areas\Students\Controllers\MainController.cs" />
     <Compile Include="Areas\Students\Controllers\ThreadScheduleController.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
+    <Compile Include="Areas\Students\Models\ViewModels\ThreadScheduleViewModel.cs" />
     <Compile Include="Models\ResponseModels\GetAuditoriumsResponse.cs" />
     <Compile Include="Models\ViewModels\AuditoriumViewModel.cs" />
     <Compile Include="Models\ViewModels\BuildingViewModel.cs" />
