@@ -90,15 +90,15 @@
     </Reference>
     <Reference Include="Microsoft.Owin, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.2.0.2\lib\net45\Microsoft.Owin.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.Security.2.0.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -176,7 +176,6 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\SignInRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\UserStateChangedRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetAuditoriumsAndSchedulesResponse.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetAuditoriumsResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetSchedulesAndInfoesResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
     <Compile Include="Areas\Students\Controllers\BaseController.cs" />
@@ -255,10 +254,6 @@
     <Content Include="Areas\Students\Scripts\App\controllers\baseController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\lecturerScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\threadScheduleController.js" />
-    <Content Include="Areas\Students\Scripts\App\services\auth.js" />
-    <Content Include="Areas\Students\Scripts\App\services\facultyService.js" />
-    <Content Include="Areas\Students\Scripts\App\services\groupService.js" />
-    <Content Include="Areas\Students\Scripts\App\services\specialityService.js" />
     <Content Include="Areas\Students\Scripts\App\services\timetableService.js" />
     <Content Include="Areas\Students\Scripts\App\services\transactionService.js" />
     <Content Include="Content\bootstrap-datepicker.css" />
