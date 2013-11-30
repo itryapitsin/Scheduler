@@ -217,3 +217,7 @@ pip-log.txt
 .mr.developer.cfg
 
 /Host/Timetable.Site/Web.config
+/Host/Timetable.Site/Web.config
+/Host/Timetable.Site/Web.Debug.config
+/Host/Timetable.Site/Web.Release.config
+/Host/Timetable.Sync/App.config

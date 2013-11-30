@@ -683,6 +683,9 @@
     <Content Include="Areas\Students\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Students\Views\AuditoriumSchedule\_Index.cshtml" />
     <Content Include="Areas\Students\Views\ThreadSchedule\_Index.cshtml" />
+    <Content Include="Areas\Students\Views\Shared\_Timetable.cshtml" />
+    <Content Include="Areas\Students\Views\ThreadSchedule\_Toolbar.cshtml" />
+    <Content Include="Areas\Students\Views\ThreadSchedule\_SelectThreadDialog.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
