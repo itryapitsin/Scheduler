@@ -805,7 +805,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
+    <ProjectReference Include="..\Data\Timetable.Data\Timetable.Data.csproj">
       <Project>{562EAD51-A27A-47DE-9CF6-554D0D793FB3}</Project>
       <Name>Timetable.Data</Name>
     </ProjectReference>
@@ -853,5 +853,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

@@ -62,11 +62,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Timetable.Data.IIAS\Timetable.Data.IIAS.csproj">
+    <ProjectReference Include="..\Data\Timetable.Data.IIAS\Timetable.Data.IIAS.csproj">
       <Project>{711E2BB6-2FDC-4B03-AA42-A0A3F49B88E0}</Project>
       <Name>Timetable.Data.IIAS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
+    <ProjectReference Include="..\Data\Timetable.Data\Timetable.Data.csproj">
       <Project>{562EAD51-A27A-47DE-9CF6-554D0D793FB3}</Project>
       <Name>Timetable.Data</Name>
     </ProjectReference>
@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
