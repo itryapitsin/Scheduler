@@ -32,6 +32,7 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<GroupDataTransfer> GetGroupsByCode(string code, int count);
         bool ValidateSchedule(ScheduleDataTransfer scheduleDataTransfer);
         IEnumerable<BranchDataTransfer> GetBranches();
+        AuditoriumDataTransfer GetAuditoriumById(int auditoriumId); 
         IEnumerable<AuditoriumDataTransfer> GetAuditoriums(
             int buildingId,
             int[] auditoriumTypeIds = null,
@@ -78,6 +79,8 @@ namespace Timetable.Logic.Interfaces
         #endregion
 
         #region lecturers
+        LecturerDataTransfer GetLecturerById(int lecturerId);
+        LecturerDataTransfer GetLecturerBySearchQuery(string queryString);
         IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(int departmentId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
@@ -175,6 +178,7 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<ScheduleTypeDataTransfer> GetScheduleTypes();
         #endregion
 
+        IEnumerable<TimeDataTransfer> GetTimesByIds(IEnumerable<int> timeIds);
         IEnumerable<SpecialityDataTransfer> GetSpecialities(int branchId);
         IEnumerable<SpecialityDataTransfer> GetSpecialitiesForFaculti(int facultyId);
         IEnumerable<TimeDataTransfer> GetTimes(int buildingId);

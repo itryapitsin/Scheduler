@@ -3,10 +3,11 @@
     <div class="navbar-inner">
         <div class="container">
             <form class="navbar-search pull-left">
-                <select class="span5" required="required" ng-change="loadAuditoriums(building)" ng-model="building" ng-options="building.Id as building.Name for building in pageModel.Buildings"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()" ng-model="auditorium" ng-options="building.Id as building.Name for building in auditoriums"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()" ng-model="studyYear" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()"  ng-model="semester" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters"></select>
+                <select class="span5" required="required" ng-change="loadAuditoriums(building)" ng-model="building" ng-options="building.Id as building.Name for building in pageModel.Buildings" style="height: 30px;margin-bottom: 0px;"></select>
+                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()" ng-model="auditorium" ng-options="building.Id as building.Name for building in auditoriums" style="height: 30px;margin-bottom: 0px;"></select>
+                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()" ng-model="studyYear" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears" style="height: 30px;margin-bottom: 0px;"></select>
+                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()"  ng-model="semester" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters" style="height: 30px;margin-bottom: 0px;"></select>
+                <button class="btn" style="margin-top: 0;" ng-init="excelTitle='Скачать в Excel'" data-placement="right" bs-tooltip="excelTitle" data-original-title ng-click="getReportForAuditorium()"><i class="icon icon-list"></i></button>
                 @*<span class="badge badge-important" ng-init="title='Часов в неделю'" bs-tooltip="title" data-original-title title>{{foundLecturersCount}}</span>*@
             </form>
         </div>

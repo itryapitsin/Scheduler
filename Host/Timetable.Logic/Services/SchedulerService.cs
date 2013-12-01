@@ -56,6 +56,17 @@ namespace Timetable.Logic.Services
                 .Select(x => new BranchDataTransfer(x));
         }
 
+        public AuditoriumDataTransfer GetAuditoriumById(int auditoriumId) 
+        {
+            return Database.Auditoriums
+                  .Where(x => x.Id == auditoriumId)
+                  .Include(x => x.Building)
+                  .Include(x => x.AuditoriumType)
+                  .ToList()
+                  .Select(x => new AuditoriumDataTransfer(x))
+                  .FirstOrDefault();
+        }
+
         public IEnumerable<AuditoriumDataTransfer> GetAuditoriums(
             int buildingId,
             int[] auditoriumTypeIds = null,
@@ -319,6 +330,35 @@ namespace Timetable.Logic.Services
                     .Any(y => y.Id.Equals(departmentId)))
                 .ToList()
                 .Select(x => new LecturerDataTransfer(x));
+        }
+
+        public LecturerDataTransfer GetLecturerBySearchQuery(string queryString)
+        {
+            queryString = queryString.Replace(".", "");
+            var list = queryString.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            var lastName = list[0];
+            var firstName = "";
+            var middleName = "";
+
+            if (list.Length >= 2) firstName = list[1];
+            if (list.Length >= 3) middleName = list[2];
+
+            var query = Database.Lecturers.Where(x => x.Lastname == lastName &&
+                 x.Middlename.StartsWith(middleName) &&
+                 x.Firstname.StartsWith(firstName))
+                .ToList()
+                .Select(x => new LecturerDataTransfer(x));
+
+            return query.FirstOrDefault();
+        }
+
+        public LecturerDataTransfer GetLecturerById(int lecturerId)
+        {
+            return Database.Lecturers
+                .Where(x => x.Id == lecturerId).ToList()
+                .Select(x => new LecturerDataTransfer(x))
+                .FirstOrDefault();
         }
 
         public IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId)
@@ -700,9 +740,9 @@ namespace Timetable.Logic.Services
             int semester)
         {
             var result = GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYearId)
+                .Where(x => x.ScheduleInfo.StudyYearId == studyYearId)
                 .Where(x => x.ScheduleInfo.SemesterId == semester)
-                .Where(x => x.ScheduleInfo.Lecturer.Id.Equals(lecturerId))
+                .Where(x => x.ScheduleInfo.LecturerId.Equals(lecturerId))
                 .ToList()
                 .Select(x => new ScheduleDataTransfer(x));
 
@@ -848,6 +888,14 @@ namespace Timetable.Logic.Services
                 .Where(x => x.Faculties.Any(y => y.Id == facultyId))
                 .ToList()
                 .Select(x => new SpecialityDataTransfer(x));
+        }
+
+        public IEnumerable<TimeDataTransfer> GetTimesByIds(IEnumerable<int> timeIds)
+        {
+            return Database.Times
+                .Where(x => timeIds.Any(y => y == x.Id))
+                .ToList()
+                .Select(x => new TimeDataTransfer(x));
         }
 
         public IEnumerable<TimeDataTransfer> GetTimes(int buidlingId)
