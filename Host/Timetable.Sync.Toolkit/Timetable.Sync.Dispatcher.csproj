@@ -49,12 +49,6 @@
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\SyncDataTasks.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
-      <Project>{562ead51-a27a-47de-9cf6-554d0d793fb3}</Project>
-      <Name>Timetable.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

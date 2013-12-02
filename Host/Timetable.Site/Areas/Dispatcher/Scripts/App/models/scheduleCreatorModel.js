@@ -4,6 +4,7 @@
 
         this.scheduleTypes = pageModel.ScheduleTypes;
         this.scheduleType = this.scheduleTypes[0].Id;
+        this.buildings = pageModel.Buildings;
         this.building = pageModel.CurrentBuildingId;
         this.times = pageModel.Times;
         this.weekTypes = pageModel.WeekTypes;

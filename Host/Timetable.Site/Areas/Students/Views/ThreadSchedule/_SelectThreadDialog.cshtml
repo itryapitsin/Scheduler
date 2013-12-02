@@ -1,0 +1,25 @@
+﻿<div class="span4 modal" ng-show="!schedules || schedules.length == 0">
+    <div class="modal-header">
+        <h3>Выбор группы</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset>
+                <label>Филиал</label>
+                <select class="span7" ng-model="thread.modal.branch" ng-change="thread.modal.changeBranch()" ng-options="branch.Id as branch.Name for branch in branches"></select>
+
+                <label>Факультет</label>
+                <select class="span7" ng-model="thread.modal.faculty" ng-change="thread.modal.changeFaculty()" ng-options="faculty.Id as faculty.Name for faculty in faculties"></select>
+
+                <label>Курс</label>
+                <select class="span7" ng-model="thread.modal.course" ng-change="thread.modal.changeCourse()" ng-options="course.Id as course.Name for course in courses"></select>
+
+                <label>Группа</label>
+                <select class="span7" ng-model="thread.modal.selectedGroups" ng-options="group.Id as group.Code for group in groups"></select>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="selectGroup()" class="btn btn-primary">Выбрать</button>
+    </div>
+</div>

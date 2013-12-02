@@ -35,9 +35,9 @@ header, footer, nav, section {
     display: block;
 }
 
-.modal {
+/*.modal {
     width: 700px;
-}
+}*/
 
 .schedule-card {
     height: 97%;

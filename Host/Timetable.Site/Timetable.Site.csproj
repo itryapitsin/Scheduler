@@ -165,7 +165,6 @@
     <Compile Include="Areas\Dispatcher\Controllers\GroupController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\LecturerScheduleController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\MainController.cs" />
-    <Compile Include="Areas\Dispatcher\Controllers\ReportController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\SchedulerController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\SettingsController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\UserController.cs" />
@@ -178,16 +177,11 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetScheduleBaseRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetScheduleForLecturerRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetSchedulesAndInfoesRequest.cs" />
-    <Compile Include="Areas\Dispatcher\Models\RequestModels\LecturerScheduleRequest.cs" />
-    <Compile Include="Areas\Dispatcher\Models\RequestModels\ReportForAuditoriumRequest.cs" />
-    <Compile Include="Areas\Dispatcher\Models\RequestModels\ReportForLecturerRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\SignInRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\UserStateChangedRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetAuditoriumsAndSchedulesResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetSchedulesAndInfoesResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\LecturerScheduleViewModel.cs" />
-    <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleForLecturersWithTimesViewModel.cs" />
     <Compile Include="Areas\Students\Controllers\BaseController.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\PageViewModel.cs" />
@@ -264,7 +258,6 @@
     <Content Include="Areas\Students\Scripts\App\controllers\lecturerScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\threadScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\services\timetableService.js" />
-    <Content Include="Areas\Students\Scripts\App\services\transactionService.js" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
@@ -691,6 +684,9 @@
     <Content Include="Areas\Students\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Students\Views\AuditoriumSchedule\_Index.cshtml" />
     <Content Include="Areas\Students\Views\ThreadSchedule\_Index.cshtml" />
+    <Content Include="Areas\Students\Views\Shared\_Timetable.cshtml" />
+    <Content Include="Areas\Students\Views\ThreadSchedule\_Toolbar.cshtml" />
+    <Content Include="Areas\Students\Views\ThreadSchedule\_SelectThreadDialog.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -751,16 +747,7 @@
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\Site\auditorium.viewmodel.js" />
-    <Content Include="Scripts\Site\database.viewmodel.js" />
-    <Content Include="Scripts\Site\data.model.js" />
-    <Content Include="Scripts\Site\dojo.js" />
-    <Content Include="Scripts\Site\group.viewmodel.js" />
-    <Content Include="Scripts\Site\lecturer.viewmodel.js" />
-    <Content Include="Scripts\Site\newbase.viewmodel.js" />
-    <Content Include="Scripts\Site\schedule.lecturer.viewmodel.js" />
-    <Content Include="Scripts\Site\SignIn\signin.viewmodel.js" />
-    <Content Include="Scripts\Site\unscheduled.viewmodel.js" />
+    <Content Include="Scripts\Services\timetableService.js" />
     <Content Include="Scripts\ui.dropdownchecklist-1.4-min.js" />
     <Content Include="Scripts\dateformat.js" />
     <Content Include="Scripts\jquery.autonumeric.js" />
@@ -779,12 +766,6 @@
     <Content Include="Scripts\jquery.linq.min.js" />
     <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\jquery.string-format.js" />
-    <Content Include="Scripts\Site\base.viewmodel.js" />
-    <Content Include="Scripts\Site\schedule.auditorium.viewmodel.js" />
-    <Content Include="Scripts\Site\schedule.group.viewmodel.js" />
-    <Content Include="Scripts\Site\schedule.updatedata.viewmodel.js" />
-    <Content Include="Scripts\Site\schedule.wizard.viewmodel.js" />
-    <Content Include="Scripts\Site\Database\auditorium.database.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Web.config">
@@ -802,7 +783,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Timetable.Data\Timetable.Data.csproj">
+    <ProjectReference Include="..\Data\Timetable.Data\Timetable.Data.csproj">
       <Project>{562EAD51-A27A-47DE-9CF6-554D0D793FB3}</Project>
       <Name>Timetable.Data</Name>
     </ProjectReference>
@@ -850,5 +831,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>
