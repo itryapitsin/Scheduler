@@ -68,7 +68,7 @@ namespace Timetable.Data.Mapping
                 .WithMany()
                 .HasForeignKey(x => x.StudyYearId);
 
-            HasRequired(x => x.Department)
+            HasOptional(x => x.Department)
                 .WithMany()
                 .HasForeignKey(x => x.DepartmentId);
         }

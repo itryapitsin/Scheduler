@@ -67,7 +67,7 @@
     <Compile Include="SyncData\FacultySync.cs" />
     <Compile Include="SyncData\DepartmentSync.cs" />
     <Compile Include="SyncData\BranchSync.cs" />
-    <Compile Include="SyncData\SpecialityInfoSync.cs" />
+    <Compile Include="SyncData\ScheduleInfoSync.cs" />
     <Compile Include="SyncData\SpecialitySync.cs" />
     <Compile Include="SyncData\TimeSync.cs" />
     <Compile Include="SyncData\TutorialTypeSync.cs" />
@@ -90,7 +90,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,7 +18,7 @@ namespace Timetable.Data.IIAS.Models
 
         public int TutorialId { get; set; }
 
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         public string StudyYear { get; set; }
 

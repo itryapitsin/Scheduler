@@ -23,6 +23,14 @@
     $scope.description = function(schedule) {
         $scope.selectedSchedule = schedule;
     };
+    
+    $scope.studyYearChanged = function () {
+        loadAuditoriumsAndSchedules();
+    };
+    
+    $scope.semesterChanged = function () {
+        loadAuditoriumsAndSchedules();
+    };
 
     function loadAuditoriumsAndSchedules() {
         $http
@@ -42,21 +50,21 @@
             });
     }
 
-    $scope.loadAuditoriumsSchedule = function () {
-        $http
-            .get($http.prefix + 'AuditoriumSchedule/LoadAuditoriumsSchedule',
-                {
-                    params: {
-                        buildingId: $scope.building,
-                        auditoriumTypeId: $scope.auditoriumType,
-                        studyYearId: $scope.studyYear,
-                        semester: $scope.semester
-                    }
-                })
-            .success(function (response) {
-                $scope.schedules = response;
-            });
-    };
+    //$scope.loadAuditoriumsSchedule = function () {
+    //    $http
+    //        .get($http.prefix + 'AuditoriumSchedule/LoadAuditoriumsSchedule',
+    //            {
+    //                params: {
+    //                    buildingId: $scope.building,
+    //                    auditoriumTypeId: $scope.auditoriumType,
+    //                    studyYearId: $scope.studyYear,
+    //                    semester: $scope.semester
+    //                }
+    //            })
+    //        .success(function (response) {
+    //            $scope.schedules = response;
+    //        });
+    //};
 
     $scope.isBusy = function (auditorium, day, time) {
         var hasSchedule = $.Enumerable.From($scope.schedules)

@@ -5,8 +5,8 @@
             <form class="navbar-search pull-left">
                 <select class="span5" required="required" ng-change="buildingChanged()" ng-model="building" ng-options="building.Id as building.Name for building in pageModel.Buildings"></select>
                 <select class="span2" required="required" ng-change="auditoriumTypeChanged()" ng-model="auditoriumType" ng-options="auditoriumType.Id as auditoriumType.Name for auditoriumType in pageModel.AuditoriumTypes"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumsSchedule()" ng-model="studyYear" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumsSchedule()" ng-model="semester" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters"></select>
+                <select class="span2" required="required" ng-change="studyYearChanged()" ng-model="studyYear" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears"></select>
+                <select class="span2" required="required" ng-change="semesterChanged()" ng-model="semester" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters"></select>
             </form>
         </div>
     </div>

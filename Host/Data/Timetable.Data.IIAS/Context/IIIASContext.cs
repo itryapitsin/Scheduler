@@ -43,5 +43,7 @@ namespace Timetable.Data.IIAS.Context
         IQueryable<Course> GetCourses();
 
         IQueryable<ScheduleType> GetScheduleTypes();
+
+        IQueryable<Schedule> GetSchedules();
     }
 }

@@ -180,6 +180,14 @@
     <Compile Include="Migrations\201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.Designer.cs">
       <DependentUpon>201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312022248032_DepartmentIdInScheduleInfoesIsNullable.cs" />
+    <Compile Include="Migrations\201312022248032_DepartmentIdInScheduleInfoesIsNullable.Designer.cs">
+      <DependentUpon>201312022248032_DepartmentIdInScheduleInfoesIsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312030704487_DropSemesterFieldInScheduleInfoes.cs" />
+    <Compile Include="Migrations\201312030704487_DropSemesterFieldInScheduleInfoes.Designer.cs">
+      <DependentUpon>201312030704487_DropSemesterFieldInScheduleInfoes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -273,6 +281,12 @@
     <EmbeddedResource Include="Migrations\201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.resx">
       <DependentUpon>201311212056544_AuditoriumScheduleSelectedAuditoriumTypesAddedToUsers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312022248032_DepartmentIdInScheduleInfoesIsNullable.resx">
+      <DependentUpon>201312022248032_DepartmentIdInScheduleInfoesIsNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312030704487_DropSemesterFieldInScheduleInfoes.resx">
+      <DependentUpon>201312030704487_DropSemesterFieldInScheduleInfoes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
@@ -280,7 +294,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

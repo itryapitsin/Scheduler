@@ -38,6 +38,7 @@ namespace Timetable.Data.IIAS.Context
         public DbSet<Time> Times { get; set; }
 
         public DbSet<ScheduleInfo> ScheduleInfoes { get; set; }
+        public IDbSet<Schedule> Schedules { get; set; }
 
         public IIASContext(OracleConnection connection)
             : base(connection, true)
@@ -259,9 +260,7 @@ namespace Timetable.Data.IIAS.Context
                         AND (PCARD_ID IS NOT NULL) 
                         AND (EW_ID IS NOT NULL) 
                         AND (DIS_CODE IS NOT NULL) 
-                        AND (UBU_ID IS NOT NULL) 
-                        AND (GR_UBU_ID > 0) 
-                        AND (GR_UBU_ID IS NOT NULL) 
+                        AND (UCH_GOG LIKE '2013/%')
                         AND (KURS_CODE > 0) 
                         AND (KURS_CODE IS NOT NULL) 
                         AND (SPEC_CODE IS NOT NULL) 
@@ -302,7 +301,27 @@ namespace Timetable.Data.IIAS.Context
 
         public IQueryable<Schedule> GetSchedules()
         {
-            throw new NotImplementedException();
+            return RawSqlQuery<Schedule>(@"
+                    SELECT        
+                        SR_ID AS Id,
+                        PERIOD AS WeekType,
+                        DATE_FROM AS DateStart, 
+                        DATE_TO AS DateEnd, 
+                        CELS_CES_ID AS ScheduleInfoId, 
+                        TUP_TUP_ID AS TimeId, 
+                        BQR_ID AS AuditoriumId, 
+                        TRS_TRS_ID AS ScheduleTypeId
+                    FROM           
+                        SDMS.U_RASP_STR
+                    WHERE       
+                        (STATYS = 'Y') 
+                        AND (DATE_FROM IS NOT NULL)
+                        AND (DATE_TO IS NOT NULL)
+                        AND (TIME_FROM IS NOT NULL) 
+                        AND (TIME_TO IS NOT NULL) 
+                        AND (BQR_ID IS NOT NULL)
+                        AND (SRS_SRS_ID = 1)
+                        AND (CELS_CES_ID IS NOT NULL)");
         }
     }
 }
