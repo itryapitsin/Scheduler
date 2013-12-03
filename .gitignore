@@ -218,3 +218,7 @@ pip-log.txt
 
 /Host/Timetable.Site/Web.config
 /Host/packages
+
+/Host/.nuget/NuGet.Config
+/Host/.nuget/NuGet.exe
+/Host/.nuget/NuGet.targets
