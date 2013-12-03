@@ -222,3 +222,5 @@ pip-log.txt
 /Host/Timetable.Site/Web.Release.config
 /Host/Timetable.Sync/App.config
 Host/Data/Timetable.Data.IIAS/App.config
+/Host/packages
+/Host/Timetable.Site/Web.config
