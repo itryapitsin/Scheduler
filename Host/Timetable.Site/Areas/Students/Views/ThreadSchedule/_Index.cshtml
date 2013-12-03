@@ -1,1 +1,11 @@
-﻿
+﻿@using Newtonsoft.Json
+@Html.Partial("_Toolbar")
+<div class="container-fluid">
+    @Html.Partial("_Timetable")
+</div>
+
+@Html.Partial("_SelectThreadDialog")
+
+<script>
+    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+</script>
