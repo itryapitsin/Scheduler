@@ -1,12 +1,42 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {
+    [Description("Синхронизация специальностей")]
     public class SpecialitySync : BaseSync
     {
+        private string _insertQueryPattern = @"
+            INSERT INTO [dbo].[Specialities]
+                       ([Name]
+                       ,[ShortName]
+                       ,[Code]
+                       ,[IsActual]
+                       ,[CreatedDate]
+                       ,[UpdatedDate]
+                       ,[IIASKey]
+                       ,[BranchId])
+                 VALUES
+                       ('{0}'
+                       ,'{1}'
+                       ,'{2}'
+                       ,1
+                       ,GetDate()
+                       ,GetDate()
+                       ,{3}
+                       ,{4});";
+        private string _updateQueryPattern = @"
+                UPDATE [dbo].[Specialities]
+                   SET [Name] ='{0}'
+                      ,[ShortName] = '{1}'
+                      ,[Code] = '{2}'
+                      ,[UpdatedDate] = GetDate()
+                      ,[BranchId] = {3}
+                 WHERE Id = {4};";
+
         public override async void Sync()
         {
             var task1 = Task.Factory.StartNew(() => IIASContext.GetSpecialities().ToList());
@@ -17,6 +47,7 @@ namespace Timetable.Sync.Logic.SyncData
             var iiasEntities = await task1;
             var schedulerEntities = await task2;
             var branches = SchedulerDatabase.Branches.ToList();
+            var command = String.Empty;
 
             foreach (var iiasEntity in iiasEntities)
             {
@@ -27,31 +58,27 @@ namespace Timetable.Sync.Logic.SyncData
 
                 if (schedulerEntity == null)
                 {
-                    schedulerEntity = new Speciality
-                    {
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                        IIASKey = iiasEntity.Id,
-                        Name = iiasEntity.Name,
-                        ShortName = iiasEntity.ShortName,
-                        Code = iiasEntity.Code,
-                        BranchId = branch.Id,
-                        IsActual = true
-                    };
-                    SchedulerDatabase.Add(schedulerEntity);
+                    command += string.Format(
+                        _insertQueryPattern, 
+                        iiasEntity.Name,
+                        iiasEntity.ShortName,
+                        iiasEntity.Code,
+                        iiasEntity.Id,
+                        branch.Id);
                 }
                 else
                 {
-                    schedulerEntity.UpdatedDate = DateTime.Now;
-                    schedulerEntity.IIASKey = iiasEntity.Id;
-                    schedulerEntity.Name = iiasEntity.Name;
-                    schedulerEntity.ShortName = iiasEntity.ShortName;
-                    schedulerEntity.Code = iiasEntity.Code;
-                    schedulerEntity.BranchId = branch.Id;
-
-                    SchedulerDatabase.Update(schedulerEntity);
+                    command += string.Format(
+                        _updateQueryPattern,
+                        iiasEntity.Name,
+                        iiasEntity.ShortName,
+                        iiasEntity.Code,
+                        branch.Id,
+                        iiasEntity.Id);
                 }
             }
+
+            SchedulerDatabase.RawSqlCommand(command);
         }
     }
 }

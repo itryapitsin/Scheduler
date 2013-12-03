@@ -1,12 +1,42 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {
+    [Description("Синхронизация преподавателей")]
     public class LecturerSync: BaseSync
     {
+        private string _insertQueryPattern = @"
+            INSERT INTO [dbo].[Lecturers]
+                       ([Lastname]
+                       ,[Firstname]
+                       ,[Middlename]
+                       ,[Contacts]
+                       ,[IsActual]
+                       ,[CreatedDate]
+                       ,[UpdatedDate]
+                       ,[IIASKey])
+                 VALUES
+                       ('{0}'
+                       ,'{1}'
+                       ,'{2}'
+                       ,'{3}'
+                       ,1
+                       ,GetDate()
+                       ,GetDate()
+                       ,{4});";
+        private string _updateQueryPattern = @"
+                UPDATE [dbo].[Lecturers]
+                   SET [Lastname] = '{0}'
+                      ,[Firstname] = '{1}'
+                      ,[Middlename] = '{2}'
+                      ,[Contacts] = '{3}'
+                      ,[UpdatedDate] = GetDate()
+                 WHERE Id = {4};";
+
         public override async void Sync()
         {
             var task1 = Task.Factory.StartNew(() => IIASContext.GetLecturers().ToList());
@@ -18,37 +48,35 @@ namespace Timetable.Sync.Logic.SyncData
             var schedulerEntities = await task2;
 
             var lecturers2 = IIASContext.GetLecturers2().Where(x => !iiasEntities.Select(y => y.Id).Contains(x.Id));
-
             iiasEntities.AddRange(lecturers2);
+            var command = string.Empty;
 
             foreach (var iiasEntity in iiasEntities)
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasEntity.Id);
                 if (schedulerEntity == null)
                 {
-                    schedulerEntity = new Lecturer
-                    {
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                        IIASKey = iiasEntity.Id,
-                        Firstname = iiasEntity.Firstname,
-                        Middlename = iiasEntity.Middlename,
-                        Lastname = iiasEntity.Lastname,
-                        IsActual = true
-                    };
-                    SchedulerDatabase.Add(schedulerEntity);
+                    command += string.Format(
+                        _insertQueryPattern, 
+                        iiasEntity.Lastname,
+                        iiasEntity.Firstname,
+                        iiasEntity.Middlename,
+                        string.Empty,
+                        iiasEntity.Id);
                 }
                 else
                 {
-                    schedulerEntity.UpdatedDate = DateTime.Now;
-                    schedulerEntity.IIASKey = iiasEntity.Id;
-                    schedulerEntity.Firstname = iiasEntity.Firstname;
-                    schedulerEntity.Middlename = iiasEntity.Middlename;
-                    schedulerEntity.Lastname = iiasEntity.Lastname;
-
-                    SchedulerDatabase.Update(schedulerEntity);
+                    command += string.Format(
+                        _updateQueryPattern,
+                        iiasEntity.Lastname,
+                        iiasEntity.Firstname,
+                        iiasEntity.Middlename,
+                        string.Empty,
+                        iiasEntity.Id);
                 }
             }
+
+            SchedulerDatabase.RawSqlCommand(command);
         }
     }
 }

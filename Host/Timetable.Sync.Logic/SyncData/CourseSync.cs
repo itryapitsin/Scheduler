@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {
+    [Description("Синхронизация курсов")]
     public class CourseSync: BaseSync
     {
         public async override void Sync()

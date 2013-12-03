@@ -72,9 +72,7 @@ namespace Timetable.Logic.Services
             int[] auditoriumTypeIds = null,
             bool? isTraining = null)
         {
-            IQueryable<Auditorium> auditoriums;
-
-            auditoriums = Database.Auditoriums
+            var auditoriums = Database.Auditoriums
                 .Where(x => x.Building.Id == buildingId)
                 .Include(x => x.Building)
                 .Include(x => x.AuditoriumType);

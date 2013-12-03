@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.Optimization", "Timetable.Optimization\Timetable.Optimization.csproj", "{A1FD1CA5-1775-4D07-8B4C-9C086BE1E8B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Optimization", "Optimization", "{D6961118-D1AD-4E55-BCC1-7A7358656F86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.Optimization.Workbench", "Timetable.Optimization.Workbench\Timetable.Optimization.Workbench.csproj", "{C267765E-BD76-4452-801F-5667BD45C037}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{17D0C657-480A-4D09-9E11-17A4DF2F838B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.Sync", "Timetable.Sync\Timetable.Sync.csproj", "{E1CB8FAD-0AA8-4DD9-9AD6-E17971AD67C4}"
 EndProject

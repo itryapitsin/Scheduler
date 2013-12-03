@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {
+    [Description("Синхронизация времен звонков")]
     public class TimeSync : BaseSync
     {
         public override async void Sync()

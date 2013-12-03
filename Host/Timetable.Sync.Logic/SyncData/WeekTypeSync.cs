@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Common;
 using System.Linq;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {
+    [Description("Синхронизация типов недель")]
     public class WeekTypeSync: BaseSync
     {
         private DbConnection _connection;

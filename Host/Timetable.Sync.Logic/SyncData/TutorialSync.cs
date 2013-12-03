@@ -1,12 +1,35 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {
+    [Description("Синхронизация предметов")]
     public class TutorialSync : BaseSync
     {
+        private string _insertQueryPattern = @"
+            INSERT INTO [dbo].[Tutorials]
+                       ([Name]
+                       ,[ShortName]
+                       ,[IsActual]
+                       ,[CreatedDate]
+                       ,[UpdatedDate]
+                       ,[IIASKey])
+                 VALUES
+                       ('{0}'
+                       ,''
+                       ,1
+                       ,GetDate()
+                       ,GetDate()
+                       ,{1});";
+        private string _updateQueryPattern = @"
+                UPDATE [dbo].[Tutorials]
+                   SET [Name] = '{0}'
+                      ,[UpdatedDate] = GetDate()
+                 WHERE Id = {1};";
+
         public override async void Sync()
         {
             var task1 = Task.Factory.StartNew(() => IIASContext.GetTutorials().ToList());
@@ -16,31 +39,32 @@ namespace Timetable.Sync.Logic.SyncData
 
             var iiasEntities = await task1;
             var schedulerEntities = await task2;
+            var command = String.Empty;
+
+            
 
             foreach (var iiasEntity in iiasEntities)
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasEntity.Id);
                 if (schedulerEntity == null)
                 {
-                    schedulerEntity = new Tutorial
-                    {
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                        IIASKey = iiasEntity.Id,
-                        Name = iiasEntity.Name,
-                        IsActual = true
-                    };
-                    SchedulerDatabase.Add(schedulerEntity);
+                    command += string.Format(
+                        _insertQueryPattern, 
+                        iiasEntity.Name.Replace('\'', '"'),
+                        iiasEntity.Id);
                 }
                 else
                 {
-                    schedulerEntity.UpdatedDate = DateTime.Now;
-                    schedulerEntity.IIASKey = iiasEntity.Id;
-                    schedulerEntity.Name = iiasEntity.Name;
-
-                    SchedulerDatabase.Update(schedulerEntity);
+                    command += string.Format(
+                        _updateQueryPattern,
+                        iiasEntity.Name.Replace('\'', '"'),
+                        iiasEntity.Id);
                 }
             }
+
+            //SchedulerDatabase.RawSqlCommand("SET QUOTED_IDENTIFIER OFF;");
+            SchedulerDatabase.RawSqlCommand(command);
+            //SchedulerDatabase.RawSqlCommand("SET QUOTED_IDENTIFIER ON;");
         }
     }
 }
