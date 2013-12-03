@@ -9,6 +9,14 @@
     $scope.semester = pageModel.Semester;
     $scope.schedules = pageModel.Schedules;
 
+    $scope.getReportForAuditorium = function () {
+
+        document.location.href = '/Report/GetReportForAuditorium?auditoriumId=' + $scope.auditorium +
+                                         '&semester=' + $scope.semester +
+                                         '&studyYearId=' + $scope.studyYear +
+                                         '&title=' + "sometitle";
+    };
+
     $scope.loadAuditoriums = function (building) {
         $http
             .get($http.prefix + 'AuditoriumSchedule/GetAuditoriums', { params: { buildingId: building } })
