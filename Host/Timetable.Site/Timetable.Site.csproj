@@ -361,6 +361,7 @@
     <Content Include="Scripts\angular-loader.min.js" />
     <Content Include="Scripts\angular-localstorage.js" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-loading.js" />
     <Content Include="Scripts\angular-progress.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />

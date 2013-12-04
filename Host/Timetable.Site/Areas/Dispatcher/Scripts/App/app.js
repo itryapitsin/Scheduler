@@ -18,19 +18,19 @@ app.config(function ($routeProvider) {
         controller: lecturerScheduleController,
         resolve: lecturerScheduleController.prototype.resolve
     };
-    
+
     var auditoriumScheduleRoute = {
         templateUrl: prefix + 'auditoriumschedule',
         controller: auditoriumScheduleController,
         resolve: auditoriumScheduleController.prototype.resolve
     };
-    
+
     var auditoriumScheduleGeneralRoute = {
         templateUrl: prefix + 'auditoriumschedule/general',
         controller: auditoriumScheduleGeneralController,
         resolve: auditoriumScheduleGeneralController.prototype.resolve
     };
-    
+
     var settingsRoute = {
         templateUrl: prefix + 'settings',
         controller: settingsController,
@@ -46,7 +46,7 @@ app.config(function ($routeProvider) {
         .otherwise({ redirectTo: '/scheduler' });
 });
 
-app.run(function ($rootScope, $http) {
+app.run(function ($rootScope, $http, $timeout) {
     var prefix = window.location.pathname;
 
     if (prefix[prefix.length - 1] != "/")
@@ -54,5 +54,16 @@ app.run(function ($rootScope, $http) {
 
     $rootScope.prefix = prefix;
     $http.prefix = prefix;
+    $rootScope.loading = true;
+
+    $rootScope.$on('$routeChangeStart', function () {
+        $rootScope.loading = true;
+    });
+
+    $rootScope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+            $rootScope.loading = false;
+        }, 500);
+    });
 });
 

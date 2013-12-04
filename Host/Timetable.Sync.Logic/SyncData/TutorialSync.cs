@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Sync.Logic.SyncData
 {
@@ -62,9 +61,7 @@ namespace Timetable.Sync.Logic.SyncData
                 }
             }
 
-            //SchedulerDatabase.RawSqlCommand("SET QUOTED_IDENTIFIER OFF;");
             SchedulerDatabase.RawSqlCommand(command);
-            //SchedulerDatabase.RawSqlCommand("SET QUOTED_IDENTIFIER ON;");
         }
     }
 }

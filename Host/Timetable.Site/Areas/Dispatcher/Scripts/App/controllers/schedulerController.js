@@ -3,8 +3,7 @@
     settingsModel,
     threadModel,
     scheduleCreatorModel) {
-    var self = this;
-
+    
     $scope.pageModel = pageModel;
     $scope.settings = settingsModel;
     $scope.thread = threadModel;

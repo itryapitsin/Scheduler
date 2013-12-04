@@ -1,14 +1,17 @@
 ﻿baseController = {};
 
 baseController.resolve = {
-    delay: function ($q, $timeout, ngProgress) {
+    delay: function ($q, $timeout) {
         var delay = $q.defer();
-        ngProgress.start();
+        //ngLoading.start();
 
-        $timeout(function () {
+        //$timeout(function () {
             delay.resolve();
-            ngProgress.complete();
-        }, 1000);
+        //    //ngLoading.complete();
+        //}, 1000);
+
+        //$q.when(delay.promise)
+        //    .then(function() { alert("test"); });
 
         return delay.promise;
     }

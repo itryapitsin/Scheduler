@@ -32,6 +32,7 @@ namespace Timetable.Site
                 "~/Scripts/angular-bootstrap-prettify.js",
                 "~/Scripts/angular-localstorage.js",
                 "~/Scripts/angular-progress.js",
+                "~/Scripts/angular-loading.js",
                 "~/Scripts/angular-dragndrop.js",
                 "~/Scripts/angular-sortable.js",
                 "~/Scripts/ui-bootstrap-{version}.js",

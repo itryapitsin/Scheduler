@@ -42,7 +42,7 @@
                             </div>
                             <div class="control-group">
                                 <div class="controls">
-                                    <button type="submit" class="btn">Сохранить</button>
+                                    <button type="submit" class="btn"><i class="icon-ok"></i> Сохранить</button>
                                 </div>
                             </div>
                         </form>
@@ -57,7 +57,12 @@
                 </div>
                 <div id="collapseTwo" class="accordion-body collapse">
                     <div class="accordion-inner">
-                        Anim pariatur cliche...
+                        <button class="btn"><i class="icon icon-plus"></i> Создать пользователя</button>
+                        &nbsp;
+                        <hr />
+                        <ol>
+                            <li ng-repeat="user in users">{{log}}</li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -72,11 +77,52 @@
                         <button class="btn" ng-click="refreshLogClick()" ng-disabled="isSyncStarted"><i class="icon icon-refresh"></i> Обновить данные из ИИАС</button>
                         &nbsp;
                         @*<span>Дата и время последнего обновления: </span>*@
-                        <hr/>
+                        <hr />
                         <span class="muted" ng-show="logs.length == 0"><i>Пусто</i></span>
                         <ol>
                             <li ng-repeat="log in logs">{{log}}</li>
                         </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#notifications">
+                        Настройка уведовлений
+                    </a>
+                </div>
+                <div id="notifications" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <form class="form-horizontal">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <label class="checkbox">
+                                        <input type="checkbox" disabled="disabled"> Отправлять СМС-уведомления об изменениях расписания
+                                        <i class="icon-info-sign"></i>
+                                    </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" disabled="disabled"> Отправлять Email-уведомления об изменениях расписания
+                                        <i class="icon-info-sign"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button class="btn" disabled="disabled"><i class="icon-ok"></i> Сохранить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#dataManagment">
+                        Управление данными
+                    </a>
+                </div>
+                <div id="dataManagment" class="accordion-body collapse">
+                    <div class="accordion-inner">
                     </div>
                 </div>
             </div>
