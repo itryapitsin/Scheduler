@@ -14,13 +14,22 @@
         $scope.loadLecturerSchedule();
     });
 
+    $scope.canCreateReport = function () {
+        if ($scope.studyYear !== null &&
+            $scope.semester !== null &&
+            $scope.lecturer &&
+            $scope.lecturer !== "" &&
+            $scope.times &&
+            $scope.times.length > 0)
+                return true;
+        return false;
+    }
 
     $scope.getReportForLecturer = function () {
-
-        document.location.href = '/Report/GetReportForLecturer?lecturerQuery=' + $scope.lecturer +
-                                         '&semester=' + $scope.semester +
-                                         '&studyYearId=' + $scope.studyYear +
-                                         '&title=' + "sometitle";
+            document.location.href = '/Report/GetReportForLecturer?lecturerQuery=' + $scope.lecturer +
+                                             '&semester=' + $scope.semester +
+                                             '&studyYearId=' + $scope.studyYear +
+                                             '&title=' + "sometitle";
     };
 
     $scope.searchLecturer = function (lecturer, callback) {
@@ -34,7 +43,7 @@
     };
 
     $scope.loadLecturerSchedule = function () {
-        if ($scope.studyYear !== null && $scope.semesterId !== null && $scope.lecturer !== "") {
+        if ($scope.studyYear !== null && $scope.semester !== null && $scope.lecturer !== "") {
             $http
                 .get($http.prefix + 'LecturerSchedule/LoadLecturerSchedule',
                     {
@@ -45,6 +54,7 @@
                         }
                     })
                 .success(function (response) {
+                    $scope.foundLecturersCount = undefined;
                     $scope.schedules = response.Schedules;
                     $scope.times = response.Times;
                 });

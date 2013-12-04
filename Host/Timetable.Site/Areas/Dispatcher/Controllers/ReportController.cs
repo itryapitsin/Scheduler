@@ -158,7 +158,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                    .Select(x => new ScheduleViewModel(x)).ToList();
 
                 var timeIds = schedules.Select(x => x.TimeId).Distinct().ToList();
-                var times = DataService.GetTimesByIds(timeIds).ToList().Select(x => new TimeViewModel(x)).ToList();
+                var times = DataService.GetTimesByIds(timeIds).ToList().Select(x => new TimeViewModel(x)).OrderBy(x => x.Start).ToList();
 
                 var fileName = string.Format("Расписание для " + request.LecturerQuery + "-{0:yyyy-MM-dd-HH-mm-ss}", DateTime.UtcNow);
 

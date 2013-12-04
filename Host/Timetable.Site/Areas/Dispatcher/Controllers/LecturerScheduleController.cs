@@ -69,7 +69,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
                 var timeIds = schedules.Select(x => x.TimeId).Distinct().ToList();
 
-                times = DataService.GetTimesByIds(timeIds).ToList().Select(x => new TimeViewModel(x)).ToList();
+                times = DataService.GetTimesByIds(timeIds).ToList().Select(x => new TimeViewModel(x)).OrderBy(x => x.Start).ToList();
             }
 
             return new JsonNetResult(new ScheduleForLecturersWithTimesViewModel()

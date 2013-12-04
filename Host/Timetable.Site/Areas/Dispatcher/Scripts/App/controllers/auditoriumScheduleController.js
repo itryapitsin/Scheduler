@@ -9,13 +9,25 @@
     $scope.semester = pageModel.Semester;
     $scope.schedules = pageModel.Schedules;
 
-    $scope.getReportForAuditorium = function () {
 
-        document.location.href = '/Report/GetReportForAuditorium?auditoriumId=' + $scope.auditorium +
-                                         '&semester=' + $scope.semester +
-                                         '&studyYearId=' + $scope.studyYear +
-                                         '&title=' + "sometitle";
+    $scope.canCreateReport = function () {
+        if ($scope.studyYear !== null &&
+            $scope.semester !== null &&
+            $scope.auditorium !== null &&
+            $scope.times &&
+            $scope.times.length > 0)
+                return true;
+        return false;
+    }
+
+    $scope.getReportForAuditorium = function () {
+            document.location.href = '/Report/GetReportForAuditorium?auditoriumId=' + $scope.auditorium +
+                                             '&semester=' + $scope.semester +
+                                             '&studyYearId=' + $scope.studyYear +
+                                             '&title=' + "sometitle";
     };
+
+
 
     $scope.loadAuditoriums = function (building) {
         $http

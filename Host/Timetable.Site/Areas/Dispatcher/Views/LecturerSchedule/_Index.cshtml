@@ -8,7 +8,7 @@
                 <select class="span2" required="required" ng-model="studyYear" ng-change="loadLecturerSchedule()" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears" style="height: 30px;margin-bottom: 0px;"></select>
                 <select class="span2" required="required" ng-model="semester" ng-change="loadLecturerSchedule()" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters" style="height: 30px;margin-bottom: 0px;"></select>
                 <!-- <button class="btn" style="margin-top: 0" ng-init="searchTitle='Найти занятия'" data-placement="right" bs-tooltip="searchTitle" data-original-title ng-click="loadLecturerSchedule()"><i class="icon icon-search"></i></button> -->
-                <button class="btn" style="margin-top: 0" ng-init="excelTitle='Скачать в Excel'" data-placement="right" bs-tooltip="excelTitle" data-original-title ng-click="getReportForLecturer()"><i class="icon icon-list"></i></button>
+                <button class="btn" ng-disabled="!canCreateReport()" style="margin-top: 0" ng-init="excelTitle='Скачать в Excel'" data-placement="right" bs-tooltip="excelTitle" data-original-title ng-click="getReportForLecturer()"><i class="icon icon-list"></i></button>
                 <span class="badge badge-important" ng-init="hoursePerWeekTitle='Всего совпадений'" data-placement="right" bs-tooltip="hoursePerWeekTitle" data-original-title title>{{foundLecturersCount}}</span>
             </form>
         </div>
