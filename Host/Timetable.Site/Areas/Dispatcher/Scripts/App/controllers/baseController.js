@@ -1,4 +1,4 @@
-﻿function BaseController($scope, $q) {
+﻿function BaseController($scope, $q, $timeout) {
 
     $scope.showDialog = function(modalPromise) {
         self.promise = modalPromise;
@@ -14,5 +14,13 @@
             modalEl.modal('hide');
             modalEl.addClass("hide");
         });
+    };
+
+    $scope.clearAfterTimeout = function (prop, timeout) {
+        var scope = this;
+
+        $timeout(function() {
+            delete scope[prop];
+        }, timeout ? timeout : 5000);
     };
 }

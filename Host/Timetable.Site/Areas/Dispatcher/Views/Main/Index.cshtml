@@ -1,11 +1,12 @@
-﻿@using Newtonsoft.Json
-@using Timetable.Data.Models.Personalization
+﻿@using Timetable.Data.Models.Personalization
+@using Timetable.Site.Infrastructure
 @{
     Layout = "~/Areas/Dispatcher/Views/Shared/_NewLayout.cshtml";
+    var model = new JsonNetResult(Model);
 }
 
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+    window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
 </script>
 
 <nav class="navbar navbar-default navbar-fixed-top" bs-navbar style="z-index: 1040;" ng-controller="navbarController">
@@ -23,7 +24,7 @@
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li>
-                <a href="" class="dropdown-toggle" data-toggle="dropdown">{{pageModel.UserName}} <b class="caret"></b></a>
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">{{pageModel.userName}} <b class="caret"></b></a>
                 <ul class="dropdown-menu" style="z-index:99999">
                     @if (Model.UserType != null && Model.UserType == UserRoleType.Administration)
                     {

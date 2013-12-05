@@ -13,7 +13,7 @@ namespace Timetable.Site.Infrastructure
         {
             NullValueHandling = NullValueHandling.Ignore,
             Converters = new JsonConverter[] { new IsoDateTimeConverter() },
-            ContractResolver = new DefaultContractResolver(true),
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
             TypeNameHandling = TypeNameHandling.None,
             Formatting = Formatting.None,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore

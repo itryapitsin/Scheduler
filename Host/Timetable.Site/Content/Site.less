@@ -1,0 +1,137 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import "bootstrap/variables.less";
+
+@modal-header-bg:               #2c3039;
+@modal-header-color:            #fff;
+@modal-footer-bg:               #34495e;
+@modal-footer-color:            @modal-header-color;
+@modal-footer-btn-bg:           #2c3e50;
+@brand-success-hover:           #2ecc71;
+
+.modal-content {
+    border-radius:              @border-radius-base;
+    border:                     0;
+    .modal-header {
+        background-color:       @modal-header-bg;
+        color:                  @modal-header-color;
+    }
+
+    .modal-footer {
+        background-color:       @modal-footer-bg;
+        color:                  @modal-footer-color;
+
+        .btn {
+            background-color:       @modal-footer-btn-bg;
+            color:                  @modal-footer-color;
+            &:hover {
+                background-color:         lighten(@modal-footer-btn-bg, 30%);
+            }
+        }
+        .btn-success {
+            background-color:       @brand-success;
+            &:hover {
+                background-color:   @brand-success-hover;
+            }
+        }
+    }
+}
+
+.row-fluid [class*="span"] {
+    margin-left: 0.127659574468085%;
+}
+
+.table-bordered,
+.table-bordered thead:first-child tr:first-child > th:first-child,
+.table-bordered tbody:first-child tr:first-child > td:first-child,
+.table-bordered tbody:first-child tr:first-child > th:first-child {
+    border-radius: 0;
+}
+
+body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+}
+
+    body #content .container-fluid .row-fluid .span12 .form-inline .control-group {
+        margin-bottom: 0px;
+    }
+
+.day-content {
+    min-width: 195px;
+    height: 174px;
+    padding: 0px;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+/*.modal {
+    width: 700px;
+}*/
+
+.schedule-card {
+    height: 97%;
+    margin-bottom: 0px;
+    padding: 2px;
+}
+
+table td.full {
+    padding: 0 3px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+table td.even {
+    padding: 3px;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.table td.odd {
+    padding: 3px;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+.table > tbody > tr > td > .alert-error {
+    background-color: #ffaaaa;
+    height: 28px;
+}
+
+.even {
+    height: 85px;
+    margin-bottom: 1px;
+}
+
+.odd {
+    height: 85px;
+    margin-top: 1px;
+}
+
+.general {}
+
+.general .even {
+    height: 10px;
+}
+
+.general .odd {
+    height: 10px;
+}
+
+.table > tbody > tr > td > .alert-error.even {
+    height: 14px;
+}
+
+.table > tbody > tr > td > .alert-error.odd {
+    height: 14px;
+}
+
+.selected {
+    background-color: rgba(70, 130, 180, 0.15);
+}

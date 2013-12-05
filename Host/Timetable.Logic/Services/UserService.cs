@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using Timetable.Data.Context;
+using Timetable.Data.Models.Personalization;
 using Timetable.Logic.Models;
 
 namespace Timetable.Logic.Services
@@ -8,6 +9,18 @@ namespace Timetable.Logic.Services
     public class UserService
     {
         protected SchedulerContext DataContext = new SchedulerContext();
+
+        public void CreateUser(string login, string password, UserRoleType roleType)
+        {
+            var role = DataContext.UserRoles.FirstOrDefault(x => x.Type == roleType);
+
+            DataContext.Users.Add(new User
+                {
+                    Login = login,
+                    Password = password,
+                    Role = role
+                });
+        }
 
         public bool Validate(string login, string password)
         {
