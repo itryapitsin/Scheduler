@@ -10,6 +10,10 @@ namespace Timetable.Data.Models.Personalization
         public UserRole Role { get; set; }
         public int RoleId { get; set; }
 
+        public string Firstname { get; set; }
+        public string Middlename { get; set; }
+        public string Lastname { get; set; }
+
         public virtual Branch CreatorSelectedBranch { get; set; }
         public int? CreatorSelectedBranchId { get; set; }
         public virtual Faculty CreatorSelectedFaculty { get; set; }

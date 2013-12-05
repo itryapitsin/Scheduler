@@ -184,6 +184,7 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetSchedulesAndInfoesRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\ReportForAuditoriumRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\ReportForLecturerRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\SaveSettingsRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\SignInRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\UserStateChangedRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\FailREsponse.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleForLecturersWithTimesViewModel.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ViewModels\SettingsViewModel.cs" />
     <Compile Include="Areas\Students\Controllers\BaseController.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\PageViewModel.cs" />

@@ -5,6 +5,33 @@
     };
 }
 
+function UserSettingsController($scope, $http) {
+    $scope.login = pageModel.login;
+    $scope.firstname = pageModel.firstname;
+    $scope.middlename = pageModel.middlename;
+    $scope.lastname = pageModel.lastname;
+    
+    $scope.save = function () {
+        var params = {
+            firstname: $scope.firstname,
+            middlename: $scope.middlename,
+            lastname: $scope.lastname,
+        };
+
+        $http
+            .post($http.prefix + 'Settings/Save',  params)
+            .success(function (response) {
+                if (response.ok)
+                    this.hideDialog();
+
+                if (response.message)
+                    $scope.message = response.message;
+                else
+                    $scope.message = 'Ошибка запроса';
+            });
+    };
+}
+
 function UsersController($scope, $modal) {
     $scope.users = pageModel.users;
     

@@ -10,7 +10,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         {
             var model = new PageViewModel
             {
-                UserName = User.Identity.Name, 
+                UserName = UserData.GetUserName(), 
                 UserType = UserData.Type
             };
             return View(model);

@@ -47,7 +47,7 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201312030704487_DropSemesterFieldInScheduleInfoes.Designer.cs">
       <DependentUpon>201312030704487_DropSemesterFieldInScheduleInfoes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312051554259_AddFirstMiddleLastNameFieldsToUsers.cs" />
+    <Compile Include="Migrations\201312051554259_AddFirstMiddleLastNameFieldsToUsers.Designer.cs">
+      <DependentUpon>201312051554259_AddFirstMiddleLastNameFieldsToUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -227,6 +231,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312030704487_DropSemesterFieldInScheduleInfoes.resx">
       <DependentUpon>201312030704487_DropSemesterFieldInScheduleInfoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312051554259_AddFirstMiddleLastNameFieldsToUsers.resx">
+      <DependentUpon>201312051554259_AddFirstMiddleLastNameFieldsToUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

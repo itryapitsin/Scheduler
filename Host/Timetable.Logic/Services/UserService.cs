@@ -36,10 +36,16 @@ namespace Timetable.Logic.Services
                 .FirstOrDefault(x => x.Login == login));
         }
 
-        public void SaveUserState(UserDataTransfer userDataTransfer)
+        public void SaveUserState(UserDataTransfer userDataTransfer, string password = null)
         {
             var user = DataContext.Users.Include(x => x.CreatorSelectedGroups).First(x => x.Login == userDataTransfer.Login);
 
+            if (!string.IsNullOrEmpty(password))
+                user.Password = password;
+
+            user.Firstname = userDataTransfer.Firstname;
+            user.Middlename = userDataTransfer.Middlename;
+            user.Lastname = userDataTransfer.Lastname;
             user.CreatorSelectedBuildingId = userDataTransfer.CreatorSettings.CurrentBuildingId;
             user.CreatorSelectedSemesterId = userDataTransfer.CreatorSettings.CurrentSemesterId;
             user.CreatorSelectedStudyYearId = userDataTransfer.CreatorSettings.CurrentStudyYearId;
