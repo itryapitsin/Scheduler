@@ -25,7 +25,9 @@ namespace Timetable.Logic.Models
             CurrentBranchId = user.CreatorSelectedBranchId;
             CurrentFacultyId = user.CreatorSelectedFacultyId;
             CurrentCourseId = user.CreatorSelectedCourseId;
-            CurrentGroupIds = user.CreatorSelectedGroups.Select(x => x.Id).ToArray();
+
+            if (user.CreatorSelectedGroups != null)
+                CurrentGroupIds = user.CreatorSelectedGroups.Select(x => x.Id).ToArray();
         }
     }
 }

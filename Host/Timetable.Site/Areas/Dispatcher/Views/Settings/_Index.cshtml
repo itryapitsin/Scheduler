@@ -12,7 +12,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <i class="glyphicon glyphicon-user"></i> 
-                        <a data-toggle="collapse" data-parent="#accordion2" data-target="#userSettings" href="">
+                        <a data-toggle="collapse" data-parent="#accordion2" data-target="#userSettings">
                             Настройки пользователя
                         </a>
                     </h4>
@@ -84,7 +84,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <i class="glyphicon glyphicon-th-list"></i> 
-                        <a data-toggle="collapse" data-parent="#accordion2" data-target="#collapseTwo" href="">
+                        <a data-toggle="collapse" data-parent="#accordion2" data-target="#collapseTwo">
                             Управление пользователями
                         </a>
                     </h4>
@@ -94,16 +94,36 @@
                     &nbsp;
                     <hr />
                     <span class="muted" ng-show="!users || users.length == 0"><i>Список пуст</i></span>
-                    <ol>
-                        <li ng-repeat="user in users">{{user}}</li>
-                    </ol>
+                    <table class="table table-striped" ng-show="users || users.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Логин</th>
+                                <th>Фамилия</th>
+                                <th>Имя</th>
+                                <th>Отчество</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in users">
+                                <td>{{user.login}}</td>
+                                <td>{{user.lastname}}</td>
+                                <td>{{user.firstname}}</td>
+                                <td>{{user.middlename}}</td>
+                                <td class="col-sm-1">
+                                    <button class="btn btn-sm btn-warning" value="Редактировать"><i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger" value="Редактировать"><i class="glyphicon glyphicon-remove"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="panel panel-default" ng-controller="DataSyncController">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <i class="glyphicon glyphicon-refresh"></i> 
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#refreshData" href="">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#refreshData">
                             Обновление данных
                         </a>
                     </h4>
@@ -157,7 +177,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <i class="glyphicon glyphicon-pencil"></i> 
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#dataManagment" href="">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#dataManagment">
                             Управление данными
                         </a>
                     </h4>

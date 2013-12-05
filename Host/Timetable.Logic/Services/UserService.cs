@@ -1,4 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using Timetable.Data.Context;
 using Timetable.Data.Models.Personalization;
@@ -10,16 +14,42 @@ namespace Timetable.Logic.Services
     {
         protected SchedulerContext DataContext = new SchedulerContext();
 
-        public void CreateUser(string login, string password, UserRoleType roleType)
+        public void CreateUser(
+            string login, 
+            string password, 
+            string firstname,
+            string middlename,
+            string lastname,
+            UserRoleType roleType)
         {
             var role = DataContext.UserRoles.FirstOrDefault(x => x.Type == roleType);
+            var hasEqualsLogin = DataContext.Users.Any(x => x.Login == login);
+            if(hasEqualsLogin)
+                throw new DuplicateNameException(login);
 
             DataContext.Users.Add(new User
                 {
                     Login = login,
                     Password = password,
-                    Role = role
+                    Firstname = firstname,
+                    Middlename = middlename,
+                    Lastname = lastname,
+                    Role = role,
+                    IsActual = true,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
                 });
+
+            DataContext.SaveChanges();
+        }
+
+        public IEnumerable<UserDataTransfer> GetUsers(IEnumerable<string> exclude)
+        {
+            return DataContext.Users
+                .Where(x => exclude.Any(y => y != x.Login))
+                .Include(x => x.Role)
+                .ToList()
+                .Select(x => new UserDataTransfer(x));
         }
 
         public bool Validate(string login, string password)

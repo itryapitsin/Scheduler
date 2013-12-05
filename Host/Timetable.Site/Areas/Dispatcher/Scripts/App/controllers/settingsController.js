@@ -5,7 +5,7 @@
     };
 }
 
-function UserSettingsController($scope, $http) {
+function UserSettingsController($scope, $http, $rootScope) {
     $scope.login = pageModel.login;
     $scope.firstname = pageModel.firstname;
     $scope.middlename = pageModel.middlename;
@@ -21,8 +21,10 @@ function UserSettingsController($scope, $http) {
         $http
             .post($http.prefix + 'Settings/Save',  params)
             .success(function (response) {
-                if (response.ok)
-                    this.hideDialog();
+                if (response.ok) {
+                    
+                    $rootScope.$broadcast('settingsUpdated', response.userName);
+                }
 
                 if (response.message)
                     $scope.message = response.message;
@@ -34,6 +36,10 @@ function UserSettingsController($scope, $http) {
 
 function UsersController($scope, $modal) {
     $scope.users = pageModel.users;
+
+    $scope.$on('userCreated', function(e, user) {
+        $scope.users.push(user);
+    });
     
     $scope.showCreateUserDialog = function () {
         var modalPromise = $modal({
@@ -48,14 +54,32 @@ function UsersController($scope, $modal) {
     };
 }
 
-function CreateEditUserModalController($scope, $http) {
+function CreateEditUserModalController($scope, $http, $controller, $rootScope) {
+    $controller('BaseController', { $scope: $scope });
+
     $scope.ok = function () {
+        var params = {
+            firstname: $scope.firstname,
+            middlename: $scope.middlename,
+            lastname: $scope.lastname,
+            login: $scope.login,
+            password: $scope.password,
+            confirmPassword: $scope.confirmPassword
+        };
+
         $http
-            .post()
+            .post($http.prefix + 'Settings/CreateEditUser', params)
             .success(function(response) {
-                if (response.ok)
-                    this.hideDialog();
-                
+                if (response.ok) {
+                    $scope.hideDialog();
+                    $rootScope.$broadcast('userCreated', {
+                        firstname: $scope.firstname,
+                        middlename: $scope.middlename,
+                        lastname: $scope.lastname,
+                        login: $scope.login,
+                    });
+                }
+
                 if (response.message)
                     $scope.message = response.message;
                 else

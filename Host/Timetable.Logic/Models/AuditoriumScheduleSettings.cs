@@ -15,7 +15,10 @@ namespace Timetable.Logic.Models
         public AuditoriumScheduleSettings(User user)
         {
             AuditoriumId = user.AuditoriumScheduleSelectedAuditoriumId;
-            AuditoriumTypeIds = user.AuditoriumScheduleSelectedAuditoriumTypes.Select(x => x.Id);
+
+            if (user.AuditoriumScheduleSelectedAuditoriumTypes != null)
+                AuditoriumTypeIds = user.AuditoriumScheduleSelectedAuditoriumTypes.Select(x => x.Id);
+
             StudyYearId = user.AuditoriumScheduleSelectedStudyYearId;
             SemesterId = user.AuditoriumScheduleSelectedSemesterId;
             BuildingId = user.AuditoriumScheduleSelectedBuildingId;

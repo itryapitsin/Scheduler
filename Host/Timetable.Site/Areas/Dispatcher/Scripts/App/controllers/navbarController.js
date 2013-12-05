@@ -1,3 +1,7 @@
 ﻿function navbarController($scope) {
-    $scope.pageModel = pageModel;
+    $scope.userName = pageModel.userName;
+    
+    $scope.$on('settingsUpdated', function (e, userName) {
+        $scope.userName = userName;
+    });
 }
