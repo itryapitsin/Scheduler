@@ -22,10 +22,12 @@
     <script src="signalr/hubs"></script>
     @RenderSection("scripts", false)
 </head>
-<body style="overflow:hidden;">
-    @RenderSection("top", false)
-    @RenderBody()
-    @RenderSection("bottom", false)
-</body>
+    <body style="overflow:hidden;">
+        @Html.Partial("_ConfirmationModal")
+        @Html.Partial("_AlertModal")
+        @RenderSection("top", false)
+        @RenderBody()
+        @RenderSection("bottom", false)
+    </body>
 </html>
 

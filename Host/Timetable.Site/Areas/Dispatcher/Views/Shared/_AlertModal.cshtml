@@ -1,0 +1,12 @@
+﻿<script type="text/ng-template" id="alert.html">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4><i class="glyphicon glyphicon-exclamation-sign"></i> {{alert.content}}</h4>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="alert.ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
+            </div>
+        </div>
+    </div>
+</script>

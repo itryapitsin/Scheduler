@@ -5,7 +5,7 @@
     };
 }
 
-function UserSettingsController($scope, $http, $rootScope) {
+function UserSettingsController($scope, $http, $rootScope, $modal) {
     $scope.login = pageModel.login;
     $scope.firstname = pageModel.firstname;
     $scope.middlename = pageModel.middlename;
@@ -34,12 +34,57 @@ function UserSettingsController($scope, $http, $rootScope) {
     };
 }
 
-function UsersController($scope, $modal) {
+function UsersController($scope, $modal, $http) {
     $scope.users = pageModel.users;
 
     $scope.$on('userCreated', function(e, user) {
         $scope.users.push(user);
     });
+
+    $scope.delete = function (user) {
+        $scope.confirm = {
+            content: "Вы действительно хотите удалить пользователя '{0}' ?".replace('{0}', user.login),
+            ok: function () {
+                $http
+                    .post()
+                    .success(function(response) {
+
+                    });
+
+                $scope.hideDialog();
+            },
+            cancel: function() {
+                $scope.hideDialog();
+            }
+        };
+        var modalPromise = $modal({
+            template: 'confirmation.html',
+            persist: true,
+            show: false,
+            backdrop: 'static',
+            scope: $scope
+        });
+
+        this.showDialog(modalPromise);
+    };
+    
+    $scope.edit = function (user) {
+        $scope.login = user.login;
+        $scope.firstname = user.firstname;
+        $scope.middlename = user.middlename;
+        $scope.lastname = user.lastname;
+        $scope.isEdit = true;
+
+        var modalPromise = $modal({
+            template: 'editusermodal.html',
+            persist: true,
+            show: false,
+            backdrop: 'static',
+            scope: $scope
+        });
+
+        this.showDialog(modalPromise);
+    };
     
     $scope.showCreateUserDialog = function () {
         var modalPromise = $modal({

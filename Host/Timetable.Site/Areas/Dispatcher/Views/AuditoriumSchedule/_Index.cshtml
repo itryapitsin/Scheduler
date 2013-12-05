@@ -1,20 +1,30 @@
 ﻿@using Newtonsoft.Json
-<div class="navbar navbar-fixed-top" style="top:41px;">
+@using Timetable.Site.Infrastructure
+<nav class="navbar navbar-default navbar-fixed-top navbar-child" role="navigation" style="top:51px;">
     <div class="navbar-inner">
         <div class="container">
-            <form class="navbar-search pull-left">
-                <select class="span5" required="required" ng-change="loadAuditoriums(building)" ng-model="building" ng-options="building.Id as building.Name for building in pageModel.Buildings" style="height: 30px;margin-bottom: 0px;"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()" ng-model="auditorium" ng-options="building.Id as building.Name for building in auditoriums" style="height: 30px;margin-bottom: 0px;"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()" ng-model="studyYear" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears" style="height: 30px;margin-bottom: 0px;"></select>
-                <select class="span2" required="required" ng-change="loadAuditoriumSchedule()"  ng-model="semester" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters" style="height: 30px;margin-bottom: 0px;"></select>
-                <button class="btn" style="margin-top: 0;" ng-init="excelTitle='Скачать в Excel'" data-placement="right" bs-tooltip="excelTitle" data-original-title ng-click="getReportForAuditorium()"><i class="icon icon-list"></i></button>
-                @*<span class="badge badge-important" ng-init="title='Часов в неделю'" bs-tooltip="title" data-original-title title>{{foundLecturersCount}}</span>*@
+            <form class="navbar-form navbar-left">
+                <div class="form-group col-sm-4">
+                    <select class="form-control" required="required" ng-change="loadAuditoriums(building)" ng-model="building" ng-options="building.id as building.name for building in pageModel.buildings" ></select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <select class="form-control" required="required" ng-change="loadAuditoriumSchedule()" ng-model="auditorium" ng-options="building.id as building.name for building in auditoriums"></select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <select class="form-control" required="required" ng-change="loadAuditoriumSchedule()" ng-model="studyYear" ng-options="studyYear.id as studyYear.name for studyYear in pageModel.studyYears"></select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <select class="form-control" required="required" ng-change="loadAuditoriumSchedule()" ng-model="semester" ng-options="semester.id as semester.name for semester in pageModel.semesters"></select>
+                </div>
+                <div class="form-group col-sm-1">
+                    <button class="btn btn-default" data-original-title ng-click="getReportForAuditorium()"><i class="glyphicon glyphicon-download-alt"></i></button>
+                </div>
             </form>
         </div>
     </div>
-</div>
+</nav>
 <div class="container-fluid">
-    <div class="row-fluid" style="position: absolute; left: 0px; top: 90px; bottom:0; overflow-y: scroll;">
+    <div class="row-fluid" style="position: absolute; left: 0px; width: 100%; top: 100px; bottom:0; overflow-y: scroll;">
         <table class="table table-bordered table-striped" style="margin-bottom: 0">
             <thead>
                 <tr class="info">
@@ -30,20 +40,20 @@
             </thead>
             <tbody>
                 <tr ng-repeat="time in times">
-                    <td style="min-width: 60px; width:60px;">{{moment(time.Start, 'HH:mm:ss').format('HH:mm')}}<br />{{moment(time.End, 'HH:mm:ss').format('HH:mm')}}</td>
-                    <td class="day-content" ng-class="{full: hasFullScheduleTicket(time, 1), even: hasEvenScheduleTicket(time, 1), odd: hasOddScheduleTicket(time, 1)}">
+                    <td style="min-width: 60px; width:60px;">{{moment(time.start, 'HH:mm:ss').format('HH:mm')}}<br />{{moment(time.end, 'HH:mm:ss').format('HH:mm')}}</td>
+                    <td ng-repeat="day in days" class="day-content" ng-class="{full: hasFullScheduleTicket(time, day), even: hasEvenScheduleTicket(time, day), odd: hasOddScheduleTicket(time, day)}">
                         <div class="schedule-card alert alert-success"
-                             ng-repeat="schedule in findScheduleTickets(time, 1)"
+                             ng-repeat="schedule in findScheduleTickets(time, day)"
                              ng-class="{even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}">
                             <p style="margin: 0">
-                                {{schedule.TutorialName}}, {{schedule.TutorialTypeName}}., {{schedule.BuildingName}}. {{schedule.AuditoriumNumber}}
+                                {{schedule.tutorialName}}, {{schedule.tutorialTypeName}}., {{schedule.buildingName}}. {{schedule.auditoriumNumber}}
                             </p>
                             <p style="margin: 0">
-                                {{schedule.LecturerName}}
+                                {{schedule.lecturerName}}
                             </p>
                         </div>
                     </td>
-                    <td class="day-content" ng-class="{full: hasFullScheduleTicket(time, 2), even: hasEvenScheduleTicket(time, 2), odd: hasOddScheduleTicket(time, 2)}">
+                    @*<td class="day-content" ng-class="{full: hasFullScheduleTicket(time, 2), even: hasEvenScheduleTicket(time, 2), odd: hasOddScheduleTicket(time, 2)}">
                         <div class="schedule-card alert alert-success"
                              ng-repeat="schedule in findScheduleTickets(time, 2)"
                              ng-class="{even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}">
@@ -114,13 +124,13 @@
                                 {{schedule.LecturerName}}
                             </p>
                         </div>
-                    </td>
+                    </td>*@
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-
+@{ var model = new JsonNetResult(Model); }
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+    window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
 </script>

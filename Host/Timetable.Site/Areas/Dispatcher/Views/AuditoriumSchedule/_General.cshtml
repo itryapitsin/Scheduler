@@ -1,59 +1,68 @@
 ﻿@using Newtonsoft.Json
-<div class="navbar navbar-fixed-top" style="top:41px;">
+@using Timetable.Site.Infrastructure
+<div class="navbar navbar-default navbar-fixed-top navbar-child" role="navigation" style="top:51px;">
     <div class="navbar-inner">
         <div class="container">
-            <form class="navbar-search pull-left">
-                <select class="span5" required="required" ng-change="buildingChanged()" ng-model="building" ng-options="building.Id as building.Name for building in pageModel.Buildings"></select>
-                <select class="span2" required="required" ng-change="auditoriumTypeChanged()" ng-model="auditoriumType" ng-options="auditoriumType.Id as auditoriumType.Name for auditoriumType in pageModel.AuditoriumTypes"></select>
-                <select class="span2" required="required" ng-change="studyYearChanged()" ng-model="studyYear" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears"></select>
-                <select class="span2" required="required" ng-change="semesterChanged()" ng-model="semester" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters"></select>
+            <form class="navbar-form navbar-left">
+                <div class="form-group col-sm-4">
+                    <select class="form-control" required="required" ng-change="buildingChanged()" ng-model="building" ng-options="building.id as building.name for building in pageModel.buildings"></select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <select class="form-control" required="required" ng-change="auditoriumTypeChanged()" ng-model="auditoriumType" ng-options="auditoriumType.id as auditoriumType.name for auditoriumType in pageModel.auditoriumTypes"></select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <select class="form-control" required="required" ng-change="studyYearChanged()" ng-model="studyYear" ng-options="studyYear.id as studyYear.name for studyYear in pageModel.studyYears"></select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <select class="form-control" required="required" ng-change="semesterChanged()" ng-model="semester" ng-options="semester.id as semester.name for semester in pageModel.semesters"></select>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
 <script type="text/ng-template" id="description.html">
-    <span>{{selectedSchedule.TutorialName}}</span>,
-    <span>{{selectedSchedule.LecturerName}}</span>
+    <span>{{selectedSchedule.tutorialName}}</span>,
+    <span>{{selectedSchedule.lecturerName}}</span>
 </script>
 
 <div class="container-fluid">
-    <div class="row-fluid" style="position: absolute; left: 0; top: 90px; bottom:0; overflow-y: scroll;">
+    <div class="row-fluid" style="position: absolute; left: 0; width: 100%; top: 100px; bottom:0; overflow-y: scroll;">
         <table class="table table-bordered table-striped general" style="margin-bottom: 0">
-            <thead>
-                <tr class="info">
-                    <th style="min-width: 60px; width: 60px">№</th>
-                    <th style="min-width: 100px; width: 100px">Время</th>
-                    <th class="span3">Пн</th>
-                    <th class="span3">Вт</th>
-                    <th class="span3">Ср</th>
-                    <th class="span3">Чт</th>
-                    <th class="span3">Пт</th>
-                    <th class="span3">Сб</th>
-                    <th class="span3">Вс</th>
-                </tr>
-            </thead>
             <tbody>
                 <tr ng-repeat="auditorium in auditoriums">
-                    <td style="min-width: 60px; width:60px;">{{auditorium.Number}}</td>
+                    <td style="min-width: 60px; width:60px;">{{auditorium.number}}</td>
                     <td colspan="8" style="padding: 0">
                         <table class="table table-bordered table-striped" style="margin: 0; border-radius: 0">
-                            <tr ng-repeat="time in times">
-                                <td style="min-width: 99px; width: 99px;">{{moment(time.Start, 'HH:mm:ss').format('HH:mm')}} - {{moment(time.End, 'HH:mm:ss').format('HH:mm')}}</td>
-                                <td ng-repeat="day in days"
-                                    class="span3"
-                                    style="padding: 1px"
-                                    ng-class="{full: hasFullScheduleTicket(time, day), even: hasEvenScheduleTicket(time, day), odd: hasOddScheduleTicket(time, day)}">
-                                    <div ng-repeat="schedule in findScheduleTickets(time, day)"
-                                         ng-class="{'alert alert-error': isBusy(auditorium, day, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
-                                         ng-click="description(schedule)"
-                                         data-unique="1" 
-                                         data-placement="top" 
-                                         bs-popover="'description.html'"
-                                         style="margin: 1px; padding: 0;">
-                                    </div>
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr class="info">
+                                    <th style="min-width: 100px; width: 100px">Время</th>
+                                    <th>Пн</th>
+                                    <th>Вт</th>
+                                    <th>Ср</th>
+                                    <th>Чт</th>
+                                    <th>Пт</th>
+                                    <th>Сб</th>
+                                    <th>Вс</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="time in times">
+                                    <td style="min-width: 99px; width: 99px;">{{moment(time.start, 'HH:mm:ss').format('HH:mm')}} - {{moment(time.end, 'HH:mm:ss').format('HH:mm')}}</td>
+                                    <td ng-repeat="day in days"
+                                        style="padding: 1px"
+                                        ng-class="{full: hasFullScheduleTicket(time, day), even: hasEvenScheduleTicket(time, day), odd: hasOddScheduleTicket(time, day)}">
+                                        <div ng-repeat="schedule in findScheduleTickets(time, day)"
+                                             ng-class="{'alert alert-error': isBusy(auditorium, day, time), even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
+                                             ng-click="description(schedule)"
+                                             data-unique="1"
+                                             data-placement="top"
+                                             bs-popover="'description.html'"
+                                             style="margin: 1px; padding: 0;">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </td>
                 </tr>
@@ -61,7 +70,7 @@
         </table>
     </div>
 </div>
-
+@{ var model = new JsonNetResult(Model); }
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+    window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
 </script>

@@ -111,8 +111,8 @@
                                 <td>{{user.firstname}}</td>
                                 <td>{{user.middlename}}</td>
                                 <td class="col-sm-1">
-                                    <button class="btn btn-sm btn-warning" value="Редактировать"><i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-sm btn-danger" value="Редактировать"><i class="glyphicon glyphicon-remove"></i></button>
+                                    <button class="btn btn-sm btn-warning" ng-click="edit(user)"><i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger" ng-click="delete(user)"><i class="glyphicon glyphicon-remove"></i></button>
                                 </td>
                             </tr>
                         </tbody>

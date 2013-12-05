@@ -1,28 +1,29 @@
 ﻿function auditoriumScheduleController($scope, $http) {
     $scope.moment = moment;
     $scope.pageModel = pageModel;
-    $scope.building = pageModel.BuildingId;
-    $scope.auditorium = pageModel.AuditoriumId;
-    $scope.auditoriums = pageModel.Auditoriums;
-    $scope.times = pageModel.Times;
-    $scope.studyYear = pageModel.StudyYearId;
-    $scope.semester = pageModel.Semester;
-    $scope.schedules = pageModel.Schedules;
+    $scope.building = pageModel.buildingId;
+    $scope.auditorium = pageModel.auditoriumId;
+    $scope.auditoriums = pageModel.auditoriums;
+    $scope.times = pageModel.times;
+    $scope.studyYear = pageModel.studyYearId;
+    $scope.semester = pageModel.semester;
+    $scope.schedules = pageModel.schedules;
+    $scope.days = [1, 2, 3, 4, 5, 6, 7];
 
     $scope.getReportForAuditorium = function () {
 
-        document.location.href = '/Report/GetReportForAuditorium?auditoriumId=' + $scope.auditorium +
-                                         '&semester=' + $scope.semester +
-                                         '&studyYearId=' + $scope.studyYear +
-                                         '&title=' + "sometitle";
+        document.location.href = '/Report/GetReportForAuditorium?auditoriumId={0}&semester={1}&studyYearId={2}&title="sometitle"'
+            .replace('{0}', $scope.auditorium)
+            .replace('{1}', $scope.semester)
+            .replace('{2}', $scope.studyYear);
     };
 
     $scope.loadAuditoriums = function (building) {
         $http
             .get($http.prefix + 'AuditoriumSchedule/GetAuditoriums', { params: { buildingId: building } })
             .success(function (response) {
-                $scope.auditoriums = response.Auditoriums;
-                $scope.times = response.Times;
+                $scope.auditoriums = response.auditoriums;
+                $scope.times = response.times;
             });
     };
     
@@ -44,7 +45,7 @@
     $scope.findScheduleTicket = function(timeId, dayOfWeek) {
         var result = $.Enumerable.From($scope.schedules)
             .Where(function(x) {
-                return x.TimeId == timeId && x.DayOfWeek == dayOfWeek;
+                return x.timeId == timeId && x.dayOfWeek == dayOfWeek;
             })
             .ToArray();
 
@@ -54,7 +55,7 @@
     $scope.findScheduleTickets = function (time, dayOfWeek) {
         var result = $.Enumerable.From($scope.schedules)
             .Where(function (x) {
-                return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
+                return x.timeId == time.Id && x.dayOfWeek == dayOfWeek;
             })
             .ToArray();
 
@@ -64,7 +65,7 @@
     $scope.hasFullScheduleTicket = function (time, dayOfWeek) {
         var result = $.Enumerable.From($scope.schedules)
             .Where(function (x) {
-                return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
+                return x.timeId == time.Id && x.dayOfWeek == dayOfWeek;
             })
             .ToArray();
 
@@ -76,7 +77,7 @@
     $scope.hasEvenScheduleTicket = function (time, dayOfWeek) {
         var result = $.Enumerable.From($scope.schedules)
             .Where(function (x) {
-                return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
+                return x.timeId == time.Id && x.dayOfWeek == dayOfWeek;
             })
             .ToArray();
 
@@ -89,7 +90,7 @@
     $scope.hasOddScheduleTicket = function (time, dayOfWeek) {
         var result = $.Enumerable.From($scope.schedules)
             .Where(function (x) {
-                return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
+                return x.timeId == time.Id && x.dayOfWeek == dayOfWeek;
             })
             .ToArray();
 

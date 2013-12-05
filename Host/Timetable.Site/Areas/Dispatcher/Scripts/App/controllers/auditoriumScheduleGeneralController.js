@@ -1,13 +1,13 @@
 ﻿function auditoriumScheduleGeneralController($scope, $http, timetableService) {
     $scope.moment = moment;
     $scope.pageModel = pageModel;
-    $scope.building = pageModel.BuildingId;
-    $scope.schedules = pageModel.Schedules;
-    $scope.auditoriumType = pageModel.AuditoriumTypeId;
-    $scope.auditoriums = pageModel.Auditoriums;
-    $scope.times = pageModel.Times;
-    $scope.studyYear = pageModel.StudyYearId;
-    $scope.semester = pageModel.Semester;
+    $scope.building = pageModel.buildingId;
+    $scope.schedules = pageModel.schedules;
+    $scope.auditoriumType = pageModel.auditoriumTypeId;
+    $scope.auditoriums = pageModel.auditoriums;
+    $scope.times = pageModel.times;
+    $scope.studyYear = pageModel.studyYearId;
+    $scope.semester = pageModel.semester;
     $scope.days = [1, 2, 3, 4, 5, 6, 7];
     
     angular.extend($scope, timetableService);
@@ -44,9 +44,9 @@
                     }
                 })
             .success(function (response) {
-                $scope.auditoriums = response.Auditoriums;
-                $scope.schedules = response.Schedules;
-                $scope.times = response.Times;
+                $scope.auditoriums = response.auditoriums;
+                $scope.schedules = response.schedules;
+                $scope.times = response.times;
             });
     }
 

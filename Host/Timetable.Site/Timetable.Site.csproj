@@ -321,6 +321,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Site.less" />
+    <Content Include="Areas\Dispatcher\Views\Shared\_ConfirmationModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Shared\_AlertModal.cshtml" />
     <None Include="Noesis.Javascript\Noesis.Javascript.x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
