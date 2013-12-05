@@ -50,22 +50,6 @@
             });
     }
 
-    //$scope.loadAuditoriumsSchedule = function () {
-    //    $http
-    //        .get($http.prefix + 'AuditoriumSchedule/LoadAuditoriumsSchedule',
-    //            {
-    //                params: {
-    //                    buildingId: $scope.building,
-    //                    auditoriumTypeId: $scope.auditoriumType,
-    //                    studyYearId: $scope.studyYear,
-    //                    semester: $scope.semester
-    //                }
-    //            })
-    //        .success(function (response) {
-    //            $scope.schedules = response;
-    //        });
-    //};
-
     $scope.isBusy = function (auditorium, day, time) {
         var hasSchedule = $.Enumerable.From($scope.schedules)
             .Where(function(item) {
@@ -76,5 +60,3 @@
         return hasSchedule.length > 0;
     };
 }
-
-auditoriumScheduleGeneralController.prototype = baseController;

@@ -1,0 +1,54 @@
+﻿<div class="modal" style="width: 750px; margin-left: -360px" ng-controller="CreateEditUserModalController">
+    <div class="modal-header">
+        <h5>Создание нового пользователя</h5>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="form">
+            <div class="control-group" ng-class="{error: form.login.$error.required}">
+                <label class=" control-label">Логин</label>
+                <div class="controls">
+                    <input name="login" type="text" class="span6" placeholder="Логин" ng-model="login" required="required">&nbsp;<i class="icon-certificate"></i>
+                </div>
+            </div>
+            <div class="control-group" ng-class="{error: form.password.$error.validator || form.password.$error.required}">
+                <label class="control-label">Пароль</label>
+                <div class="controls">
+                    <input name="password" type="password" class="span6" placeholder="Пароль" ng-model="password" required="required">&nbsp;<i class="icon-certificate"></i>
+                </div>
+            </div>
+            <div class="control-group" ng-class="{error: form.confirmPassword.$error.validator || form.confirmPassword.$error.required}">
+                <label class="control-label">Повтор пароля</label>
+                <div class="controls">
+                    <input name="confirmPassword" type="password" class="span6" placeholder="Повтор пароля" ng-model="confirmPassword" ui-validate=" '$value==password' " ui-validate-watch=" 'password' " required="required">&nbsp;<i class="icon-certificate"></i>
+                </div>
+            </div>
+            <hr />
+            <div class="control-group" ng-class="{error: form.lastname.$error.required}">
+                <label class="control-label">Фамилия</label>
+                <div class="controls">
+                    <input name="lastname" type="text" class="span6" placeholder="Фамилия" ng-model="lastname" required="required">&nbsp;<i class="icon-certificate"></i>
+                </div>
+            </div>
+            <div class="control-group" ng-class="{error: form.firstname.$error.required}">
+                <label class="control-label">Имя</label>
+                <div class="controls">
+                    <input name="firstname" type="text" class="span6" placeholder="Имя" ng-model="firstname" required="required">&nbsp;<i class="icon-certificate"></i>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Отчество</label>
+                <div class="controls">
+                    <input type="text" class="span6" placeholder="Отчество" ng-model="middlename">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="pull-left text-error" ng-hide='form.confirmPassword.$error.validator' ng-show="form.$invalid">
+            Поля, отмеченные <i class="icon-certificate"></i>, обязательны для заполнения
+        </div>
+        <div class="pull-left text-error" ng-show='form.confirmPassword.$error.validator'>Пароли не совпадают</div>
+        <button type="submit" ng-click="ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
+        <button class="btn" ng-click="cancel()">Отмена</button>
+    </div>
+</div>

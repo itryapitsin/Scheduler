@@ -116,5 +116,3 @@
         return schedule.WeekTypeName == 'З';
     };
 }
-
-auditoriumScheduleController.prototype = baseController;

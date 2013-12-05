@@ -1,4 +1,4 @@
-﻿var app = angular.module('scheduler', ['ui.select2', 'ngResource', '$strap.directives', 'ngCookies', 'LocalStorageModule', 'ngProgress', 'ngDragDrop']);
+﻿var app = angular.module('scheduler', ['ui.utils', 'ui.select2', 'ngResource', '$strap.directives', 'ngCookies', 'LocalStorageModule', 'ngProgress', 'ngDragDrop']);
 
 app.config(function ($routeProvider) {
 
@@ -10,31 +10,26 @@ app.config(function ($routeProvider) {
     var schedulerRoute = {
         templateUrl: prefix + 'scheduler',
         controller: schedulerController,
-        resolve: schedulerController.prototype.resolve
     };
 
     var lecturerScheduleRoute = {
         templateUrl: prefix + 'lecturerschedule',
         controller: lecturerScheduleController,
-        resolve: lecturerScheduleController.prototype.resolve
     };
 
     var auditoriumScheduleRoute = {
         templateUrl: prefix + 'auditoriumschedule',
         controller: auditoriumScheduleController,
-        resolve: auditoriumScheduleController.prototype.resolve
     };
 
     var auditoriumScheduleGeneralRoute = {
         templateUrl: prefix + 'auditoriumschedule/general',
         controller: auditoriumScheduleGeneralController,
-        resolve: auditoriumScheduleGeneralController.prototype.resolve
     };
 
     var settingsRoute = {
         templateUrl: prefix + 'settings',
         controller: settingsController,
-        resolve: settingsController.prototype.resolve
     };
 
     $routeProvider

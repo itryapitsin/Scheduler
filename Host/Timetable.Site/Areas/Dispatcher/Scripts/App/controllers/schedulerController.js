@@ -39,7 +39,3 @@
         $scope.settings.modal.show($scope);
     }
 }
-
-
-
-schedulerController.prototype = baseController;

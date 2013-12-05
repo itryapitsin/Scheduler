@@ -35,6 +35,7 @@ namespace Timetable.Site
                 "~/Scripts/angular-loading.js",
                 "~/Scripts/angular-dragndrop.js",
                 "~/Scripts/angular-sortable.js",
+                "~/Scripts/ui-utils.js",
                 "~/Scripts/ui-bootstrap-{version}.js",
                 "~/Scripts/ui-bootstrap-tpls-{version}.js",
                 "~/Scripts/i18n/angular-locale_ru-ru.js"));

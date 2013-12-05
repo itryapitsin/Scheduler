@@ -1,18 +1,18 @@
-﻿baseController = {};
+﻿function BaseController($scope, $q) {
 
-baseController.resolve = {
-    delay: function ($q, $timeout) {
-        var delay = $q.defer();
-        //ngLoading.start();
+    $scope.showDialog = function(modalPromise) {
+        self.promise = modalPromise;
 
-        //$timeout(function () {
-            delay.resolve();
-        //    //ngLoading.complete();
-        //}, 1000);
+        $q.when(self.promise).then(function(modalEl) {
+            modalEl.modal('show');
+            modalEl.removeClass("hide");
+        });
+    };
 
-        //$q.when(delay.promise)
-        //    .then(function() { alert("test"); });
-
-        return delay.promise;
-    }
-};
+    $scope.hideDialog = function () {
+        $q.when(self.promise).then(function(modalEl) {
+            modalEl.modal('hide');
+            modalEl.addClass("hide");
+        });
+    };
+}

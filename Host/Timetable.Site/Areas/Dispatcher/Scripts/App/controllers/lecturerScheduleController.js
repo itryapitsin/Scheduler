@@ -125,10 +125,4 @@
     $scope.isOddScheduleTicket = function (schedule) {
         return schedule.WeekTypeName == 'З';
     };
-
-    //$scope.clearFoundLecturersCount = function() {
-    //    delete $scope.clearFoundLecturersCount;
-    //};
 }
-
-lecturerScheduleController.prototype = baseController;
