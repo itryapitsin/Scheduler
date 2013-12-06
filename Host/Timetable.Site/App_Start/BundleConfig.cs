@@ -26,7 +26,9 @@ namespace Timetable.Site
             jqueryBundle.Orderer = nullOrderer;
 
             var bootstrapBundle = new Bundle("~/Scripts/bootstrap");
-            bootstrapBundle.Include("~/Scripts/bootstrap*");
+            bootstrapBundle.Include(
+                "~/Scripts/bootstrap*",
+                "~/Scripts/typeahead.js");
             bootstrapBundle.Builder = nullBuilder;
             bootstrapBundle.Transforms.Add(jsTransformer);
             bootstrapBundle.Orderer = nullOrderer;

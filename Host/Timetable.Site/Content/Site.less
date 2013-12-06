@@ -18,29 +18,46 @@
     border-radius:              @border-radius-base;
 }
 
-.modal-content {
-    border-radius:              @border-radius-base;
-    border:                     0;
-    .modal-header {
-        background-color:       @modal-header-bg;
-        color:                  @modal-header-color;
-    }
+.modal-center {
+    padding-top:                15%;
+}
 
-    .modal-footer {
-        background-color:       @modal-footer-bg;
-        color:                  @modal-footer-color;
+.schedule-info-card {
+    background-color:           #fff;
+    border:                     2px solid @table-border-color
+}
 
-        .btn {
-            background-color:       @modal-footer-btn-bg;
-            color:                  @modal-footer-color;
-            &:hover {
-                background-color:         lighten(@modal-footer-btn-bg, 30%);
-            }
+.modal {
+    overflow:                   hidden;
+
+    .modal-content {
+        border-radius:          @border-radius-base;
+        border: 0;
+
+        .modal-header {
+            background-color:   @modal-header-bg;
+            color:              @modal-header-color;
         }
-        .btn-success {
-            background-color:       @brand-success;
-            &:hover {
-                background-color:   @brand-success-hover;
+
+        .modal-footer {
+            background-color:   @modal-footer-bg;
+            color:              @modal-footer-color;
+
+            .btn {
+                background-color:   @modal-footer-btn-bg;
+                color:              @modal-footer-color;
+
+                &:hover {
+                    background-color: lighten(@modal-footer-btn-bg, 30%);
+                }
+            }
+
+            .btn-success {
+                background-color:   @brand-success;
+
+                &:hover {
+                    background-color: @brand-success-hover;
+                }
             }
         }
     }

@@ -9,6 +9,8 @@
     $scope.thread = threadModel;
     $scope.creator = scheduleCreatorModel;
     $scope.moment = moment;
+    $scope.days = [1, 2, 3, 4, 5, 6, 7];
+
     $scope.isValid = function() {
         return $scope.settings.isValid()
             && $scope.thread.isValid();

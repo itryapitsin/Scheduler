@@ -1,22 +1,28 @@
 ﻿@using Newtonsoft.Json
-<div class="navbar navbar-fixed-top" style="top:41px;">
+<nav class="navbar navbar-default navbar-fixed-top navbar-child" role="navigation" style="top:51px;">
     <div class="navbar-inner">
         <div class="container">
-            <form class="navbar-search pull-left inline" style="width:100%;">
-                <strong>ФИО преподавателя</strong>
-                <input type="text" required="required" ng-init="loadLecturerSchedule()" ng-model="lecturer" class="span5" data-min-length="3" placeholder="Поиск: Введите ФИО..." style="height: 20px; margin-bottom: 0px;" bs-typeahead="searchLecturer">
-                <select class="span2" required="required" ng-model="studyYear" ng-change="loadLecturerSchedule()" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears" style="height: 30px;margin-bottom: 0px;"></select>
-                <select class="span2" required="required" ng-model="semester" ng-change="loadLecturerSchedule()" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters" style="height: 30px;margin-bottom: 0px;"></select>
-                <!-- <button class="btn" style="margin-top: 0" ng-init="searchTitle='Найти занятия'" data-placement="right" bs-tooltip="searchTitle" data-original-title ng-click="loadLecturerSchedule()"><i class="icon icon-search"></i></button> -->
-                <button class="btn" style="margin-top: 0" ng-init="excelTitle='Скачать в Excel'" data-placement="right" bs-tooltip="excelTitle" data-original-title ng-click="getReportForLecturer()"><i class="icon icon-list"></i></button>
-                <span class="badge badge-important" ng-init="hoursePerWeekTitle='Всего совпадений'" data-placement="right" bs-tooltip="hoursePerWeekTitle" data-original-title title>{{foundLecturersCount}}</span>
+            <form class="navbar-form navbar-left" style="width: 100%;">
+                <div class="form-group col-sm-7">
+                    <input class="form-control" type="text" required="required" ng-init="loadLecturerSchedule()" ng-model="lecturer" data-min-length="3" placeholder="Поиск: Введите ФИО..." @*bs-typeahead="searchLecturer"*@>
+                </div>
+                <div class="form-group col-sm-2">
+                    <select class="form-control" required="required" ng-model="studyYear" ng-change="loadLecturerSchedule()" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears"></select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <select class="form-control" required="required" ng-model="semester" ng-change="loadLecturerSchedule()" ng-options="semester.Id as semester.Name for semester in pageModel.Semesters"></select>
+                </div>
+                <div class="form-group col-sm-1">
+                    <button class="btn btn-default" data-original-title ng-click="getReportForLecturer()"><i class="glyphicon glyphicon-list"></i></button>
+                    <span class=" badge badge-important">{{foundLecturersCount}}</span>
+                </div>
             </form>
         </div>
     </div>
-</div>
+</nav>
 
 <div class="container-fluid">
-    <div class="row-fluid" style="position: absolute; left: 0px; top: 90px; bottom:0; overflow-y: scroll;">
+    <div class="row-fluid" style="position: absolute; left: 0px; width: 100%; top: 100px; bottom:0; overflow-y: scroll;">
         <table class="table table-bordered table-striped" style="margin-bottom: 0">
             <thead>
                 <tr class="info">
@@ -122,7 +128,6 @@
         </table>
     </div>
 </div>
-
 <script>
     window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
 </script>
