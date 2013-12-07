@@ -1,0 +1,41 @@
+﻿<script type="text/ng-template" id="planing.modal.html">
+    <div class="modal-dialog" style="width: 750px;" ng-controller="PlaningDialogController">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="myModalLabel">Редактирование расписания</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row span1">
+                    <label>№ пары</label>
+                    <select class="span1" required="required" ng-model="pair" ng-change="pairChanged()" ng-options="pair as pair for pair in pairs"></select>
+                </div>
+                <div class="row span2">
+                    <label>Время</label>
+                    <input class="span2" type="text" readonly="readonly" ng-value="moment(time.start, 'HH:mm:ss').format('HH:mm') + ' - ' + moment(time.end, 'HH:mm:ss').format('HH:mm')" />
+                </div>
+                <div class="span1">
+                    <label>Неделя</label>
+                    <select class="span1" required="required" ng-model="weekType" ng-change="weekTypeChanged()" ng-options="weekType.Id as weekType.Name for weekType in .weekTypes"></select>
+                </div>
+                <div class="span2">
+                    <label>Тип</label>
+                    <select class="span2" ng-model="scheduleType" ng-options="scheduleType.Id as scheduleType.Name for scheduleType in scheduleTypes"></select>
+                </div>
+
+                <div class="span8">
+                    <label class="control-label">Корпус</label>
+                    <select class="span8" required="required" ng-model="building" ng-change="creator.modal.buildingChanged()" ng-options="building.Id as building.Name for building in buildings"></select>
+                </div>
+                <div class="span8">
+                    <label>Аудитория</label>
+                    <select class="span8" ng-disabled="!creator.modal.auditoriums" ng-model="auditorium" ng-options="auditorium.Id as auditorium.Name for auditorium in auditoriums"></select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" ng-click="ok()">Применить</a>&nbsp;
+                <button ng-click="cancel()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</script>

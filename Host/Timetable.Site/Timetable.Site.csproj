@@ -246,13 +246,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Dispatcher\Scripts\App\app.js" />
-    <Content Include="Areas\Dispatcher\Scripts\App\controllers\auditoriumScheduleController.js" />
-    <Content Include="Areas\Dispatcher\Scripts\App\controllers\auditoriumScheduleGeneralController.js" />
-    <Content Include="Areas\Dispatcher\Scripts\App\controllers\baseController.js" />
-    <Content Include="Areas\Dispatcher\Scripts\App\controllers\lecturerScheduleController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\AuditoriumScheduleController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\AuditoriumScheduleGeneralController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\BaseController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\BaseTimetableController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\LecturerScheduleController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\navbarController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\schedulerController.js" />
-    <Content Include="Areas\Dispatcher\Scripts\App\controllers\settingsController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\SettingsController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\directives\chart.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\directives\daterangepicker.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\directives\integer.js" />
@@ -323,6 +324,10 @@
     <Content Include="Content\Site.less" />
     <Content Include="Areas\Dispatcher\Views\Shared\_ConfirmationModal.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Shared\_AlertModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Scheduler\_BottomNavbar.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Scheduler\_ChildNavbar.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Scheduler\_ScheduleInfoList.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Scheduler\_Timetable.cshtml" />
     <None Include="Noesis.Javascript\Noesis.Javascript.x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -663,12 +668,10 @@
     <Content Include="Areas\Dispatcher\Views\Auth\Login.cshtml" />
     <Content Include="Areas\Dispatcher\Views\LecturerSchedule\_Index.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Main\Index.cshtml" />
-    <Content Include="Areas\Dispatcher\Views\Scheduler\_Calendar.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Scheduler\_Index.cshtml" />
-    <Content Include="Areas\Dispatcher\Views\Scheduler\_Planing.Modal.cshtml" />
-    <Content Include="Areas\Dispatcher\Views\Scheduler\_Thread.Modal.cshtml" />
-    <Content Include="Areas\Dispatcher\Views\Scheduler\_Timetable.cshtml" />
-    <Content Include="Areas\Dispatcher\Views\Scheduler\_TimetableSettings.Modal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Scheduler\Modals\_Planing.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Scheduler\Modals\_Thread.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Scheduler\Modals\_TimetableParams.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_Index.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Shared\_NewLayout.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Shared\Error.cshtml" />

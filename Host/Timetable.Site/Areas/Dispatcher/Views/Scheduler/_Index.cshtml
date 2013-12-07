@@ -1,125 +1,19 @@
-﻿@using Newtonsoft.Json
+﻿@using Timetable.Site.Infrastructure
 
-<nav class="navbar navbar-default navbar-fixed-top navbar-child" role="navigation" style="top:51px;">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav pull-left col-sm-2">
-                <li>
-                    <a><b>Сведения к расписанию для потока</b></a>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" style="padding: 0;">
-                <button class="btn" ng-disabled="!creator.selected" ng-click="creator.edit(this)"><i class="glyphicon glyphicon-pencil"></i></button>
-                <button class="btn" ng-disabled="!creator.selected" ng-click="creator.unplan(this)"><i class="glyphicon glyphicon-trash"></i></button>
-                <button class="btn"><i class="glyphicon glyphicon-print"></i></button>
-            </form>
-            <ul class="nav navbar-nav pull-right">
-                <li>
-                    <a href="" ng-click="thread.modal.show(this)">
-                        Параметры потока:
-                        <b>{{thread.branchName}}</b>,
-                        <b>{{thread.facultyName}}</b>,
-                        <b>{{thread.courseName}}</b>,
-                        <b>{{thread.groupNames}}</b>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+@Html.Partial("_ChildNavbar")
 <div class="container-fluid" style="padding-right: 0; padding-left: 0;">
     <div class="row-fluid" style="margin-top: 5px;">
-        <div class="col-sm-2" id="test1" style="position: absolute; top: 101px; overflow-x: hidden; bottom: 50px; padding-left: 0; padding-right:0;">
-            <table class="table table-bordered table-striped" style="margin-bottom: 0px;">
-                <tbody>
-                    <tr ng-repeat="scheduleInfo in pageModel.ScheduleInfoes">
-                        <td class="schedule-info-card" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true, onStart: 'creator.startDragging(scheduleInfo)', onStop: 'creator.stopDragging()'}" data-drop="true">
-                            <p>
-                                {{scheduleInfo.TutorialName}}, {{scheduleInfo.TutorialType}}
-                                <span class="label label-info">{{scheduleInfo.HoursPerWeek}}</span>
-                                <span class="label label-success">{{scheduleInfo.HoursPassed}}</span>
-                            </p>
-                            {{scheduleInfo.Lecturer}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="alert alert-error" style="margin: 10px;" ng-hide="thread.isValid()">
-                <a href="" ng-click="thread.modal.show(this)">Укажите поток для сведений</a>
-            </div>
-            <div class="alert alert-info" style="margin: 10px;" ng-show="thread.isValid() && creator.scheduleInfoes.length == 0">
-                Сведений к расписанию нет
-            </div>
-        </div>
-        <div class="col-sm-10 col-sm-offset-2" id="test2" style="position: absolute; top: 101px; padding-left: 0; overflow-x: hidden; overflow-y: visible; bottom: 50px; ">
-            <table class="table table-bordered table-striped" style="margin-bottom: 0;">
-                <thead>
-                    <tr class="info">
-                        <th style="min-width: 60px; width: 60px">№</th>
-                        <th>Пн</th>
-                        <th>Вт</th>
-                        <th>Ср</th>
-                        <th>Чт</th>
-                        <th>Пт</th>
-                        <th>Сб</th>
-                        <th>Вс</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="pair in pageModel.Pairs">
-                        <td style="min-width: 60px; width:60px;">{{pair}}</td>
-                        <td class="day-content"
-                            ng-repeat="day in days"
-                            ng-class="{full: creator.hasFullScheduleTicket(pair, day), even: creator.hasEvenScheduleTicket(pair, day), odd: creator.hasOddScheduleTicket(pair, day)}"
-                            ng-click="creator.dayCellClick($event)"
-                            data-drop="true"
-                            data-jqyoui-options jqyoui-droppable="{onDrop: 'creator.startPlaning(this, pair, day)'}">
-                            <div class="schedule-card alert alert-success"
-                                 ng-repeat="schedule in creator.findScheduleTickets(pair, day)"
-                                 ng-class="{even: creator.isEvenScheduleTicket(schedule), odd: creator.isOddScheduleTicket(schedule)}"
-                                 data-drag="true"
-                                 data-jqyoui-options="{containment: '#test2', revert: 'invalid', distance: 20}"
-                                 jqyoui-draggable="{animate:true, onStart: 'creator.startDragging(scheduleInfo)', onStop: 'creator.stopDragging()'}">
-                                <p style="margin: 0">
-                                    {{schedule.TimeId}}
-                                </p>
-                                <p style="margin: 0">
-                                    {{schedule.TutorialName}}, {{schedule.TutorialTypeName}}., {{schedule.BuildingName}}. {{schedule.AuditoriumNumber}}
-                                </p>
-                                <p style="margin: 0">
-                                    {{schedule.LecturerName}}
-                                </p>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div><!--/span-->
+        @Html.Partial("_ScheduleInfoList")
+        @Html.Partial("_Timetable")
     </div><!--/row-->
 </div>
-<div class="navbar navbar-default navbar-fixed-bottom">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav navbar-left">
-                <li>
+@Html.Partial("_BottomNavbar")
 
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="" ng-click="settings.modal.show(this)">
-                        Параметры расписания:
-                        <b>{{settings.getStudyYearName()}}</b>,
-                        <b>{{settings.getSemesterName()}}</b>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+@Html.Partial("Modals/_Planing")
+@Html.Partial("Modals/_Thread")
+@Html.Partial("Modals/_TimetableParams")
 
-
+@{ var model = new JsonNetResult(Model);}
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+    window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
 </script>

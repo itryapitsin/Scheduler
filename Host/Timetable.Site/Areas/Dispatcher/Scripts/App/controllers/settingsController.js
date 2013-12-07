@@ -1,15 +1,16 @@
-﻿function settingsController($scope, $controller) {
+﻿function SettingsController($scope, $controller) {
     $controller('BaseController', { $scope: $scope });
 
     $scope.refreshDataClick = function() {
     };
 }
 
-function UserSettingsController($scope, $http, $rootScope, $modal) {
+function UserSettingsController($scope, $http, $rootScope, $modal, $controller) {
     $scope.login = pageModel.login;
     $scope.firstname = pageModel.firstname;
     $scope.middlename = pageModel.middlename;
     $scope.lastname = pageModel.lastname;
+    $controller('BaseController', { $scope: $scope });
     
     $scope.save = function () {
         var params = {
@@ -22,6 +23,9 @@ function UserSettingsController($scope, $http, $rootScope, $modal) {
             .post($http.prefix + 'Settings/Save',  params)
             .success(function (response) {
                 if (response.ok) {
+                    
+                    $scope.alert = { content: 'Данные сохранены', ok: $scope.hideDialog };
+                    $scope.showDialog('alert.html');
                     
                     $rootScope.$broadcast('settingsUpdated', response.userName);
                 }
@@ -57,15 +61,7 @@ function UsersController($scope, $modal, $http) {
                 $scope.hideDialog();
             }
         };
-        var modalPromise = $modal({
-            template: 'confirmation.html',
-            persist: true,
-            show: false,
-            backdrop: 'static',
-            scope: $scope
-        });
-
-        this.showDialog(modalPromise);
+        $scope.showDialog('confirmation.html');
     };
     
     $scope.edit = function (user) {
@@ -75,27 +71,11 @@ function UsersController($scope, $modal, $http) {
         $scope.lastname = user.lastname;
         $scope.isEdit = true;
 
-        var modalPromise = $modal({
-            template: 'editusermodal.html',
-            persist: true,
-            show: false,
-            backdrop: 'static',
-            scope: $scope
-        });
-
-        this.showDialog(modalPromise);
+        $scope.showDialog('editusermodal.html');
     };
     
     $scope.showCreateUserDialog = function () {
-        var modalPromise = $modal({
-            template: 'editusermodal.html',
-            persist: true,
-            show: false,
-            backdrop: 'static',
-            scope: $scope
-        });
-
-        this.showDialog(modalPromise);
+        $scope.showDialog('editusermodal.html');
     };
 }
 

@@ -1,0 +1,22 @@
+﻿<div class="col-sm-2" id="test1" style="position: absolute; top: 101px; overflow-x: hidden; bottom: 50px; padding-left: 0; padding-right:0;">
+    <table class="table table-bordered table-striped" style="margin-bottom: 0px;">
+        <tbody>
+            <tr ng-repeat="scheduleInfo in scheduleInfoes">
+                <td class="schedule-info-card" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true, onStart: 'startDragging(scheduleInfo)', onStop: 'stopDragging()'}" data-drop="true">
+                    <p>
+                        {{scheduleInfo.tutorialName}}, {{scheduleInfo.tutorialType}}
+                        <span class="label label-info">{{scheduleInfo.hoursPerWeek}}</span>
+                        <span class="label label-success">{{scheduleInfo.hoursPassed}}</span>
+                    </p>
+                    {{scheduleInfo.lecturer}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-error" style="margin: 10px;" ng-hide="isThreadValid()">
+        <a href="" ng-click="showThreadDialog()">Укажите поток для сведений</a>
+    </div>
+    <div class="alert alert-info" style="margin: 10px;" ng-show="isThreadValid() && scheduleInfoes.length == 0">
+        Сведений к расписанию нет
+    </div>
+</div>

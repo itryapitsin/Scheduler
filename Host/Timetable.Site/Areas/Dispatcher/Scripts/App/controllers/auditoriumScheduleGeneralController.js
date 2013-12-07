@@ -1,5 +1,6 @@
-﻿function auditoriumScheduleGeneralController($scope, $http, timetableService) {
-    $scope.moment = moment;
+﻿function AuditoriumScheduleGeneralController($scope, $http, $controller) {
+    $controller('BaseTimetableController', { $scope: $scope });
+
     $scope.pageModel = pageModel;
     $scope.building = pageModel.buildingId;
     $scope.schedules = pageModel.schedules;
@@ -8,16 +9,13 @@
     $scope.times = pageModel.times;
     $scope.studyYear = pageModel.studyYearId;
     $scope.semester = pageModel.semester;
-    $scope.days = [1, 2, 3, 4, 5, 6, 7];
     
-    angular.extend($scope, timetableService);
-
     $scope.buildingChanged = function () {
-        loadAuditoriumsAndSchedules();
+        getAuditoriumsAndSchedules();
     };
 
     $scope.auditoriumTypeChanged = function () {
-        loadAuditoriumsAndSchedules();
+        getAuditoriumsAndSchedules();
     };
 
     $scope.description = function(schedule) {
@@ -25,14 +23,14 @@
     };
     
     $scope.studyYearChanged = function () {
-        loadAuditoriumsAndSchedules();
+        getAuditoriumsAndSchedules();
     };
     
     $scope.semesterChanged = function () {
-        loadAuditoriumsAndSchedules();
+        getAuditoriumsAndSchedules();
     };
 
-    function loadAuditoriumsAndSchedules() {
+    function getAuditoriumsAndSchedules() {
         $http
             .get($http.prefix + 'AuditoriumSchedule/GetAuditoriumsAndSchedules',
                 {

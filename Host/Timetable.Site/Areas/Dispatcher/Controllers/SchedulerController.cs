@@ -109,31 +109,30 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 }
             }
 
-
             return PartialView("_Index", model);
         }
 
-        public ActionResult BuildingChanged(int buildingId)
-        {
-            UserData.CreatorSettings.CurrentBuildingId = buildingId;
-            UserService.SaveUserState(UserData);
+        //public ActionResult BuildingChanged(int buildingId)
+        //{
+        //    UserData.CreatorSettings.CurrentBuildingId = buildingId;
+        //    UserService.SaveUserState(UserData);
 
-            var times = DataService
-                .GetTimes(buildingId)
-                .Select(x => new TimeViewModel(x));
+        //    var times = DataService
+        //        .GetTimes(buildingId)
+        //        .Select(x => new TimeViewModel(x));
 
-            var auditoriums = DataService
-                .GetAuditoriums(buildingId)
-                .Select(x => new AuditoriumViewModel(x));
+        //    var auditoriums = DataService
+        //        .GetAuditoriums(buildingId)
+        //        .Select(x => new AuditoriumViewModel(x));
 
-            var response = new GetAuditoriumsResponse
-            {
-                Auditoriums = auditoriums,
-                Times = times
-            };
+        //    var response = new GetAuditoriumsResponse
+        //    {
+        //        Auditoriums = auditoriums,
+        //        Times = times
+        //    };
 
-            return new JsonNetResult(response);
-        }
+        //    return new JsonNetResult(response);
+        //}
 
         public ActionResult GetFreeAuditoriums(GetFreeAuditoiumsRequest request)
         {
@@ -151,6 +150,14 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         public ActionResult GetSchedulesAndInfoes(GetSchedulesAndInfoesRequest request)
         {
             var groupIds = GetListFromString(request.GroupIds);
+
+            UserData.CreatorSettings.CurrentFacultyId = request.FacultyId;
+            UserData.CreatorSettings.CurrentCourseId = request.CourseId;
+            UserData.CreatorSettings.CurrentSemesterId = request.SemesterId;
+            UserData.CreatorSettings.CurrentStudyYearId = request.StudyYearId;
+            UserData.CreatorSettings.CurrentGroupIds = groupIds.ToArray();
+            UserService.SaveUserState(UserData);
+            
             var response = new GetSchedulesAndInfoesResponse
             {
                 ScheduleInfoes = DataService
@@ -208,21 +215,6 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         public ActionResult Remove(int id)
         {
             throw new NotImplementedException();
-        }
-
-        public PartialViewResult TimetableSettingsModal()
-        {
-            return PartialView("_TimetableSettings.Modal");
-        }
-
-        public PartialViewResult ThreadModal()
-        {
-            return PartialView("_Thread.Modal");
-        }
-
-        public PartialViewResult PlaningModal()
-        {
-            return PartialView("_Planing.Modal");
         }
     }
 }

@@ -723,7 +723,7 @@ namespace Timetable.Logic.Services
             int semester)
         {
             return GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear)
+                .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
                 .Where(x => x.ScheduleInfo.SemesterId == semester)
                 .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id == facultyId))
                 .Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))

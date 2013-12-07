@@ -9,27 +9,27 @@ app.config(function ($routeProvider) {
 
     var schedulerRoute = {
         templateUrl: prefix + 'scheduler',
-        controller: schedulerController,
+        controller: SchedulerController,
     };
 
     var lecturerScheduleRoute = {
         templateUrl: prefix + 'lecturerschedule',
-        controller: lecturerScheduleController,
+        controller: LecturerScheduleController,
     };
 
     var auditoriumScheduleRoute = {
         templateUrl: prefix + 'auditoriumschedule',
-        controller: auditoriumScheduleController,
+        controller: AuditoriumScheduleController,
     };
 
     var auditoriumScheduleGeneralRoute = {
         templateUrl: prefix + 'auditoriumschedule/general',
-        controller: auditoriumScheduleGeneralController,
+        controller: AuditoriumScheduleGeneralController,
     };
 
     var settingsRoute = {
         templateUrl: prefix + 'settings',
-        controller: settingsController,
+        controller: SettingsController,
     };
 
     $routeProvider
