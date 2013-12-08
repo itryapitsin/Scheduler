@@ -683,7 +683,7 @@
     <Content Include="Areas\Students\Views\AuditoriumSchedule\_Index.cshtml" />
     <Content Include="Areas\Students\Views\ThreadSchedule\_Index.cshtml" />
     <Content Include="Areas\Students\Views\Shared\_Timetable.cshtml" />
-    <Content Include="Areas\Students\Views\ThreadSchedule\_Toolbar.cshtml" />
+    <Content Include="Areas\Students\Views\ThreadSchedule\_ChildNavbar.cshtml" />
     <Content Include="Areas\Students\Views\ThreadSchedule\_SelectThreadDialog.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_EditUserModal.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
@@ -839,6 +839,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_AuditoriumTimetable.cshtml" />
     <Content Include="Views\Shared\_LecturerTimetable.cshtml" />
+    <Content Include="Views\Shared\_ThreadTimetable.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -41,7 +41,7 @@ app.config(function ($routeProvider) {
         .otherwise({ redirectTo: '/scheduler' });
 });
 
-app.run(function ($rootScope, $http, $timeout) {
+app.run(function ($rootScope, $http, $templateCache, $timeout) {
     var prefix = window.location.pathname;
 
     if (prefix[prefix.length - 1] != "/")

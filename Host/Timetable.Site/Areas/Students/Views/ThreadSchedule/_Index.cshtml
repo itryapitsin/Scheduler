@@ -1,11 +1,12 @@
-﻿@using Newtonsoft.Json
-@Html.Partial("_Toolbar")
+﻿@using Timetable.Site.Infrastructure
+@Html.Partial("_ChildNavbar")
 <div class="container-fluid">
-    @Html.Partial("_Timetable")
+    @Html.Partial("_ThreadTimetable")
 </div>
 
 @Html.Partial("_SelectThreadDialog")
 
+@{ var model = new JsonNetResult(Model);}
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+    window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
 </script>

@@ -39,7 +39,23 @@ app.run(function ($rootScope, $http, $templateCache, $timeout) {
     $http.prefix = prefix;
     
     $rootScope.loading = true;
+    
+    $http.defaults.transformRequest.push(function (data) {
+        $rootScope.loading = true;
+        return data;
+    });
 
+    $http.defaults.transformResponse.push(function (data) {
+        $timeout(function () {
+            $rootScope.loading = false;
+        }, 500);
+        return data;
+    });
+
+    $rootScope.$on('$routeChangeStart', function () {
+        $rootScope.loading = true;
+    });
+    
     $rootScope.$on('$routeChangeStart', function () {
         $rootScope.loading = true;
     });

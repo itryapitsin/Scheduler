@@ -3,6 +3,7 @@
 
     $controller('BaseTimetableController', { $scope: $scope });
     angular.extend($scope, pageModel);
+    $scope.pairs = [1, 2, 3, 4, 5, 6, 7, 8];
 
     $scope.currentLecturerId = $cookieStore.get('currentLecturerId');
     if ($scope.currentLecturerId) {

@@ -1,8 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using Timetable.Logic.Interfaces;
-using Timetable.Logic.Services;
-
 
 namespace Timetable.Site
 {
