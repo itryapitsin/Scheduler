@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Timetable.Data.Models.Scheduler;
@@ -26,16 +27,19 @@ namespace Timetable.Sync.Logic.SyncData
                 if(branch == null)
                     continue;
 
+                var textInfo = new CultureInfo("ru-RU", false).TextInfo;
                 if (schedulerEntity == null)
                 {
+                    
+
                     schedulerEntity = new Faculty
                     {
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
                         IIASKey = iiasEntity.Id,
                         BranchId = branch.Id,
-                        Name = iiasEntity.Name,
-                        ShortName = iiasEntity.ShortName,
+                        Name = iiasEntity.Name != null ? textInfo.ToTitleCase(iiasEntity.Name) : null,
+                        ShortName = iiasEntity.ShortName != null ? textInfo.ToUpper(iiasEntity.ShortName) : null,
                         IsActual = true
                     };
                     SchedulerDatabase.Add(schedulerEntity);
@@ -44,8 +48,8 @@ namespace Timetable.Sync.Logic.SyncData
                 {
                     schedulerEntity.UpdatedDate = DateTime.Now;
                     schedulerEntity.IIASKey = iiasEntity.Id;
-                    schedulerEntity.Name = iiasEntity.Name;
-                    schedulerEntity.ShortName = iiasEntity.ShortName;
+                    schedulerEntity.Name = iiasEntity.Name != null ? textInfo.ToTitleCase(iiasEntity.Name) : null;
+                    schedulerEntity.ShortName = iiasEntity.ShortName != null ? textInfo.ToUpper(iiasEntity.ShortName) : null;
                     schedulerEntity.BranchId = branch.Id;
 
                     SchedulerDatabase.Update(schedulerEntity);

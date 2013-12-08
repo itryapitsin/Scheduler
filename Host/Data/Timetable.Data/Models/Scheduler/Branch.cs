@@ -10,9 +10,11 @@ namespace Timetable.Data.Models.Scheduler
         public ICollection<Faculty> Faculties { get; set; }
         public virtual Organization Organization { get; set; }
         public int OrganizationId { get; set; }
+        public ICollection<Course> Courses { get; set; }
         public Branch()
         {
             Faculties = new Collection<Faculty>();
+            Courses = new Collection<Course>();
         }
     }
 }

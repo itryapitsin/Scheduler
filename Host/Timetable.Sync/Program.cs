@@ -38,6 +38,10 @@ namespace Timetable.Sync
             DoSync(new BranchSync());
             Console.WriteLine(@"done!");
 
+            Console.Write(@"Loading branches to courses...");
+            DoSync(new BranchesToCoursesSync(conn));
+            Console.WriteLine(@"done!");
+
             Console.Write(@"Loading buildings...");
             DoSync(new BuildingSync());
             Console.WriteLine(@"done!");

@@ -225,7 +225,19 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<CourseDataTransfer> GetCources()
         {
-            return Database.Courses.Where(x => x.IsActual).ToList().Select(x => new CourseDataTransfer(x));
+            return Database.Courses
+                .Where(x => x.IsActual)
+                .ToList()
+                .Select(x => new CourseDataTransfer(x));
+        }
+
+        public IEnumerable<CourseDataTransfer> GetCources(int branchId)
+        {
+            return Database.Courses
+                .Where(x => x.Branches.Any(y => y.Id == branchId))
+                .Where(x => x.IsActual)
+                .ToList()
+                .Select(x => new CourseDataTransfer(x));
         }
 
         public IEnumerable<DepartmentDataTransfer> GetDeparmtents()

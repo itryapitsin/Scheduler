@@ -21,8 +21,8 @@ namespace Timetable.Logic.Services
 
         protected virtual void OnStepStarted(string obj)
         {
-            Action<string> handler = StepStarted;
-            if (handler != null) handler(obj);
+            foreach (Delegate handler in StepStarted.GetInvocationList())
+                handler.DynamicInvoke(obj);
         }
 
         protected virtual void OnStepComplete(string obj)

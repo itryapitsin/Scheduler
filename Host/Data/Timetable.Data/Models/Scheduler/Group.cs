@@ -9,9 +9,9 @@ namespace Timetable.Data.Models.Scheduler
         public string Code { get; set; }
         public Course Course { get; set; }
         public int CourseId { get; set; }
-        public virtual Speciality Speciality { get; set; }
+        public Speciality Speciality { get; set; }
         public int SpecialityId { get; set; }
-        public virtual Faculty Faculty { get; set; }
+        public Faculty Faculty { get; set; }
         public int FacultyId { get; set; }
 
         public int? StudentsCount { get; set; }

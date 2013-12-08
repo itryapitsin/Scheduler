@@ -58,6 +58,7 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<AuditoriumTypeDataTransfer> GetAuditoriumTypes(bool? isTraining = null);
         IEnumerable<BuildingDataTransfer> GetBuildings();
         IEnumerable<CourseDataTransfer> GetCources();
+        IEnumerable<CourseDataTransfer> GetCources(int branchId);
         IEnumerable<int> GetPairs();
         IEnumerable<DepartmentDataTransfer> GetDeparmtents();
         IEnumerable<FacultyDataTransfer> GetFaculties(BranchDataTransfer branchDataTransfer = null);

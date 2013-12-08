@@ -192,6 +192,10 @@
     <Compile Include="Migrations\201312051554259_AddFirstMiddleLastNameFieldsToUsers.Designer.cs">
       <DependentUpon>201312051554259_AddFirstMiddleLastNameFieldsToUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312082019222_AddCoursesRefToBranches.cs" />
+    <Compile Include="Migrations\201312082019222_AddCoursesRefToBranches.Designer.cs">
+      <DependentUpon>201312082019222_AddCoursesRefToBranches.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -215,6 +219,7 @@
     <Compile Include="Models\Scheduler\ScheduleInfo.cs" />
     <Compile Include="Models\Scheduler\Semester.cs" />
     <Compile Include="Models\Scheduler\Speciality.cs" />
+    <Compile Include="Models\Scheduler\StudyType.cs" />
     <Compile Include="Models\Scheduler\StudyYear.cs" />
     <Compile Include="Models\Scheduler\Time.cs" />
     <Compile Include="Models\Scheduler\ScheduleType.cs" />
@@ -294,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312051554259_AddFirstMiddleLastNameFieldsToUsers.resx">
       <DependentUpon>201312051554259_AddFirstMiddleLastNameFieldsToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312082019222_AddCoursesRefToBranches.resx">
+      <DependentUpon>201312082019222_AddCoursesRefToBranches.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
