@@ -56,6 +56,8 @@ app.run(function ($rootScope, $http, $timeout) {
     });
 
     $rootScope.$on('$viewContentLoaded', function () {
+        $templateCache.removeAll();
+
         $timeout(function () {
             $rootScope.loading = false;
         }, 500);

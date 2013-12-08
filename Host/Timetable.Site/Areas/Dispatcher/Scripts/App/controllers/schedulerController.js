@@ -153,7 +153,6 @@
 }
 
 function ThreadDialogController($scope, $http, $rootScope) {
-
     $scope.ok = function () {
         $scope.hideDialog();
         $rootScope.$broadcast('threadChanged', {

@@ -1,0 +1,14 @@
+﻿<nav class="navbar navbar-default navbar-fixed-top navbar-child ng-scope" role="navigation" style="top:51px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <form class="navbar-form navbar-left" style="width:100%;">
+                <div class="form-group col-sm-4 col-sm-offset-3">
+                    <select class="form-control" required="required" ng-change="buildingChanged()" ng-model="currentBuildingId" ng-options="building.id as building.name for building in buildings"></select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <select class="form-control" required="required" ng-change="auditoriumChanged()" ng-model="currentAuditoriumId" ng-options="building.id as building.name for building in auditoriums"></select>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>

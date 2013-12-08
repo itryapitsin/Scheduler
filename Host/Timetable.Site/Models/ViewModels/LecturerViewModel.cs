@@ -8,10 +8,13 @@ namespace Timetable.Site.Models.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ShortName { get; set; }
         public LecturerViewModel(LecturerDataTransfer lecturer)
         {
             if (lecturer.Lastname != null && lecturer.Firstname != null && lecturer.Middlename != null)
                 Name = lecturer.Lastname + " " + lecturer.Firstname[0] + ". " + lecturer.Middlename[0] + ".";
+
+            GetLecturerShortName(lecturer);
 
             Id = lecturer.Id;
         }

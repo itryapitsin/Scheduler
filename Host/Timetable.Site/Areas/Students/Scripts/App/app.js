@@ -1,4 +1,4 @@
-﻿var app = angular.module('scheduler', ['ui.select2', 'ngResource', '$strap.directives', 'ngCookies', 'LocalStorageModule', 'ngProgress']);
+﻿var app = angular.module('scheduler', ['ui.select2', 'ngResource', 'ngRoute', '$strap.directives', 'ngCookies', 'LocalStorageModule']);
 
 app.config(function ($routeProvider) {
 
@@ -9,20 +9,17 @@ app.config(function ($routeProvider) {
 
     var threadScheduleRoute = {
         templateUrl: prefix + 'threadschedule',
-        controller: threadScheduleController,
-        resolve: threadScheduleController.prototype.resolve
+        controller: ThreadScheduleController,
     };
 
     var lecturerScheduleRoute = {
         templateUrl: prefix + 'lecturerschedule',
-        controller: lecturerScheduleController,
-        resolve: lecturerScheduleController.prototype.resolve
+        controller: LecturerScheduleController,
     };
     
     var auditoriumScheduleRoute = {
         templateUrl: prefix + 'auditoriumschedule',
-        controller: auditoriumScheduleController,
-        resolve: auditoriumScheduleController.prototype.resolve
+        controller: AuditoriumScheduleController,
     };
 
     $routeProvider
@@ -32,7 +29,7 @@ app.config(function ($routeProvider) {
         .otherwise({ redirectTo: '/threadschedule' });
 });
 
-app.run(function ($rootScope, $http) {
+app.run(function ($rootScope, $http, $templateCache, $timeout) {
     var prefix = window.location.pathname;
 
     if (prefix[prefix.length - 1] != "/")
@@ -40,5 +37,19 @@ app.run(function ($rootScope, $http) {
 
     $rootScope.prefix = prefix;
     $http.prefix = prefix;
+    
+    $rootScope.loading = true;
+
+    $rootScope.$on('$routeChangeStart', function () {
+        $rootScope.loading = true;
+    });
+
+    $rootScope.$on('$viewContentLoaded', function () {
+        $templateCache.removeAll();
+
+        $timeout(function () {
+            $rootScope.loading = false;
+        }, 500);
+    });
 });
 

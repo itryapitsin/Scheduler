@@ -1,17 +1,28 @@
-﻿function lecturerScheduleController($scope, $http) {
-    //$scope.moment = moment;
-    //$scope.searchLecturer = function (query, callback) {
-    //    $http
-    //        .get($http.prefix + 'LecturerSchedule/SearchLecturer', { params: { query: query } })
-    //        .success(function (response) {
-    //            callback(response.Items);
-    //            $scope.foundLecturersCount = response.Total;
-    //        });
-    //};
+﻿function LecturerScheduleController($scope, $http, $controller, $cookieStore, $window) {
+    $window.document.title = 'Расписание преподавателей';
 
-    //$scope.clearFoundLecturersCount = function() {
-    //    delete $scope.clearFoundLecturersCount;
-    //};
+    $controller('BaseTimetableController', { $scope: $scope });
+    angular.extend($scope, pageModel);
+
+    $scope.currentLecturerId = $cookieStore.get('currentLecturerId');
+    if ($scope.currentLecturerId) {
+        $scope.currentLecturerId = parseInt($scope.currentLecturerId);
+    }
+
+    $scope.lecturerChanged = function () {
+        $cookieStore.put('currentLecturerId', $scope.currentLecturerId);
+        loadSchedule();
+    };
+
+    function findLecturers() {
+
+    }
+
+    function loadSchedule() {
+        $http
+            .get($http.prefix + 'LecturerSchedule/LoadLecturerSchedule', { params: { lecturerId: $scope.currentLecturerId, } })
+            .success(function (response) {
+                $scope.schedules = response;
+            });
+    }
 }
-
-lecturerScheduleController.prototype = baseController;

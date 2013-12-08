@@ -1,12 +1,5 @@
-﻿function threadScheduleController(
-    $scope,
-    timetableService) {
-    
-    $scope.pageModel = pageModel;
-    $scope.moment = moment;
-    $scope.schedules = [];
-    
-    angular.extend($scope, timetableService);
-}
+﻿function ThreadScheduleController($scope, $controller) {
 
-threadScheduleController.prototype = baseController;
+    $controller('BaseTimetable', { $scope: $scope });
+    $scope.schedules = [];
+}

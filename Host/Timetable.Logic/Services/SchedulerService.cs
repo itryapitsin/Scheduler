@@ -45,7 +45,9 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<SemesterDataTransfer> GetSemesters()
         {
-            return Database.Semesters.ToList().Select(x => new SemesterDataTransfer(x));
+            return Database.Semesters
+                .ToList()
+                .Select(x => new SemesterDataTransfer(x));
         }
 
         public IEnumerable<BranchDataTransfer> GetBranches()

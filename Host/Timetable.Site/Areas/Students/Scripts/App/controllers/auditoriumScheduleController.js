@@ -1,28 +1,44 @@
-﻿function auditoriumScheduleController($scope, $http, timetableService) {
-    $scope.moment = moment;
-    $scope.pageModel = pageModel;
-    $scope.auditoriums = pageModel.Auditoriums;
-    $scope.times = pageModel.Times;
-    $scope.schedules = pageModel.Schedules;
+﻿function AuditoriumScheduleController($scope, $http, $controller, $cookieStore, $window) {
+    $window.document.title = 'Расписание аудиторий';
 
-    angular.extend($scope, timetableService);
+    $controller('BaseTimetableController', { $scope: $scope });
+    angular.extend($scope, pageModel);
 
-    $scope.loadAuditoriums = function (building) {
+    $scope.currentAuditoriumId = $cookieStore.get('currentAuditoriumId');
+    $scope.currentBuildingId = $cookieStore.get('currentBuildingId');
+
+    if ($scope.currentBuildingId) {
+        $scope.currentBuildingId = parseInt($scope.currentBuildingId);
+    }
+
+    if ($scope.currentAuditoriumId) {
+        $scope.currentAuditoriumId = parseInt($scope.currentAuditoriumId);
+    }
+
+    $scope.buildingChanged = function () {
+        $cookieStore.put('currentBuildingId', $scope.currentBuildingId);
+        loadAuditoriums();
+    };
+
+    $scope.auditoriumChanged = function () {
+        $cookieStore.put('currentAuditoriumId', $scope.currentAuditoriumId);
+        loadAuditoriumSchedule();
+    };
+
+    function loadAuditoriums() {
         $http
-            .get($http.prefix + 'AuditoriumSchedule/GetAuditoriums', { params: { buildingId: building } })
+            .get($http.prefix + 'AuditoriumSchedule/GetAuditoriums', { params: { buildingId: $scope.currentBuildingId } })
             .success(function (response) {
-                $scope.auditoriums = response.Auditoriums;
-                $scope.times = response.Times;
+                $scope.auditoriums = response.auditoriums;
+                $scope.times = response.times;
             });
     };
 
-    $scope.loadAuditoriumSchedule = function () {
+    function loadAuditoriumSchedule() {
         $http
-            .get($http.prefix + 'AuditoriumSchedule/GetSchedules', { params: { auditoriumId: $scope.auditorium } })
+            .get($http.prefix + 'AuditoriumSchedule/GetSchedules', { params: { auditoriumId: $scope.currentAuditoriumId } })
             .success(function (response) {
                 $scope.schedules = response;
             });
     };
 }
-
-auditoriumScheduleController.prototype = baseController;

@@ -12,12 +12,39 @@ namespace Timetable.Site.Areas.Students.Controllers
     {
         public ActionResult Index()
         {
+            var currentBuildingId = Request.Cookies["currentBuildingId"];
+            var currentAuditoriumId = Request.Cookies["currentAuditoriumId"];
+
             var model = new AuditoriumScheduleViewModel
             {
                 Buildings = DataService
                     .GetBuildings()
                     .Select(x => new BuildingViewModel(x)),
             };
+
+            if (currentBuildingId != null)
+            {
+                model.CurrentBuildingId = Convert.ToInt32(currentBuildingId.Value);
+                model.Auditoriums = DataService
+                    .GetAuditoriums(model.CurrentBuildingId)
+                    .Select(x => new AuditoriumViewModel(x));
+
+                model.Times = DataService
+                    .GetTimes(model.CurrentBuildingId)
+                    .Select(x => new TimeViewModel(x));
+            }
+
+            if (currentAuditoriumId != null)
+            {
+                var studyYear = DataService.GetStudyYear(DateTime.Now);
+                //var semestr = DataService.GetSemesters()
+
+                model.CurrentAuditoriumId = Convert.ToInt32(currentAuditoriumId.Value);
+                //TODO: Сделать определение семетра по текущему времени
+                model.Schedules = DataService
+                    .GetSchedules(new[] {model.CurrentAuditoriumId}, studyYear.Id, 1)
+                    .Select(x => new ScheduleViewModel(x));
+            }
 
             return PartialView("_Index", model);
         }

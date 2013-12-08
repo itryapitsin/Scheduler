@@ -48,35 +48,27 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
         public ActionResult LoadLecturerSchedule(LecturerScheduleRequest request)
         {
-
             UserData.LecturerScheduleSettings.SemesterId = request.Semester;
             UserData.LecturerScheduleSettings.StudyYearId = request.StudyYearId;
             UserService.SaveUserState(UserData);
 
             var currentLecturer = DataService.GetLecturerBySearchQuery(request.LecturerQuery);
 
-            var schedules = new List<ScheduleViewModel>();
-            var times = new List<TimeViewModel>();
+            if (currentLecturer == null) 
+                return new EmptyResult();
 
-            if (currentLecturer != null)
-            {
-                UserData.LecturerScheduleSettings.LecturerId = currentLecturer.Id;
-                UserService.SaveUserState(UserData);
+            UserData.LecturerScheduleSettings.LecturerId = currentLecturer.Id;
+            UserService.SaveUserState(UserData);
 
-                schedules = DataService.GetSchedulesForLecturer(currentLecturer.Id, request.StudyYearId, request.Semester)
-                    .ToList()
-                    .Select(x => new ScheduleViewModel(x)).ToList();
+            var schedules = DataService
+                .GetSchedulesForLecturer(currentLecturer.Id, request.StudyYearId, request.Semester)
+                .Select(x => new ScheduleViewModel(x));
 
-                var timeIds = schedules.Select(x => x.TimeId).Distinct().ToList();
-
-                times = DataService.GetTimesByIds(timeIds).ToList().Select(x => new TimeViewModel(x)).ToList();
-            }
-
-            return new JsonNetResult(new ScheduleForLecturersWithTimesViewModel()
-            {
-                Schedules = schedules,
-                Times = times
-            });
+            return new JsonNetResult(new ScheduleForLecturersWithTimesViewModel
+                {
+                    Schedules = schedules,
+                    Times = schedules.Select(x => x.Time)
+                });
         }
     }
 }

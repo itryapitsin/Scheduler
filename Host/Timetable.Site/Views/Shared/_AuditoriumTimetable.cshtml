@@ -1,0 +1,33 @@
+﻿<div class="row-fluid" style="position: absolute; left: 0px; width: 100%; top: 100px; bottom:0; overflow-y: scroll;">
+    <table class="table table-bordered table-striped" style="margin-bottom: 0">
+        <thead>
+            <tr class="info">
+                <th style="min-width: 60px; width: 60px">Время</th>
+                <th>Пн</th>
+                <th>Вт</th>
+                <th>Ср</th>
+                <th>Чт</th>
+                <th>Пт</th>
+                <th>Сб</th>
+                <th>Вс</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="time in times">
+                <td style="min-width: 60px; width:60px;">{{moment(time.start, 'HH:mm:ss').format('HH:mm')}}<br />{{moment(time.end, 'HH:mm:ss').format('HH:mm')}}</td>
+                <td ng-repeat="day in days" class="day-content" ng-class="{full: hasFullScheduleTicket(time, day), even: hasEvenScheduleTicket(time, day), odd: hasOddScheduleTicket(time, day)}">
+                    <div class="schedule-card alert alert-success"
+                         ng-repeat="schedule in findScheduleTickets(time, day)"
+                         ng-class="{even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}">
+                        <p style="margin: 0">
+                            {{schedule.tutorialName}}, {{schedule.tutorialTypeName}}., {{schedule.buildingName}}. {{schedule.auditoriumNumber}}
+                        </p>
+                        <p style="margin: 0">
+                            {{schedule.lecturerName}}
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

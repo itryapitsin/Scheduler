@@ -16,6 +16,7 @@ namespace Timetable.Site.Models.ViewModels
         public IEnumerable<string> GroupCodes { get; set; }
         public string WeekTypeName { get; set; }
         public string SubGroup { get; set; }
+        public TimeViewModel Time { get; set; }
         public int TimeId { get; set; }
         public int Pair { get; set; }
         public int DayOfWeek { get; set; }
@@ -34,6 +35,7 @@ namespace Timetable.Site.Models.ViewModels
             WeekTypeName = schedule.WeekType.Name;
             SubGroup = schedule.SubGroup;
             TimeId = schedule.Time.Id;
+            Time = new TimeViewModel(schedule.Time);
             Pair = schedule.Time.Position;
             DayOfWeek = schedule.DayOfWeek;
         }

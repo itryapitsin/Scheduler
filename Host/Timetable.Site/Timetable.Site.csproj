@@ -202,8 +202,10 @@
     <Compile Include="Areas\Dispatcher\Models\ViewModels\SchedulerViewModel.cs" />
     <Compile Include="Areas\Students\Controllers\AuditoriumScheduleController.cs" />
     <Compile Include="Areas\Students\Controllers\MainController.cs" />
+    <Compile Include="Areas\Students\Controllers\LecturerScheduleController.cs" />
     <Compile Include="Areas\Students\Controllers\ThreadScheduleController.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
+    <Compile Include="Areas\Students\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\ThreadScheduleViewModel.cs" />
     <Compile Include="Models\ResponseModels\GetAuditoriumsResponse.cs" />
     <Compile Include="Models\ViewModels\AuditoriumViewModel.cs" />
@@ -252,7 +254,7 @@
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\BaseTimetableController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\LecturerScheduleController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\navbarController.js" />
-    <Content Include="Areas\Dispatcher\Scripts\App\controllers\schedulerController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\SchedulerController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\controllers\SettingsController.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\directives\chart.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\directives\daterangepicker.js" />
@@ -269,10 +271,9 @@
     <Content Include="Areas\Dispatcher\Scripts\App\services\specialityService.js" />
     <Content Include="Areas\Dispatcher\Scripts\App\services\transactionService.js" />
     <Content Include="Areas\Students\Scripts\App\app.js" />
-    <Content Include="Areas\Students\Scripts\App\controllers\auditoriumScheduleController.js" />
-    <Content Include="Areas\Students\Scripts\App\controllers\baseController.js" />
-    <Content Include="Areas\Students\Scripts\App\controllers\lecturerScheduleController.js" />
-    <Content Include="Areas\Students\Scripts\App\controllers\threadScheduleController.js" />
+    <Content Include="Areas\Students\Scripts\App\controllers\AuditoriumScheduleController.js" />
+    <Content Include="Areas\Students\Scripts\App\controllers\LecturerScheduleController.js" />
+    <Content Include="Areas\Students\Scripts\App\controllers\ThreadScheduleController.js" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
@@ -328,6 +329,9 @@
     <Content Include="Areas\Dispatcher\Views\Scheduler\_ChildNavbar.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Scheduler\_ScheduleInfoList.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Scheduler\_Timetable.cshtml" />
+    <Content Include="Areas\Students\Views\AuditoriumSchedule\_ChildNavbar.cshtml" />
+    <Content Include="Areas\Students\Views\LecturerSchedule\_Index.cshtml" />
+    <Content Include="Areas\Students\Views\LecturerSchedule\_ChildNavbar.cshtml" />
     <None Include="Noesis.Javascript\Noesis.Javascript.x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -797,7 +801,8 @@
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\Services\timetableService.js" />
+    <Content Include="Scripts\Site\BaseController.js" />
+    <Content Include="Scripts\Site\BaseTimetableController.js" />
     <Content Include="Scripts\typeahead.js" />
     <Content Include="Scripts\typeahead.min.js" />
     <Content Include="Scripts\ui-utils.js" />
@@ -831,6 +836,15 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\_AuditoriumTimetable.cshtml" />
+    <Content Include="Views\Shared\_LecturerTimetable.cshtml" />
+    <None Include="Views\Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Views\Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -849,9 +863,7 @@
       <Name>Timetable.Sync.Logic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Students\Scripts\App\services\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

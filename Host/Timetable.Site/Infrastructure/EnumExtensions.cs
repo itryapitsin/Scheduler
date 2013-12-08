@@ -4,7 +4,7 @@ namespace Timetable.Site.Infrastructure
 {
     public static class EnumExtensions
     {
-        public static T ConvertTo<T>(this object value) where T : struct,IConvertible
+        public static T ConvertTo<T>(this object value) where T : struct, IConvertible
         {
             var sourceType = value.GetType();
             if (!sourceType.IsEnum)

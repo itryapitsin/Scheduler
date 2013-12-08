@@ -1,0 +1,18 @@
+﻿<nav class="navbar navbar-default navbar-fixed-top navbar-child ng-scope" role="navigation" style="top:51px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <form class="navbar-form navbar-left" style="width:100%;">
+                <div class="form-group col-sm-4 col-sm-offset-3">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" style="padding: 4px 12px; height: 34px;"><i class="glyphicon glyphicon-search"></i></span>
+                        <input class="form-control" style="height: 34px;" type="text" required="required" ng-init="loadLecturerSchedule()" ng-model="lecturer" data-min-length="3" placeholder="Поиск: Введите ФИО..." @*bs-typeahead="searchLecturer"*@>
+                    </div>
+                </div>
+                <div class="form-group col-sm-1">
+                    <button class="btn btn-default" data-original-title ng-click="getReportForLecturer()"><i class="glyphicon glyphicon-download-alt"></i></button>
+                    <span class=" badge badge-important">{{foundLecturersCount}}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>

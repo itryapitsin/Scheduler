@@ -1,7 +1,10 @@
-﻿app.factory('timetableService', ['$http', '$q', '$resource', function () {
-    var service = {};
-
-    service.findScheduleTickets = function (time, dayOfWeek) {
+﻿function BaseTimetableController($scope, $controller) {
+    $controller('BaseController', { $scope: $scope });
+    
+    $scope.moment = moment;
+    $scope.days = [1, 2, 3, 4, 5, 6, 7];
+    
+    $scope.findScheduleTickets = function (time, dayOfWeek) {
         var result = $.Enumerable.From(this.$parent.schedules)
             .Where(function (x) {
                 return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
@@ -11,7 +14,7 @@
         return result;
     };
 
-    service.hasFullScheduleTicket = function (time, dayOfWeek) {
+    $scope.hasFullScheduleTicket = function (time, dayOfWeek) {
         var result = $.Enumerable.From(this.$parent.schedules)
             .Where(function (x) {
                 return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
@@ -23,7 +26,7 @@
         return false;
     };
 
-    service.hasEvenScheduleTicket = function (time, dayOfWeek) {
+    $scope.hasEvenScheduleTicket = function (time, dayOfWeek) {
         var result = $.Enumerable.From(this.$parent.schedules)
             .Where(function (x) {
                 return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
@@ -36,7 +39,7 @@
         return result.length > 1;
     };
 
-    service.hasOddScheduleTicket = function (time, dayOfWeek) {
+    $scope.hasOddScheduleTicket = function (time, dayOfWeek) {
         var result = $.Enumerable.From(this.$parent.schedules)
             .Where(function (x) {
                 return x.TimeId == time.Id && x.DayOfWeek == dayOfWeek;
@@ -49,7 +52,7 @@
         return result.length > 1;
     };
 
-    service.hasScheduleTicket = function (pair, dayOfWeek) {
+    $scope.hasScheduleTicket = function (pair, dayOfWeek) {
         var result = $.Enumerable.From(this.$parent.schedules)
             .Where(function (x) {
                 return x.TimeId == pair && x.DayOfWeek == dayOfWeek;
@@ -59,17 +62,15 @@
         return result > 0;
     };
 
-    service.isFullScheduleTicket = function (schedule) {
+    $scope.isFullScheduleTicket = function (schedule) {
         return schedule.WeekTypeName == 'Л';
     };
 
-    service.isEvenScheduleTicket = function (schedule) {
+    $scope.isEvenScheduleTicket = function (schedule) {
         return schedule.WeekTypeName == 'Ч';
     };
 
-    service.isOddScheduleTicket = function (schedule) {
+    $scope.isOddScheduleTicket = function (schedule) {
         return schedule.WeekTypeName == 'З';
     };
-
-    return service;
-}]);
+}
