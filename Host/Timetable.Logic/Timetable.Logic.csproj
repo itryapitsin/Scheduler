@@ -70,6 +70,7 @@
     <Compile Include="Models\Scheduler\ScheduleTypeDataTransfer.cs" />
     <Compile Include="Models\Scheduler\SemesterDataTransfer.cs" />
     <Compile Include="Models\Scheduler\SpecialityDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\StudyTypeDataTransfer.cs" />
     <Compile Include="Models\Scheduler\StudyYearDataTransfer.cs" />
     <Compile Include="Models\Scheduler\TimeDataTransfer.cs" />
     <Compile Include="Models\Scheduler\TimetableEntityDataTransfer.cs" />

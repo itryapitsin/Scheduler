@@ -238,6 +238,7 @@
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\FacultyViewModel.cs" />
     <Compile Include="Models\ViewModels\ScheduleInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\StudyTypeViewModel.cs" />
     <Compile Include="Models\ViewModels\StudyYearViewModel.cs" />
     <Compile Include="Models\ViewModels\TimeViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />

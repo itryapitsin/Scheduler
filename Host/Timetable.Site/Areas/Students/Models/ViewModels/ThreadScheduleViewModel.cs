@@ -12,6 +12,7 @@ namespace Timetable.Site.Areas.Students.Models.ViewModels
     {
         public IEnumerable<BranchViewModel> Branches { get; set; }
         public IEnumerable<FacultyViewModel> Faculties { get; set; }
+        public IEnumerable<StudyTypeViewModel> StudyTypes { get; set; }
         public IEnumerable<CourseViewModel> Courses { get; set; }
         public IEnumerable<GroupViewModel> Groups { get; set; }
         public IEnumerable<ScheduleViewModel> Schedules { get; set; }
@@ -35,6 +36,10 @@ namespace Timetable.Site.Areas.Students.Models.ViewModels
             Branches = dataService
                 .GetBranches()
                 .Select(x => new BranchViewModel(x));
+
+            StudyTypes = dataService
+                .GetStudyType()
+                .Select(x => new StudyTypeViewModel(x));
 
             if (currentBranchId != null)
             {

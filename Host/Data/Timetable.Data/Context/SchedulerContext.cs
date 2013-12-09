@@ -37,7 +37,7 @@ namespace Timetable.Data.Context
         public DbSet<AuditoriumType> AuditoriumTypes { get; set; }
         public DbSet<StudyYear> StudyYears { get; set; }
         public DbSet<ScheduleType> ScheduleTypes { get; set; }
-
+        public DbSet<StudyType> StudyTypes { get; set; }
         public DbSet<Semester> Semesters { get; set; }
 
         public SchedulerContext()
@@ -67,6 +67,7 @@ namespace Timetable.Data.Context
             modelBuilder.Configurations.Add(new ScheduleInfoMapping());
             modelBuilder.Configurations.Add(new LecturersMapping());
             modelBuilder.Configurations.Add(new UserMapping());
+            modelBuilder.Configurations.Add(new StudyTypeMapping());
         }
 
         public virtual void Add<TEntity>(TEntity entity, bool isApplyNow = true) where TEntity : class

@@ -74,6 +74,7 @@
     <Compile Include="Exceptions\RegistrationException.cs" />
     <Compile Include="Context\Interfaces\IDatabase.cs" />
     <Compile Include="Context\Interfaces\ISchedulerDatabase.cs" />
+    <Compile Include="Mapping\StudyTypeMapping.cs" />
     <Compile Include="Mapping\UserMapping.cs" />
     <Compile Include="Mapping\AuditoriumMapping.cs">
       <SubType>Code</SubType>
@@ -196,6 +197,14 @@
     <Compile Include="Migrations\201312082019222_AddCoursesRefToBranches.Designer.cs">
       <DependentUpon>201312082019222_AddCoursesRefToBranches.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312082155222_CreateManyToManyRefInGroups.cs" />
+    <Compile Include="Migrations\201312082155222_CreateManyToManyRefInGroups.Designer.cs">
+      <DependentUpon>201312082155222_CreateManyToManyRefInGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312082336316_AddStudyTypes.cs" />
+    <Compile Include="Migrations\201312082336316_AddStudyTypes.Designer.cs">
+      <DependentUpon>201312082336316_AddStudyTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -302,6 +311,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312082019222_AddCoursesRefToBranches.resx">
       <DependentUpon>201312082019222_AddCoursesRefToBranches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312082155222_CreateManyToManyRefInGroups.resx">
+      <DependentUpon>201312082155222_CreateManyToManyRefInGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312082336316_AddStudyTypes.resx">
+      <DependentUpon>201312082336316_AddStudyTypes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

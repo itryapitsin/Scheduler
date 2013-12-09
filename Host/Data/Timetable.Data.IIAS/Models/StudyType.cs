@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Timetable.Data.Models.Scheduler
+namespace Timetable.Data.IIAS.Models
 {
-    public class StudyType: BaseIIASEntity
+    public class StudyType
     {
+        public Int64 Id { get; set; }
         public string Name { get; set; }
     }
 }

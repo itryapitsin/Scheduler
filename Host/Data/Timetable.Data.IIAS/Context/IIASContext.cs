@@ -39,6 +39,7 @@ namespace Timetable.Data.IIAS.Context
 
         public DbSet<ScheduleInfo> ScheduleInfoes { get; set; }
         public IDbSet<Schedule> Schedules { get; set; }
+        public IDbSet<StudyType> StudyTypes { get; set; }
 
         public IIASContext(OracleConnection connection)
             : base(connection, true)
@@ -277,14 +278,11 @@ namespace Timetable.Data.IIAS.Context
         {
             return RawSqlQuery<Group>(@"
                     SELECT DISTINCT 
-                        SDMS.V_STUD_GR.UBU_ID AS Id, 
                         SDMS.V_STUD_GR.GR_CODE AS Code, 
-                        SDMS.V_STUD_GR.SPEC_BUN_ID AS SpecialityId, 
-                        SDMS.V_STUD_GR.KURS_BUN_ID AS CourseId, 
-                        SDMS.V_STUD_GR.FACUL_BUN_ID AS FacultyId
+                        SDMS.V_STUD_GR.GR_BUN_ID AS id, 
+                        SDMS.V_STUD_GR.FO_BUN_ID AS studytypeid
                     FROM            
-                        SDMS.V_STUD_GR,
-                        SDMS.O_BASE_UNIT
+                        SDMS.V_STUD_GR, SDMS.O_BASE_UNIT
                     WHERE        
                         (SDMS.O_BASE_UNIT.STATUS = 'Y')");
         }
@@ -322,6 +320,18 @@ namespace Timetable.Data.IIAS.Context
                         AND (BQR_ID IS NOT NULL)
                         AND (SRS_SRS_ID = 1)
                         AND (CELS_CES_ID IS NOT NULL)");
+        }
+
+        public IQueryable<StudyType> GetStudyTypes()
+        {
+            return RawSqlQuery<StudyType>(@"
+                    SELECT DISTINCT 
+                        SDMS.V_STUD_GR.NAME_FO as name, 
+                        SDMS.V_STUD_GR.FO_BUN_ID as id
+                    FROM            
+                        SDMS.V_STUD_GR, SDMS.O_BASE_UNIT
+                    WHERE        
+                        (SDMS.O_BASE_UNIT.STATUS = 'Y')");
         }
     }
 }

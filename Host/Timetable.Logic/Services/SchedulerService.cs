@@ -299,22 +299,36 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<GroupDataTransfer> GetGroupsForFaculty(int facultyId, int[] courseIds)
         {
-            var result = Database.Groups
-                .Where(x => x.IsActual)
-                .Where(x => courseIds.Contains(x.CourseId))
-                .Where(x => x.FacultyId == facultyId)
-                .ToList()
-                .Select(x => new GroupDataTransfer(x));
+            throw new NotImplementedException();
+            //var result = Database.Groups
+            //    .Where(x => x.IsActual)
+            //    .Where(x => courseIds.Contains(x.CourseId))
+            //    .Where(x => x.FacultyId == facultyId)
+            //    .ToList()
+            //    .Select(x => new GroupDataTransfer(x));
 
-            return result;
+            //return result;
         }
 
         public IEnumerable<GroupDataTransfer> GetGroupsForFaculty(int facultyId, int courseId)
         {
             var result = Database.Groups
                 .Where(x => x.IsActual)
-                .Where(x => x.CourseId == courseId)
-                .Where(x => x.FacultyId == facultyId)
+                .Where(x => x.Courses.Any(y => y.Id == courseId))
+                .Where(x => x.Faculties.Any(y => y.Id == facultyId))
+                .ToList()
+                .Select(x => new GroupDataTransfer(x));
+
+            return result;
+        }
+
+        public IEnumerable<GroupDataTransfer> GetGroupsForFaculty(int facultyId, int courseId, int studyTypeId)
+        {
+            var result = Database.Groups
+                .Where(x => x.IsActual)
+                .Where(x => x.Courses.Any(y => y.Id == courseId))
+                .Where(x => x.Faculties.Any(y => y.Id == facultyId))
+                .Where(x => x.StudyTypeId == studyTypeId)
                 .ToList()
                 .Select(x => new GroupDataTransfer(x));
 
@@ -323,14 +337,15 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<GroupDataTransfer> GetGroupsForSpeciality(int specialityId, int[] courseIds)
         {
-            var result = Database.Groups
-                .Where(x => x.IsActual)
-                .Where(x => courseIds.Contains(x.CourseId))
-                .Where(x => x.Speciality.Id == specialityId)
-                .ToList()
-                .Select(x => new GroupDataTransfer(x));
+            throw new NotImplementedException();
+            //var result = Database.Groups
+            //    .Where(x => x.IsActual)
+            //    .Where(x => courseIds.Contains(x.CourseId))
+            //    .Where(x => x.Speciality.Id == specialityId)
+            //    .ToList()
+            //    .Select(x => new GroupDataTransfer(x));
 
-            return result;
+            //return result;
         }
         #endregion
 
@@ -946,6 +961,14 @@ namespace Timetable.Logic.Services
                 : Database.StudyYears.FirstOrDefault(x => x.EndYear == date.Year);
 
             return new StudyYearDataTransfer(studyYear);
+        }
+
+        public IEnumerable<StudyTypeDataTransfer> GetStudyType()
+        {
+            return Database
+                .StudyTypes
+                .ToList()
+                .Select(x => new StudyTypeDataTransfer(x));
         }
     }
 }

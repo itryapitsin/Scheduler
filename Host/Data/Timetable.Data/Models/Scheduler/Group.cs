@@ -1,28 +1,25 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Security;
 
 namespace Timetable.Data.Models.Scheduler
 {
     public class Group : BaseIIASEntity
     {
         public string Code { get; set; }
-        public Course Course { get; set; }
-        public int CourseId { get; set; }
-        public Speciality Speciality { get; set; }
-        public int SpecialityId { get; set; }
-        public Faculty Faculty { get; set; }
-        public int FacultyId { get; set; }
-
+        public ICollection<Course> Courses { get; set; }
+        public ICollection<Speciality> Specialities { get; set; }
+        public ICollection<Faculty> Faculties { get; set; }
         public int? StudentsCount { get; set; }
         public Group Parent { get; set; }
-
-        //[DataMember(Name = "ParentId")]
-        //public int? ParentId { get; set; }
         public ICollection<ScheduleInfo> ScheduleInfoes { get; set; }
+        public StudyType StudyType { get; set; }
+        public int StudyTypeId { get; set; }
 
         public Group()
         {
+            Courses = new Collection<Course>();
+            Specialities = new Collection<Speciality>();
+            Faculties = new Collection<Faculty>();
             ScheduleInfoes = new Collection<ScheduleInfo>();
         }
     }

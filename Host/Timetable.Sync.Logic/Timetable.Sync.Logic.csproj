@@ -51,6 +51,9 @@
     <Compile Include="SyncData\AuditoriumSync.cs" />
     <Compile Include="SyncData\BaseSync.cs" />
     <Compile Include="SyncData\BranchesToCoursesSync.cs" />
+    <Compile Include="SyncData\StudyTypeSync.cs" />
+    <Compile Include="SyncData\GroupsToCoursesSync.cs" />
+    <Compile Include="SyncData\GroupsToFacultiesSync.cs" />
     <Compile Include="SyncData\ScheduleSync.cs" />
     <Compile Include="SyncData\ScheduleTypeSync.cs" />
     <Compile Include="SyncData\GroupSync.cs" />

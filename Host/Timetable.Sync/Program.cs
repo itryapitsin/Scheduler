@@ -18,6 +18,10 @@ namespace Timetable.Sync
             DoSync(new ScheduleTypeSync());
             Console.WriteLine(@"done!");
 
+            Console.Write(@"Loading study types...");
+            DoSync(new StudyTypeSync());
+            Console.WriteLine(@"done!");
+
             Console.Write(@"Loading courses...");
             DoSync(new CourseSync());
             Console.WriteLine(@"done!");
@@ -82,6 +86,14 @@ namespace Timetable.Sync
             DoSync(new GroupSync());
             Console.WriteLine(@"done!");
 
+            Console.Write(@"Loading groups to faculty...");
+            DoSync(new GroupsToFacultiesSync(conn));
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"Loading groups to courses...");
+            DoSync(new GroupsToCoursesSync(conn));
+            Console.WriteLine(@"done!");
+
             Console.Write(@"Loading tutorial types...");
             DoSync(new TutorialTypeSync());
             Console.WriteLine(@"done!");
@@ -118,9 +130,9 @@ namespace Timetable.Sync
             DoSync(new SpecialitiesToTutorialsSync(conn));
             Console.WriteLine(@"done!");
 
-            Console.Write(@"Loading schedules...");
-            DoSync(new ScheduleSync());
-            Console.WriteLine(@"done!");
+            //Console.Write(@"Loading schedules...");
+            //DoSync(new ScheduleSync());
+            //Console.WriteLine(@"done!");
         }
 
         public static void DoSync(BaseSync sync)

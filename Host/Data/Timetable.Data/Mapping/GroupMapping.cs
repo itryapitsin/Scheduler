@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Data.Mapping
@@ -16,14 +11,32 @@ namespace Timetable.Data.Mapping
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            HasRequired(x => x.Course)
+            HasMany(x => x.Faculties)
                 .WithMany()
-                .HasForeignKey(x => x.CourseId);
+                .Map(x =>
+                {
+                    x.ToTable("GroupsToFaculties");
+                    x.MapLeftKey("Group_Id");
+                    x.MapRightKey("Faculty_Id");
+                });
 
-            HasRequired(x => x.Speciality)
+            HasMany(x => x.Courses)
+                .WithMany()
+                .Map(x =>
+                {
+                    x.ToTable("GroupsToCourses");
+                    x.MapLeftKey("Group_Id");
+                    x.MapRightKey("Course_Id");
+                });
+
+            HasMany(x => x.Specialities)
                 .WithMany(x => x.Groups)
-                .HasForeignKey(x => x.SpecialityId)
-                .WillCascadeOnDelete(false);
+                .Map(x =>
+                {
+                    x.ToTable("GroupsToSpecialities");
+                    x.MapLeftKey("Group_Id");
+                    x.MapRightKey("Speciality_Id");
+                });
         }
     }
 }

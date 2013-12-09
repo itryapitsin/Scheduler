@@ -74,6 +74,11 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<GroupDataTransfer> GetGroupsForFaculty(
             int facultyId,
             int courseId);
+
+        IEnumerable<GroupDataTransfer> GetGroupsForFaculty(
+            int facultyId, 
+            int courseId, 
+            int studyTypeId);
         IEnumerable<GroupDataTransfer> GetGroupsForSpeciality(
             int specialityId,
             int[] courseIds);
@@ -199,5 +204,6 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<WeekTypeDataTransfer> GetWeekTypes();
         IEnumerable<StudyYearDataTransfer> GetStudyYears();
         StudyYearDataTransfer GetStudyYear(DateTime date);
+        IEnumerable<StudyTypeDataTransfer> GetStudyType();
     }
 }

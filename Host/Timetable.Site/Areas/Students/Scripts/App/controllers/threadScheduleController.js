@@ -10,9 +10,9 @@
         $scope.currentBranchId = parseInt($scope.currentBranchId);
     }
 
-    $scope.currentStudyFormId = $cookieStore.get('currentStudyFormId');
-    if ($scope.currentStudyFormId) {
-        $scope.currentStudyFormId = parseInt($scope.currentStudyFormId);
+    $scope.currentStudyTypeId = $cookieStore.get('currentStudyTypeId');
+    if ($scope.currentStudyTypeId) {
+        $scope.currentStudyTypeId = parseInt($scope.currentStudyTypeId);
     }
 
     $scope.currentFacultyId = $cookieStore.get('currentFacultyId');
@@ -51,11 +51,11 @@
             $cookieStore.remove('currentGroupId');
     });
 
-    $scope.$watch('currentStudyFormId', function () {
-        if ($scope.currentStudyFormId)
-            $cookieStore.put('currentStudyFormId', $scope.currentStudyFormId);
+    $scope.$watch('currentStudyTypeId', function () {
+        if ($scope.currentStudyTypeId)
+            $cookieStore.put('currentStudyTypeId', $scope.currentStudyTypeId);
         else
-            $cookieStore.remove('currentStudyFormId');
+            $cookieStore.remove('currentStudyTypeId');
     });
 
     $scope.$watch('currentCourseId', function () {
@@ -87,7 +87,7 @@
             .post($http.prefix + 'ThreadSchedule/GetGroups', {
                 facultyId: $scope.currentFacultyId,
                 courseId: $scope.currentCourseId,
-                studyTypeId: 0
+                studyTypeId: $scope.currentStudyTypeId
             })
             .success(function (response) {
                 

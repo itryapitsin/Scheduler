@@ -11,35 +11,29 @@ namespace Timetable.Sync.Logic.SyncData
     {
         private string _insertQueryPattern = @"
             INSERT INTO [dbo].[Groups]
-                       ([Code]
-                       ,[CourseId]
-                       ,[SpecialityId]
+                       ([Code]                       
                        ,[StudentsCount]
                        ,[IsActual]
                        ,[CreatedDate]
                        ,[UpdatedDate]
                        ,[IIASKey]
                        ,[Parent_Id]
-                       ,[FacultyId])
+                       ,[StudyTypeId])
                  VALUES
-                       ('{0}'
-                       ,{1}
-                       ,{2}
+                       ('{0}'                      
                        ,0
                        ,1
                        ,GetDate()
                        ,GetDate()
-                       ,{3}
+                       ,{1}
                        ,null
-                       ,{4});";
+                       ,{2});";
         private string _updateQueryPattern = @"
                 UPDATE [dbo].[Groups]
                    SET [Code] = '{0}'
-                      ,[CourseId] = {1}
-                      ,[SpecialityId] = {2}
                       ,[UpdatedDate] = GetDate()
-                      ,[FacultyId] = {3}
-                 WHERE Id = {4};";
+                      ,[StudyTypeId] = {2}
+                 WHERE Id = {1};";
 
         public override async void Sync()
         {
@@ -50,16 +44,14 @@ namespace Timetable.Sync.Logic.SyncData
 
             var iiasEntities = await task1;
             var schedulerEntities = await task2;
-            var faculties = SchedulerDatabase.Faculties.ToList();
+            var studyTypes = SchedulerDatabase.StudyTypes.ToList();
             var command = String.Empty;
 
             foreach (var iiasEntity in iiasEntities)
             {
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == iiasEntity.Id);
-                var course = SchedulerDatabase.Courses.FirstOrDefault(x => x.IIASKey == iiasEntity.CourseId);
-                var speciality = SchedulerDatabase.Specialities.FirstOrDefault(x => x.IIASKey == iiasEntity.SpecialityId);
-                var faculty = faculties.FirstOrDefault(x => x.IIASKey == iiasEntity.FacultyId);
-                if(course == null || speciality == null || faculty == null)
+                var studyType = studyTypes.FirstOrDefault(x => x.IIASKey == iiasEntity.StudyTypeId);
+                if(studyType == null)
                     continue;
 
                 if (schedulerEntity == null)
@@ -67,20 +59,16 @@ namespace Timetable.Sync.Logic.SyncData
                     command += string.Format(
                         _insertQueryPattern,
                         iiasEntity.Code,
-                        course.Id,
-                        speciality.Id,
                         iiasEntity.Id,
-                        faculty.Id);
+                        studyType.Id);
                 }
                 else
                 {
                     command += string.Format(
                         _updateQueryPattern,
                         iiasEntity.Code,
-                        course.Id,
-                        speciality.Id,
-                        faculty.Id,
-                        iiasEntity.Id);
+                        iiasEntity.Id,
+                        studyType.Id);
                 }
             }
 

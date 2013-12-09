@@ -30,12 +30,17 @@ namespace Timetable.Site.Areas.Students.Controllers
         public ActionResult GetGroups(int facultyId, int courseId, int studyTypeId)
         {
             var response = DataService
-                .GetGroupsForFaculty(facultyId, courseId)
+                .GetGroupsForFaculty(facultyId, courseId, studyTypeId)
+                .OrderBy(x => x.Code)
                 .Select(x => new GroupViewModel(x));
 
             return new JsonNetResult(response);
         }
 
-
+        //public ActionResult GetSchedule()
+        //{
+        //    var response = DataService
+        //        .GetSchedulesForGroups()
+        //}
     }
 }

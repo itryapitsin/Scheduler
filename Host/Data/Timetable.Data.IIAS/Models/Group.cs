@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Timetable.Data.IIAS.Models
 {
@@ -12,10 +8,6 @@ namespace Timetable.Data.IIAS.Models
 
         public string Code { get; set; }
 
-        public Int64 CourseId { get; set; }
-
-        public Int64 SpecialityId { get; set; }
-
-        public Int64 FacultyId { get; set; }
+        public Int64 StudyTypeId { get; set; }
     }
 }
