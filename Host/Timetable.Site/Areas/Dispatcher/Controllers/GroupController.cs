@@ -9,10 +9,10 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
     public class GroupController : AuthorizedController
     {
         [HttpGet]
-        public ActionResult Get(int facultyId, int courseId)
+        public ActionResult Get(int facultyId, int courseId, int studyTypeId)
         {
             var result = DataService
-                    .GetGroupsForFaculty(facultyId,courseId)
+                    .GetGroupsForFaculty(facultyId, courseId, studyTypeId)
                     .Select(x => new GroupViewModel(x));
 
             return new JsonNetResult(result);

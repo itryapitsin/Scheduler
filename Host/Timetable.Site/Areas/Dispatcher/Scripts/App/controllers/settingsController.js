@@ -28,7 +28,9 @@ function UserSettingsController($scope, $http, $rootScope, $modal, $controller) 
                     $scope.showDialog('alert.html');
                     
                     $rootScope.$broadcast('settingsUpdated', response.userName);
-                }
+
+                    return;
+                } 
 
                 if (response.message)
                     $scope.message = response.message;

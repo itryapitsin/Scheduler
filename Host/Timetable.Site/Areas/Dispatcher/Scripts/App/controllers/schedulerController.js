@@ -1,4 +1,6 @@
-﻿function SchedulerController($scope, $modal, $controller, $http) {
+﻿function SchedulerController($scope, $modal, $controller, $http, $window) {
+    $window.document.title = 'Создание расписания';
+
     $controller('BaseTimetableController', { $scope: $scope });
     angular.extend($scope, pageModel);
 
@@ -46,6 +48,13 @@
             .Where(function (x) { return x.id == $scope.currentSemesterId; })
             .FirstOrDefault({ name: "<Семестр не выбран>" });
     };
+    
+    function findStudyType() {
+        return $.Enumerable
+            .From($scope.studyTypes)
+            .Where(function (x) { return x.id == $scope.currentStudyTypeId; })
+            .FirstOrDefault({ name: "<Форма обучения не выбрана>" });
+    };
 
     function loadScheduleInfoesForFaculty() {
         var groupIds = $.Enumerable.From($scope.currentGroups).Select('$.id').ToArray();
@@ -54,7 +63,8 @@
             courseId: $scope.currentCourseId,
             groupIds: groupIds,
             studyYearId: $scope.currentStudyYearId,
-            semesterId: $scope.currentSemesterId
+            semesterId: $scope.currentSemesterId,
+            studyTypeId: $scope.currentStudyTypeId
         };
 
         $http
@@ -72,6 +82,7 @@
         $scope.currentFaculty = findFaculty();
         $scope.currentCourse = findCourse();
         $scope.currentGroups = findGroups();
+        $scope.currentStudyType = findStudyType();
     }
 
     function initTimetableParams(newParams) {
@@ -89,8 +100,13 @@
         initTimetableParams(newParams);
         loadScheduleInfoesForFaculty();
     });
+    $scope.$on('ticketPlanned', function (e, newParams) {
+    });
 
     $scope.$watch('currentGroups', function () {
+        if (!$scope.currentGroups)
+            return;
+
         $scope.currentGroupNames = $.Enumerable
             .From($scope.currentGroups)
             .Select("$.code")
@@ -108,6 +124,12 @@
     };
 
     $scope.edit = function () {
+        $scope.$broadcast('ticketEditing', $scope.selectedTicket);
+        $scope.showDialog('planing.modal.html');
+    };
+
+    $scope.select = function(e, item) {
+        $scope.selectedTicket = item;
     };
 
     $scope.unschedule = function () {
@@ -117,9 +139,11 @@
     };
 
     $scope.isThreadValid = function () {
-        return $scope.currentBuildingId
+        return $scope.currentBranchId
             && $scope.currentFacultyId
-            && $scope.currentCourseId;
+            && $scope.currentCourseId
+            && $scope.currentCourseId
+            && $scope.currentStudyYearId;
     };
 
     $scope.stopDragging = function (e, ui) {
@@ -144,10 +168,10 @@
         //$(ui.draggable[0]).addClass("hide");
     };
 
-    if ($scope.currentBuildingId == null)
+    if (!$scope.currentBranchId)
         $scope.showThreadDialog();
-    else
-        initThread();
+
+    initThread();
 
     initTimetableParams();
 }
@@ -160,6 +184,9 @@ function ThreadDialogController($scope, $http, $rootScope) {
             currentFacultyId: $scope.currentFacultyId,
             currentCourseId: $scope.currentCourseId,
             currentGroupIds: $scope.currentGroupIds,
+            currentStudyTypeId: $scope.currentStudyTypeId,
+            faculties: $scope.faculties,
+            groups: $scope.groups
         });
     };
 
@@ -167,9 +194,11 @@ function ThreadDialogController($scope, $http, $rootScope) {
 
     $scope.changeBranch = function () {
         $http
-            .get($http.prefix + 'faculty/get', { params: { branchId: $scope.currentBranchId } })
+            .post($http.prefix + 'Scheduler/BranchChanged', { branchId: $scope.currentBranchId })
             .success(function (response) {
-                $scope.faculties = response;
+                $scope.faculties = response.faculties;
+                $scope.courses = response.courses;
+                $scope.currentCourseId = null;
                 $scope.currentFacultyId = null;
                 $scope.currentGroupIds = [];
                 $scope.groups = [];
@@ -182,6 +211,7 @@ function ThreadDialogController($scope, $http, $rootScope) {
         var params = {
             facultyId: $scope.currentFacultyId,
             courseId: $scope.currentCourseId,
+            studyTypeId: $scope.currentStudyTypeId
         };
 
         $http
@@ -193,6 +223,11 @@ function ThreadDialogController($scope, $http, $rootScope) {
     };
 
     $scope.changeCourse = $scope.changeFaculty;
+    $scope.changeStudyType = $scope.changeFaculty;
+
+    $scope.isValid = function() {
+        return $scope.groups && $scope.groups.length > 0;
+    };
 }
 
 function TimetableParamsDialogController($scope, $rootScope) {
@@ -205,11 +240,29 @@ function TimetableParamsDialogController($scope, $rootScope) {
         });
     };
 
-    $scope.cancel = $scope.hideDialog;
+    $scope.cancel = function () {
+        if ($scope.isValid())
+            $scope.hideDialog();
+        else
+            $scope.message = "Необходимо заполнить поля";
+    };
+
+    $scope.isValid = function() {
+        return $scope.currentSemesterId && $scope.currentStudyYearId;
+    };
 }
 
-function PlaningDialogController($scope, $http, $rootScope) {
+function PlaningDialogController($scope,$rootScope, $http) {
 
+    $scope.$on('ticketEditing', function(e, newParams) {
+        angular.extend($scope, newParams);
+    });
 
+    $scope.ok = function() {
+        $scope.hideDialog();
+        $rootScope.$broadcast('ticketPlanned', {});
+    };
+
+    $scope.cancel = $scope.hideDialog;
 }
 

@@ -6,7 +6,6 @@ using Timetable.Site.Areas.Dispatcher.Models.RequestModels;
 using Timetable.Site.Areas.Dispatcher.Models.ResponseModels;
 using Timetable.Site.Areas.Dispatcher.Models.ViewModels;
 using Timetable.Site.Infrastructure;
-using Timetable.Site.Models.ResponseModels;
 using Timetable.Site.Models.ViewModels;
 
 namespace Timetable.Site.Areas.Dispatcher.Controllers
@@ -15,124 +14,23 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
     {
         public PartialViewResult Index()
         {
-            var model = new SchedulerViewModel
-            {
-                UserName = User.Identity.Name,
-                Buildings = DataService
-                    .GetBuildings()
-                    .Select(x => new BuildingViewModel(x)),
-
-                Branches = DataService
-                    .GetBranches()
-                    .Select(x => new BranchViewModel(x)),
-
-                WeekTypes = DataService
-                    .GetWeekTypes()
-                    .Select(x => new WeekTypeViewModel(x)),
-
-                Courses = DataService
-                    .GetCources()
-                    .OrderBy(x => x.Name)
-                    .Select(x => new CourseViewModel(x)),
-
-                StudyYears = DataService
-                    .GetStudyYears()
-                    .Select(x => new StudyYearViewModel(x)),
-
-                ScheduleTypes = DataService
-                    .GetScheduleTypes()
-                    .Select(x => new ScheduleTypeViewModel(x)),
-
-                Semesters = DataService
-                    .GetSemesters()
-                    .Select(x => new SemesterViewModel(x))
-            };
-
-            model.Pairs = DataService.GetPairs();
-
-            if (UserData.CreatorSettings.CurrentBuildingId.HasValue)
-            {
-                model.Auditoriums = DataService
-                    .GetAuditoriums(UserData.CreatorSettings.CurrentBuildingId.Value)
-                    .Select(x => new AuditoriumViewModel(x));
-
-                model.Times = DataService
-                    .GetTimes(UserData.CreatorSettings.CurrentBuildingId.Value)
-                    .Select(x => new TimeViewModel(x));
-
-                model.CurrentBuildingId = UserData.CreatorSettings.CurrentBuildingId;
-                model.CurrentStudyYearId = UserData.CreatorSettings.CurrentStudyYearId;
-                model.CurrentSemesterId = UserData.CreatorSettings.CurrentSemesterId;
-            }
-            if (UserData.CreatorSettings.CurrentBranchId.HasValue)
-            {
-                model.Faculties = DataService
-                    .GetFaculties(UserData.CreatorSettings.CurrentBranchId.Value)
-                    .Select(x => new FacultyViewModel(x));
-
-                model.CurrentBranchId = UserData.CreatorSettings.CurrentBranchId;
-                model.CurrentFacultyId = UserData.CreatorSettings.CurrentFacultyId;
-                model.CurrentCourseId = UserData.CreatorSettings.CurrentCourseId;
-                model.CurrentGroupIds = UserData.CreatorSettings.CurrentGroupIds;
-
-                if (UserData.CreatorSettings.CurrentFacultyId.HasValue
-                    && UserData.CreatorSettings.CurrentCourseId.HasValue)
-                {
-                    model.Groups = DataService
-                        .GetGroupsForFaculty(
-                            UserData.CreatorSettings.CurrentFacultyId.Value,
-                            UserData.CreatorSettings.CurrentCourseId.Value)
-                        .Select(x => new GroupViewModel(x));
-                }
-
-                if (UserData.CreatorSettings.CurrentFacultyId != null
-                    && UserData.CreatorSettings.CurrentCourseId != null
-                    && UserData.CreatorSettings.CurrentStudyYearId != null
-                    && UserData.CreatorSettings.CurrentSemesterId != null)
-                {
-                    model.ScheduleInfoes = DataService
-                        .GetScheduleInfoes(
-                            UserData.CreatorSettings.CurrentFacultyId.Value,
-                            UserData.CreatorSettings.CurrentCourseId.Value,
-                            UserData.CreatorSettings.CurrentGroupIds,
-                            UserData.CreatorSettings.CurrentStudyYearId.Value,
-                            UserData.CreatorSettings.CurrentSemesterId.Value)
-                        .Select(x => new ScheduleInfoViewModel(x));
-
-                    model.Schedules = DataService
-                        .GetSchedulesForFaculty(
-                            UserData.CreatorSettings.CurrentFacultyId.Value,
-                            UserData.CreatorSettings.CurrentCourseId.Value,
-                            UserData.CreatorSettings.CurrentStudyYearId.Value,
-                            UserData.CreatorSettings.CurrentSemesterId.Value)
-                        .Select(x => new ScheduleViewModel(x));
-                }
-            }
+            var model = new SchedulerViewModel(DataService, UserData);
 
             return PartialView("_Index", model);
         }
 
-        //public ActionResult BuildingChanged(int buildingId)
-        //{
-        //    UserData.CreatorSettings.CurrentBuildingId = buildingId;
-        //    UserService.SaveUserState(UserData);
+        public ActionResult BranchChanged(int branchId)
+        {
+            var faculties = DataService
+                .GetFaculties(branchId)
+                .Select(x => new FacultyViewModel(x));
 
-        //    var times = DataService
-        //        .GetTimes(buildingId)
-        //        .Select(x => new TimeViewModel(x));
+            var courses = DataService
+                .GetCources(branchId)
+                .Select(x => new CourseViewModel(x));
 
-        //    var auditoriums = DataService
-        //        .GetAuditoriums(buildingId)
-        //        .Select(x => new AuditoriumViewModel(x));
-
-        //    var response = new GetAuditoriumsResponse
-        //    {
-        //        Auditoriums = auditoriums,
-        //        Times = times
-        //    };
-
-        //    return new JsonNetResult(response);
-        //}
+            return new JsonNetResult(new { Faculties = faculties, Courses = courses });
+        }
 
         public ActionResult GetFreeAuditoriums(GetFreeAuditoiumsRequest request)
         {
@@ -156,6 +54,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             UserData.CreatorSettings.CurrentSemesterId = request.SemesterId;
             UserData.CreatorSettings.CurrentStudyYearId = request.StudyYearId;
             UserData.CreatorSettings.CurrentGroupIds = groupIds.ToArray();
+            UserData.CreatorSettings.CurrentStudyTypeId = request.StudyTypeId;
             UserService.SaveUserState(UserData);
             
             var response = new GetSchedulesAndInfoesResponse

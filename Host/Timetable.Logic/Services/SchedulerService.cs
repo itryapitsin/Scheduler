@@ -963,7 +963,7 @@ namespace Timetable.Logic.Services
             return new StudyYearDataTransfer(studyYear);
         }
 
-        public IEnumerable<StudyTypeDataTransfer> GetStudyType()
+        public IEnumerable<StudyTypeDataTransfer> GetStudyTypes()
         {
             return Database
                 .StudyTypes

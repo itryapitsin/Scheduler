@@ -24,7 +24,7 @@
                 <div class="pull-left text-danger" ng-show='message'>
                     <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
                 </div>
-                <button class="btn btn-success" ng-click="ok()">OK</button>&nbsp;
+                <button ng-disable="!isValid()" class="btn btn-success" ng-click="ok()">OK</button>&nbsp;
                 <button class="btn" ng-click="cancel()">Закрыть</button>
             </div>
         </div>

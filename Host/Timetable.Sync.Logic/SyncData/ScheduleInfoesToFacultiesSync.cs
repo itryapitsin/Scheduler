@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Common;
+using System.Globalization;
 using System.Linq;
 
 namespace Timetable.Sync.Logic.SyncData
@@ -41,6 +42,7 @@ namespace Timetable.Sync.Logic.SyncData
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Faculties").ToList();
             var faculties = SchedulerDatabase.Faculties.ToList();
             var command = String.Empty;
+            var textInfo = new CultureInfo("ru-RU", false).TextInfo;
             try
             {
                 while (reader.Read())
@@ -48,7 +50,7 @@ namespace Timetable.Sync.Logic.SyncData
                     var scheduleInfoId = reader.GetInt64(0);
                     var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == scheduleInfoId);
                     var facultyId = reader.GetString(1);
-                    var faculty = faculties.FirstOrDefault(x => x.Name == facultyId);
+                    var faculty = faculties.FirstOrDefault(x => x.Name == textInfo.ToTitleCase(facultyId));
                     if (schedulerEntity != null && faculty != null && !schedulerEntity.Faculties.Contains(faculty))
                     {
                         command += String.Format(_commandPattern, schedulerEntity.Id, faculty.Id);

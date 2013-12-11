@@ -68,61 +68,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
         public PartialViewResult General()
         {
-            var model = new AuditoriumScheduleGeneralViewModel
-            {
-                Buildings = DataService
-                   .GetBuildings()
-                   .Select(x => new BuildingViewModel(x)),
-
-                StudyYears = DataService
-                    .GetStudyYears()
-                    .Select(x => new StudyYearViewModel(x)),
-
-                Semesters = DataService
-                    .GetSemesters()
-                    .Select(x => new SemesterViewModel(x)),
-
-                WeekTypes = DataService
-                    .GetWeekTypes()
-                    .Select(x => new WeekTypeViewModel(x)),
-
-                AuditoriumTypes = DataService
-                    .GetAuditoriumTypes(true)
-                    .Select(x => new AuditoriumTypeViewModel(x)),
-
-                BuildingId = UserData.AuditoriumScheduleSettings.BuildingId,
-
-                StudyYearId = UserData.AuditoriumScheduleSettings.StudyYearId,
-
-                Semester = UserData.AuditoriumScheduleSettings.SemesterId,
-
-                AuditoriumTypeId = UserData.AuditoriumScheduleSettings.AuditoriumTypeIds.FirstOrDefault()
-            };
-
-            if (UserData.AuditoriumScheduleSettings.BuildingId.HasValue)
-                model.Times = DataService
-                    .GetTimes(UserData.AuditoriumScheduleSettings.BuildingId.Value)
-                    .Select(x => new TimeViewModel(x));
-
-            if (UserData.AuditoriumScheduleSettings.BuildingId.HasValue
-                && UserData.AuditoriumScheduleSettings.AuditoriumTypeIds.Any()
-                && UserData.AuditoriumScheduleSettings.SemesterId.HasValue
-                && UserData.AuditoriumScheduleSettings.StudyYearId.HasValue)
-            {
-                model.Auditoriums = DataService
-                    .GetAuditoriums(
-                        UserData.AuditoriumScheduleSettings.BuildingId.Value,
-                        UserData.AuditoriumScheduleSettings.AuditoriumTypeIds.ToArray())
-                    .Select(x => new AuditoriumViewModel(x));
-
-                model.Schedules = DataService
-                    .GetSchedules(
-                        model.Auditoriums.Select(x => x.Id).ToArray(),
-                        UserData.AuditoriumScheduleSettings.StudyYearId.Value, 
-                        UserData.AuditoriumScheduleSettings.SemesterId.Value)
-                    .Select(x => new ScheduleViewModel(x));
-
-            }
+            var model = new AuditoriumScheduleGeneralViewModel(DataService, UserData);
 
             return PartialView("_General", model);
         }

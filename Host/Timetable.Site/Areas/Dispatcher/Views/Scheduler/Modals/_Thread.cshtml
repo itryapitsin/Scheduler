@@ -13,6 +13,12 @@
                         </div>
                     </div>
                     <div class="form-group" ng-class="{'has-error': form.login.$error.required}">
+                        <label class="col-sm-2 control-label">Форма обучения</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="currentStudyTypeId" ng-change="changeStudyType()" ng-options="studyType.id as studyType.name for studyType in studyTypes"></select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': form.login.$error.required}">
                         <label class="col-sm-2 control-label">Факультет</label>
                         <div class="col-sm-8">
                             <select class="form-control" ng-model="currentFacultyId" ng-change="changeFaculty()" ng-options="faculty.id as faculty.name for faculty in faculties"></select>
@@ -36,7 +42,7 @@
                 <div class="pull-left text-danger" ng-show='message'>
                     <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
                 </div>
-                <button class="btn btn-success" ng-click="ok()">OK</button>&nbsp;
+                <button ng-disabled="!isValid()" class="btn btn-success" ng-click="ok()">OK</button>&nbsp;
                 <button class="btn" ng-click="cancel()">Отмена</button>
             </div>
         </div>

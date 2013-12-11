@@ -18,7 +18,7 @@
                 <td class="day-content"
                     ng-repeat="day in days"
                     ng-class="{full: hasFullScheduleTicket(pair, day), even: hasEvenScheduleTicket(pair, day), odd: hasOddScheduleTicket(pair, day)}"
-                    ng-click="creator.dayCellClick($event)"
+                    ng-click="select($event)"
                     data-drop="true"
                     data-jqyoui-options jqyoui-droppable="{onDrop: 'startPlaning(this, pair, day)'}">
                     <div class="schedule-card alert alert-success"

@@ -11,6 +11,7 @@ namespace Timetable.Logic.Models
     {
         public int? CurrentBuildingId { get; set; }
         public int? CurrentStudyYearId { get; set; }
+        public int? CurrentStudyTypeId { get; set; }
         public int? CurrentSemesterId { get; set; }
         public int? CurrentBranchId { get; set; }
         public int? CurrentFacultyId { get; set; }
@@ -21,6 +22,7 @@ namespace Timetable.Logic.Models
         {
             CurrentBuildingId = user.CreatorSelectedBuildingId;
             CurrentStudyYearId = user.CreatorSelectedStudyYearId;
+            CurrentStudyTypeId = user.CreatorSelectedStudyTypeId;
             CurrentSemesterId = user.CreatorSelectedSemesterId;
             CurrentBranchId = user.CreatorSelectedBranchId;
             CurrentFacultyId = user.CreatorSelectedFacultyId;

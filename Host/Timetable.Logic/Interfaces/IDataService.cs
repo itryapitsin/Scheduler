@@ -204,6 +204,6 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<WeekTypeDataTransfer> GetWeekTypes();
         IEnumerable<StudyYearDataTransfer> GetStudyYears();
         StudyYearDataTransfer GetStudyYear(DateTime date);
-        IEnumerable<StudyTypeDataTransfer> GetStudyType();
+        IEnumerable<StudyTypeDataTransfer> GetStudyTypes();
     }
 }

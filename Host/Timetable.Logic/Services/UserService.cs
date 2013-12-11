@@ -81,6 +81,10 @@ namespace Timetable.Logic.Services
             user.CreatorSelectedStudyYearId = userDataTransfer.CreatorSettings.CurrentStudyYearId;
             user.CreatorSelectedBranchId = userDataTransfer.CreatorSettings.CurrentBranchId;
             user.CreatorSelectedFacultyId = userDataTransfer.CreatorSettings.CurrentFacultyId;
+            user.CreatorSelectedStudyTypeId = userDataTransfer.CreatorSettings.CurrentStudyTypeId;
+            if (user.CreatorSelectedFacultyId.HasValue)
+                user.CreatorSelectedBranchId = DataContext.Branches.First(x => x.Faculties.Any(y => y.Id == user.CreatorSelectedFacultyId)).Id;
+
             user.CreatorSelectedCourseId = userDataTransfer.CreatorSettings.CurrentCourseId;
 
             foreach (var @group in user.CreatorSelectedGroups.ToArray())

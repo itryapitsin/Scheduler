@@ -23,7 +23,7 @@ namespace Timetable.Sync.Logic.SyncData
                        ('{0}'
                        ,'{1}'
                        ,'{2}'
-                       ,'{3}'
+                       ,{3}
                        ,1
                        ,GetDate()
                        ,GetDate()
@@ -60,7 +60,7 @@ namespace Timetable.Sync.Logic.SyncData
                         _insertQueryPattern, 
                         iiasEntity.Lastname,
                         iiasEntity.Firstname,
-                        iiasEntity.Middlename,
+                        string.IsNullOrEmpty(iiasEntity.Middlename) ? "NULL" : string.Format("'{0}'", iiasEntity.Middlename),
                         string.Empty,
                         iiasEntity.Id);
                 }
@@ -70,7 +70,7 @@ namespace Timetable.Sync.Logic.SyncData
                         _updateQueryPattern,
                         iiasEntity.Lastname,
                         iiasEntity.Firstname,
-                        iiasEntity.Middlename,
+                        string.IsNullOrEmpty(iiasEntity.Middlename) ? "NULL" : string.Format("'{0}'", iiasEntity.Middlename),
                         string.Empty,
                         iiasEntity.Id);
                 }

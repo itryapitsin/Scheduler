@@ -51,13 +51,13 @@ app.run(function ($rootScope, $http, $templateCache, $timeout) {
     $http.prefix = prefix;
     $rootScope.loading = true;
 
-    $rootScope.$on('$routeChangeStart', function () {
+    $rootScope.$on('$routeChangeStart', function (s, e, q) {
         $rootScope.loading = true;
+        if (e.$$route && $templateCache.get(e.$$route.templateUrl))
+            $templateCache.remove(e.$$route.templateUrl);
     });
 
-    $rootScope.$on('$viewContentLoaded', function () {
-        $templateCache.removeAll();
-
+    $rootScope.$on('$viewContentLoaded', function (s, e, q) {
         $timeout(function () {
             $rootScope.loading = false;
         }, 500);

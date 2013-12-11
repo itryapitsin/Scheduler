@@ -29,6 +29,8 @@ namespace Timetable.Data.Models.Personalization
         public int? CreatorSelectedSemesterId { get; set; }
         public virtual Auditorium CreatorSelectedAuditorium { get; set; }
         public int? CreatorSelectedAuditoriumId { get; set; }
+        public virtual StudyType CreatorSelectedStudyType { get; set; }
+        public int? CreatorSelectedStudyTypeId { get; set; }
 
         public virtual Building AuditoriumScheduleSelectedBuilding { get; set; }
         public int? AuditoriumScheduleSelectedBuildingId { get; set; }

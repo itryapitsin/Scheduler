@@ -11,11 +11,13 @@
     $scope.semester = pageModel.semester;
     
     $scope.buildingChanged = function () {
-        getAuditoriumsAndSchedules();
+        if ($scope.isValid())
+            getAuditoriumsAndSchedules();
     };
 
     $scope.auditoriumTypeChanged = function () {
-        getAuditoriumsAndSchedules();
+        if($scope.isValid())
+            getAuditoriumsAndSchedules();
     };
 
     $scope.description = function(schedule) {
@@ -23,11 +25,13 @@
     };
     
     $scope.studyYearChanged = function () {
-        getAuditoriumsAndSchedules();
+        if ($scope.isValid())
+            getAuditoriumsAndSchedules();
     };
     
     $scope.semesterChanged = function () {
-        getAuditoriumsAndSchedules();
+        if ($scope.isValid())
+            getAuditoriumsAndSchedules();
     };
 
     function getAuditoriumsAndSchedules() {
@@ -56,5 +60,12 @@
             .ToArray();
 
         return hasSchedule.length > 0;
+    };
+
+    $scope.isValid = function() {
+        return $scope.building
+            && $scope.auditoriumType
+            && $scope.studyYear
+            && $scope.semester;
     };
 }

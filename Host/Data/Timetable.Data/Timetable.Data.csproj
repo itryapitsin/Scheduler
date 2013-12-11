@@ -205,6 +205,10 @@
     <Compile Include="Migrations\201312082336316_AddStudyTypes.Designer.cs">
       <DependentUpon>201312082336316_AddStudyTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312111210316_AddStudyTypeFieldToUsers.cs" />
+    <Compile Include="Migrations\201312111210316_AddStudyTypeFieldToUsers.Designer.cs">
+      <DependentUpon>201312111210316_AddStudyTypeFieldToUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312082336316_AddStudyTypes.resx">
       <DependentUpon>201312082336316_AddStudyTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312111210316_AddStudyTypeFieldToUsers.resx">
+      <DependentUpon>201312111210316_AddStudyTypeFieldToUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

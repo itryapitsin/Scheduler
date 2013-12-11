@@ -38,7 +38,7 @@ namespace Timetable.Site.Areas.Students.Models.ViewModels
                 .Select(x => new BranchViewModel(x));
 
             StudyTypes = dataService
-                .GetStudyType()
+                .GetStudyTypes()
                 .Select(x => new StudyTypeViewModel(x));
 
             if (currentBranchId != null)

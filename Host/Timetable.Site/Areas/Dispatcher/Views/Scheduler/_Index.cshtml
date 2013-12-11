@@ -1,19 +1,23 @@
 ﻿@using Timetable.Site.Infrastructure
 
+@Html.Partial("Modals/_Planing")
+@Html.Partial("Modals/_Thread")
+@Html.Partial("Modals/_TimetableParams")
+
 @Html.Partial("_ChildNavbar")
 <div class="container-fluid" style="padding-right: 0; padding-left: 0;">
     <div class="row-fluid" style="margin-top: 5px;">
         @Html.Partial("_ScheduleInfoList")
         @Html.Partial("_Timetable")
-    </div><!--/row-->
+    </div>
 </div>
 @Html.Partial("_BottomNavbar")
 
-@Html.Partial("Modals/_Planing")
-@Html.Partial("Modals/_Thread")
-@Html.Partial("Modals/_TimetableParams")
-
 @{ var model = new JsonNetResult(Model);}
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
+    try {
+        window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
+    } catch(e) {
+        console.log(e);
+    } 
 </script>
