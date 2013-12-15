@@ -76,6 +76,7 @@ namespace Timetable.Logic.Services
         {
             var auditoriums = Database.Auditoriums
                 .Where(x => x.Building.Id == buildingId)
+                .Where(x => x.IsActual)
                 .Include(x => x.Building)
                 .Include(x => x.AuditoriumType);
 

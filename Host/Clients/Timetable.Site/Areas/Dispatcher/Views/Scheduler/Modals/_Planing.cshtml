@@ -1,0 +1,47 @@
+﻿<script type="text/ng-template" id="planing.modal.html">
+    <div class="modal-dialog" style="width: 750px;" ng-controller="PlaningDialogController">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="myModalLabel">Редактирование расписания</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" name="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Время</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" readonly="readonly" ng-value="timePeriod" />
+                        </div>
+                        <label class="col-sm-1 control-label" style="white-space: nowrap;">№ пары</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" required="required" ng-model="pair" ng-change="pairChanged()" ng-options="pair as pair for pair in pairs"></select>
+                        </div>
+                        <label class="col-sm-1 control-label">Неделя</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" required="required" ng-model="weekType" ng-change="weekTypeChanged()" ng-options="weekType.id as weekType.name for weekType in weekTypes"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Тип</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" ng-model="scheduleType" ng-options="scheduleType.id as scheduleType.name for scheduleType in scheduleTypes"></select>
+                        </div>
+                        <label class="col-sm-1 control-label">Корпус</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" required="required" ng-model="building" ng-change="buildingChanged()" ng-options="building.id as building.name for building in buildings"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Аудитория</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" ng-disabled="!auditoriums" ng-model="auditorium" ng-options="auditorium.id as auditorium.name for auditorium in auditoriums"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="ok()">Применить</button>&nbsp;
+                <button class="btn" ng-click="cancel()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</script>

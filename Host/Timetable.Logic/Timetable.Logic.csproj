@@ -93,8 +93,8 @@
       <Project>{562ead51-a27a-47de-9cf6-554d0d793fb3}</Project>
       <Name>Timetable.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Timetable.Sync.Logic\Timetable.Sync.Logic.csproj">
-      <Project>{B8F9774C-3F0E-4A9E-9E73-8DF018CE46E8}</Project>
+    <ProjectReference Include="..\Sync\Timetable.Sync.Logic\Timetable.Sync.Logic.csproj">
+      <Project>{b8f9774c-3f0e-4a9e-9e73-8df018ce46e8}</Project>
       <Name>Timetable.Sync.Logic</Name>
     </ProjectReference>
   </ItemGroup>

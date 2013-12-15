@@ -34,9 +34,9 @@ namespace Timetable.Logic.Services
 
         public void DoSync(BaseSync sync)
         {
-            var description = sync.GetType().GetCustomAttributes(typeof (DescriptionAttribute)).FirstOrDefault() as DescriptionAttribute;
+            var description = sync.GetType().GetCustomAttributes(typeof(DescriptionAttribute)).FirstOrDefault() as DescriptionAttribute;
 
-            if(description != null)
+            if (description != null)
                 OnStepStarted("Начинает выполняться: " + description.Description);
             else
                 OnStepStarted("Начинает выполняться новая задача");
@@ -56,6 +56,7 @@ namespace Timetable.Logic.Services
         public void SyncDictionaries()
         {
             DoSync(new ScheduleTypeSync());
+            DoSync(new StudyTypeSync());
             DoSync(new CourseSync());
             DoSync(new StudyYearSync(_iiasConnection));
             DoSync(new WeekTypeSync(_iiasConnection));
@@ -69,8 +70,20 @@ namespace Timetable.Logic.Services
             DoSync(new TutorialSync());
             DoSync(new SpecialitySync());
             DoSync(new GroupSync());
-            //DoSync(new TutorialTypeSync());
-            //DoSync(new TimeSync());
+            DoSync(new BranchesToCoursesSync(_iiasConnection));
+            DoSync(new DepartmentsToFacultiesSync(_iiasConnection));
+            DoSync(new FacultiesToTutorialsSync(_iiasConnection));
+            DoSync(new GroupsToFacultiesSync(_iiasConnection));
+            DoSync(new GroupsToCoursesSync(_iiasConnection));
+            DoSync(new TutorialTypeSync());
+            DoSync(new TimeSync());
+            DoSync(new ScheduleInfoSync());
+            DoSync(new ScheduleInfoesToFacultiesSync(_iiasConnection));
+            DoSync(new ScheduleInfoesToCoursesSync(_iiasConnection));
+            DoSync(new ScheduleInfoesToGroupsSync(_iiasConnection));
+            DoSync(new ScheduleInfoesToSpecialitiesSync(_iiasConnection));
+            DoSync(new SpecialitiesToFacultiesSync(_iiasConnection));
+            DoSync(new SpecialitiesToTutorialsSync(_iiasConnection));
         }
     }
 }
