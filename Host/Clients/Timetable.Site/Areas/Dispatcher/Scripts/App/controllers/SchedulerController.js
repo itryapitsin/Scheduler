@@ -166,7 +166,7 @@
         $scope.pair = pair;
         $scope.dayOfWeek = dayOfWeek;
         $scope.ui = ui;
-
+        
         $scope.showDialog('planing.modal.html');
 
         //self.modal.getTimeForPair();
@@ -271,7 +271,30 @@ function PlaningDialogController($scope, $rootScope, $http) {
             .Where(function (item) { return item.position == $scope.pair; })
             .FirstOrDefault();
     };
+    
+    function availableWeekTypes() {
+        var exp = $.Enumerable.From($scope.tickets);
+        var query = '$.weekTypeName=="{0}"';
+        $scope.availableWeekTypes = [];
+        angular.copy($scope.weekTypes, $scope.availableWeekTypes);
 
+        if (exp.Count() > 0) {
+            $scope.availableWeekTypes = $.Enumerable.From($scope.availableWeekTypes)
+                .Where(function(item) {
+                    return item.name != "Л" && !exp.Any(query.replace('{0}', item.name));
+                })
+                .ToArray();
+        }
+    }
+    
+    function availablePairs() {
+        $scope.availablePairs = $scope.pairs;
+    }
+
+    $scope.tickets = $scope.findScheduleTickets($scope.pair, $scope.dayOfWeek);
+    availableWeekTypes();
+    availablePairs();
+    
     $scope.buildingChanged = function () {
         $http
             .get($http.prefix + "Scheduler/BuildingChanged", { params: { buildingId: $scope.building } })
@@ -283,7 +306,12 @@ function PlaningDialogController($scope, $rootScope, $http) {
             });
     };
 
-    $scope.pairChanged = getTimeForPair;
+    $scope.pairChanged = function() {
+        $scope.tickets = $scope.findScheduleTickets($scope.pair, $scope.dayOfWeek);
+        getTimeForPair();
+        availableWeekTypes();
+        availablePairs();
+    };
 
     $scope.$on('ticketEditing', function (e, newParams) {
         angular.extend($scope, newParams);
@@ -306,16 +334,22 @@ function PlaningDialogController($scope, $rootScope, $http) {
         $http
             .post($http.prefix + 'Scheduler/Create', params)
             .success(function (response) {
-                $scope.hideDialog();
-                $rootScope.$broadcast('ticketPlanned', {
-                    auditoriumId: $scope.auditorium,
-                    dayOfWeek: $scope.dayOfWeek,
-                    scheduleInfoId: $scope.selectedScheduleInfo.id,
-                    timeId: $scope.time.id,
-                    weekTypeId: $scope.weekType,
-                    typeId: $scope.scheduleType,
-                    schedule: response
-                });
+                if (response.ok) {
+                    $scope.hideDialog();
+                    $rootScope.$broadcast('ticketPlanned', {
+                        auditoriumId: $scope.auditorium,
+                        dayOfWeek: $scope.dayOfWeek,
+                        scheduleInfoId: $scope.selectedScheduleInfo.id,
+                        timeId: $scope.time.id,
+                        weekTypeId: $scope.weekType,
+                        typeId: $scope.scheduleType,
+                        schedule: response
+                    });
+                }
+                
+                if (response.fail) {
+                    $scope.message = response.message;
+                }
             });
 
         

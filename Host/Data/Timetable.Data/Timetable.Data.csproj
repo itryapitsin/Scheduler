@@ -56,16 +56,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebActivator, Version=1.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DbContextExtensions.cs" />
@@ -209,6 +202,14 @@
     <Compile Include="Migrations\201312111210316_AddStudyTypeFieldToUsers.Designer.cs">
       <DependentUpon>201312111210316_AddStudyTypeFieldToUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312161528477_AddIsPlannedFieldToScheduleInfoes.cs" />
+    <Compile Include="Migrations\201312161528477_AddIsPlannedFieldToScheduleInfoes.Designer.cs">
+      <DependentUpon>201312161528477_AddIsPlannedFieldToScheduleInfoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312221821222_AddApplicationLogsTable.cs" />
+    <Compile Include="Migrations\201312221821222_AddApplicationLogsTable.Designer.cs">
+      <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -324,6 +325,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312111210316_AddStudyTypeFieldToUsers.resx">
       <DependentUpon>201312111210316_AddStudyTypeFieldToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312161528477_AddIsPlannedFieldToScheduleInfoes.resx">
+      <DependentUpon>201312161528477_AddIsPlannedFieldToScheduleInfoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312221821222_AddApplicationLogsTable.resx">
+      <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

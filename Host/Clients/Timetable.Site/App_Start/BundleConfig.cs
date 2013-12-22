@@ -92,8 +92,6 @@ namespace Timetable.Site
                 "~/Areas/Dispatcher/Scripts/App/Models/scheduleCreatorModel.js",
                 "~/Scripts/Site/BaseController.js",
                 "~/Scripts/Site/BaseTimetableController.js",
-                "~/Areas/Dispatcher/Scripts/App/Controllers/baseController.js",
-                "~/Areas/Dispatcher/Scripts/App/Controllers/baseTimetableController.js",
                 "~/Areas/Dispatcher/Scripts/App/Controllers/navbarController.js",
                 "~/Areas/Dispatcher/Scripts/App/Controllers/settingsController.js",
                 "~/Areas/Dispatcher/Scripts/App/Controllers/schedulerController.js",

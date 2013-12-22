@@ -27,6 +27,7 @@ namespace Timetable.Data.Models.Scheduler
         public int StudyYearId { get; set; }
         public virtual Semester Semester { get; set; }
         public int SemesterId { get; set; }
+        public bool IsPlanned { get; set; }
         public ScheduleInfo()
         {
             Groups = new HashSet<Group>();

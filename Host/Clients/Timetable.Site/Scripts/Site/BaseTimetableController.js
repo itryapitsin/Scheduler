@@ -22,7 +22,7 @@
             .ToArray();
 
         if (result.length == 1)
-            return result[0].WeekTypeName == 'Л';
+            return result[0].weekTypeName == 'Л';
         return false;
     };
 

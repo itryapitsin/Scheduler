@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using Timetable.Data.Models.Scheduler;
+using Timetable.Logic.Exceptions;
 using Timetable.Site.Areas.Dispatcher.Models.RequestModels;
 using Timetable.Site.Areas.Dispatcher.Models.ResponseModels;
 using Timetable.Site.Areas.Dispatcher.Models.ViewModels;
@@ -98,24 +99,28 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         [HttpPost]
         public ActionResult Create(CreateScheduleRequest request)
         {
-            var schedule = new Schedule
+            try
             {
-                AuditoriumId = request.AuditoriumId,
-                DayOfWeek = request.DayOfWeek,
-                ScheduleInfoId = request.ScheduleInfoId,
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                TimeId = request.TimeId,
-                WeekTypeId = request.WeekTypeId,
-                TypeId = request.TypeId,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now
-            };
-            DataService.Add(schedule);
+                var result = DataService.Plan(
+                    request.AuditoriumId,
+                    request.DayOfWeek,
+                    request.ScheduleInfoId,
+                    request.TimeId,
+                    request.WeekTypeId,
+                    request.TypeId);
 
-            var result = DataService.GetScheduleById(schedule.Id);
-
-            return new JsonNetResult(new ScheduleViewModel(result));
+                return new JsonNetResult(
+                    new SuccessResponse(
+                        new ScheduleViewModel(result)));
+            }
+            catch (ScheduleCollisionException ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла коллизия: проверте правильность параметров"));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
         }
 
         [HttpPost]

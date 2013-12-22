@@ -27,6 +27,8 @@ namespace Timetable.Site
             builder.RegisterModule(new SiteModule());
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            log4net.Config.XmlConfigurator.Configure();
         }
 
         private static void ConfigureJsonFormatter()

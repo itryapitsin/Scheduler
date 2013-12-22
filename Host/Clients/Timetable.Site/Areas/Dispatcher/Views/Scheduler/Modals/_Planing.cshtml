@@ -13,11 +13,11 @@
                         </div>
                         <label class="col-sm-1 control-label" style="white-space: nowrap;">№ пары</label>
                         <div class="col-sm-2">
-                            <select class="form-control" required="required" ng-model="pair" ng-change="pairChanged()" ng-options="pair as pair for pair in pairs"></select>
+                            <select class="form-control" required="required" ng-model="pair" ng-change="pairChanged()" ng-options="pair as pair for pair in availablePairs"></select>
                         </div>
                         <label class="col-sm-1 control-label">Неделя</label>
                         <div class="col-sm-2">
-                            <select class="form-control" required="required" ng-model="weekType" ng-change="weekTypeChanged()" ng-options="weekType.id as weekType.name for weekType in weekTypes"></select>
+                            <select class="form-control" required="required" ng-model="weekType" ng-change="weekTypeChanged()" ng-options="weekType.id as weekType.name for weekType in availableWeekTypes"></select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -39,6 +39,9 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <div class="pull-left text-danger" ng-show='message'>
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
+                </div>
                 <button class="btn btn-success" ng-click="ok()">Применить</button>&nbsp;
                 <button class="btn" ng-click="cancel()">Закрыть</button>
             </div>

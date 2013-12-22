@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Timetable.Logic.Services;
-using Timetable.Sync.Logic.SyncData;
 
 namespace Timetable.Site
 {
