@@ -3,8 +3,9 @@
     <div class="navbar-inner">
         <div class="container">
             <form class="navbar-form navbar-left" style="width: 100%;">
+               
                 <div class="form-group col-sm-7">
-                    <input class="form-control" type="text" required="required" ng-init="loadLecturerSchedule()" ng-model="lecturer" data-min-length="3" placeholder="Поиск: Введите ФИО..." @*bs-typeahead="searchLecturer"*@>
+                    <input class="form-control" type="text" required="required" ng-model="lecturer" data-min-length="3" placeholder="Поиск: Введите ФИО..." @*bs-typeahead="searchLecturer"*@>
                 </div>
                 <div class="form-group col-sm-2">
                     <select class="form-control" required="required" ng-model="studyYear" ng-change="loadLecturerSchedule()" ng-options="studyYear.Id as studyYear.Name for studyYear in pageModel.StudyYears"></select>

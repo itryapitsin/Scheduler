@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Timetable.Data.Migrations;
@@ -42,6 +43,22 @@ namespace Timetable.Logic.Services
             return Database.Semesters
                 .ToList()
                 .Select(x => new SemesterDataTransfer(x));
+        }
+
+        public SemesterDataTransfer GetSemesterForTime(DateTime ?date)
+        {
+            if (date.HasValue)
+            {
+                if (date.Value.Month > 6)
+                    return Database.Semesters.ToList()
+                        .Select(x => new SemesterDataTransfer(x))
+                        .FirstOrDefault(x => x.Name == "Первый семестр");
+                return Database.Semesters.ToList()
+                        .Select(x => new SemesterDataTransfer(x))
+                        .FirstOrDefault(x => x.Name == "Второй семестр");
+            }
+
+            return null;
         }
 
         public IEnumerable<BranchDataTransfer> GetBranches()
@@ -161,6 +178,14 @@ namespace Timetable.Logic.Services
                 .Select(x => new FacultyDataTransfer(x));
         }
 
+        public FacultyDataTransfer GetFacultyById(int facultyId)
+        {
+            return Database.Faculties
+                .Where(x => x.Id == facultyId)
+                .ToList()
+                .Select(x => new FacultyDataTransfer(x)).FirstOrDefault();
+        }
+
         #region groups
         public IEnumerable<GroupDataTransfer> GetGroupsByIds(int[] groupIds)
         {
@@ -224,6 +249,8 @@ namespace Timetable.Logic.Services
                 .Select(x => new LecturerDataTransfer(x));
         }
 
+
+        //depricated
         public LecturerDataTransfer GetLecturerBySearchQuery(string queryString)
         {
             queryString = queryString.Replace(".", "");
@@ -243,6 +270,54 @@ namespace Timetable.Logic.Services
                 .Select(x => new LecturerDataTransfer(x));
 
             return query.FirstOrDefault();
+        }
+
+        //new
+        public LecturerDataTransfer GetLecturerBySearchString(string searchString)
+        {
+            return GetLecturersBySearchString(searchString).FirstOrDefault();
+        }
+
+        public IEnumerable<LecturerDataTransfer> GetLecturersBySearchString(string searchString)
+        {
+            var tokens = searchString.Replace(".", "")
+                                    .Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            var lastName = "";
+            var firstName = "";
+            var middleName = "";
+
+            if (tokens.Length == 1)
+            {
+                lastName = tokens[0];
+                return Database.Lecturers.Where(
+                              x => x.Lastname == lastName)
+                             .ToList()
+                             .Select(x => new LecturerDataTransfer(x));
+                             
+
+            }
+            if (tokens.Length == 2)
+            {
+                lastName = tokens[0];
+                firstName = tokens[1];
+                return Database.Lecturers.Where(
+                              x => x.Lastname == lastName &&
+                              x.Firstname.StartsWith(firstName))
+                             .ToList()
+                             .Select(x => new LecturerDataTransfer(x));
+                           
+            }
+
+            lastName = tokens[0];
+            firstName = tokens[1];
+            middleName = tokens[2];
+            return Database.Lecturers.Where(
+                          x => x.Lastname == lastName &&
+                          x.Firstname.StartsWith(firstName) &&
+                          x.Middlename.StartsWith(middleName))
+                         .ToList()
+                         .Select(x => new LecturerDataTransfer(x));
         }
 
         public LecturerDataTransfer GetLecturerById(int lecturerId)
@@ -476,6 +551,7 @@ namespace Timetable.Logic.Services
             return result.ToList().Select(x => new ScheduleDataTransfer(x));
         }
 
+   
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForGroups(
             int facultyId,
             int courseId,
@@ -529,14 +605,17 @@ namespace Timetable.Logic.Services
         {
             var studyYear = date.Month > 6
                 ? Database.StudyYears.FirstOrDefault(x => x.StartYear == date.Year)
-                : Database.StudyYears.FirstOrDefault(x => x.EndYear == date.Year);
+                : Database.StudyYears.FirstOrDefault(x => x.StartYear+x.Length == date.Year);
 
             if (studyYear == null)
                 return Enumerable.Empty<ScheduleDataTransfer>();
 
+            var semester = GetSemesterForTime(date);
+
             var result = GetSchedules()
                .Where(x => x.ScheduleInfo.StudyYearId == studyYear.Id)
                .Where(x => x.AuditoriumId == auditoriumId)
+               .Where(x => x.ScheduleInfo.Semester.Id == semester.Id)
                .ToList()
                .Select(x => new ScheduleDataTransfer(x));
 
@@ -622,6 +701,14 @@ namespace Timetable.Logic.Services
                 .Select(x => new TutorialDataTransfer(x.Tutorial));
         }
 
+
+        public IEnumerable<TutorialDataTransfer> GetTutorialsBySearchString(string searchString)
+        {
+            return Database.Tutorials.Where(x => x.Name.Contains(searchString) || searchString.Contains(x.Name) ||
+                x.ShortName.Contains(searchString) || searchString.Contains(x.ShortName)).ToList()
+                .Select(x => new TutorialDataTransfer(x));
+        }
+
         public IEnumerable<TutorialDataTransfer> GetTutorialsForFaculty(
             int facultyId,
             int courseId)
@@ -681,6 +768,16 @@ namespace Timetable.Logic.Services
             return Database.WeekTypes.ToList().Select(x => new WeekTypeDataTransfer(x));
         }
 
+        public IEnumerable<DepartmentDataTransfer> GetDepartments()
+        {
+            return Database.Departments.ToList().Select(x => new DepartmentDataTransfer(x));
+        }
+
+        public IEnumerable<PositionDataTransfer> GetPositions()
+        {
+            return Database.Positions.ToList().Select(x => new PositionDataTransfer(x));
+        }
+
         public IEnumerable<StudyYearDataTransfer> GetStudyYears()
         {
             return Database.StudyYears.ToList().Select(x => new StudyYearDataTransfer(x));
@@ -690,7 +787,7 @@ namespace Timetable.Logic.Services
         {
             var studyYear = date.Month > 6 
                 ? Database.StudyYears.FirstOrDefault(x => x.StartYear == date.Year) 
-                : Database.StudyYears.FirstOrDefault(x => x.EndYear == date.Year);
+                : Database.StudyYears.FirstOrDefault(x => x.StartYear+x.Length == date.Year);
 
             return new StudyYearDataTransfer(studyYear);
         }
@@ -742,6 +839,781 @@ namespace Timetable.Logic.Services
         public void Unplan(int scheduleId)
         {
             
+        }
+
+
+        public void EditAuditorium(
+            string number,
+            string name,
+            string info,
+            int? capacity,
+            int buildingId,
+            int auditoriumTypeId,
+            int auditoriumId
+            )
+        {
+            var auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
+            var building = Database.Buildings.Where(x => x.Id == buildingId).FirstOrDefault();
+            var auditoriumType = Database.AuditoriumTypes.Where(x => x.Id == auditoriumTypeId).FirstOrDefault();
+            auditorium.Number = number;
+            auditorium.Name = name;
+            auditorium.Info = info;
+            auditorium.Capacity = capacity;
+            auditorium.Building = building;
+            auditorium.AuditoriumType = auditoriumType;
+            auditorium.IsActual = true;
+            auditorium.CreatedDate = DateTime.Now;
+            auditorium.UpdatedDate = DateTime.Now;
+
+            Database.Update(auditorium);
+        }
+
+        public void CreateAuditorium(
+            string number,
+            string name,
+            string info,
+            int? capacity,
+            int buildingId,
+            int auditoriumTypeId
+            )
+        {
+            var building = Database.Buildings.Where(x => x.Id == buildingId).FirstOrDefault();
+            var auditoriumType = Database.AuditoriumTypes.Where(x => x.Id == auditoriumTypeId).FirstOrDefault();
+            Database.Auditoriums.Add(
+                    
+
+                    new Auditorium
+                    {
+                        Number = number,
+                        Name = name,
+                        Info = info,
+                        Capacity = capacity,
+                        Building = building,
+                        AuditoriumType = auditoriumType,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteAuditorium(int auditoriumId)
+        {
+            var auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
+            Database.Auditoriums.Remove(auditorium);
+            Database.SaveChanges();
+        }
+
+
+        public void EditAuditoriumType(
+           string name,
+           string pattern,
+           int auditoriumTypeId
+           )
+        {
+            var auditoriumType = Database.AuditoriumTypes.Where(x => x.Id == auditoriumTypeId).FirstOrDefault();
+
+            auditoriumType.Name = name;
+            auditoriumType.Pattern = pattern;
+            auditoriumType.Training = true;
+            auditoriumType.IsActual = true;
+            auditoriumType.CreatedDate = DateTime.Now;
+            auditoriumType.UpdatedDate = DateTime.Now;
+
+            Database.Update(auditoriumType);
+        }
+
+        public void CreateAuditoriumType(
+               string name,
+               string pattern
+            )
+        {
+          
+            Database.AuditoriumTypes.Add(
+                    new AuditoriumType
+                    {
+                        Name = name,
+                        Pattern = pattern,
+                        Training = true,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteAuditoriumType(int auditoriumTypeId)
+        {
+            var auditoriumType = Database.AuditoriumTypes.Where(x => x.Id == auditoriumTypeId).FirstOrDefault();
+            Database.AuditoriumTypes.Remove(auditoriumType);
+            Database.SaveChanges();
+        }
+
+
+        public void EditWeekType(
+           string name,
+           int weekTypeId
+           )
+        {
+            var weekType = Database.WeekTypes.Where(x => x.Id == weekTypeId).FirstOrDefault();
+
+            weekType.Name = name;
+            weekType.IsActual = true;
+            weekType.CreatedDate = DateTime.Now;
+            weekType.UpdatedDate = DateTime.Now;
+
+            Database.Update(weekType);
+        }
+
+        public void CreateWeekType(
+               string name
+            )
+        {
+
+            Database.WeekTypes.Add(
+                    new WeekType
+                    {
+                        Name = name,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteWeekType(int weekTypeId)
+        {
+            var weekType = Database.WeekTypes.Where(x => x.Id == weekTypeId).FirstOrDefault();
+            Database.WeekTypes.Remove(weekType);
+            Database.SaveChanges();
+        }
+
+        public void EditStudyYear(
+           int startYear,
+           int length,
+            int studyYearId
+           )
+        {
+            var studyYear = Database.StudyYears.Where(x => x.Id == studyYearId).FirstOrDefault();
+
+            studyYear.StartYear = startYear;
+            studyYear.Length = length;
+            studyYear.IsActual = true;
+            studyYear.CreatedDate = DateTime.Now;
+            studyYear.UpdatedDate = DateTime.Now;
+
+            Database.Update(studyYear);
+        }
+
+        public void CreateStudyYear(
+                int startYear,
+                int length
+            )
+        {
+
+            Database.StudyYears.Add(
+                    new StudyYear
+                    {
+                        StartYear = startYear,
+                        Length = length,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteStudyYear(int studyYearId)
+        {
+            var studyYear = Database.StudyYears.Where(x => x.Id == studyYearId).FirstOrDefault();
+            Database.StudyYears.Remove(studyYear);
+            Database.SaveChanges();
+        }
+
+        public void EditSemester(
+           string name,
+           int semesterId
+           )
+        {
+            var semester = Database.Semesters.Where(x => x.Id == semesterId).FirstOrDefault();
+
+            semester.Name = name;
+            semester.IsActual = true;
+            semester.CreatedDate = DateTime.Now;
+            semester.UpdatedDate = DateTime.Now;
+
+            Database.Update(semester);
+        }
+
+        public void CreateSemester(
+               string name
+            )
+        {
+
+            Database.Semesters.Add(
+                    new Semester
+                    {
+                        Name = name,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteSemester(int semesterId)
+        {
+            var semester = Database.Semesters.Where(x => x.Id == semesterId).FirstOrDefault();
+            Database.Semesters.Remove(semester);
+            Database.SaveChanges();
+        }
+
+        public void EditScheduleType(
+           string name,
+           int scheduleTypeId
+           )
+        {
+            var scheduleType = Database.ScheduleTypes.Where(x => x.Id == scheduleTypeId).FirstOrDefault();
+
+            scheduleType.Name = name;
+            scheduleType.IsActive = true;
+            scheduleType.IsActual = true;
+            scheduleType.CreatedDate = DateTime.Now;
+            scheduleType.UpdatedDate = DateTime.Now;
+
+            Database.Update(scheduleType);
+        }
+
+        public void CreateScheduleType(
+               string name
+            )
+        {
+
+            Database.ScheduleTypes.Add(
+                    new ScheduleType
+                    {
+                        Name = name,
+                        IsActive = true,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteScheduleType(int scheduleTypeId)
+        {
+            var scheduleType = Database.ScheduleTypes.Where(x => x.Id == scheduleTypeId).FirstOrDefault();
+            Database.ScheduleTypes.Remove(scheduleType);
+            Database.SaveChanges();
+        }
+
+        public void EditTutorialType(
+           string name,
+           int tutorialTypeId
+           )
+        {
+            var tutorialType = Database.TutorialTypes.Where(x => x.Id == tutorialTypeId).FirstOrDefault();
+
+            tutorialType.Name = name;
+            tutorialType.IsActual = true;
+            tutorialType.CreatedDate = DateTime.Now;
+            tutorialType.UpdatedDate = DateTime.Now;
+
+            Database.Update(tutorialType);
+        }
+
+        public void CreateTutorialType(
+               string name
+            )
+        {
+
+            Database.TutorialTypes.Add(
+                    new TutorialType
+                    {
+                        Name = name,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteTutorialType(int tutorialTypeId)
+        {
+            var tutorialType = Database.TutorialTypes.Where(x => x.Id == tutorialTypeId).FirstOrDefault();
+            Database.TutorialTypes.Remove(tutorialType);
+            Database.SaveChanges();
+        }
+
+        public void EditStudyType(
+           string name,
+           int studyTypeId
+           )
+        {
+            var studyType = Database.StudyTypes.Where(x => x.Id == studyTypeId).FirstOrDefault();
+
+            studyType.Name = name;
+            studyType.IsActual = true;
+            studyType.CreatedDate = DateTime.Now;
+            studyType.UpdatedDate = DateTime.Now;
+
+            Database.Update(studyType);
+        }
+
+        public void CreateStudyType(
+               string name
+            )
+        {
+
+            Database.StudyTypes.Add(
+                    new StudyType
+                    {
+                        Name = name,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteStudyType(int studyTypeId)
+        {
+            var studyType = Database.StudyTypes.Where(x => x.Id == studyTypeId).FirstOrDefault();
+            Database.StudyTypes.Remove(studyType);
+            Database.SaveChanges();
+        }
+
+        public void EditCourse(
+           string name,
+           int [] branchIds,
+           int courseId
+           )
+        {
+            var course = Database.Courses.Where(x => x.Id == courseId).FirstOrDefault();
+            var branches = Database.Branches.Where(x => branchIds.Any(y => y == x.Id)).ToList();
+
+            course.Branches = branches;
+
+            course.Name = name;
+            course.IsActual = true;
+            course.CreatedDate = DateTime.Now;
+            course.UpdatedDate = DateTime.Now;
+
+            Database.Update(course);
+        }
+
+        public void CreateCourse(
+               string name,
+               int[] branchIds
+            )
+        {
+            var branches = Database.Branches.Where(x => branchIds.Any(y => y == x.Id)).ToList();
+
+
+            Database.Courses.Add(
+                    new Course
+                    {
+                        Name = name,
+                        Branches = branches,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteCourse(int courseId)
+        {
+            var course = Database.Courses.Where(x => x.Id == courseId).FirstOrDefault();
+            Database.Courses.Remove(course);
+            Database.SaveChanges();
+        }
+
+        public void EditTime(
+           string start,
+           string end,
+           int position,
+           int[] buildingIds,
+           int timeId
+           )
+        {
+           
+            var time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
+            var buildings = Database.Buildings.Where(x => buildingIds.Any(y => y == x.Id)).ToList();
+
+
+            time.Buildings = buildings;
+            time.Position = position;
+            time.Start = TimeSpan.ParseExact(start, "mm'.'ss", null);
+            time.End = TimeSpan.ParseExact(end, "mm'.'ss", null);
+            time.IsActual = true;
+            time.CreatedDate = DateTime.Now;
+            time.UpdatedDate = DateTime.Now;
+
+            Database.Update(time);
+        }
+
+        public void CreateTime(
+               string start,
+               string end,
+               int position,
+               int[] buildingIds
+            )
+        {
+            var buildings = Database.Buildings.Where(x => buildingIds.Any(y => y == x.Id)).ToList();
+
+
+            Database.Times.Add(
+                    new Time
+                    {
+                        Start = TimeSpan.ParseExact(start, "mm'.'ss", null),
+                        End = TimeSpan.ParseExact(end, "mm'.'ss", null),
+                        Position = position,
+                        Buildings = buildings,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteTime(int timeId)
+        {
+            var time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
+            Database.Times.Remove(time);
+            Database.SaveChanges();
+        }
+
+
+        /*
+        void Edit(TEntity oldEntity) where TEntity : BaseIIASEntity
+        {
+            var oldEntity Database.Set<TEntity>().Where(x => x.Id == oldEntity.Id).FirstOfDefault();
+            oldEntity = newEntity;
+
+            Database.Update<TEntity>(entity);
+         
+            Database.SaveChanges();
+        }
+
+        void Create<TEntity>(TEntity entity) where TEntity : BaseIIASEntity
+        {
+            Database.Add<TEntity>(entity);
+         
+            Database.SaveChanges();
+        }*/
+
+
+        public void EditLecturer(
+           string firstName,
+           string middleName,
+           string lastName,
+           string contacts,
+           int[] positionIds,
+           int[] departmentIds,
+           int lecturerId
+           )
+        {
+
+            var lecturer = Database.Lecturers.Where(x => x.Id == lecturerId).FirstOrDefault();
+            var positions = Database.Positions.Where(x => positionIds.Any(y => y == x.Id)).ToList();
+            var departments = Database.Departments.Where(x => departmentIds.Any(y => y == x.Id)).ToList();
+
+            lecturer.Firstname = firstName;
+            lecturer.Middlename = middleName;
+            lecturer.Lastname = lastName;
+            lecturer.Contacts = contacts;
+            lecturer.Positions = positions;
+            lecturer.Departments = departments;
+            lecturer.IsActual = true;
+            lecturer.CreatedDate = DateTime.Now;
+            lecturer.UpdatedDate = DateTime.Now;
+
+            Database.Update(lecturer);
+        }
+
+        public void CreateLecturer(
+               string firstName,
+               string middleName,
+               string lastName,
+               string contacts,
+               int[] positionIds,
+               int[] departmentIds
+            )
+        {
+            var positions = Database.Positions.Where(x => positionIds.Any(y => y == x.Id)).ToList();
+            var departments = Database.Departments.Where(x => departmentIds.Any(y => y == x.Id)).ToList();
+
+            Database.Lecturers.Add(
+                    new Lecturer
+                    {
+                        Firstname = firstName,
+                        Middlename = middleName,
+                        Lastname = lastName,
+                        Contacts = contacts,
+                        Positions = positions,
+                        Departments = departments,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteLecturer(int lecturerId)
+        {
+            var lecturer = Database.Lecturers.Where(x => x.Id == lecturerId).FirstOrDefault();
+            Database.Lecturers.Remove(lecturer);
+            Database.SaveChanges();
+        }
+
+        public void EditTutorial(
+           string name,
+           string shortName,
+           int tutorialId
+           )
+        {
+            var tutorial = Database.Tutorials.Where(x => x.Id == tutorialId).FirstOrDefault();
+
+            tutorial.Name = name;
+            tutorial.ShortName = shortName;
+            tutorial.IsActual = true;
+            tutorial.CreatedDate = DateTime.Now;
+            tutorial.UpdatedDate = DateTime.Now;
+
+            Database.Update(tutorial);
+        }
+
+        public void CreateTutorial(
+               string name,
+               string shortName
+            )
+        {
+
+            Database.Tutorials.Add(
+                    new Tutorial
+                    {
+                        Name = name,
+                        ShortName = shortName,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteTutorial(int tutorialId)
+        {
+            var tutorial = Database.Tutorials.Where(x => x.Id == tutorialId).FirstOrDefault();
+            Database.Tutorials.Remove(tutorial);
+            Database.SaveChanges();
+        }
+
+        public void EditGroup(
+          string code,
+          int studentsCount,
+          int [] facultyIds,
+          int [] courseIds,
+          int studyTypeId,
+          int groupId
+          )
+        {
+
+            var studyType = Database.StudyTypes.Where(x => x.Id == studyTypeId).FirstOrDefault();
+            var faculties = Database.Faculties.Where(x => facultyIds.Any(y => y == x.Id)).ToList();
+            var courses = Database.Courses.Where(x => courseIds.Any(y => y == x.Id)).ToList();
+            
+            var group = Database.Groups.Where(x => x.Id == groupId).FirstOrDefault();
+
+            group.Code = code;
+            group.StudentsCount = studentsCount;
+            group.Faculties = faculties;
+            group.Courses = courses;
+            group.StudyType = studyType;
+            group.IsActual = true;
+            group.CreatedDate = DateTime.Now;
+            group.UpdatedDate = DateTime.Now;
+
+            Database.Update(group);
+        }
+
+        public void CreateGroup(
+                string code,
+                int studentsCount,
+                int [] facultyIds,
+                int [] courseIds,
+                int studyTypeId
+            )
+        {
+            var studyType = Database.StudyTypes.Where(x => x.Id == studyTypeId).FirstOrDefault();
+            var faculties = Database.Faculties.Where(x => facultyIds.Any(y => y == x.Id)).ToList();
+            var courses = Database.Courses.Where(x => courseIds.Any(y => y == x.Id)).ToList();
+
+            Database.Groups.Add(
+                    new Timetable.Data.Models.Scheduler.Group
+                    {
+                        Code = code,
+                        StudentsCount = studentsCount,
+                        Faculties = faculties,
+                        Courses = courses,
+                        StudyType = studyType,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteGroup(int groupId)
+        {
+            var group = Database.Groups.Where(x => x.Id == groupId).FirstOrDefault();
+            Database.Groups.Remove(group);
+            Database.SaveChanges();
+        }
+
+        public void EditScheduleInfo(
+          int subGroupCount,
+          decimal hoursPerWeek,
+          string startDate,
+          string endDate,
+          int[] facultyIds,
+          int[] courseIds,
+          int[] groupIds,
+          string lecturerSearchString,
+          int semesterId,
+          int departmentId,
+          int studyYearId,
+          string tutorialSearchString,
+          int tutorialTypeId,
+          int scheduleInfoId
+          )
+        {
+      
+            var studyYear = Database.StudyYears.Where(x => x.Id == studyYearId).FirstOrDefault();
+            var department = Database.Departments.Where(x => x.Id == departmentId).FirstOrDefault();
+            var tutorialType = Database.TutorialTypes.Where(x => x.Id == tutorialTypeId).FirstOrDefault();
+            var semester = Database.Semesters.Where(x => x.Id == semesterId).FirstOrDefault();
+            var faculties = Database.Faculties.Where(x => facultyIds.Any(y => y == x.Id)).ToList();
+            var courses = Database.Courses.Where(x => courseIds.Any(y => y == x.Id)).ToList();
+            var groups = Database.Groups.Where(x => groupIds.Any(y => y == x.Id)).ToList();
+
+            var tutorial = Database.Tutorials.Where(x => x.Name.Contains(tutorialSearchString)).FirstOrDefault();
+            var lecturer = Database.Lecturers.Where(x => x.Lastname.Contains(lecturerSearchString)).FirstOrDefault();
+
+            
+
+            var scheduleInfo = Database.ScheduleInfoes.Where(x => x.Id == scheduleInfoId).FirstOrDefault();
+
+
+            scheduleInfo.SubgroupCount = subGroupCount;
+            scheduleInfo.HoursPerWeek = hoursPerWeek;
+            scheduleInfo.StartDate = DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            scheduleInfo.EndDate = DateTime.ParseExact(endDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            scheduleInfo.Courses = courses;
+            scheduleInfo.Faculties = faculties;
+            scheduleInfo.Groups = groups;
+            scheduleInfo.StudyYear = studyYear;
+            scheduleInfo.Department = department;
+            scheduleInfo.Tutorial = tutorial;
+            scheduleInfo.TutorialType = tutorialType;
+            scheduleInfo.Lecturer = lecturer;
+            scheduleInfo.Semester = semester;
+
+            scheduleInfo.IsActual = true;
+            scheduleInfo.CreatedDate = DateTime.Now;
+            scheduleInfo.UpdatedDate = DateTime.Now;
+
+            Database.Update(scheduleInfo);
+        }
+
+        public void CreateScheduleInfo(
+                int subGroupCount,
+                decimal hoursPerWeek,
+                string startDate,
+                string endDate,
+                int[] facultyIds,
+                int[] courseIds,
+                int[] groupIds,
+                string lecturerSearchString,
+                int semesterId,
+                int departmentId,
+                int studyYearId,
+                string tutorialSearchString,
+                int tutorialTypeId
+            )
+        {
+            var studyYear = Database.StudyYears.Where(x => x.Id == studyYearId).FirstOrDefault();
+            var department = Database.Departments.Where(x => x.Id == departmentId).FirstOrDefault();
+            var tutorialType = Database.TutorialTypes.Where(x => x.Id == tutorialTypeId).FirstOrDefault();
+            var semester = Database.Semesters.Where(x => x.Id == semesterId).FirstOrDefault();
+            var faculties = Database.Faculties.Where(x => facultyIds.Any(y => y == x.Id)).ToList();
+            var courses = Database.Courses.Where(x => courseIds.Any(y => y == x.Id)).ToList();
+            var groups = Database.Groups.Where(x => groupIds.Any(y => y == x.Id)).ToList();
+
+            var tutorial = Database.Tutorials.Where(x => x.Name.Contains(tutorialSearchString)).FirstOrDefault();
+            var lecturer = Database.Lecturers.Where(x => x.Lastname.Contains(lecturerSearchString)).FirstOrDefault();
+
+        
+
+            Database.ScheduleInfoes.Add(
+                    new ScheduleInfo
+                    {
+                        SubgroupCount = subGroupCount,
+                        HoursPerWeek = hoursPerWeek,
+                        StartDate = DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        EndDate = DateTime.ParseExact(endDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        Courses = courses,
+                        Faculties = faculties,
+                        Groups = groups,
+                        StudyYear = studyYear,
+                        Department = department,
+                        Tutorial = tutorial,
+                        TutorialType = tutorialType,
+                        Lecturer = lecturer,
+                        Semester = semester,
+
+                        IsActual = true,
+                        IsPlanned = false,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteScheduleInfo(int scheduleInfoId)
+        {
+            var scheduleInfo = Database.ScheduleInfoes.Where(x => x.Id == scheduleInfoId).FirstOrDefault();
+            Database.ScheduleInfoes.Remove(scheduleInfo);
+            Database.SaveChanges();
         }
     }
 }

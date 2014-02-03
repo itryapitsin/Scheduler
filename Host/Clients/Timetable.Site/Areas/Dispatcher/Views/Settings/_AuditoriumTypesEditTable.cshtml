@@ -1,0 +1,25 @@
+﻿<div class="form-group col-sm-4 col-sm-offset-0" ng-init="loadAuditoriumTypes()">
+<button class="btn btn-success" ng-click="showCreateAuditoriumTypeDialog()"><i class="glyphicon glyphicon-plus"></i> Создать тип аудитории</button>
+&nbsp;
+</div>
+<table class="table table-striped">
+       <thead>
+            <tr>
+               <th>Название</th>
+               <th>Шаблон</th>
+               @*<th>Тип</th>*@
+            </tr>
+       </thead>
+       <tbody>
+            <tr ng-repeat="auditoriumType in auditoriumTypes">
+               <td>{{auditoriumType.name}}</td>
+               <td>{{auditoriumType.pattern}}</td>
+                @*<td>{{auditorium.training}}</td>*@
+               <td class="col-sm-1">
+                       <button class="btn btn-sm btn-warning" ng-click="edit(auditoriumType)"><i class="glyphicon glyphicon-edit"></i></button>
+                       <button class="btn btn-sm btn-danger" ng-click="delete(auditoriumType)"><i class="glyphicon glyphicon-remove"></i></button>
+               </td>
+            </tr>
+       </tbody>
+</table>
+            

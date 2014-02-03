@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Models\AuditoriumScheduleSettings.cs" />
     <Compile Include="Models\CreatorSettings.cs" />
+    <Compile Include="Models\DataSettings.cs" />
     <Compile Include="Models\LecturerScheduleSettings.cs" />
     <Compile Include="Models\Scheduler\AuditoriumDataTransfer.cs" />
     <Compile Include="Models\Scheduler\AuditoriumTypeDataTransfer.cs" />

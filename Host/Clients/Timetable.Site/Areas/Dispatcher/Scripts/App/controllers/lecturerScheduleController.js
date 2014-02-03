@@ -19,9 +19,10 @@
 
         document.location.href = '/Report/GetReportForLecturer?lecturerQuery={0}&semester={1}&studyYearId={2}&title=sometitle'
             .replace('{0}', $scope.lecturer)
-            .replcae('{1}', $scope.semester)
+            .replace('{1}', $scope.semester)
             .replace('{2}', $scope.studyYear);
     };
+
 
     $scope.searchLecturer = function (lecturer, callback) {
         $http

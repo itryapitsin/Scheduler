@@ -7,7 +7,7 @@ using Timetable.Data.Models.Scheduler;
 namespace Timetable.Sync.Logic.SyncData
 {
     [Description("Синхронизация преподавателей")]
-    public class LecturerSync: BaseSync
+    public class LecturerSync : BaseSync
     {
         private string _insertQueryPattern = @"
             INSERT INTO [dbo].[Lecturers]
@@ -43,7 +43,7 @@ namespace Timetable.Sync.Logic.SyncData
             var task2 = Task.Factory.StartNew(() => SchedulerDatabase.Lecturers.ToList());
 
             Task.WaitAll(task1, task2);
-            
+
             var iiasEntities = await task1;
             var schedulerEntities = await task2;
 
@@ -57,21 +57,21 @@ namespace Timetable.Sync.Logic.SyncData
                 if (schedulerEntity == null)
                 {
                     command += string.Format(
-                        _insertQueryPattern, 
-                        iiasEntity.Lastname,
-                        iiasEntity.Firstname,
-                        string.IsNullOrEmpty(iiasEntity.Middlename) ? "NULL" : string.Format("'{0}'", iiasEntity.Middlename),
-                        string.Empty,
+                        _insertQueryPattern,
+                        string.IsNullOrEmpty(iiasEntity.Lastname) ? "NULL" : string.Format("{0}", iiasEntity.Lastname),
+                        string.IsNullOrEmpty(iiasEntity.Firstname) ? "NULL" : string.Format("{0}", iiasEntity.Firstname),
+                        string.IsNullOrEmpty(iiasEntity.Middlename) ? "NULL" : string.Format("{0}", iiasEntity.Middlename),
+                        "''",
                         iiasEntity.Id);
                 }
                 else
                 {
                     command += string.Format(
                         _updateQueryPattern,
-                        iiasEntity.Lastname,
-                        iiasEntity.Firstname,
-                        string.IsNullOrEmpty(iiasEntity.Middlename) ? "NULL" : string.Format("'{0}'", iiasEntity.Middlename),
-                        string.Empty,
+                         string.IsNullOrEmpty(iiasEntity.Lastname) ? "NULL" : string.Format("{0}", iiasEntity.Lastname),
+                        string.IsNullOrEmpty(iiasEntity.Firstname) ? "NULL" : string.Format("{0}", iiasEntity.Firstname),
+                        string.IsNullOrEmpty(iiasEntity.Middlename) ? "NULL" : string.Format("{0}", iiasEntity.Middlename),
+                         "''",
                         iiasEntity.Id);
                 }
             }

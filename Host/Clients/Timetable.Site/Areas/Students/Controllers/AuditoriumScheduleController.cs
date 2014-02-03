@@ -26,7 +26,7 @@ namespace Timetable.Site.Areas.Students.Controllers
             {
                 model.CurrentBuildingId = Convert.ToInt32(currentBuildingId.Value);
                 model.Auditoriums = DataService
-                    .GetAuditoriums(model.CurrentBuildingId)
+                    .GetAuditoriums(model.CurrentBuildingId, isTraining: true)
                     .Select(x => new AuditoriumViewModel(x));
 
                 model.Times = DataService
@@ -37,12 +37,14 @@ namespace Timetable.Site.Areas.Students.Controllers
             if (currentAuditoriumId != null)
             {
                 var studyYear = DataService.GetStudyYear(DateTime.Now);
-                //var semestr = DataService.GetSemesters()
+                var semester = DataService.GetSemesterForTime(DateTime.Now);
 
                 model.CurrentAuditoriumId = Convert.ToInt32(currentAuditoriumId.Value);
+
+
                 //TODO: Сделать определение семетра по текущему времени
                 model.Schedules = DataService
-                    .GetSchedules(new[] {model.CurrentAuditoriumId}, studyYear.Id, 1)
+                    .GetSchedules(new[] { model.CurrentAuditoriumId }, studyYear.Id, semester.Id)
                     .Select(x => new ScheduleViewModel(x));
             }
 

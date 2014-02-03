@@ -25,10 +25,30 @@
         loadAuditoriumSchedule();
     };
 
+    $scope.canSaveReport = function () {
+        if ($scope.currentBuildingId == null || $scope.currentBuildingId == undefined || $scope.currentBuildingId == "")
+            return false;
+        if ($scope.currentAuditoriumId == null || $scope.currentAuditoriumId == undefined || $scope.currentAuditoriumId == "")
+            return false;
+        return true;
+    }
+
+    $scope.getReportForAuditorium = function () {
+        //console.log("getReportForAuditorium");
+        //console.log($scope.currentAuditoriumId);
+        //console.log($scope.currentBuildingId);
+
+        document.location.href = '/Report/GetReportForAuditorium?auditoriumId={0}&buildingId={1}'
+            .replace('{0}', $scope.currentAuditoriumId)
+            .replace('{1}', $scope.currentBuildingId);
+    };
+
     function loadAuditoriums() {
+        
         $http
             .get($http.prefix + 'AuditoriumSchedule/GetAuditoriums', { params: { buildingId: $scope.currentBuildingId } })
             .success(function (response) {
+                //console.log(response.auditoriums);
                 $scope.auditoriums = response.auditoriums;
                 $scope.times = response.times;
             });

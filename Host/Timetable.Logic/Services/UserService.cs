@@ -73,6 +73,9 @@ namespace Timetable.Logic.Services
             if (!string.IsNullOrEmpty(password))
                 user.Password = password;
 
+            user.SettingsDataEditSelectedBuildingId = userDataTransfer.DataSettings.AuditoriumsSelectedBuildingId;
+            user.SettingsDataEditSelectedTabId = userDataTransfer.DataSettings.TabsSelectedId;
+
             user.Firstname = userDataTransfer.Firstname;
             user.Middlename = userDataTransfer.Middlename;
             user.Lastname = userDataTransfer.Lastname;

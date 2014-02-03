@@ -1,0 +1,21 @@
+﻿<div class="form-group col-sm-4 col-sm-offset-0" ng-init="loadSemesters()">
+<button class="btn btn-success" ng-click="showCreateSemesterDialog()"><i class="glyphicon glyphicon-plus"></i> Создать семестр</button>
+&nbsp;
+</div>
+<table class="table table-striped">
+       <thead>
+            <tr>
+               <th>Название</th>
+            </tr>
+       </thead>
+       <tbody>
+            <tr ng-repeat="semester in semesters">
+               <td>{{semester.name}}</td>
+               <td class="col-sm-1">
+                       <button class="btn btn-sm btn-warning" ng-click="edit(semester)"><i class="glyphicon glyphicon-edit"></i></button>
+                       <button class="btn btn-sm btn-danger" ng-click="delete(semester)"><i class="glyphicon glyphicon-remove"></i></button>
+               </td>
+            </tr>
+       </tbody>
+</table>
+            

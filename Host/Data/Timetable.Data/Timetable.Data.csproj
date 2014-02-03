@@ -50,7 +50,7 @@
       <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+      <HintPath>..\..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201312221821222_AddApplicationLogsTable.Designer.cs">
       <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201401311624260_AddUserSettingsFields.cs" />
+    <Compile Include="Migrations\201401311624260_AddUserSettingsFields.Designer.cs">
+      <DependentUpon>201401311624260_AddUserSettingsFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -331,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312221821222_AddApplicationLogsTable.resx">
       <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401311624260_AddUserSettingsFields.resx">
+      <DependentUpon>201401311624260_AddUserSettingsFields.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

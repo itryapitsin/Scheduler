@@ -12,7 +12,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <i class="glyphicon glyphicon-user"></i>
-                            <a data-toggle="collapse" data-parent="#accordion2" data-target="#userSettings">
+                            <a data-toggle="collapse" data-parent="#accordion2" data-target="#userSettings" href="">
                                 Настройки пользователя
                             </a>
                         </h4>
@@ -84,7 +84,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <i class="glyphicon glyphicon-th-list"></i>
-                            <a data-toggle="collapse" data-parent="#accordion2" data-target="#collapseTwo">
+                            <a data-toggle="collapse" data-parent="#accordion2" data-target="#collapseTwo" href="">
                                 Управление пользователями
                             </a>
                         </h4>
@@ -123,7 +123,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <i class="glyphicon glyphicon-refresh"></i>
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#refreshData">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#refreshData" href="">
                                 Обновление данных
                             </a>
                         </h4>
@@ -177,14 +177,48 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <i class="glyphicon glyphicon-pencil"></i>
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#dataManagment">
-                                Управление данными
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#dataManagment" href="">
+                                Управление данными       
                             </a>
                         </h4>
                     </div>
                     <div id="dataManagment" class="panel-body collapse">
                         <div class="accordion-inner">
+                            <ul class="nav nav-tabs">
+                                    <li class="active"><a data-target="#auditoriums" data-toggle="tab">Аудитории</a></li>
+                                    <li><a data-target="#auditoriumTypes" data-toggle="tab">Типы аудиторий</a></li>
+                                    <li><a data-target="#courses" data-toggle="tab">Курсы</a></li>
+                                    <li><a data-target="#groups" data-toggle="tab">Группы</a></li>
+                                    <li><a data-target="#lecturers" data-toggle="tab">Преподаватели</a></li>
+                                    <li><a data-target="#scheduleInfoes" data-toggle="tab">Сведения к расписанию</a></li>
+                                    <li><a data-target="#schedules" data-toggle="tab">Занятия</a></li>
+                                    <li><a data-target="#scheduleTypes" data-toggle="tab">Типы занятий</a></li>
+                                    <li><a data-target="#semesters" data-toggle="tab">Семестры</a></li>
+                                    <li><a data-target="#studyYears" data-toggle="tab">Года</a></li>
+                                    <li><a data-target="#weekTypes" data-toggle="tab">Типы недели</a></li>
+                                    <li><a data-target="#times" data-toggle="tab">Звонки</a></li>
+                                    <li><a data-target="#tutorials" data-toggle="tab">Предметы</a></li>
+                                    <li><a data-target="#tutorialTypes" data-toggle="tab">Типы предметов</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                        <div class="tab-pane active" id="auditoriums" ng-controller="AuditoriumsController">@Html.Partial("_AuditoriumsEditTable")</div>
+                                        <div class="tab-pane" id="auditoriumTypes" ng-controller="AuditoriumTypesController">@Html.Partial("_AuditoriumTypesEditTable")</div>
+                                        <div class="tab-pane" id="courses">courses</div>
+                                        <div class="tab-pane" id="groups">groups</div>
+                                        <div class="tab-pane" id="lecturers">lecturers</div>
+                                        <div class="tab-pane" id="scheduleInfoes">scheduleInfoes</div>
+                                        <div class="tab-pane" id="schedules">schedules</div>
+                                        <div class="tab-pane" id="scheduleTypes" ng-controller="ScheduleTypesController">@Html.Partial("_ScheduleTypesEditTable")</div>
+                                        <div class="tab-pane" id="semesters" ng-controller="SemestersController">@Html.Partial("_SemestersEditTable")</div>
+                                        <div class="tab-pane" id="studyYears" ng-controller="StudyYearsController">@Html.Partial("_StudyYearsEditTable")</div>
+                                        <div class="tab-pane" id="weekTypes" ng-controller="WeekTypesController">@Html.Partial("_WeekTypesEditTable")</div>
+                                        <div class="tab-pane" id="times">times</div>
+                                        <div class="tab-pane" id="tutorials">tutorials</div>
+                                        <div class="tab-pane" id="tutorialTypes" ng-controller="TutorialTypesController">@Html.Partial("_TutorialTypesEditTable")</div>
+                                        <div class="tab-pane" id="studyTypes" ng-controller="StudyTypesController">@Html.Partial("_StudyTypesEditTable")</div>
+                                </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -193,4 +227,36 @@
 
 <script type="text/ng-template" id="editusermodal.html">
     @Html.Partial("_EditUserModal")
+</script>
+
+<script type="text/ng-template" id="editauditoriummodal.html">
+    @Html.Partial("_EditAuditoriumModal")
+</script>
+
+<script type="text/ng-template" id="editauditoriumtypemodal.html">
+    @Html.Partial("_EditAuditoriumTypeModal")
+</script>
+
+<script type="text/ng-template" id="editweektypemodal.html">
+    @Html.Partial("_EditWeekTypeModal")
+</script>
+
+<script type="text/ng-template" id="edittutorialtypemodal.html">
+    @Html.Partial("_EditTutorialTypeModal")
+</script>
+
+<script type="text/ng-template" id="editscheduletypemodal.html">
+    @Html.Partial("_EditScheduleTypeModal")
+</script>
+
+<script type="text/ng-template" id="editsemestermodal.html">
+    @Html.Partial("_EditSemesterModal")
+</script>
+
+<script type="text/ng-template" id="editstudyyearmodal.html">
+    @Html.Partial("_EditStudyYearModal")
+</script>
+
+<script type="text/ng-template" id="editstudytypemodal.html">
+    @Html.Partial("_EditStudyTypeModal")
 </script>
