@@ -401,7 +401,8 @@ namespace Timetable.Logic.Services
                 .Include(x => x.Lecturer)
                 .Include(x => x.Tutorial)
                 .Include(x => x.TutorialType)
-                //.Include(x => x.Groups)
+                .Include(x => x.Groups)
+                .Include(x => x.Department)
                 .ToList()
                 .Select(x => new ScheduleInfoDataTransfer(x));
         }
@@ -1524,21 +1525,20 @@ namespace Timetable.Logic.Services
             var courses = Database.Courses.Where(x => courseIds.Any(y => y == x.Id)).ToList();
             var groups = Database.Groups.Where(x => groupIds.Any(y => y == x.Id)).ToList();
 
+            //TODO: нормальная загрузка преподавателя и предмета
             var tutorial = Database.Tutorials.Where(x => x.Name.Contains(tutorialSearchString)).FirstOrDefault();
             var lecturer = Database.Lecturers.Where(x => x.Lastname.Contains(lecturerSearchString)).FirstOrDefault();
 
-            
 
             var scheduleInfo = Database.ScheduleInfoes.Where(x => x.Id == scheduleInfoId).FirstOrDefault();
-
 
             scheduleInfo.SubgroupCount = subGroupCount;
             scheduleInfo.HoursPerWeek = hoursPerWeek;
             scheduleInfo.StartDate = DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             scheduleInfo.EndDate = DateTime.ParseExact(endDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            scheduleInfo.Courses = courses;
-            scheduleInfo.Faculties = faculties;
-            scheduleInfo.Groups = groups;
+            //scheduleInfo.Faculties = faculties;
+            //scheduleInfo.Courses = courses;
+            //scheduleInfo.Groups = groups;
             scheduleInfo.StudyYear = studyYear;
             scheduleInfo.Department = department;
             scheduleInfo.Tutorial = tutorial;
@@ -1613,6 +1613,97 @@ namespace Timetable.Logic.Services
         {
             var scheduleInfo = Database.ScheduleInfoes.Where(x => x.Id == scheduleInfoId).FirstOrDefault();
             Database.ScheduleInfoes.Remove(scheduleInfo);
+            Database.SaveChanges();
+        }
+
+        public void EditSchedule(
+            bool autoDelete,
+            int dayOfWeek,
+            string subGroup,
+            string startDate,
+            string endDate,
+            int auditoriumId,
+            int scheduleInfoId,
+            int timeId,
+            int scheduleTypeId,
+            int weekTypeId,
+            int scheduleId
+          )
+        {
+
+            var auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
+            var scheduleInfo = Database.ScheduleInfoes.Where(x => x.Id == scheduleInfoId).FirstOrDefault();
+            var time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
+            var scheduleType = Database.ScheduleTypes.Where(x => x.Id == scheduleTypeId).FirstOrDefault();
+            var weekType = Database.WeekTypes.Where(x => x.Id == weekTypeId).FirstOrDefault();
+
+            var schedule = Database.Schedules.Where(x => x.Id == scheduleId).FirstOrDefault();
+
+            schedule.AutoDelete = autoDelete;
+            schedule.DayOfWeek = dayOfWeek;
+            schedule.SubGroup = subGroup;
+            schedule.StartDate = DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            schedule.EndDate = DateTime.ParseExact(endDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            schedule.Auditorium = auditorium;
+            schedule.ScheduleInfo = scheduleInfo;
+            schedule.Time = time;
+            schedule.Type = scheduleType;
+            schedule.WeekType = weekType;
+            schedule.IsActual = true;
+            schedule.CreatedDate = DateTime.Now;
+            schedule.UpdatedDate = DateTime.Now;
+
+            Database.Update(schedule);
+        }
+
+        public void CreateSchedule(
+                bool autoDelete,
+                int dayOfWeek,
+                string subGroup,
+                string startDate,
+                string endDate,
+                int auditoriumId,
+                int scheduleInfoId,
+                int timeId,
+                int scheduleTypeId,
+                int weekTypeId
+            )
+        {
+            var auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
+            var scheduleInfo = Database.ScheduleInfoes.Where(x => x.Id == scheduleInfoId).FirstOrDefault();
+            var time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
+            var scheduleType = Database.ScheduleTypes.Where(x => x.Id == scheduleTypeId).FirstOrDefault();
+            var weekType = Database.WeekTypes.Where(x => x.Id == weekTypeId).FirstOrDefault();
+
+
+            Database.Schedules.Add(
+                    new Schedule
+                    {
+                        AutoDelete = autoDelete,
+                        DayOfWeek = dayOfWeek,
+                        SubGroup = subGroup,
+                        StartDate = DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        EndDate = DateTime.ParseExact(endDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+
+                        Auditorium = auditorium,
+                        ScheduleInfo = scheduleInfo,
+                        Time = time,
+                        Type = scheduleType,
+                        WeekType = weekType,
+                        IsActual = true,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+                );
+
+            Database.SaveChanges();
+        }
+
+        public void DeleteSchedule(int scheduleId)
+        {
+            var schedule = Database.Schedules.Where(x => x.Id == scheduleId).FirstOrDefault();
+            Database.Schedules.Remove(schedule);
             Database.SaveChanges();
         }
     }

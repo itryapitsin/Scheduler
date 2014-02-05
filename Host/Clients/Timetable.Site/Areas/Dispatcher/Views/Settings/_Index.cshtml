@@ -206,8 +206,8 @@
                                         <div class="tab-pane" id="courses">courses</div>
                                         <div class="tab-pane" id="groups">groups</div>
                                         <div class="tab-pane" id="lecturers">lecturers</div>
-                                        <div class="tab-pane" id="scheduleInfoes">scheduleInfoes</div>
-                                        <div class="tab-pane" id="schedules">schedules</div>
+                                        <div class="tab-pane" id="scheduleInfoes" ng-controller="ScheduleInfoesController">@Html.Partial("_ScheduleInfoesEditTable")</div>
+                                        <div class="tab-pane" id="schedules" ng-controller="ScheduleController">@Html.Partial("_SchedulesEditTable")</div>
                                         <div class="tab-pane" id="scheduleTypes" ng-controller="ScheduleTypesController">@Html.Partial("_ScheduleTypesEditTable")</div>
                                         <div class="tab-pane" id="semesters" ng-controller="SemestersController">@Html.Partial("_SemestersEditTable")</div>
                                         <div class="tab-pane" id="studyYears" ng-controller="StudyYearsController">@Html.Partial("_StudyYearsEditTable")</div>
@@ -259,4 +259,8 @@
 
 <script type="text/ng-template" id="editstudytypemodal.html">
     @Html.Partial("_EditStudyTypeModal")
+</script>
+
+<script type="text/ng-template" id="editscheduleinfomodal.html">
+    @Html.Partial("_EditScheduleInfoModal")
 </script>

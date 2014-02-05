@@ -398,6 +398,35 @@ namespace Timetable.Logic.Interfaces
 
         void DeleteGroup(int groupId);
 
+        void EditSchedule(
+            bool autoDelete,
+            int dayOfWeek,
+            string subGroup,
+            string startDate,
+            string endDate,
+            int auditoriumId,
+            int scheduleInfoId,
+            int timeId,
+            int scheduleTypeId,
+            int weekTypeId,
+            int scheduleId
+          );
+
+        void CreateSchedule(
+                bool autoDelete,
+                int dayOfWeek,
+                string subGroup,
+                string startDate,
+                string endDate,
+                int auditoriumId,
+                int scheduleInfoId,
+                int timeId,
+                int scheduleTypeId,
+                int weekTypeId
+            );
+
+        void DeleteSchedule(int scheduleId);
+
         IEnumerable<DepartmentDataTransfer>  GetDepartments();
 
         IEnumerable<PositionDataTransfer> GetPositions();

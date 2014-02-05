@@ -968,6 +968,578 @@ function CreateEditStudyYearModalController($scope, $http, $controller, $rootSco
     };
 }
 
+function ScheduleInfoesController($scope, $modal, $http) {
+    $scope.scheduleInfoes;
+    $scope.faculties;
+    $scope.branches;
+    $scope.courses;
+    $scope.semesters;
+    $scope.studyYears;
+    $scope.currentFacultyId;
+    $scope.currentCourseId;
+    $scope.currentBranchId;
+    $scope.currentSemesterId;
+    $scope.currentStudyYearId;
+    $scope.currentGroupId;
+    $scope.groups;
+
+
+    if ($scope.currentGroupId) {
+        $scope.currentGroupId = parseInt($scope.currentGroupId);
+    }
+    $scope.groupChanged = function () {
+        console.log("changeGroup");
+        loadScheduleInfoes();
+    };
+
+    if ($scope.currentStudyYearId) {
+        $scope.currentStudyYearId = parseInt($scope.currentStudyYearId);
+    }
+    $scope.studyYearChanged = function () {
+        console.log("changeStudyYear");
+        loadScheduleInfoes();
+    };
+
+    if ($scope.currentSemesterId) {
+        $scope.currentSemesterId = parseInt($scope.currentSemesterId);
+    }
+    $scope.semesterChanged = function () {
+        console.log("changeSemester");
+        loadScheduleInfoes();
+    };
+
+    if ($scope.currentFacultyId) {
+        $scope.currentFacultyId = parseInt($scope.currentFacultyId);
+    }
+    $scope.facultyChanged = function () {
+        console.log("changeFaculty");
+        loadScheduleInfoes();
+        loadGroups();
+    };
+
+    if ($scope.currentCourseId) {
+        $scope.currentCourseId = parseInt($scope.currentCourseId);
+    }
+    $scope.courseChanged = function () {
+        console.log("changeCourse");
+        loadScheduleInfoes();
+        loadGroups();
+    };
+
+    if ($scope.currentBranchId) {
+        $scope.currentBranchId = parseInt($scope.currentBranchId);
+    }
+    $scope.branchChanged = function () {
+        console.log("changeBranch");
+        loadFaculties();
+        loadCourses();
+    };
+
+
+    $scope.loadTableData = function () {
+        loadBranches();
+        loadSemesters();
+        loadStudyYears();
+    }
+
+    function loadGroups() {
+        if ($scope.currentFacultyId != undefined && $scope.currentCourseId != undefined) {
+            console.log("loadGroups");
+            $http
+               .get($http.prefix + 'Settings/GetGroups', {
+                   params: {
+                       facultyId: $scope.currentFacultyId,
+                       courseId: $scope.currentCourseId
+                   }
+               })
+               .success(function (response) {
+                   $scope.groups = response;
+               });
+        }
+    }
+
+    function loadBranches() {
+        console.log("loadBranches");
+        $http
+           .get($http.prefix + 'Settings/GetBranches', {})
+           .success(function (response) {
+               $scope.branches = response.branches;
+               $scope.currentBranchId = response.currentBranchId;
+           });
+    }
+
+    function loadSemesters() {
+        console.log("loadSemesters");
+        $http
+           .get($http.prefix + 'Settings/GetSemesters', {})
+           .success(function (response) {
+               $scope.semesters = response;
+           });
+    }
+
+    function loadStudyYears() {
+        console.log("loadStudyYears");
+        $http
+           .get($http.prefix + 'Settings/GetStudyYears', {})
+           .success(function (response) {
+               $scope.studyYears = response;
+           });
+    }
+
+    function loadCourses() {
+        console.log("loadCourses");
+        $http
+           .get($http.prefix + 'Settings/GetCourses', { params: { branchId: $scope.currentBranchId } })
+           .success(function (response) {
+               $scope.courses = response;
+           });
+    }
+
+    function loadFaculties() {
+        console.log("loadFaculties");
+        $http
+           .get($http.prefix + 'Settings/GetFaculties', { params: {branchId: $scope.currentBranchId}})
+           .success(function (response) {
+               $scope.faculties = response;
+           });
+    }
+
+    function loadScheduleInfoes() {
+        if ($scope.currentSemesterId !== undefined && $scope.currentStudyYearId !== undefined &&
+            $scope.currentFacultyId !== undefined && $scope.currentCourseId !== undefined) {
+            console.log("loadScheduleInfoes");
+            $http
+               .get($http.prefix + 'Settings/GetScheduleInfoes', {
+                   params: {
+                       facultyId: $scope.currentFacultyId,
+                       courseId: $scope.currentCourseId,
+                       studyYearId: $scope.currentStudyYearId,
+                       semesterId: $scope.currentSemesterId,
+                       groupIds: [$scope.currentGroupId].toString()
+                   }
+               })
+               .success(function (response) {
+                   console.log(response);
+                   $scope.scheduleInfoes = response;
+               });
+        }
+    }
+
+    
+    $scope.delete = function (scheduleInfo) {
+        var params = {
+            scheduleInfoId: scheduleInfo.id
+        };
+
+        $scope.confirm = {
+            content: "Вы действительно хотите удалить сведение к расписанию: '{0}' ?".replace('{0}', scheduleInfo.tutorialName),
+            ok: function () {
+                $http
+                    .post($http.prefix + 'Settings/DeleteScheduleInfo', params)
+                    .success(function (response) {
+                        for (var i in $scope.scheduleInfoes) {
+                            if ($scope.scheduleInfoes[i].id == scheduleInfo.id) {
+                                $scope.scheduleInfoes.splice(i, 1);
+                                break;
+                            }
+                        }
+                    });
+                $scope.hideDialog();
+            },
+            cancel: function () {
+                $scope.hideDialog();
+            }
+        };
+        $scope.showDialog('confirmation.html');
+    };
+
+    $scope.$on('scheduleInfoCreated', function (e, scheduleInfo) {
+        $scope.studyYears.push(studyYear);
+    });
+
+    $scope.$on('scheduleInfoUpdated', function (e, scheduleInfo) {
+
+        for (var i in $scope.scheduleInfoes) {
+
+            if ($scope.scheduleInfoes[i].id == scheduleInfo.id) {
+                $scope.scheduleInfoes[i] = scheduleInfo;
+                break;
+            }
+        }
+    });
+
+    $scope.edit = function (scheduleInfo) {
+
+        $scope.scheduleInfoId = scheduleInfo.id;
+        $scope.subGroupCount = scheduleInfo.subGroupCount;
+        $scope.hoursPerWeek = scheduleInfo.hoursPerWeek;
+        $scope.startDate = scheduleInfo.startDate;
+        $scope.endDate = scheduleInfo.startDate;
+        $scope.currentGroupIds = scheduleInfo.groupIds;
+        $scope.currentTutorialTypeId = scheduleInfo.tutorialTypeId;
+        $scope.lecturer = scheduleInfo.lecturer;
+        $scope.tutorial = scheduleInfo.tutorialName;
+        $scope.tutorialType = scheduleInfo.tutorialType;
+        $scope.currentDepartmentId = scheduleInfo.departmentId;
+        $scope.departmentName = scheduleInfo.departmentName;
+
+        $scope.showDialog('editscheduleinfomodal.html');
+    };
+
+    $scope.showCreateScheduleInfoDialog = function () {
+        $scope.showDialog('editscheduleinfomodal.html');
+    };
+}
+
+function CreateEditScheduleInfoModalController($scope, $http, $controller, $rootScope) {
+    $controller('BaseController', { $scope: $scope });
+    $scope.tutorialTypes;
+    $scope.groups;
+    $scope.departments;
+
+    if ($scope.currentTutoialTypeId) {
+        $scope.currentTutoialTypeId = parseInt($scope.currentTutoialTypeId);
+    }
+    $scope.tutoialTypeChanged = function () {
+        console.log("changeTutoialType");
+        
+    };
+
+    if ($scope.currentDepartmentId) {
+        $scope.currentDepartmentId = parseInt($scope.currentDepartmentId);
+    }
+    $scope.departmentChanged = function () {
+        console.log("changeDepartment");
+
+    };
+
+    $scope.loadModalData = function () {
+        loadGroups();
+        loadDepartments();
+        loadTutorialTypes();
+    }
+
+    function loadGroups() {
+        console.log("loadGroups");
+        $http
+           .get($http.prefix + 'Settings/GetGroups', {
+               params: {
+                   facultyId: $scope.currentFacultyId,
+                   courseId: $scope.currentCourseId
+               }
+           })
+           .success(function (response) {
+               $scope.groups = response;
+           });
+    }
+
+    function loadDepartments() {
+        console.log("loadDepartments");
+        $http
+           .get($http.prefix + 'Settings/GetDepartments', {})
+           .success(function (response) {
+               $scope.departments = response;
+           });
+    }
+
+    function loadTutorialTypes() {
+        console.log("loadTutorialTypes");
+        $http
+          .get($http.prefix + 'Settings/GetTutorialTypes', {})
+          .success(function (response) {
+              $scope.tutorialTypes = response;
+          });
+    }
+    
+    $scope.ok = function () {
+        
+        var params = {
+            subGroupCount: $scope.subGroupCount,
+            hoursPerWeek: $scope.hoursPerWeek,
+            startDate: $scope.startDate,
+            endDate: $scope.endDate,
+            facultyIds: [$scope.currentFacultyId].toString(),
+            courseIds: [$scope.currentCourseId].toString(),
+            groupIds: $scope.currentGroupIds.toString(),
+            lecturerSearchString: $scope.lecturer,
+            semesterId: $scope.currentSemesterId,
+            departmentId: $scope.currentDepartmentId,
+            studyYearId: $scope.currentStudyYearId,
+            tutorialSearchString: $scope.tutorial,
+            tutorialTypeId: $scope.currentTutorialTypeId,
+            scheduleInfoId: $scope.scheduleInfoId
+        };
+
+        $http
+            .post($http.prefix + 'Settings/CreateEditScheduleInfo', params)
+            .success(function (response) {
+                if (response.ok) {
+                    $scope.hideDialog();
+
+
+                    if ($scope.scheduleInfoId !== undefined) {
+                        $rootScope.$broadcast('scheduleInfoUpdated', {
+                            id: $scope.scheduleInfoId,
+                            lecturer: $scope.lecturer,
+                            tutorialName: $scope.tutorial,
+                            tutorialType: $scope.tutorialType,
+                            departmentName: $scope.departmentName,
+                            startDate: $scope.startDate,
+                            endDate: $scope.endDate,
+                            hoursPerWeek: $scope.hoursPerWeek,
+                            subGroupCount: $scope.subGroupCount
+                        });
+                    } else {
+                        $rootScope.$broadcast('studyYearCreated', {
+                            lecturer: $scope.lecturer,
+                            tutorialName: $scope.tutorial,
+                            tutorialType: $scope.tutorialType,
+                            departmentName: $scope.departmentName,
+                            startDate: $scope.startDate,
+                            endDate: $scope.endDate,
+                            hoursPerWeek: $scope.hoursPerWeek,
+                            subGroupCount: $scope.subGroupCount
+                        });
+                    }
+                }
+
+                if (response.message)
+                    $scope.message = response.message;
+                else
+                    $scope.message = 'Ошибка запроса';
+            });
+    };
+
+    $scope.cancel = function () {
+        this.hideDialog();
+    };
+}
+
+function ScheduleController($scope, $modal, $http) {
+    $scope.schedules;
+    $scope.faculties;
+    $scope.branches;
+    $scope.courses;
+    $scope.groups;
+    $scope.semesters;
+    $scope.studyYears;
+    $scope.currentFacultyId;
+    $scope.currentCourseId;
+    $scope.currentBranchId;
+    $scope.currentSemesterId;
+    $scope.currentStudyYearId;
+    $scope.currentGroupId;
+
+    if ($scope.currentGroupId) {
+        $scope.currentGroupId = parseInt($scope.currentGroupId);
+    }
+    $scope.groupChanged = function () {
+        console.log("changeGroup");
+        loadSchedules();
+    };
+
+
+    if ($scope.currentStudyYearId) {
+        $scope.currentStudyYearId = parseInt($scope.currentStudyYearId);
+    }
+    $scope.studyYearChanged = function () {
+        console.log("changeStudyYear");
+        loadSchedules();
+    };
+
+    if ($scope.currentSemesterId) {
+        $scope.currentSemesterId = parseInt($scope.currentSemesterId);
+    }
+    $scope.semesterChanged = function () {
+        console.log("changeSemester");
+        loadSchedules();
+    };
+
+    if ($scope.currentFacultyId) {
+        $scope.currentFacultyId = parseInt($scope.currentFacultyId);
+    }
+    $scope.facultyChanged = function () {
+        console.log("changeFaculty");
+        //loadSchedules();
+        loadGroups();
+    };
+
+    if ($scope.currentCourseId) {
+        $scope.currentCourseId = parseInt($scope.currentCourseId);
+    }
+    $scope.courseChanged = function () {
+        console.log("changeCourse");
+        //loadSchedules();
+        loadGroups();
+    };
+
+    if ($scope.currentBranchId) {
+        $scope.currentBranchId = parseInt($scope.currentBranchId);
+    }
+    $scope.branchChanged = function () {
+        console.log("changeBranch");
+        loadFaculties();
+        loadCourses();
+    };
+
+
+    $scope.loadTableData = function () {
+        loadBranches();
+        loadSemesters();
+        loadStudyYears();
+    }
+
+    function loadGroups() {
+        if ($scope.currentFacultyId != undefined && $scope.currentCourseId != undefined) {
+            console.log("loadGroups");
+            $http
+               .get($http.prefix + 'Settings/GetGroups', {
+                   params: {
+                       facultyId: $scope.currentFacultyId,
+                       courseId: $scope.currentCourseId
+                   }
+               })
+               .success(function (response) {
+                   $scope.groups = response;
+               });
+        }
+    }
+
+    function loadBranches() {
+        console.log("loadBranches");
+        $http
+           .get($http.prefix + 'Settings/GetBranches', {})
+           .success(function (response) {
+               $scope.branches = response.branches;
+               $scope.currentBranchId = response.currentBranchId;
+           });
+    }
+
+    function loadSemesters() {
+        console.log("loadSemesters");
+        $http
+           .get($http.prefix + 'Settings/GetSemesters', {})
+           .success(function (response) {
+               $scope.semesters = response;
+           });
+    }
+
+    function loadStudyYears() {
+        console.log("loadStudyYears");
+        $http
+           .get($http.prefix + 'Settings/GetStudyYears', {})
+           .success(function (response) {
+               $scope.studyYears = response;
+           });
+    }
+
+    function loadCourses() {
+        console.log("loadCourses");
+        $http
+           .get($http.prefix + 'Settings/GetCourses', { params: { branchId: $scope.currentBranchId } })
+           .success(function (response) {
+               $scope.courses = response;
+           });
+    }
+
+    function loadFaculties() {
+        console.log("loadFaculties");
+        $http
+           .get($http.prefix + 'Settings/GetFaculties', { params: { branchId: $scope.currentBranchId } })
+           .success(function (response) {
+               $scope.faculties = response;
+           });
+    }
+
+    
+    function loadSchedules() {
+        if ($scope.currentSemesterId !== undefined && $scope.currentStudyYearId !== undefined &&
+            $scope.currentFacultyId !== undefined && $scope.currentCourseId !== undefined) {
+            console.log("loadSchedules");
+            $http
+               .get($http.prefix + 'Settings/GetSchedulesForGroups', {
+                   params: {
+                       facultyId: $scope.currentFacultyId,
+                       courseId: $scope.currentCourseId,
+                       studyYearId: $scope.currentStudyYearId,
+                       semesterId: $scope.currentSemesterId,
+                       groupIds: [$scope.currentGroupId].toString()
+                   }
+               })
+               .success(function (response) {
+                   console.log(response);
+                   $scope.schedules = response;
+               });
+        }
+    }
+
+    
+    $scope.delete = function (schedule) {
+        var params = {
+            scheduleId: schedule.id
+        };
+
+        $scope.confirm = {
+            content: "Вы действительно хотите удалить занятие: '{0}' ?".replace('{0}', scheduleInfo.tutorialName),
+            ok: function () {
+                $http
+                    .post($http.prefix + 'Settings/DeleteSchedule', params)
+                    .success(function (response) {
+                        for (var i in $scope.schedules) {
+                            if ($scope.schedules[i].id == schedule.id) {
+                                $scope.schedules.splice(i, 1);
+                                break;
+                            }
+                        }
+                    });
+                $scope.hideDialog();
+            },
+            cancel: function () {
+                $scope.hideDialog();
+            }
+        };
+        $scope.showDialog('confirmation.html');
+    };
+
+    /*
+    $scope.$on('scheduleInfoCreated', function (e, scheduleInfo) {
+        $scope.studyYears.push(studyYear);
+    });
+
+    $scope.$on('scheduleInfoUpdated', function (e, scheduleInfo) {
+
+        for (var i in $scope.scheduleInfoes) {
+
+            if ($scope.scheduleInfoes[i].id == scheduleInfo.id) {
+                $scope.scheduleInfoes[i] = scheduleInfo;
+                break;
+            }
+        }
+    });
+
+    $scope.edit = function (scheduleInfo) {
+
+        $scope.scheduleInfoId = scheduleInfo.id;
+        $scope.subGroupCount = scheduleInfo.subGroupCount;
+        $scope.hoursPerWeek = scheduleInfo.hoursPerWeek;
+        $scope.startDate = scheduleInfo.startDate;
+        $scope.endDate = scheduleInfo.startDate;
+        $scope.currentGroupIds = scheduleInfo.groupIds;
+        $scope.currentTutorialTypeId = scheduleInfo.tutorialTypeId;
+        $scope.lecturer = scheduleInfo.lecturer;
+        $scope.tutorial = scheduleInfo.tutorialName;
+        $scope.tutorialType = scheduleInfo.tutorialType;
+        $scope.currentDepartmentId = scheduleInfo.departmentId;
+        $scope.departmentName = scheduleInfo.departmentName;
+
+        $scope.showDialog('editscheduleinfomodal.html');
+    };
+
+    $scope.showCreateScheduleInfoDialog = function () {
+        $scope.showDialog('editscheduleinfomodal.html');
+    };*/
+}
+
 function UsersController($scope, $modal, $http) {
     $scope.users = pageModel.users;
 

@@ -161,6 +161,7 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditGroupRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditLecturerRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditScheduleInfoRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditScheduleRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditScheduleTypeRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditSemesterRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditStudyTypeRequest.cs" />
@@ -708,6 +709,9 @@
     <Content Include="Areas\Dispatcher\Views\Settings\_EditSemesterModal.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_EditStudyTypeModal.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_StudyTypesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_ScheduleInfoesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditScheduleInfoModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_SchedulesEditTable.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>

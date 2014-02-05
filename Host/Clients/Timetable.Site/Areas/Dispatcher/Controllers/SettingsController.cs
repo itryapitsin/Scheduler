@@ -191,6 +191,13 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return new JsonNetResult(model);
         }
 
+        public ActionResult GetDepartments()
+        {
+            var departments = DataService.GetDepartments().Select(x => new DepartmentViewModel(x)).ToList();
+            var model = departments;
+            return new JsonNetResult(model);
+        }
+
         public ActionResult GetTutorialTypes()
         {
             var tutorialTypes = DataService.GetTutorialTypes().Select(x => new TutorialTypeViewModel(x)).ToList();
@@ -268,11 +275,49 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return new JsonNetResult(model);
         }
 
-        public ActionResult GetScheduleInfoes(int facultyId, int courseId, int studyYearId, int semesterId)
+        public ActionResult GetScheduleInfoes(int facultyId, int courseId, int studyYearId, int semesterId, string groupIds)
         {
-            var scheduleInfoes = DataService.GetScheduleInfoesForFaculty(facultyId, courseId, studyYearId, semesterId).Select(x => new ScheduleInfoViewModel(x)).ToList();
-            var model = scheduleInfoes;
+            var groupIdsArray = GetListFromString(groupIds).ToArray();
+
+            if (groupIdsArray.Count() > 0)
+            {
+                var scheduleInfoes = DataService.GetScheduleInfoesForGroups(groupIdsArray, studyYearId, semesterId).Select(x => new ScheduleInfoViewModel(x)).ToList();
+                var model = scheduleInfoes;
+                return new JsonNetResult(model);
+            }
+            else
+            {
+                var scheduleInfoes = DataService.GetScheduleInfoesForFaculty(facultyId, courseId, studyYearId, semesterId).Select(x => new ScheduleInfoViewModel(x)).ToList();
+                var model = scheduleInfoes;
+                return new JsonNetResult(model);
+            }
+
+            
+        }
+
+        public ActionResult GetSchedules(int facultyId, int courseId, int studyYearId, int semesterId)
+        {
+            var schedules = DataService.GetSchedulesForFaculty(facultyId, courseId, studyYearId, semesterId).Select(x => new ScheduleViewModel(x)).ToList();
+            var model = schedules;
             return new JsonNetResult(model);
+        }
+
+        public ActionResult GetSchedulesForGroups(int facultyId, int courseId, int studyYearId, int semesterId, string groupIds)
+        {
+            var groupIdsArray = GetListFromString(groupIds).ToArray();
+
+            if (groupIdsArray.Count() > 0)
+            {
+                var schedules = DataService.GetSchedulesForGroups(facultyId, courseId, groupIdsArray, studyYearId, semesterId).Select(x => new ScheduleViewModel(x)).ToList();
+                var model = schedules;
+                return new JsonNetResult(model);
+            }
+            else
+            {
+                var schedules = DataService.GetSchedulesForFaculty(facultyId, courseId, studyYearId, semesterId).Select(x => new ScheduleViewModel(x)).ToList();
+                var model = schedules;
+                return new JsonNetResult(model);
+            }
         }
 
         public ActionResult CreateEditAuditoriumType(CreateEditAuditoriumTypeRequest request)
@@ -590,11 +635,11 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return new JsonNetResult(new SuccessResponse());
         }
 
-        public ActionResult CreateEditScheduleInfoes(CreateEditScheduleInfoRequest request)
+        public ActionResult CreateEditScheduleInfo(CreateEditScheduleInfoRequest request)
         {
             var facultyIds = GetListFromString(request.FacultyIds).ToArray();
             var courseIds = GetListFromString(request.CourseIds).ToArray();
-            var groupIds = GetListFromString(request.CourseIds).ToArray();
+            var groupIds = GetListFromString(request.GroupIds).ToArray();
 
             if (request.ScheduleInfoId.HasValue)
             {
@@ -637,6 +682,46 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         public ActionResult DeleteScheduleInfo(int scheduleInfoId)
         {
             DataService.DeleteScheduleInfo(scheduleInfoId);
+            return new JsonNetResult(new SuccessResponse());
+        }
+
+        public ActionResult CreateEditSchedule(CreateEditScheduleRequest request)
+        {
+            if (request.ScheduleId.HasValue)
+            {
+                DataService.EditSchedule(
+                        request.AutoDelete,
+                        request.DayOfWeek,
+                        request.SubGroup,
+                        request.StartDate,
+                        request.EndDate,
+                        request.AuditoriumId,
+                        request.ScheduleInfoId,
+                        request.TimeId,
+                        request.ScheduleTypeId,
+                        request.WeekTypeId,
+                        request.ScheduleId.Value);
+            }
+            else
+            {
+                DataService.CreateSchedule(
+                        request.AutoDelete,
+                        request.DayOfWeek,
+                        request.SubGroup,
+                        request.StartDate,
+                        request.EndDate,
+                        request.AuditoriumId,
+                        request.ScheduleInfoId,
+                        request.TimeId,
+                        request.ScheduleTypeId,
+                        request.WeekTypeId);
+            }
+            return new JsonNetResult(new SuccessResponse());
+        }
+
+        public ActionResult DeleteSchedule(int scheduleId)
+        {
+            DataService.DeleteSchedule(scheduleId);
             return new JsonNetResult(new SuccessResponse());
         }
     }

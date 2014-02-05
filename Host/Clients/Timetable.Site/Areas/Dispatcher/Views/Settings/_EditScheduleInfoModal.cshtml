@@ -1,0 +1,86 @@
+﻿<div class="modal-dialog" style="width: 750px;" ng-controller="CreateEditScheduleInfoModalController" ng-init="loadModalData()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Создание нового сведения к расписанию</h5>
+        </div>
+        <div class="modal-body">
+        
+            <form class="form-horizontal" role="form" name="form">
+                <div class="form-group" ng-class="{'has-error': form.subGroupCount.$error.required}">
+                    <label class="col-sm-3 control-label">Количество подгрупп</label>
+                    <div class="col-sm-8">
+                        <input name="number" type="text" class="form-control" placeholder="Количество подгрупп" ng-model="subGroupCount" required="required">
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{'has-error': form.hoursPerWeek.$error.required}">
+                        <label class="col-sm-3 control-label">Часов в неделю</label>
+                        <div class="col-sm-8">
+                            <input name="name" type="text" class="form-control" placeholder="Часов в неделю" ng-model="hoursPerWeek" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.startDate.$error.required}">
+                        <label class="col-sm-3 control-label">Дата начала</label>
+                        <div class="col-sm-8">
+                            <input name="info" type="text" class="form-control" placeholder="Дата начала" ng-model="startDate" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.endDate.$error.required}">
+                        <label class="col-sm-3 control-label">Дата окончания</label>
+                        <div class="col-sm-8">
+                            <input name="info" type="text" class="form-control" placeholder="Дата окончания" ng-model="endDate" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.lecturer.$error.required}">
+                        <label class="col-sm-3 control-label">Преподаватель</label>
+                        <div class="col-sm-8">
+                            <input name="info" type="text" class="form-control" placeholder="Преподаватель" ng-model="lecturer" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.tutorial.$error.required}">
+                        <label class="col-sm-3 control-label">Предмет</label>
+                        <div class="col-sm-8">
+                            <input name="info" type="text" class="form-control" placeholder="Предмет" ng-model="tutorial" required="required">
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentTutorialTypeId.$error.required}">
+                        <label class="col-sm-3 control-label">Тип предмета</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="tutorialTypeChanged()" ng-model="currentTutorialTypeId" ng-options="tutorialType.id as tutorialType.name for tutorialType in tutorialTypes"></select>
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentDepartmentId.$error.required}">
+                        <label class="col-sm-3 control-label">Кафедра</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="departmentChanged()" ng-model="currentDepartmentId" ng-options="department.id as department.name for department in departments"></select>
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentGroupIds.$error.required}">
+                        <label class="col-sm-3 control-label">Группы</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" multiple="multiple" ng-model="currentGroupIds" ng-options="group.id as group.code for group in groups"></select>
+                        </div>
+                </div> 
+
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-left text-danger" ng-show="form.$invalid">
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>Поля, окрашенные красным, обязательны для заполнения</b>
+            </div>
+            <div class="pull-left text-danger" ng-show='message'>
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
+            </div>
+            <button type="submit" ng-click="ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
+            <button class="btn" ng-click="cancel()">Отмена</button>
+        </div>
+    </div>
+</div>
