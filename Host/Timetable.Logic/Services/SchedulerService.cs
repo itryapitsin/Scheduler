@@ -535,6 +535,8 @@ namespace Timetable.Logic.Services
             return result.ToList().Select(x => new ScheduleDataTransfer(x));
         }
 
+
+
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForFaculty(
             int facultyId,
             int courseId,

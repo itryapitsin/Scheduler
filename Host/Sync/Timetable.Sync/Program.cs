@@ -130,9 +130,9 @@ namespace Timetable.Sync
             DoSync(new SpecialitiesToTutorialsSync(conn));
             Console.WriteLine(@"done!");
 
-            //Console.Write(@"Loading schedules...");
-            //DoSync(new ScheduleSync());
-            //Console.WriteLine(@"done!");
+            Console.Write(@"Loading schedules...");
+            DoSync(new ScheduleSync());
+            Console.WriteLine(@"done!");
         }
 
         public static void DoSync(BaseSync sync)

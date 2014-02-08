@@ -211,6 +211,7 @@
     <Compile Include="Areas\Students\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\ThreadScheduleViewModel.cs" />
+    <None Include="Content\bootstrap\datepicker3.less" />
     <Compile Include="Models\BaseClientResponseModel.cs" />
     <Compile Include="Models\ResponseModels\GetAuditoriumsResponse.cs" />
     <Compile Include="Models\ViewModels\AuditoriumViewModel.cs" />
@@ -712,6 +713,7 @@
     <Content Include="Areas\Dispatcher\Views\Settings\_ScheduleInfoesEditTable.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_EditScheduleInfoModal.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_SchedulesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditScheduleModal.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>

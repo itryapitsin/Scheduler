@@ -138,6 +138,12 @@ namespace Timetable.Site
             bootstrapStyleBundle.Transforms.Add(cssTransformer);
             bootstrapStyleBundle.Orderer = nullOrderer;
 
+            var datepickerStyleBundle = new Bundle("~/Content/bootstrap");
+            datepickerStyleBundle.Include("~/Content/bootstrap/datepicker3.less");
+            datepickerStyleBundle.Builder = nullBuilder;
+            datepickerStyleBundle.Transforms.Add(cssTransformer);
+            datepickerStyleBundle.Orderer = nullOrderer;
+
             var select2StyleBundle = new Bundle("~/Content/select2");
             select2StyleBundle.Include("~/Content/css/select2.css");
             select2StyleBundle.Builder = nullBuilder;
@@ -155,6 +161,7 @@ namespace Timetable.Site
 
             bundles.Add(siteStyleBundle);
             bundles.Add(bootstrapStyleBundle);
+            //bundles.Add(datepickerStyleBundle);
             bundles.Add(select2StyleBundle);
             bundles.Add(signinStyleBundle);
         }

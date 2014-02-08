@@ -1,0 +1,111 @@
+﻿<div class="modal-dialog" style="width: 750px;" ng-controller="CreateEditScheduleModalController" ng-init="loadModalData()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Создание нового занятия</h5>
+        </div>
+        <div class="modal-body">
+        
+            <form class="form-horizontal" role="form" name="form">
+                <div class="form-group" ng-class="{'has-error': form.currentAutoDeleteVal.$error.required}">
+                    <label class="col-sm-3 control-label">Автоудаление</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" required="required" ng-change="autoDeleteChanged()" ng-model="currentAutoDeleteVal" ng-options="autoDelete.value as autoDelete.name for autoDelete in autoDeletes"></select>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{'has-error': form.currentDayOfWeekId.$error.required}">
+                        <label class="col-sm-3 control-label">День недели</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="dayOfWeekChanged()" ng-model="currentDayOfWeekId" ng-options="dayOfWeek.id as dayOfWeek.name for dayOfWeek in dayOfWeeks"></select>
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.subGroup.$error.required}">
+                        <label class="col-sm-3 control-label">Подгруппа</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="subGroupChanged()" ng-model="subGroup" ng-options="subGroup as subGroup for subGroup in subGroups"></select>
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.startDate.$error.required}">
+                        <label class="col-sm-3 control-label">Дата начала</label>
+
+                        <div class="col-sm-8">
+                            <div class="datepicker input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                    <input class="span2" size="16" type="text" value="12-02-2012">
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                            <input name="info" type="text" class="form-control" placeholder="Дата начала" ng-model="startDate" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.endDate.$error.required}">
+                        <label class="col-sm-3 control-label">Дата окончания</label>
+                        <div class="col-sm-8">
+                            <input name="info" type="text" class="form-control" placeholder="Дата окончания" ng-model="endDate" required="required">
+                        </div>
+                </div>
+
+
+                <div class="form-group" ng-class="{'has-error': form.currentBuildingId.$error.required}">
+                        <label class="col-sm-3 control-label">Здание</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="buildingChanged()" ng-model="currentBuildingId" ng-options="building.id as building.name for building in buildings"></select>
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentAuditoriumId.$error.required}">
+                        <label class="col-sm-3 control-label">Аудитория</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="auditoriumChanged()" ng-model="currentAuditoriumId" ng-options="auditorium.id as auditorium.number for auditorium in auditoriums"></select>
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentGroupIds.$error.required}">
+                        <label class="col-sm-3 control-label">Группы</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" multiple="multiple" ng-model="currentGroupIds" ng-options="group.id as group.code for group in groups"></select>
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentTimeId.$error.required}">
+                        <label class="col-sm-3 control-label">Время</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="timeChanged()" ng-model="currentTimeId" ng-options="time.id as (time.start + '-' + time.end) for time in times"></select>
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentWeekTypeId.$error.required}">
+                        <label class="col-sm-3 control-label">Тип недели</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="weekTypeChanged()" ng-model="currentWeekTypeId" ng-options="weekType.id as weekType.name for weekType in weekTypes"></select>
+                        </div>
+                </div> 
+
+                <div class="form-group" ng-class="{'has-error': form.currentScheduleInfoId.$error.required}">
+                        <label class="col-sm-3 control-label">Сведение к расписанию</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-change="scheduleInfoChanged()" ng-model="currentScheduleInfoId" ng-options="scheduleInfo.id as scheduleInfo.tutorialName for scheduleInfo in scheduleInfoes"></select>
+                        </div>
+                </div> 
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-left text-danger" ng-show="form.$invalid">
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>Поля, окрашенные красным, обязательны для заполнения</b>
+            </div>
+            <div class="pull-left text-danger" ng-show='message'>
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
+            </div>
+            <button type="submit" ng-click="ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
+            <button class="btn" ng-click="cancel()">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.datepicker').datepicker();
+    });
+</script>

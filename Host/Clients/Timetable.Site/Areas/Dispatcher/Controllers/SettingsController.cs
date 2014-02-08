@@ -302,7 +302,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return new JsonNetResult(model);
         }
 
-        public ActionResult GetSchedulesForGroups(int facultyId, int courseId, int studyYearId, int semesterId, string groupIds)
+        public ActionResult GetSchedulesForGroups(int facultyId, int courseId, int studyYearId, int semesterId, string groupIds, int studyTypeId)
         {
             var groupIdsArray = GetListFromString(groupIds).ToArray();
 

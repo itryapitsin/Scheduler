@@ -279,7 +279,7 @@ namespace Timetable.Data.IIAS.Context
             return RawSqlQuery<Group>(@"
                     SELECT DISTINCT 
                         SDMS.V_STUD_GR.GR_CODE AS Code, 
-                        SDMS.V_STUD_GR.GR_BUN_ID AS id, 
+                        SDMS.V_STUD_GR.UBU_ID AS id, 
                         SDMS.V_STUD_GR.FO_BUN_ID AS studytypeid
                     FROM            
                         SDMS.V_STUD_GR, SDMS.O_BASE_UNIT
@@ -308,17 +308,16 @@ namespace Timetable.Data.IIAS.Context
                         CELS_CES_ID AS ScheduleInfoId, 
                         TUP_TUP_ID AS TimeId, 
                         BQR_ID AS AuditoriumId, 
-                        TRS_TRS_ID AS ScheduleTypeId
+                        TRS_TRS_ID AS ScheduleTypeId,
+                        UDW_CODE AS DayOfWeek
                     FROM           
-                        SDMS.U_RASP_STR
+                        SDMS.V_RASP_DESK_N
                     WHERE       
-                        (STATYS = 'Y') 
-                        AND (DATE_FROM IS NOT NULL)
+                        (DATE_FROM IS NOT NULL)
                         AND (DATE_TO IS NOT NULL)
                         AND (TIME_FROM IS NOT NULL) 
                         AND (TIME_TO IS NOT NULL) 
                         AND (BQR_ID IS NOT NULL)
-                        AND (SRS_SRS_ID = 1)
                         AND (CELS_CES_ID IS NOT NULL)");
         }
 

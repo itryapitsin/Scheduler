@@ -1290,7 +1290,7 @@ function CreateEditScheduleInfoModalController($scope, $http, $controller, $root
                             subGroupCount: $scope.subGroupCount
                         });
                     } else {
-                        $rootScope.$broadcast('studyYearCreated', {
+                        $rootScope.$broadcast('scheduleInfoCreated', {
                             lecturer: $scope.lecturer,
                             tutorialName: $scope.tutorial,
                             tutorialType: $scope.tutorialType,
@@ -1323,12 +1323,22 @@ function ScheduleController($scope, $modal, $http) {
     $scope.groups;
     $scope.semesters;
     $scope.studyYears;
+    $scope.studyTypes;
     $scope.currentFacultyId;
     $scope.currentCourseId;
     $scope.currentBranchId;
     $scope.currentSemesterId;
     $scope.currentStudyYearId;
     $scope.currentGroupId;
+    $scope.currentStudyTypeId;
+
+    if ($scope.currentStudyTypeId) {
+        $scope.currentStudyTypeId = parseInt($scope.currentStudyTypeId);
+    }
+    $scope.studyTypeChanged = function () {
+        console.log("changeStudyType");
+        loadSchedules();
+    };
 
     if ($scope.currentGroupId) {
         $scope.currentGroupId = parseInt($scope.currentGroupId);
@@ -1387,6 +1397,7 @@ function ScheduleController($scope, $modal, $http) {
         loadBranches();
         loadSemesters();
         loadStudyYears();
+        loadStudyTypes();
     }
 
     function loadGroups() {
@@ -1404,6 +1415,16 @@ function ScheduleController($scope, $modal, $http) {
                });
         }
     }
+
+    function loadStudyTypes() {
+        console.log("loadStudyTypes");
+        $http
+           .get($http.prefix + 'Settings/GetStudyTypes', {})
+           .success(function (response) {
+               $scope.studyTypes = response;
+           });
+    }
+    
 
     function loadBranches() {
         console.log("loadBranches");
@@ -1454,7 +1475,8 @@ function ScheduleController($scope, $modal, $http) {
     
     function loadSchedules() {
         if ($scope.currentSemesterId !== undefined && $scope.currentStudyYearId !== undefined &&
-            $scope.currentFacultyId !== undefined && $scope.currentCourseId !== undefined) {
+            $scope.currentFacultyId !== undefined && $scope.currentCourseId !== undefined &&
+            $scope.currentStudyTypeId !== undefined) {
             console.log("loadSchedules");
             $http
                .get($http.prefix + 'Settings/GetSchedulesForGroups', {
@@ -1463,7 +1485,8 @@ function ScheduleController($scope, $modal, $http) {
                        courseId: $scope.currentCourseId,
                        studyYearId: $scope.currentStudyYearId,
                        semesterId: $scope.currentSemesterId,
-                       groupIds: [$scope.currentGroupId].toString()
+                       groupIds: [$scope.currentGroupId].toString(),
+                       studyTypeId: $scope.currentStudyTypeId
                    }
                })
                .success(function (response) {
@@ -1501,43 +1524,299 @@ function ScheduleController($scope, $modal, $http) {
         $scope.showDialog('confirmation.html');
     };
 
-    /*
-    $scope.$on('scheduleInfoCreated', function (e, scheduleInfo) {
-        $scope.studyYears.push(studyYear);
+    
+    $scope.$on('scheduleCreated', function (e, schedule) {
+        $scope.schedules.push(schedule);
     });
 
-    $scope.$on('scheduleInfoUpdated', function (e, scheduleInfo) {
+    $scope.$on('scheduleUpdated', function (e, schedules) {
 
-        for (var i in $scope.scheduleInfoes) {
+        for (var i in $scope.schedules) {
 
-            if ($scope.scheduleInfoes[i].id == scheduleInfo.id) {
-                $scope.scheduleInfoes[i] = scheduleInfo;
+            if ($scope.schedules[i].id == schedule.id) {
+                $scope.schedules[i] = schedule;
                 break;
             }
         }
     });
 
-    $scope.edit = function (scheduleInfo) {
+    $scope.edit = function (schedule) {
+        $scope.scheduleId = schedule.id;
+        $scope.auditoriumNumber = schedule.auditoriumNumber;
+        $scope.currentAuditoriumId = schedule.auditoriumId;
+        $scope.buildingName = schedule.buildingName;
+        $scope.currentBuildingId = schedule.buildingId;
+        $scope.lecturerName = schedule.lecturerName;
+        $scope.tutorialName = schedule.tutorialName;
+        $scope.groupCodes = schedule.groupCodes;
+        $scope.weekTypeName = schedule.weekTypeName;
+        $scope.currentWeekTypeId = schedule.weekTypeId;
+        $scope.subGroup = schedule.subGroup;
+        $scope.pair = schedule.pair;
+        $scope.currentDayOfWeekId = schedule.dayOfWeek;
+        
+        $scope.scheduleTypeName = schedule.scheduleTypeName;
+        $scope.currentScheduleTypeId = schedule.scheduleTypeId;
 
-        $scope.scheduleInfoId = scheduleInfo.id;
-        $scope.subGroupCount = scheduleInfo.subGroupCount;
-        $scope.hoursPerWeek = scheduleInfo.hoursPerWeek;
-        $scope.startDate = scheduleInfo.startDate;
-        $scope.endDate = scheduleInfo.startDate;
-        $scope.currentGroupIds = scheduleInfo.groupIds;
-        $scope.currentTutorialTypeId = scheduleInfo.tutorialTypeId;
-        $scope.lecturer = scheduleInfo.lecturer;
-        $scope.tutorial = scheduleInfo.tutorialName;
-        $scope.tutorialType = scheduleInfo.tutorialType;
-        $scope.currentDepartmentId = scheduleInfo.departmentId;
-        $scope.departmentName = scheduleInfo.departmentName;
+        $scope.currentTimeId = schedule.time.id;
 
-        $scope.showDialog('editscheduleinfomodal.html');
+        $scope.currentAutoDeleteVal = schedule.autoDelete;
+        $scope.startDate = schedule.startDate
+        $scope.endDate = schedule.endDate;
+
+        $scope.currentScheduleInfoId = schedule.scheduleInfoId;
+
+        $scope.showDialog('editschedulemodal.html');
     };
 
-    $scope.showCreateScheduleInfoDialog = function () {
-        $scope.showDialog('editscheduleinfomodal.html');
-    };*/
+    $scope.showCreateScheduleDialog = function () {
+        $scope.showDialog('editschedulemodal.html');
+    };
+}
+
+
+function CreateEditScheduleModalController($scope, $http, $controller, $rootScope) {
+    $controller('BaseController', { $scope: $scope });
+    $scope.buildings;
+    $scope.auditoriums;
+    $scope.times;
+    $scope.scheduleInfoes;
+    $scope.weekTypes;
+
+    $scope.dayOfWeeks = [{ id: 1, name: "Понедельник" }, { id: 2, name: "Вторник" }, { id: 3, name: "Среда" }, { id: 4, name: "Четверг" }, { id: 5, name: "Пятница" }, { id: 6, name: "Суббота" }];
+    $scope.autoDeletes = [{ value: true, name: "Да" }, { value: false, name: "Нет" }];
+    $scope.subGroups = ["1", "2", "3", "4", "5"];
+   
+
+
+    if ($scope.currentAutoDeleteVal) {
+        $scope.currentAutoDeleteVal = parseInt($scope.currentAutoDeleteVal);
+    }
+    $scope.autoDeleteChanged = function () {
+        console.log("changeAutoDelete");
+    };
+
+
+    if ($scope.currentDayOfWeekId) {
+        $scope.currentDayOfWeekId = parseInt($scope.currentDayOfWeekId);
+    }
+    $scope.dayOfWeekChanged = function () {
+        console.log("changeDayOfWeek");
+    };
+
+    if ($scope.currentWeekTypeId) {
+        $scope.currentWeekTypeId = parseInt($scope.currentWeekTypeId);
+    }
+    $scope.weekTypeChanged = function () {
+        console.log("changeWeekType");
+    };
+
+
+    if ($scope.currentBuildingId) {
+        $scope.currentBuildingId = parseInt($scope.currentBuildingId);
+    }
+    $scope.buildingChanged = function () {
+        console.log("changeBuilding");
+        loadAuditoriums();
+        loadTimes();
+    };
+
+    if ($scope.currentAuditoriumId) {
+        $scope.currentAuditoriumId = parseInt($scope.currentAuditoriumId);
+    }
+    $scope.auditoriumChanged = function () {
+        console.log("changeAuditorium");
+    };
+
+    if ($scope.currentTimeId) {
+        $scope.currentTimeId = parseInt($scope.currentTimeId);
+    }
+    $scope.timeChanged = function () {
+        console.log("changeTime");
+    };
+  
+    $scope.scheduleInfoChanged = function () {
+        console.log("changeScheduleInfo");
+    };
+
+
+    $scope.loadModalData = function () {
+        loadBuildings();
+        loadScheduleInfoes();
+        loadWeekTypes();
+        if ($scope.currentBuildingId != undefined) {
+            loadAuditoriums();
+            loadTimes();
+        }
+    }
+
+    function loadBuildings() {
+        console.log("loadBuildings");
+        $http
+           .get($http.prefix + 'Settings/GetBuildings', {})
+           .success(function (response) {
+               $scope.buildings = response.buildings;
+           });
+    }
+
+    function loadWeekTypes() {
+        console.log("loadWeekTypes");
+        $http
+           .get($http.prefix + 'Settings/GetWeekTypes', {})
+           .success(function (response) {
+               $scope.weekTypes = response;
+           });
+    }
+
+    function loadAuditoriums() {
+        console.log("loadAuditoriums");
+        $http
+           .get($http.prefix + 'Settings/GetAuditoriums', {
+               params: {
+                   buildingId: $scope.currentBuildingId,
+                   pageNumber: 1,
+                   pageSize: 1
+               }
+           })
+           .success(function (response) {
+               $scope.auditoriums = response;
+           });
+    }
+
+    function loadTimes() {
+        console.log("loadTimes");
+        $http
+          .get($http.prefix + 'Settings/GetTimes', {
+              params: {
+                  buildingId: $scope.currentBuildingId
+              }
+          })
+          .success(function (response) {
+              $scope.times = response;
+          });
+    }
+
+    function loadScheduleInfoes() {
+        console.log("loadScheduleInfoes");
+        $http
+          .get($http.prefix + 'Settings/GetScheduleInfoes', {
+              params: {
+                  facultyId: $scope.currentFacultyId,
+                  courseId: $scope.currentCourseId,
+                  studyYearId: $scope.currentStudyYearId,
+                  semesterId: $scope.currentSemesterId,
+                  groupIds: $scope.currentGroupIds
+              }
+          })
+          .success(function (response) {
+              $scope.scheduleInfoes = response;
+          });
+    }
+
+    
+    $scope.ok = function () {
+        var params = {
+            autoDelete: $scope.currentAutoDeleteVal,
+            dayOfWeek: $scope.currentDayOfWeekId,
+            subGroup: $scope.subGroup,
+            startDate: $scope.startDate,
+            endDate: $scope.endDate,
+            auditoriumId: $scope.currentAuditoriumId,
+            scheduleInfoId: $scope.currentScheduleInfoId,
+            timeId: $scope.currentTimeId,
+            scheduleTypeId: $scope.currentScheduleTypeId,
+            weekTypeId: $scope.currentWeekTypeId,
+            scheduleId: $scope.scheduleId
+        };
+
+        var currentScheduleInfo;
+        for (var i in $scope.scheduleInfoes) {
+
+            if ($scope.scheduleInfoes[i].id == $scope.currentScheduleInfoId) {
+                currentScheduleInfo = $scope.scheduleInfoes[i];
+                break;
+            }
+        }
+
+        var currentTime;
+        for (var i in $scope.times) {
+
+            if ($scope.times[i].id == $scope.currentTimeId) {
+                currentTime = $scope.times[i];
+                break;
+            }
+        }
+
+        var currentBuilding;
+        for (var i in $scope.buildings) {
+
+            if ($scope.buildings[i].id == $scope.currentBuildingId) {
+                currentBuilding = $scope.buildings[i];
+                break;
+            }
+        }
+
+        var currentAuditorium;
+        for (var i in $scope.auditoriums) {
+
+            if ($scope.auditoriums[i].id == $scope.currentAuditoriumId) {
+                currentAuditorium = $scope.auditoriums[i];
+                break;
+            }
+        }
+
+        $http
+            .post($http.prefix + 'Settings/CreateEditSchedule', params)
+            .success(function (response) {
+                if (response.ok) {
+                    $scope.hideDialog();
+                    if ($scope.scheduleId !== undefined) {
+                        $rootScope.$broadcast('scheduleUpdated', {
+                            id: $scope.scheduleId,
+                            autoDelete: $scope.currentAutoDeleteVal,
+                            startDate: $scope.startDate,
+                            endDate: $scope.endDate,
+                            //groupCodes: $scope.groupCodes,
+                            auditoriumNumber: $scope.currentAuditorium.number,
+                            buildingName: $scope.currentBuilding.name,
+                            lecturerName: $scope.currentScheduleInfo.lecturer,
+                            tutorialName: $scope.currentScheduleInfo.tutorialName,
+                            weekTypeName: $scope.weekTypeName,
+                            subGroup: $scope.subGroup,
+                            time: $scope.currentTime,
+                            pair: $scope.pair,
+                            dayOfWeek: $scope.currentDayOfWeekId
+                        });
+                    } else {
+                        $rootScope.$broadcast('scheduleCreated', {
+                            id: $scope.scheduleId,
+                            autoDelete: $scope.currentAutoDeleteVal,
+                            startDate: $scope.startDate,
+                            endDate: $scope.endDate,
+                            //groupCodes: $scope.groupCodes,
+                            auditoriumNumber: $scope.currentAuditorium.number,
+                            buildingName: $scope.currentBuilding.name,
+                            lecturerName: $scope.currentScheduleInfo.lecturer,
+                            tutorialName: $scope.currentScheduleInfo.tutorialName,
+                            weekTypeName: $scope.weekTypeName,
+                            subGroup: $scope.subGroup,
+                            time: $scope.currentTime,
+                            pair: $scope.pair,
+                            dayOfWeek: $scope.currentDayOfWeekId
+                        });
+                    }
+                }
+
+                if (response.message)
+                    $scope.message = response.message;
+                else
+                    $scope.message = 'Ошибка запроса';
+            });
+    };
+
+    $scope.cancel = function () {
+        this.hideDialog();
+    };
 }
 
 function UsersController($scope, $modal, $http) {
