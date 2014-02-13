@@ -39,6 +39,7 @@ namespace Timetable.Sync.Logic.SyncData
                         TypeId = scheduleType != null ? (int?)scheduleType.Id : null,
                         StartDate = iiasEntity.DateStart,
                         EndDate = iiasEntity.DateEnd,
+                        SubGroup = iiasEntity.SubGroup,
                         TimeId = time.Id,
                         DayOfWeek = iiasEntity.DayOfWeek,
                         CreatedDate = DateTime.Now,

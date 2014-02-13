@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201401311624260_AddUserSettingsFields.Designer.cs">
       <DependentUpon>201401311624260_AddUserSettingsFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201402131727313_Add_SpecialityNameField_for_groups.cs" />
+    <Compile Include="Migrations\201402131727313_Add_SpecialityNameField_for_groups.Designer.cs">
+      <DependentUpon>201402131727313_Add_SpecialityNameField_for_groups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -338,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401311624260_AddUserSettingsFields.resx">
       <DependentUpon>201401311624260_AddUserSettingsFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402131727313_Add_SpecialityNameField_for_groups.resx">
+      <DependentUpon>201402131727313_Add_SpecialityNameField_for_groups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

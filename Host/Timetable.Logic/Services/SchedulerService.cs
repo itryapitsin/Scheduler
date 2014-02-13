@@ -562,11 +562,14 @@ namespace Timetable.Logic.Services
             int studyYear,
             int semester)
         {
+
+            var t = GetSchedules().Where(x => x.Id == 1458).ToList();
+
             return GetSchedules()
-                .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
-                .Where(x => x.ScheduleInfo.SemesterId == semester)
-                .Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id == facultyId))
-                .Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))
+                //.Where(x => x.ScheduleInfo.StudyYearId == studyYear)
+                //.Where(x => x.ScheduleInfo.SemesterId == semester)
+                //.Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id == facultyId))
+                //.Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))
                 .Where(x => x.ScheduleInfo.Groups.Any(y => groupIds.Contains(y.Id)))
                 .ToList()
                 .Select(x => new ScheduleDataTransfer(x));

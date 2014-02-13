@@ -280,7 +280,8 @@ namespace Timetable.Data.IIAS.Context
                     SELECT DISTINCT 
                         SDMS.V_STUD_GR.GR_CODE AS Code, 
                         SDMS.V_STUD_GR.UBU_ID AS id, 
-                        SDMS.V_STUD_GR.FO_BUN_ID AS studytypeid
+                        SDMS.V_STUD_GR.FO_BUN_ID AS studytypeid,
+                        SDMS.V_STUD_GR.SPEC_CODE AS SpecialityName
                     FROM            
                         SDMS.V_STUD_GR, SDMS.O_BASE_UNIT
                     WHERE        
@@ -309,7 +310,8 @@ namespace Timetable.Data.IIAS.Context
                         TUP_TUP_ID AS TimeId, 
                         BQR_ID AS AuditoriumId, 
                         TRS_TRS_ID AS ScheduleTypeId,
-                        UDW_CODE AS DayOfWeek
+                        UDW_CODE AS DayOfWeek,
+                        COMMENTARY AS SubGroup
                     FROM           
                         SDMS.V_RASP_DESK_N
                     WHERE       

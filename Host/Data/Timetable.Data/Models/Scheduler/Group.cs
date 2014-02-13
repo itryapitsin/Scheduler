@@ -15,6 +15,9 @@ namespace Timetable.Data.Models.Scheduler
         public StudyType StudyType { get; set; }
         public int StudyTypeId { get; set; }
 
+        //TODO: возможно потом убрать поле
+        public string SpecialityName { get; set; }
+
         public Group()
         {
             Courses = new Collection<Course>();

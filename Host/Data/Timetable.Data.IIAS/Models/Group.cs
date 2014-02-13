@@ -9,5 +9,8 @@ namespace Timetable.Data.IIAS.Models
         public string Code { get; set; }
 
         public Int64 StudyTypeId { get; set; }
+
+        //TODO: возможно потом убрать поле
+        public string SpecialityName { get; set; }
     }
 }

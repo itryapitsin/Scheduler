@@ -17,5 +17,6 @@ namespace Timetable.Data.IIAS.Models
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public int DayOfWeek { get; set; }
+        public string SubGroup { get; set; }
     }
 }

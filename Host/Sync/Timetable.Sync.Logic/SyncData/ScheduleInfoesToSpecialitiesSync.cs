@@ -25,22 +25,23 @@ namespace Timetable.Sync.Logic.SyncData
             DbCommand cmd = _connection.CreateCommand();
             cmd.CommandText = @"
                 SELECT DISTINCT 
-                    CES_ID, 
-                    SPEC_CODE
+                    CES_ID,
+                    V_STUD_GR.SPEC_BUN_ID 
                 FROM            
-                    SDMS.V_UPL_RASP
+                    SDMS.V_UPL_RASP, SDMS.V_STUD_GR
                 WHERE        
-                    (HOURS_WEEK IS NOT NULL) 
-                    AND (PCARD_ID IS NOT NULL) 
-                    AND (EW_ID IS NOT NULL) 
-                    AND (DIS_CODE IS NOT NULL)
-                    AND (UBU_ID IS NOT NULL) 
-                    AND (GR_UBU_ID > 0) 
-                    AND (GR_UBU_ID IS NOT NULL) 
-                    AND (KURS_CODE > 0) 
-                    AND (KURS_CODE IS NOT NULL) 
-                    AND (SPEC_CODE IS NOT NULL) 
-                    AND (FACULT_CODE IS NOT NULL)";
+                    (SDMS.V_UPL_RASP.HOURS_WEEK IS NOT NULL) 
+                    AND (V_STUD_GR.UBU_ID = SDMS.V_UPL_RASP.GR_UBU_ID)
+                    AND (SDMS.V_UPL_RASP.PCARD_ID IS NOT NULL) 
+                    AND (SDMS.V_UPL_RASP.EW_ID IS NOT NULL) 
+                    AND (SDMS.V_UPL_RASP.DIS_CODE IS NOT NULL)
+                    AND (SDMS.V_STUD_GR.UBU_ID IS NOT NULL) 
+                    AND (SDMS.V_UPL_RASP.GR_UBU_ID > 0) 
+                    AND (SDMS.V_UPL_RASP.GR_UBU_ID IS NOT NULL) 
+                    AND (SDMS.V_UPL_RASP.KURS_CODE > 0) 
+                    AND (SDMS.V_UPL_RASP.KURS_CODE IS NOT NULL) 
+                    AND (SDMS.V_UPL_RASP.SPEC_CODE IS NOT NULL) 
+                    AND (SDMS.V_UPL_RASP.FACULT_CODE IS NOT NULL)";
             var reader = cmd.ExecuteReader();
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Specialities").ToList();
             var specialities = SchedulerDatabase.Specialities.ToList();
@@ -62,6 +63,8 @@ namespace Timetable.Sync.Logic.SyncData
 
             if(!String.IsNullOrEmpty(command))
                 SchedulerDatabase.RawSqlCommand(command);
+
+            //TODO: Добавить загрузку связей scheduleInfoes to specialities из таблицы v_rasp_desk_n
 
             _connection.Close();
         }
