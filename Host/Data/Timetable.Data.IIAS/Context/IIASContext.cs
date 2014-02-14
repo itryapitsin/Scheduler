@@ -175,6 +175,7 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.O_PERSONAL_CARD.PCARD_ID = SDMS.V_UPL_RASP.PCARD_ID");
         }
 
+        //Tutorials ставятся неправильно  (возможно это из-за нескольких обновлений данных подряд)
         public IQueryable<Tutorial> GetTutorials()
         {
             return RawSqlQuery<Tutorial>(@"
@@ -226,6 +227,7 @@ namespace Timetable.Data.IIAS.Context
                         ""Finish""");
         }
 
+        //Некоторых аудиторий не было в SDMS.B_PRODUCTIVITY, удалил условие выборки
         public IQueryable<Auditorium> GetAuditoriums()
         {
             return RawSqlQuery<Auditorium>(@"
@@ -235,13 +237,12 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.B_QUARTERS.NAMEFULL AS Name, 
                         SDMS.B_QUARTERS.BLD_ID AS BuildingId
                     FROM    
-                        SDMS.B_QUARTERS, 
-                        SDMS.B_PRODUCTIVITY
+                        SDMS.B_QUARTERS
                     WHERE
-                        SDMS.B_QUARTERS.ID = SDMS.B_PRODUCTIVITY.ID 
-                        AND (SDMS.B_QUARTERS.STATUS = 'Y')");
+                        (SDMS.B_QUARTERS.STATUS = 'Y')");
         }
 
+        //Tutorials в schedule_infoes ставятся неправильно (возможно это из-за нескольких обновлений данных подряд)
         public IQueryable<ScheduleInfo> GetScheduleInfoes()
         {
             return RawSqlQuery<ScheduleInfo>(@"
@@ -300,6 +301,7 @@ namespace Timetable.Data.IIAS.Context
 
         public IQueryable<Schedule> GetSchedules()
         {
+            //С такими ограничениями копируются не все занятия (у многих не установлена DATE_FROM\DATE_TO, TIME_FROM\TIME_TO)
             return RawSqlQuery<Schedule>(@"
                     SELECT        
                         SR_ID AS Id,

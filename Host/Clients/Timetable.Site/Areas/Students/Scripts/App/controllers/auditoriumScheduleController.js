@@ -21,6 +21,7 @@
     };
 
     $scope.auditoriumChanged = function () {
+       
         $cookieStore.put('currentAuditoriumId', $scope.currentAuditoriumId);
         loadAuditoriumSchedule();
     };
@@ -59,6 +60,8 @@
             .get($http.prefix + 'AuditoriumSchedule/GetSchedules', { params: { auditoriumId: $scope.currentAuditoriumId } })
             .success(function (response) {
                 $scope.schedules = response;
+                console.log($scope.currentAuditoriumId);
+                console.log($scope.schedules);
             });
     };
 }

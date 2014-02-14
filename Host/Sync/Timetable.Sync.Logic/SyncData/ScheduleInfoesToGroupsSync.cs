@@ -71,7 +71,7 @@ namespace Timetable.Sync.Logic.SyncData
                 WHERE
 			        CELS_CES_ID = CES_ID 
 			    AND 
-                   	((GR_UBU_ID = 0) OR (GR_UBU_ID IS NULL));";
+                   	((GR_UBU_ID = 0) OR (GR_UBU_ID IS NULL)) AND (CES_ID IS NOT NULL) AND (UBU_UBU_ID IS NOT NULL)";
 
             reader = cmd2.ExecuteReader();
             schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Groups").ToList();

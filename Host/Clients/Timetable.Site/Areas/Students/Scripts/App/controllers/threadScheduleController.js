@@ -76,7 +76,9 @@
     }
 
     $scope.getReportForGroup = function () {
+
         console.log("getReportForGroup");
+        console.log($scope.groups);
         //console.log($scope.currentAuditoriumId);
         //console.log($scope.currentBuildingId);
 

@@ -51,8 +51,8 @@ namespace Timetable.Sync.Logic.SyncData
             {
                 var scheduleInfoId = reader.GetInt64(0);
                 var schedulerEntity = schedulerEntities.FirstOrDefault(x => x.IIASKey == scheduleInfoId);
-                var id = reader.GetString(1);
-                var speciality = specialities.FirstOrDefault(x => x.Code == id);
+                var id = reader.GetInt64(1);
+                var speciality = specialities.FirstOrDefault(x => x.Id == id);
                 if (schedulerEntity != null && speciality != null && !schedulerEntity.Specialities.Contains(speciality))
                 {
                     schedulerEntity.Specialities.Add(speciality);
