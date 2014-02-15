@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
 
 namespace Timetable.Data.Models.Scheduler
 {
     public class Branch: BaseIIASEntity
     {
+        public string ShortName { get; set; }
         public string Name { get; set; }
         public ICollection<Faculty> Faculties { get; set; }
         public virtual Organization Organization { get; set; }

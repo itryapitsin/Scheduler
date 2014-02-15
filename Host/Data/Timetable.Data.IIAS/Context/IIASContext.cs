@@ -72,7 +72,8 @@ namespace Timetable.Data.IIAS.Context
                     SELECT DISTINCT 
                         SDMS.O_USE_BASE_UNITS.UBU_ID AS Id, 
                         SDMS.O_USE_BASE_UNITS.NAME_LONG AS Name,
-                        SDMS.V_STUD_GR.ORG_ID AS OrganizationId
+                        SDMS.V_STUD_GR.ORG_ID AS OrganizationId,
+                         SDMS.O_USE_BASE_UNITS.NAME_SHORT AS ShortName
                     FROM
                         SDMS.O_USE_BASE_UNITS, SDMS.V_STUD_GR
                     WHERE

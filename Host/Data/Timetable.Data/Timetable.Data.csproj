@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201312221821222_AddApplicationLogsTable.Designer.cs">
       <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312292009026_AddShortNameToBranches.cs" />
+    <Compile Include="Migrations\201312292009026_AddShortNameToBranches.Designer.cs">
+      <DependentUpon>201312292009026_AddShortNameToBranches.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -331,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312221821222_AddApplicationLogsTable.resx">
       <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312292009026_AddShortNameToBranches.resx">
+      <DependentUpon>201312292009026_AddShortNameToBranches.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
