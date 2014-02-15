@@ -1,0 +1,23 @@
+﻿<div class="form-group col-sm-4 col-sm-offset-0 pull-right" ng-init="loadStudyTypes()">
+<button class="btn btn-success" ng-click="showCreateStudyTypeDialog()"><i class="glyphicon glyphicon-plus"></i> Создать тип обучения</button>
+&nbsp;
+</div>
+<table class="table table-striped">
+       <thead>
+            <tr>
+               <th>Название</th>
+
+            </tr>
+       </thead>
+       <tbody>
+            <tr ng-repeat="studyType in studyTypes">
+               <td>{{studyType.name}}</td>
+
+               <td class="col-sm-1">
+                       <button class="btn btn-sm btn-warning" ng-click="edit(studyType)"><i class="glyphicon glyphicon-edit"></i></button>
+                       <button class="btn btn-sm btn-danger" ng-click="delete(studyType)"><i class="glyphicon glyphicon-remove"></i></button>
+               </td>
+            </tr>
+       </tbody>
+</table>
+            

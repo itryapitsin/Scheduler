@@ -48,5 +48,10 @@ namespace Timetable.Data.Models.Personalization
         public int? LecturerScheduleSelectedStudyYearId { get; set; }
         public virtual Semester LecturerScheduleSelectedSemester { get; set; }
         public int? LecturerScheduleSelectedSemesterId { get; set; }
+
+        public virtual Building SettingsDataEditSelectedBuilding { get; set; }
+        public int? SettingsDataEditSelectedBuildingId { get; set; }
+
+        public int? SettingsDataEditSelectedTabId { get; set; }
     }
 }

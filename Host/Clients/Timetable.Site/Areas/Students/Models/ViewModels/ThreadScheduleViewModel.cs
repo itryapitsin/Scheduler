@@ -72,6 +72,23 @@ namespace Timetable.Site.Areas.Students.Models.ViewModels
                     .GetGroupsForFaculty(FacultyId.Value, CourseId.Value)
                     .Select(x => new GroupViewModel(x));
             }
-        }
+
+            if (FacultyId.HasValue && CourseId.HasValue && GroupId.HasValue)
+            {
+                var studyYear = dataService.GetStudyYear(DateTime.Now);
+                var semester = dataService.GetSemesterForTime(DateTime.Now);
+
+                if (studyYear != null && semester != null)
+                {
+                    Schedules = dataService.GetSchedulesForGroups(
+                        FacultyId.Value,
+                        CourseId.Value,
+                        new[] { GroupId.Value },
+                        studyYear.Id,
+                        semester.Id)
+                    .Select(x => new ScheduleViewModel(x));
+                }
+            }
+        }   
     }
 }

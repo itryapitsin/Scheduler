@@ -5,25 +5,46 @@
     angular.extend($scope, pageModel);
     $scope.pairs = [1, 2, 3, 4, 5, 6, 7, 8];
 
-    $scope.currentLecturerId = $cookieStore.get('currentLecturerId');
-    if ($scope.currentLecturerId) {
-        $scope.currentLecturerId = parseInt($scope.currentLecturerId);
-    }
+    //$scope.currentLecturerId = $cookieStore.get('currentLecturerId');
+    $scope.currentLecturerSearchString = $cookieStore.get('currentLecturerSearchString');
+
+    //if ($scope.currentLecturerId) {
+        //$scope.currentLecturerId = parseInt($scope.currentLecturerId);
+    //}
 
     $scope.lecturerChanged = function () {
-        $cookieStore.put('currentLecturerId', $scope.currentLecturerId);
-        loadSchedule();
+        //console.log("lecturerChanged");
+        //$cookieStore.put('currentLecturerId', $scope.currentLecturerId);
+        $cookieStore.put('currentLecturerSearchString', $scope.currentLecturerSearchString);
     };
 
-    function findLecturers() {
-
+    $scope.canFindLecturer = function () {
+        if ($scope.currentLecturerSearchString == null || $scope.currentLecturerSearchString == "" || $scope.currentLecturerSearchString == undefined)
+            return false;
+        return true;
     }
 
-    function loadSchedule() {
+    $scope.canSaveReport = function () {
+        if ($scope.schedules == null || $scope.schedules == undefined || $scope.schedules == "")
+            return false;
+        return true;
+    }
+
+    $scope.loadLecturerSchedule = function() {
+        //console.log("loadLecturerSchedule");
         $http
-            .get($http.prefix + 'LecturerSchedule/LoadLecturerSchedule', { params: { lecturerId: $scope.currentLecturerId, } })
+            .get($http.prefix + 'LecturerSchedule/LoadLecturerSchedule', { params: { searchString: $scope.currentLecturerSearchString } })
             .success(function (response) {
                 $scope.schedules = response;
             });
     }
+
+    $scope.getReportForLecturer = function () {
+        console.log("getReportForLecturer");
+        //console.log($scope.currentAuditoriumId);
+        //console.log($scope.currentBuildingId);
+
+        document.location.href = '/Report/GetReportForLecturer?lecturerSearchString={0}'
+            .replace('{0}', $scope.currentLecturerSearchString);
+    };
 }

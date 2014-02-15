@@ -40,10 +40,21 @@ namespace Timetable.Site.Areas.Students.Controllers
             return new JsonNetResult(response);
         }
 
-        //public ActionResult GetSchedule()
-        //{
-        //    var response = DataService
-        //        .GetSchedulesForGroups()
-        //}
+        public ActionResult GetSchedules(int facultyId, int courseId, int groupId)
+        {
+            var studyYear = DataService.GetStudyYear(DateTime.Now);
+            var semester = DataService.GetSemesterForTime(DateTime.Now);
+
+            var response = DataService
+                .GetSchedulesForGroups(
+                    facultyId,
+                    courseId,
+                    new [] {groupId},
+                    studyYear.Id,
+                    semester.Id)
+                .Select(x => new ScheduleViewModel(x));
+
+            return new JsonNetResult(response);
+        }
     }
 }

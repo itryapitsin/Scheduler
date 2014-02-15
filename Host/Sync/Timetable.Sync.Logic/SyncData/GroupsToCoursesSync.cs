@@ -17,7 +17,7 @@ namespace Timetable.Sync.Logic.SyncData
             _connection.Open();
             DbCommand cmd = _connection.CreateCommand();
             cmd.CommandText = @"SELECT DISTINCT 
-                                    SDMS.V_STUD_GR.GR_BUN_ID AS groupid, 
+                                    SDMS.V_STUD_GR.UBU_ID AS groupid, 
                                     SDMS.V_STUD_GR.KURS_BUN_ID as courseid
                                 FROM           
                                     SDMS.V_STUD_GR, SDMS.O_BASE_UNIT

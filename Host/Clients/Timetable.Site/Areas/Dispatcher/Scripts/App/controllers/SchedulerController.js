@@ -24,7 +24,6 @@
 
     function findGroups() {
         var selectedGroups = $.Enumerable.From($scope.currentGroupIds);
-
         var result = $.Enumerable.From($scope.groups)
             .Where(function (item) {
                 return selectedGroups.Contains(item.id);
@@ -61,7 +60,7 @@
         var params = {
             facultyId: $scope.currentFacultyId,
             courseId: $scope.currentCourseId,
-            groupIds: groupIds,
+            groupIds: groupIds.join(),
             studyYearId: $scope.currentStudyYearId,
             semesterId: $scope.currentSemesterId,
             studyTypeId: $scope.currentStudyTypeId
@@ -173,6 +172,62 @@
 
         $(ui.draggable[0]).addClass("hide");
     };
+
+    $scope.isFacultySelected = function(){
+        if ($scope.currentFacultyId == null || $scope.currentFacultyId == undefined || $scope.currentFacultyId == "")
+            return false;
+        return true;
+    }
+
+    $scope.isCourseSelected = function () {
+        if ($scope.currentCourseId == null || $scope.currentCourseId == undefined || $scope.currentCourseId == "")
+            return false;
+        return true;
+    }
+
+    $scope.isGroupsSelected = function () {
+        if ($scope.currentGroupIds == null || $scope.currentGroupIds == undefined || $scope.currentGroupIds == "")
+            return false;
+        return true;
+    }
+
+    $scope.getReportForFaculty = function () {
+        console.log("getReportForFaculty");
+        if ($scope.isFacultySelected()) {
+            document.location.href = '/Dispatcher/Report/GetReportForFaculty?branchId={0}&facultyId={1}&studyYearId={2}&semesterId={3}'
+                .replace('{0}', $scope.currentBranchId)
+                .replace('{1}', $scope.currentFacultyId)
+                .replace('{2}', $scope.currentStudyYearId)
+                .replace('{3}', $scope.currentSemesterId);
+        }
+    };
+
+    $scope.getReportForCourse = function () {
+        console.log("getReportForCourse");
+        if ($scope.isCourseSelected()) {
+            document.location.href = '/Dispatcher/Report/GetReportForCourse?branchId={0}&facultyId={1}&studyTypeId={2}&courseId={3}&studyYearId={4}&semesterId={5}'
+                .replace('{0}', $scope.currentBranchId)
+                .replace('{1}', $scope.currentFacultyId)
+                .replace('{2}', $scope.currentStudyTypeId)
+                .replace('{3}', $scope.currentCourseId)
+                .replace('{4}', $scope.currentStudyYearId)
+                .replace('{5}', $scope.currentSemesterId);
+        }
+    };
+
+    $scope.getReportForGroups = function () {
+        console.log("getReportForGroups");
+        if ($scope.isGroupsSelected()) {
+            document.location.href = '/Dispatcher/Report/GetReportForGroups?branchId={0}&facultyId={1}&courseId={2}&groupIds={3}&studyYearId={4}&semesterId={5}'
+                .replace('{0}', $scope.currentBranchId)
+                .replace('{1}', $scope.currentFacultyId)
+                .replace('{2}', $scope.currentCourseId)
+                .replace('{3}', $scope.currentGroupIds)
+                .replace('{4}', $scope.currentStudyYearId)
+                .replace('{5}', $scope.currentSemesterId);
+        }
+    };
+
 
     if (!$scope.currentBranchId)
         $scope.showThreadDialog();

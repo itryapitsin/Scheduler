@@ -15,6 +15,8 @@ namespace Timetable.Logic.Models
         public CreatorSettings CreatorSettings { get; set; }
         public LecturerScheduleSettings LecturerScheduleSettings { get; set; }
         public AuditoriumScheduleSettings AuditoriumScheduleSettings { get; set; }
+        public DataSettings DataSettings { get; set; }
+
         public UserDataTransfer(User user)
         {
             Login = user.Login;
@@ -26,6 +28,7 @@ namespace Timetable.Logic.Models
             CreatorSettings = new CreatorSettings(user);
             LecturerScheduleSettings = new LecturerScheduleSettings(user);
             AuditoriumScheduleSettings = new AuditoriumScheduleSettings(user);
+            DataSettings = new DataSettings(user);
         }
 
         public string GetUserName()

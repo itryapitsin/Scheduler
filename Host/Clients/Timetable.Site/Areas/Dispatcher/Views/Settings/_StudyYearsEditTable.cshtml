@@ -1,0 +1,21 @@
+﻿<div class="form-group col-sm-4 col-sm-offset-0 pull-right" ng-init="loadStudyYears()">
+<button class="btn btn-success" ng-click="showCreateStudyYearDialog()"><i class="glyphicon glyphicon-plus"></i> Создать год обучения</button>
+&nbsp;
+</div>
+<table class="table table-striped">
+       <thead>
+            <tr>
+               <th>Название</th>
+            </tr>
+       </thead>
+       <tbody>
+            <tr ng-repeat="studyYear in studyYears">
+               <td>{{studyYear.name}}</td>
+               <td class="col-sm-1">
+                       <button class="btn btn-sm btn-warning" ng-click="edit(studyYear)"><i class="glyphicon glyphicon-edit"></i></button>
+                       <button class="btn btn-sm btn-danger" ng-click="delete(studyYear)"><i class="glyphicon glyphicon-remove"></i></button>
+               </td>
+            </tr>
+       </tbody>
+</table>
+            

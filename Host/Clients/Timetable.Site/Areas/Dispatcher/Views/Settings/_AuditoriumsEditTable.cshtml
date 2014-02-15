@@ -1,0 +1,33 @@
+﻿<div class="form-group col-sm-2 col-sm-offset-0" ng-init="loadBuildings()">
+<select class="form-control" required="required" ng-change="buildingChanged()" ng-model="currentBuildingId" ng-options="building.id as building.name for building in buildings"></select>
+</div>
+<div class="form-group col-sm-2 col-sm-offset-0 pull-right">
+<button class="btn btn-success" ng-click="showCreateAuditoriumDialog()"><i class="glyphicon glyphicon-plus"></i> Создать аудиторию</button>
+&nbsp;
+</div>
+
+<table class="table table-striped">
+       <thead>
+            <tr>
+               <th>Номер</th>
+               <th>Название</th>
+               <th>Дополнительная информация</th>
+               <th>Вместимость</th>
+               <th>Тип аудитории</th>
+            </tr>
+       </thead>
+       <tbody>
+            <tr ng-repeat="auditorium in auditoriums">
+               <td>{{auditorium.number}}</td>
+               <td>{{auditorium.name}}</td>
+               <td>{{auditorium.info}}</td>
+               <td>{{auditorium.capacity}}</td>
+                <td>{{auditorium.auditoriumTypeName}}</td>
+               <td class="col-sm-1">
+                       <button class="btn btn-sm btn-warning" ng-click="edit(auditorium)"><i class="glyphicon glyphicon-edit"></i></button>
+                       <button class="btn btn-sm btn-danger" ng-click="delete(auditorium)"><i class="glyphicon glyphicon-remove"></i></button>
+               </td>
+            </tr>
+       </tbody>
+</table>
+            

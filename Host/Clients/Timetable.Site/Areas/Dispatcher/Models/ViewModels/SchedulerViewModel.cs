@@ -98,6 +98,7 @@ namespace Timetable.Site.Areas.Dispatcher.Models.ViewModels
             CurrentBranchId = userData.CreatorSettings.CurrentBranchId;
             CurrentFacultyId = userData.CreatorSettings.CurrentFacultyId;
             CurrentCourseId = userData.CreatorSettings.CurrentCourseId;
+
             CurrentGroupIds = userData.CreatorSettings.CurrentGroupIds;
 
             if (userData.CreatorSettings.CurrentFacultyId.HasValue
@@ -128,9 +129,10 @@ namespace Timetable.Site.Areas.Dispatcher.Models.ViewModels
                 .Select(x => new ScheduleInfoViewModel(x));
 
             Schedules = dataService
-                .GetSchedulesForFaculty(
+                .GetSchedules(
                     userData.CreatorSettings.CurrentFacultyId.Value,
                     userData.CreatorSettings.CurrentCourseId.Value,
+                    userData.CreatorSettings.CurrentGroupIds,
                     userData.CreatorSettings.CurrentStudyYearId.Value,
                     userData.CreatorSettings.CurrentSemesterId.Value)
                 .Select(x => new ScheduleViewModel(x));

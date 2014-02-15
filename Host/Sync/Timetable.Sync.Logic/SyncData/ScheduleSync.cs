@@ -39,8 +39,9 @@ namespace Timetable.Sync.Logic.SyncData
                         TypeId = scheduleType != null ? (int?)scheduleType.Id : null,
                         StartDate = iiasEntity.DateStart,
                         EndDate = iiasEntity.DateEnd,
+                        SubGroup = iiasEntity.SubGroup,
                         TimeId = time.Id,
-                        DayOfWeek = (int)iiasEntity.DateStart.DayOfWeek,
+                        DayOfWeek = iiasEntity.DayOfWeek,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
                         IIASKey = iiasEntity.Id,
@@ -57,7 +58,7 @@ namespace Timetable.Sync.Logic.SyncData
                     schedulerEntity.StartDate = iiasEntity.DateStart;
                     schedulerEntity.EndDate = iiasEntity.DateEnd;
                     schedulerEntity.TimeId = time.Id;
-                    schedulerEntity.DayOfWeek = (int) iiasEntity.DateStart.DayOfWeek;
+                    schedulerEntity.DayOfWeek = iiasEntity.DayOfWeek;
                     schedulerEntity.UpdatedDate = DateTime.Now;
                     schedulerEntity.IIASKey = iiasEntity.Id;
 

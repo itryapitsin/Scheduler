@@ -94,6 +94,7 @@ namespace Timetable.Sync.Logic.SyncData
                 }
                 else
                 {
+                    //Обновление аудиторий странно работает наверно последний параметр не  iiasEntity.Id, а Id в MS SQL Server, т. к. они не совпадают.
                     command += string.Format(
                         _updateQueryPattern,
                         iiasEntity.Num,

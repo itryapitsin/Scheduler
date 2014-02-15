@@ -18,7 +18,8 @@ namespace Timetable.Sync.Logic.SyncData
                        ,[UpdatedDate]
                        ,[IIASKey]
                        ,[Parent_Id]
-                       ,[StudyTypeId])
+                       ,[StudyTypeId]
+                       ,[SpecialityName])
                  VALUES
                        ('{0}'                      
                        ,0
@@ -27,12 +28,14 @@ namespace Timetable.Sync.Logic.SyncData
                        ,GetDate()
                        ,{1}
                        ,null
-                       ,{2});";
+                       ,{2}
+                       ,'{3}');";
         private string _updateQueryPattern = @"
                 UPDATE [dbo].[Groups]
                    SET [Code] = '{0}'
                       ,[UpdatedDate] = GetDate()
                       ,[StudyTypeId] = {2}
+                      ,[SpecialityName] = '{3}'
                  WHERE Id = {1};";
 
         public override async void Sync()
@@ -60,7 +63,8 @@ namespace Timetable.Sync.Logic.SyncData
                         _insertQueryPattern,
                         iiasEntity.Code,
                         iiasEntity.Id,
-                        studyType.Id);
+                        studyType.Id,
+                        iiasEntity.SpecialityName);
                 }
                 else
                 {
@@ -68,7 +72,8 @@ namespace Timetable.Sync.Logic.SyncData
                         _updateQueryPattern,
                         iiasEntity.Code,
                         iiasEntity.Id,
-                        studyType.Id);
+                        studyType.Id,
+                        iiasEntity.SpecialityName);
                 }
             }
 

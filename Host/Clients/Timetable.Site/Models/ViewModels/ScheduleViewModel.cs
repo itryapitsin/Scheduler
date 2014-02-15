@@ -21,10 +21,21 @@ namespace Timetable.Site.Models.ViewModels
         public int Pair { get; set; }
         public int DayOfWeek { get; set; }
 
+        public int WeekTypeId { get; set; }
+        public int BuildingId { get; set; }
+        public int AuditoriumId { get; set; }
+        public int ScheduleInfoId { get; set; }
+        public bool AutoDelete { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+
+        public string ScheduleTypeName { get; set; }
+        public int ScheduleTypeId { get; set; }
+
         public ScheduleViewModel(ScheduleDataTransfer schedule)
         {
             var cns = new CutNameService();
-
+        
             Id = schedule.Id;
             AuditoriumNumber = schedule.Auditorium.Number;
             BuildingName = schedule.Auditorium.Building.ShortName;
@@ -38,6 +49,18 @@ namespace Timetable.Site.Models.ViewModels
             Time = new TimeViewModel(schedule.Time);
             Pair = schedule.Time.Position;
             DayOfWeek = schedule.DayOfWeek;
+
+            WeekTypeId = schedule.WeekType.Id;
+            BuildingId = schedule.Auditorium.Building.Id;
+            AuditoriumId = schedule.Auditorium.Id;
+            ScheduleInfoId = schedule.ScheduleInfo.Id;
+            AutoDelete = schedule.AutoDelete;
+            StartDate = schedule.StartDate.ToString("yyyy-MM-dd");
+            EndDate = schedule.EndDate.ToString("yyyy-MM-dd");
+
+            ScheduleTypeName = schedule.ScheduleType.Name;
+            ScheduleTypeId = schedule.ScheduleType.Id;
+
         }
     }
 }

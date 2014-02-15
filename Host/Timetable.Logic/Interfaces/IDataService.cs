@@ -8,6 +8,7 @@ namespace Timetable.Logic.Interfaces
     public interface IDataService : IBaseService
     {
         IEnumerable<SemesterDataTransfer> GetSemesters();
+        SemesterDataTransfer GetSemesterForTime(DateTime? date);
 
         IEnumerable<GroupDataTransfer> GetGroupsByCode(string code, int count);
         bool ValidateSchedule(ScheduleDataTransfer scheduleDataTransfer);
@@ -29,6 +30,7 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<int> GetPairs();
         IEnumerable<FacultyDataTransfer> GetFaculties(BranchDataTransfer branchDataTransfer = null);
         IEnumerable<FacultyDataTransfer> GetFaculties(int branchId);
+        FacultyDataTransfer GetFacultyById(int facultyId);
 
         #region groups
         IEnumerable<GroupDataTransfer> GetGroupsByIds(int[] groupIds);
@@ -48,6 +50,8 @@ namespace Timetable.Logic.Interfaces
         #region lecturers
         LecturerDataTransfer GetLecturerById(int lecturerId);
         LecturerDataTransfer GetLecturerBySearchQuery(string queryString);
+        LecturerDataTransfer GetLecturerBySearchString(string searchString);
+        IEnumerable<LecturerDataTransfer> GetLecturersBySearchString(string searchString);
         IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(int departmentId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
@@ -171,5 +175,263 @@ namespace Timetable.Logic.Interfaces
             int timeId, 
             int weekTypeId, 
             int typeId);
+
+        void EditAuditorium(
+             string number,
+             string name,
+             string info,
+             int? capacity,
+             int buildingId,
+             int auditoriumTypeId,
+             int auditoriumId
+             );
+
+       void CreateAuditorium(
+            string number,
+            string name,
+            string info,
+            int? capacity,
+            int buildingId,
+            int auditoriumTypeId
+            );
+
+       void DeleteAuditorium(int auditoriumId);
+
+       void EditAuditoriumType(
+          string name,
+          string pattern,
+          int auditoriumTypeId
+          );
+
+       void CreateAuditoriumType(
+              string name,
+              string pattern
+           );
+
+       void DeleteAuditoriumType(int auditoriumTypeId);
+
+       void EditWeekType(
+          string name,
+          int weekTypeId
+          );
+
+       void CreateWeekType(
+                      string name
+                   );
+
+       void DeleteWeekType(int weekTypeId);
+
+       void EditStudyYear(
+                   int startYear,
+                   int length,
+                   int studyYearId
+                  );
+
+       void CreateStudyYear(
+                       int startYear,
+                       int length
+                   );
+
+       void DeleteStudyYear(int studyYearId);
+
+       void EditSemester(
+                  string name,
+                  int semesterId
+                  );
+
+       void CreateSemester(
+                      string name
+                   );
+
+       void DeleteSemester(int semesterId);
+
+       void EditScheduleType(
+                  string name,
+                  int scheduleTypeId
+                  );
+
+       void CreateScheduleType(
+                      string name
+                   );
+
+       void DeleteScheduleType(int scheduleTypeId);
+
+
+       void EditTutorialType(
+                  string name,
+                  int tutorialTypeId
+                  );
+
+       void CreateTutorialType(
+                      string name
+                   );
+
+       void DeleteTutorialType(int tutorialTypeId);
+
+       void EditStudyType(
+                 string name,
+                 int studyTypeId
+                 );
+
+       void CreateStudyType(
+                      string name
+                   );
+
+       void DeleteStudyType(int studyTypeId);
+
+
+       void EditCourse(
+                string name,
+                int[] branchIds,
+                int courseId
+                );
+
+       void CreateCourse(
+                      string name,
+                      int[] branchIds
+                   );
+
+       void DeleteCourse(int courseId);
+
+       void EditTime(
+               string start,
+               string end,
+               int position,
+               int[] buildingIds,
+               int timeId
+               );
+
+       void CreateTime(
+                      string start,
+                      string end,
+                      int position,
+                      int[] buildingIds
+                   );
+
+       void DeleteTime(int timeId);
+
+       void EditLecturer(
+           string firstName,
+           string middleName,
+           string lastName,
+           string contacts,
+           int[] positionIds,
+           int[] departmentIds,
+           int lecturerId
+           );
+
+       void CreateLecturer(
+          string firstName,
+          string middleName,
+          string lastName,
+          string contacts,
+          int[] positionIds,
+          int[] departmentIds
+          );
+
+        void DeleteLecturer(int lecturerId);
+
+        void EditTutorial(
+           string name,
+           string shortName,
+           int tutorialId
+           );
+
+        void CreateTutorial(
+           string name,
+           string shortName
+           );
+
+        void DeleteTutorial(int tutorialId);
+
+        void EditGroup(
+            string code,
+            int studentsCount,
+            int [] facultyIds,
+            int [] courseIds,
+            int studyTypeId,
+            int groupId
+           );
+
+        void CreateGroup(
+            string code,
+            int studentsCount,
+            int [] facultyIds,
+            int [] courseIds,
+            int studyTypeId
+           );
+
+        void EditScheduleInfo(
+          int subGroupCount,
+          decimal hoursPerWeek,
+          string startDate,
+          string endDate,
+          int[] facultyIds,
+          int[] courseIds,
+          int[] groupIds,
+          string lecturerSearchString,
+          int semesterId,
+          int departmentId,
+          int studyYearId,
+          string tutorialSearchString,
+          int tutorialTypeId,
+          int scheduleInfoId
+          );
+
+       void CreateScheduleInfo(
+                int subGroupCount,
+                decimal hoursPerWeek,
+                string startDate,
+                string endDate,
+                int[] facultyIds,
+                int[] courseIds,
+                int[] groupIds,
+                string lecturerSearchString,
+                int semesterId,
+                int departmentId,
+                int studyYearId,
+                string tutorialSearchString,
+                int tutorialTypeId
+            );
+
+        void DeleteScheduleInfo(int scheduleInfoId);
+
+        void DeleteGroup(int groupId);
+
+        void EditSchedule(
+            bool autoDelete,
+            int dayOfWeek,
+            string subGroup,
+            string startDate,
+            string endDate,
+            int auditoriumId,
+            int scheduleInfoId,
+            int timeId,
+            int scheduleTypeId,
+            int weekTypeId,
+            int scheduleId
+          );
+
+        void CreateSchedule(
+                bool autoDelete,
+                int dayOfWeek,
+                string subGroup,
+                string startDate,
+                string endDate,
+                int auditoriumId,
+                int scheduleInfoId,
+                int timeId,
+                int scheduleTypeId,
+                int weekTypeId
+            );
+
+        void DeleteSchedule(int scheduleId);
+
+        IEnumerable<DepartmentDataTransfer>  GetDepartments();
+
+        IEnumerable<PositionDataTransfer> GetPositions();
+
+        IEnumerable<TutorialDataTransfer> GetTutorialsBySearchString(string searchString);
+
     }
 }

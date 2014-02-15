@@ -15,7 +15,7 @@
                 <select class="span7" ng-model="thread.modal.course" ng-change="thread.modal.changeCourse()" ng-options="course.Id as course.Name for course in courses"></select>
 
                 <label>Группа</label>
-                <select class="span7" ng-model="thread.modal.selectedGroups" ng-options="group.Id as group.Code for group in groups"></select>
+                <select class="span7" ng-model="thread.modal.selectedGroups" ng-options="group.Id as (group.code + ' ' + group.specialityName) for group in groups"></select>
             </fieldset>
         </form>
     </div>

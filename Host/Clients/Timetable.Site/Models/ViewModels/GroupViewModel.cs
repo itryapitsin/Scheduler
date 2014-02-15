@@ -6,10 +6,13 @@ namespace Timetable.Site.Models.ViewModels
     {
         public int Id { get; set; }
         public string Code { get; set; }
+        public string SpecialityName { get; set; }
+
         public GroupViewModel(GroupDataTransfer @group)
         {
             Id = @group.Id;
             Code = @group.Code;
+            SpecialityName = @group.SpecialityName;
         }
     }
 }

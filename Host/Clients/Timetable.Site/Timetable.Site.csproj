@@ -57,42 +57,45 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc">
-      <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="BundleTransformer.Core">
-      <HintPath>..\packages\BundleTransformer.Core.1.8.12\lib\net40\BundleTransformer.Core.dll</HintPath>
+      <HintPath>..\..\packages\BundleTransformer.Core.1.8.17\lib\net40\BundleTransformer.Core.dll</HintPath>
     </Reference>
     <Reference Include="BundleTransformer.Less">
-      <HintPath>..\packages\BundleTransformer.Less.1.8.12\lib\net40\BundleTransformer.Less.dll</HintPath>
+      <HintPath>..\..\packages\BundleTransformer.Less.1.8.14\lib\net40\BundleTransformer.Less.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
-      <HintPath>..\packages\EPPlus.3.1.3.3\lib\net35\EPPlus.dll</HintPath>
+      <HintPath>..\..\packages\EPPlus.3.1.3.3\lib\net35\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.V8">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.0.9.3\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=0.9.5.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\JavaScriptEngineSwitcher.Core.0.9.5\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.V8, Version=0.9.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\JavaScriptEngineSwitcher.V8.0.9.2\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Core">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.0.9.2\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,10 +105,10 @@
       <HintPath>..\..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -122,7 +125,7 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -151,7 +154,22 @@
     <Compile Include="Areas\Dispatcher\DispatcherAreaRegistration.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumScheduleRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumsScheduleRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditAuditoriumRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditAuditoriumTypeRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditCourseRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditeTutorialTypeRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditGroupRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditLecturerRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditScheduleInfoRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditScheduleRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditScheduleTypeRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditSemesterRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditStudyTypeRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditStudyYearRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditTimeRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditTutorialRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditUserRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditWeekTypeRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateScheduleRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\EditScheduleRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetFreeAuditoiumsRequest.cs" />
@@ -163,11 +181,18 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\SaveSettingsRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\SignInRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\UserStateChangedRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\AuditoriumCreateEditeModalDataResponse.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\BranchesInCourseCreateEditResponse.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\BuildingsInAuditoriumCreateEditResponse.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\BuildingsInTimeCreateEditResponse.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\CourseCreateEditModalDataResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\FailResponse.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\LecturerCreateEditModalDataResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\SettingsUpdateResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\SuccessResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetAuditoriumsAndSchedulesResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetSchedulesAndInfoesResponse.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\TimeCreateEditModalDataResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleForLecturersWithTimesViewModel.cs" />
@@ -179,14 +204,19 @@
     <Compile Include="Areas\Students\Controllers\AuditoriumScheduleController.cs" />
     <Compile Include="Areas\Students\Controllers\MainController.cs" />
     <Compile Include="Areas\Students\Controllers\LecturerScheduleController.cs" />
+    <Compile Include="Areas\Students\Controllers\ReportController.cs" />
     <Compile Include="Areas\Students\Controllers\ThreadScheduleController.cs" />
+    <Compile Include="Areas\Students\Models\RequestModels\ReportForGroupRequest.cs" />
+    <Compile Include="Areas\Students\Models\RequestModels\ReportForLecturerRequest.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\ThreadScheduleViewModel.cs" />
+    <None Include="Content\bootstrap\datepicker3.less" />
     <Compile Include="Models\BaseClientResponseModel.cs" />
     <Compile Include="Models\ResponseModels\GetAuditoriumsResponse.cs" />
     <Compile Include="Models\ViewModels\AuditoriumViewModel.cs" />
     <Compile Include="Models\ViewModels\BuildingViewModel.cs" />
+    <Compile Include="Models\ViewModels\DepartmentViewModel.cs" />
     <Compile Include="Models\ViewModels\GroupViewModel.cs" />
     <Compile Include="Models\ViewModels\LecturerViewModel.cs" />
     <Compile Include="Areas\Students\StudentsAreaRegistration.cs" />
@@ -208,6 +238,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\PositionViewModel.cs" />
     <Compile Include="Models\ViewModels\ScheduleTypeViewModel.cs" />
     <Compile Include="Models\ViewModels\ScheduleViewModel.cs" />
     <Compile Include="Models\ViewModels\SemesterViewModel.cs" />
@@ -218,6 +249,8 @@
     <Compile Include="Models\ViewModels\StudyTypeViewModel.cs" />
     <Compile Include="Models\ViewModels\StudyYearViewModel.cs" />
     <Compile Include="Models\ViewModels\TimeViewModel.cs" />
+    <Compile Include="Models\ViewModels\TutorialTypeViewModel.cs" />
+    <Compile Include="Models\ViewModels\TutorialViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Models\ViewModels\WeekTypeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -311,12 +344,8 @@
     <Content Include="Areas\Students\Views\LecturerSchedule\_Index.cshtml" />
     <Content Include="Areas\Students\Views\LecturerSchedule\_ChildNavbar.cshtml" />
     <Content Include="Config\log4net.Web.config" />
-    <None Include="Noesis.Javascript\Noesis.Javascript.x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Noesis.Javascript\Noesis.Javascript.x86.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="Noesis.Javascript\x64\Noesis.Javascript.dll" />
+    <Content Include="Noesis.Javascript\x86\Noesis.Javascript.dll" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
@@ -665,6 +694,26 @@
     <Content Include="Areas\Students\Views\ThreadSchedule\_ChildNavbar.cshtml" />
     <Content Include="Areas\Students\Views\ThreadSchedule\_SelectThreadDialog.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_EditUserModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_AuditoriumsEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditAuditoriumModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_AuditoriumTypesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_WeekTypesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_StudyYearsEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_SemestersEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_TutorialTypesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_ScheduleTypesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditAuditoriumTypeModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditWeekTypeModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditStudyYearModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditScheduleTypeModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditTutorialTypeModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditSemesterModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditStudyTypeModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_StudyTypesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_ScheduleInfoesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditScheduleInfoModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_SchedulesEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditScheduleModal.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>

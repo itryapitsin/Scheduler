@@ -1,0 +1,64 @@
+﻿<div class="modal-dialog" style="width: 750px;" ng-controller="CreateEditAuditoriumModalController" ng-init="loadModalData()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Создание новой аудитории</h5>
+        </div>
+        <div class="modal-body">
+        
+            <form class="form-horizontal" role="form" name="form">
+                <div class="form-group" ng-class="{'has-error': form.number.$error.required}">
+                    <label class="col-sm-3 control-label">Номер</label>
+                    <div class="col-sm-8">
+                        <input name="number" type="text" class="form-control" placeholder="Номер" ng-model="number" required="required">
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{'has-error': form.name.$error.required}">
+                        <label class="col-sm-3 control-label">Название</label>
+                        <div class="col-sm-8">
+                            <input name="name" type="text" class="form-control" placeholder="Название" ng-model="name" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.info.$error.required}">
+                        <label class="col-sm-3 control-label">Дополнительная информация</label>
+                        <div class="col-sm-8">
+                            <input name="info" type="text" class="form-control" placeholder="Дополнительная информация" ng-model="info" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.capacity.$error.required}">
+                        <label class="col-sm-3 control-label">Вместимость</label>
+                        <div class="col-sm-8">
+                            <input name="capacity" type="text" class="form-control" placeholder="Вместимость" ng-model="capacity" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.currentBuildingIdAuditoriumModal.$error.required}">
+                    <label class="col-sm-3 control-label">Здание</label>
+                     <div class="col-sm-8">
+                        <select class="form-control" required="required"  ng-model="currentBuildingIdAuditoriumModal" ng-options="building.id as building.name for building in buildingsAuditoriumModal"></select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.currentAuditoriumTypeIdAuditoriumModal.$error.required}">
+                    <label class="col-sm-3 control-label">Тип аудитории</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" required="required"  ng-model="currentAuditoriumTypeIdAuditoriumModal" ng-options="auditoriumType.id as auditoriumType.name for auditoriumType in auditoriumTypesAuditoriumModal"></select>
+                    </div>
+                </div>
+               
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-left text-danger" ng-show="form.$invalid">
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>Поля, окрашенные красным, обязательны для заполнения</b>
+            </div>
+            <div class="pull-left text-danger" ng-show='message'>
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
+            </div>
+            <button type="submit" ng-click="ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
+            <button class="btn" ng-click="cancel()">Отмена</button>
+        </div>
+    </div>
+</div>

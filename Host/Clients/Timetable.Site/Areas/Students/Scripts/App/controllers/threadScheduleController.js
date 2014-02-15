@@ -65,6 +65,29 @@
             $cookieStore.remove('currentCourseId');
     });
 
+    $scope.canSaveReport = function () {
+        if ($scope.currentFacultyId == null || $scope.currentFacultyId == undefined || $scope.currentFacultyId == "")
+            return false;
+        if ($scope.currentCourseId == null || $scope.currentCourseId == undefined || $scope.currentCourseId == "")
+            return false;
+        if ($scope.currentGroupId == null || $scope.currentGroupId == undefined || $scope.currentGroupId == "")
+            return false;
+        return true;
+    }
+
+    $scope.getReportForGroup = function () {
+
+        console.log("getReportForGroup");
+        console.log($scope.groups);
+        //console.log($scope.currentAuditoriumId);
+        //console.log($scope.currentBuildingId);
+
+        document.location.href = '/Report/GetReportForGroup?facultyId={0}&courseId={1}&groupId={2}'
+            .replace('{0}', $scope.currentFacultyId)
+            .replace('{1}', $scope.currentCourseId)
+            .replace('{2}', $scope.currentGroupId);
+    };
+
     function branchChanged() {
         $scope.currentFacultyId = null;
 
@@ -94,11 +117,27 @@
                 $scope.groups = response;
             });
     }
+
+    function loadThreadSchedule() {
+        $http
+            .get($http.prefix + 'ThreadSchedule/GetSchedules', {
+                params: {
+                    facultyId: $scope.currentFacultyId,
+                    courseId: $scope.currentCourseId,
+                    groupId: $scope.currentGroupId,
+                }
+            })
+            .success(function (response) {
+                $scope.schedules = response;
+            });
+    };
+
+   
     
-    function loadSchedule() {
+    /*function loadSchedule() {
         if (!$scope.isValid())
             return;
-    }
+    }*/
 
     $scope.branchChanged = function () {
         branchChanged();
@@ -108,7 +147,7 @@
     $scope.studyFormChanged = loadGroups;
     $scope.facultyChanged = loadGroups;
     $scope.courseChanged = loadGroups;
-    $scope.groupChanged = loadSchedule;
+    $scope.groupChanged = loadThreadSchedule;
     $scope.downloadReport = function() {
     };
 

@@ -27,6 +27,8 @@ namespace Timetable.Logic.Models.Scheduler
         
         public string SubGroup { get; set; }
 
+        public ScheduleType @ScheduleType { get; set; }
+
         public ScheduleDataTransfer() { }
 
         public ScheduleDataTransfer(Schedule schedule)
@@ -46,6 +48,7 @@ namespace Timetable.Logic.Models.Scheduler
             AutoDelete = schedule.AutoDelete;
             Timetable = new ScheduleTypeDataTransfer(schedule.Type);
             SubGroup = schedule.SubGroup;
+            @ScheduleType = schedule.Type;
         }
     }
 }

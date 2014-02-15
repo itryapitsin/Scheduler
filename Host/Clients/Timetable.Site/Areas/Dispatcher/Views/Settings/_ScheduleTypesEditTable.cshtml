@@ -1,0 +1,21 @@
+﻿<div class="form-group col-sm-4 col-sm-offset-0 pull-right" ng-init="loadScheduleTypes()">
+<button class="btn btn-success" ng-click="showCreateScheduleTypeDialog()"><i class="glyphicon glyphicon-plus"></i> Создать тип расписания</button>
+&nbsp;
+</div>
+<table class="table table-striped">
+       <thead>
+            <tr>
+               <th>Название</th>
+            </tr>
+       </thead>
+       <tbody>
+            <tr ng-repeat="scheduleType in scheduleTypes">
+               <td>{{scheduleType.name}}</td>
+               <td class="col-sm-1">
+                       <button class="btn btn-sm btn-warning" ng-click="edit(scheduleType)"><i class="glyphicon glyphicon-edit"></i></button>
+                       <button class="btn btn-sm btn-danger" ng-click="delete(scheduleType)"><i class="glyphicon glyphicon-remove"></i></button>
+               </td>
+            </tr>
+       </tbody>
+</table>
+            

@@ -1,0 +1,30 @@
+﻿<div class="modal-dialog" style="width: 750px;" ng-controller="CreateEditTutorialTypeModalController" ng-init="loadModalData()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Создание нового типа предмета</h5>
+        </div>
+        <div class="modal-body">
+        
+            <form class="form-horizontal" role="form" name="form">
+           
+                <div class="form-group" ng-class="{'has-error': form.name.$error.required}">
+                        <label class="col-sm-3 control-label">Название</label>
+                        <div class="col-sm-8">
+                            <input name="name" type="text" class="form-control" placeholder="Название" ng-model="name" required="required">
+                        </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-left text-danger" ng-show="form.$invalid">
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>Поля, окрашенные красным, обязательны для заполнения</b>
+            </div>
+            <div class="pull-left text-danger" ng-show='message'>
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
+            </div>
+            <button type="submit" ng-click="ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
+            <button class="btn" ng-click="cancel()">Отмена</button>
+        </div>
+    </div>
+</div>
