@@ -346,6 +346,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312292009026_AddShortNameToBranches.resx">
       <DependentUpon>201312292009026_AddShortNameToBranches.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401311624260_AddUserSettingsFields.resx">
       <DependentUpon>201401311624260_AddUserSettingsFields.cs</DependentUpon>
     </EmbeddedResource>
