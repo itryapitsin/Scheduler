@@ -315,10 +315,6 @@
     <Content Include="Areas\Students\Scripts\App\controllers\ThreadScheduleController.js" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker3.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -784,7 +780,6 @@
     <Content Include="Content\bootstrap\glyphicons.less" />
     <Content Include="Content\bootstrap\forms.less" />
     <Content Include="Content\bootstrap\dropdowns.less" />
-    <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -794,6 +789,7 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
@@ -874,7 +870,6 @@
     <Content Include="Scripts\jquery.jscrollpane.js" />
     <Content Include="Scripts\jquery.jscrollpane.min.js" />
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\SchedulerSite.pubxml" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="Scripts\jquery.linq-vsdoc.js" />
     <Content Include="Scripts\jquery.linq.js" />
