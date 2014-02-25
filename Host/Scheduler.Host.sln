@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.Sync.Logic", "Syn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.Sync.Dispatcher", "Sync\Timetable.Sync.Toolkit\Timetable.Sync.Dispatcher.csproj", "{FD2AD465-C3D3-4B3F-866C-8BD1DBC71B28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.AndroidClient", "Clients\Timetable.AndroidClient\Timetable.AndroidClient.csproj", "{AFB73030-4576-419F-B6FE-6E70B99CC75B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.WindowsPhoneClient", "Clients\Timetable.WindowsPhoneClient\Timetable.WindowsPhoneClient.csproj", "{5A70EA07-E8FD-42CF-BB0B-09276B82007C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +167,42 @@ Global
 		{FD2AD465-C3D3-4B3F-866C-8BD1DBC71B28}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FD2AD465-C3D3-4B3F-866C-8BD1DBC71B28}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FD2AD465-C3D3-4B3F-866C-8BD1DBC71B28}.Release|x86.ActiveCfg = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|ARM.Build.0 = Debug|ARM
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|x86.ActiveCfg = Debug|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|x86.Build.0 = Debug|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Debug|x86.Deploy.0 = Debug|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|ARM.ActiveCfg = Release|ARM
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|ARM.Build.0 = Release|ARM
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|ARM.Deploy.0 = Release|ARM
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|x86.ActiveCfg = Release|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|x86.Build.0 = Release|x86
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +217,7 @@ Global
 		{562EAD51-A27A-47DE-9CF6-554D0D793FB3} = {3AA3945F-D105-4A1B-9D9B-E72CDAF95DA3}
 		{711E2BB6-2FDC-4B03-AA42-A0A3F49B88E0} = {3AA3945F-D105-4A1B-9D9B-E72CDAF95DA3}
 		{4D7D6CF6-67E6-4192-800C-0CD43A0A63F1} = {629F5940-4F70-4BA7-8FFD-6A1635FCFC8E}
+		{AFB73030-4576-419F-B6FE-6E70B99CC75B} = {629F5940-4F70-4BA7-8FFD-6A1635FCFC8E}
+		{5A70EA07-E8FD-42CF-BB0B-09276B82007C} = {629F5940-4F70-4BA7-8FFD-6A1635FCFC8E}
 	EndGlobalSection
 EndGlobal
