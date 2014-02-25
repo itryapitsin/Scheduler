@@ -239,3 +239,7 @@ Host/Data/Timetable.Data.IIAS/App.config
 
 /Host/Timetable.Data/obj/Debug
 /Host/Clients/Timetable.Site/Logs
+/Host/Data/Timetable.Data/App.config
+
+/Host/Sync/Timetable.Sync/App.config
+/Host/Sync/Timetable.SyncManager/App.config
