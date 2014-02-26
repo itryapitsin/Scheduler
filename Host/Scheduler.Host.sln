@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.AndroidClient", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetable.WindowsPhoneClient", "Clients\Timetable.WindowsPhoneClient\Timetable.WindowsPhoneClient.csproj", "{5A70EA07-E8FD-42CF-BB0B-09276B82007C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{79B8880B-AE3E-4DC0-9233-0869FF2E03B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timetablle.Host.Tests", "Tests\Timetable.Tests\Timetablle.Host.Tests.csproj", "{72326F74-2554-4BED-8867-9FCC1B397633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -203,6 +207,18 @@ Global
 		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|x86.ActiveCfg = Release|x86
 		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|x86.Build.0 = Release|x86
 		{5A70EA07-E8FD-42CF-BB0B-09276B82007C}.Release|x86.Deploy.0 = Release|x86
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Release|ARM.ActiveCfg = Release|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{72326F74-2554-4BED-8867-9FCC1B397633}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,5 +235,6 @@ Global
 		{4D7D6CF6-67E6-4192-800C-0CD43A0A63F1} = {629F5940-4F70-4BA7-8FFD-6A1635FCFC8E}
 		{AFB73030-4576-419F-B6FE-6E70B99CC75B} = {629F5940-4F70-4BA7-8FFD-6A1635FCFC8E}
 		{5A70EA07-E8FD-42CF-BB0B-09276B82007C} = {629F5940-4F70-4BA7-8FFD-6A1635FCFC8E}
+		{72326F74-2554-4BED-8867-9FCC1B397633} = {79B8880B-AE3E-4DC0-9233-0869FF2E03B6}
 	EndGlobalSection
 EndGlobal
