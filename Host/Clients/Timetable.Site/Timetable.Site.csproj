@@ -309,6 +309,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -793,27 +794,29 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <None Include="Properties\PublishProfiles\Profile.pubxml" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.mousewheel.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.0.0.js" />
-    <Content Include="Scripts\jquery.signalR-2.0.0.min.js" />
-    <Content Include="Scripts\less-1.4.2.js" />
-    <Content Include="Scripts\less-1.4.2.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.2.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.az.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ca.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cy.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.da.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.de.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.el.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.es.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.et.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fa.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.fi.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.gl.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.he.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.hr.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.hu.js" />
@@ -822,12 +825,14 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.it.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ja.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ka.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kk.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.kr.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.lt.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.lv.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.mk.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ms.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl-BE.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.nl.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.no.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pl.js" />
@@ -844,7 +849,8 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.sw.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.th.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.tr.js" />
-    <Content Include="Scripts\locales\bootstrap-datepicker.uk.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ua.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.vi.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
@@ -869,7 +875,7 @@
     <Content Include="Scripts\jquery.jscrollpane.min.js" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\SchedulerSite.pubxml" />
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <None Include="Scripts\jquery.linq-vsdoc.js" />
     <Content Include="Scripts\jquery.linq.js" />
     <Content Include="Scripts\jquery.linq.min.js" />
@@ -911,9 +917,7 @@
       <Name>Timetable.Logic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Noesis.Javascript\x86\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
