@@ -67,11 +67,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\BundleTransformer.Core.1.8.23\lib\net40\BundleTransformer.Core.dll</HintPath>
     </Reference>
-    <Reference Include="BundleTransformer.Less, Version=1.8.23.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+    <Reference Include="BundleTransformer.Less, Version=1.8.25.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\BundleTransformer.Less.1.8.23\lib\net40\BundleTransformer.Less.dll</HintPath>
+      <HintPath>..\..\packages\BundleTransformer.Less.1.8.25\lib\net40\BundleTransformer.Less.dll</HintPath>
     </Reference>
-    <Reference Include="ClearScript">
+    <Reference Include="ClearScript, Version=5.3.11.0, Culture=neutral, PublicKeyToken=fd665343e29c428c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\JavaScriptEngineSwitcher.V8.1.1.1\lib\net40\ClearScript.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
@@ -80,14 +81,12 @@
     <Reference Include="JavaScriptEngineSwitcher.Core">
       <HintPath>..\..\packages\JavaScriptEngineSwitcher.Core.1.1.0\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.V8">
+    <Reference Include="JavaScriptEngineSwitcher.V8, Version=1.1.1.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\JavaScriptEngineSwitcher.V8.1.1.1\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -297,6 +296,18 @@
     <Content Include="Areas\Students\Scripts\App\controllers\AuditoriumScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\LecturerScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\ThreadScheduleController.js" />
+    <None Include="ClearScript.V8\ClearScriptV8-32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClearScript.V8\ClearScriptV8-64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClearScript.V8\v8-ia32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClearScript.V8\v8-x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
@@ -357,7 +368,6 @@
     <Content Include="Areas\Students\Views\LecturerSchedule\_ChildNavbar.cshtml" />
     <Content Include="Config\log4net.Web.config" />
     <Content Include="Noesis.Javascript\x64\Noesis.Javascript.dll" />
-    <Content Include="Noesis.Javascript\x86\Noesis.Javascript.dll" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
@@ -901,7 +911,9 @@
       <Name>Timetable.Logic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Noesis.Javascript\x86\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
