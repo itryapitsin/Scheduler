@@ -261,6 +261,14 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return new JsonNetResult(model);
         }
 
+
+        public ActionResult GetAllGroups(int facultyId, int courseId, int studyTypeId)
+        {
+            var groups = DataService.GetAllGroupsForFaculty(facultyId, courseId, studyTypeId).Select(x => new GroupViewModel(x)).ToList();
+            var model = groups;
+            return new JsonNetResult(model);
+        }
+
         public ActionResult GetGroups(int facultyId, int courseId)
         {
             var groups = DataService.GetGroupsForFaculty(facultyId,courseId).Select(x => new GroupViewModel(x)).ToList();
@@ -615,7 +623,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                         facultyIds,
                         courseIds,
                         request.StudyTypeId,
-                        request.GroupId.Value);
+                        request.GroupId.Value,
+                        request.isActual);
             }
             else
             {
@@ -624,7 +633,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                         request.StudentsCount,
                         facultyIds,
                         courseIds,
-                        request.StudyTypeId);
+                        request.StudyTypeId,
+                        request.isActual);
             }
             return new JsonNetResult(new SuccessResponse());
         }

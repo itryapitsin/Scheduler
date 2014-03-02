@@ -56,7 +56,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             ws.Cells[1, 1, 1, dt.Columns.Count].Style.Font.Bold = true;
             ws.Cells[1, 1, 1, dt.Columns.Count].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             //ws.Cells[1, 1, 1, dt.Columns.Count].AutoFitColumns();
-            ws.Cells[2, 1].Value = "Время";
+            ws.Cells[2, 1].Value = "№ пары";
 
             ws.Column(1).Width = 10;
 
@@ -118,7 +118,13 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 if (pairNumberViewId > 0)
                 {
                     var cell = ws.Cells[2 + pairNumberViewId, 1 + schedule.DayOfWeek];
-                    var value = schedule.WeekTypeName + " " + schedule.LecturerName + " " +
+
+
+                    var timeStr = string.Format("{0}:{1}", schedule.Time.Start.Hours, schedule.Time.Start.Minutes) + "-"
+                        + string.Format("{0}:{1}", schedule.Time.End.Hours, schedule.Time.End.Minutes);
+
+
+                    var value = timeStr + " " + schedule.WeekTypeName + " " + schedule.LecturerName + " " +
                                 schedule.TutorialName + " (" + schedule.TutorialTypeName + ") " + schedule.GroupCodes.Aggregate((x, y) => x + ", " + y);
                     cell.Value = value;
                     cell.Style.WrapText = true;
@@ -242,8 +248,10 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 }
                 if (loadSchedules == true)
                 {
+                    var groupIds = groups.Select(x => x.Id).ToArray();
+                    //schedules = DataService.GetSchedulesForGroups(facultyId, courses[ii - 1].Id, groupIds, studyYearId, semesterId).Select(x => new ScheduleViewModel(x)).ToList();
                     schedules = DataService.GetSchedulesForFaculty(facultyId, courses[ii - 1].Id, studyYearId, semesterId)
-                                .Select(x => new ScheduleViewModel(x)).ToList();
+                               .Select(x => new ScheduleViewModel(x)).ToList();
                 }
 
                 p.Workbook.Worksheets.Add(courses[ii-1].Name);
@@ -303,7 +311,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 for (int i = 0; i < groups.Count; ++i)
                 {
                     ws.Column(3 + i).Width = 20;
-                    ws.Cells[2, 3 + i].Value = groups[i].Code;
+                    ws.Cells[2, 3 + i].Value = groups[i].Code + "(" + groups[i].SpecialityName + ")";
                 }
 
                 for (int i = 1; i <= days.Count(); ++i)
@@ -365,7 +373,10 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                             if (pairInCellCount[rowIndex, columnIndex] > 1)
                                 value = " / ";
 
-                            value += schedule.WeekTypeName + " Ауд №" + schedule.AuditoriumNumber + " " + schedule.LecturerName + " " +
+                            var timeStr = string.Format("{0}:{1}", schedule.Time.Start.Hours, schedule.Time.Start.Minutes) + "-"
+                            + string.Format("{0}:{1}", schedule.Time.End.Hours, schedule.Time.End.Minutes);
+
+                            value += timeStr + " " + schedule.WeekTypeName + " Ауд №" + schedule.AuditoriumNumber + " " + schedule.LecturerName + " " +
                                           schedule.TutorialName + " (" + schedule.TutorialTypeName + ") ";// +schedule.GroupCodes.Aggregate((x, y) => x + ", " + y);
 
                             cell.Value += value;
@@ -395,6 +406,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 }
 
                 //Сжатие похожих клеток в таблице.
+                //Убрано по просьбе диспетчера, потом, возможно, понадобится
+                /*
                 for (int i = 1; i <= days.Count() * pairNumbers.Count(); ++i)
                 {
                     var rowIndex = 2 + i;
@@ -511,12 +524,16 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                         var currentOddWeekSchedule = scheduleInCell[2, rowIndex, currentColumn];
                         var nextOddWeekSchedule = scheduleInCell[2, rowIndex, k];
 
+                        if (nextEvenWeekSchedule == null || currentEvenWeekSchedule == null || nextOddWeekSchedule == null || currentOddWeekSchedule == null)
+                            break;
+
                         if (!(currentOddWeekSchedule != null && nextOddWeekSchedule != null &&
                             nextEveryWeekSchedule == null && currentEveryWeekSchedule == null &&
                             currentEvenWeekSchedule != null && nextEvenWeekSchedule != null))
                         {
                             if (currentOddWeekSchedule != null && nextOddWeekSchedule != null && nextEveryWeekSchedule != null && currentEveryWeekSchedule != null)
                             {
+                                
                                 if (!(nextEvenWeekSchedule.AuditoriumNumber == currentEvenWeekSchedule.AuditoriumNumber &&
                                       nextOddWeekSchedule.AuditoriumNumber == currentOddWeekSchedule.AuditoriumNumber))
                                 {
@@ -537,11 +554,11 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                             }
                         }
                     }
-                }
+                }*/
                
 
                 //Сжатие пустых строк и столбцов для экономии места
-                /*
+                
                 for (int i = 1; i <= days.Count() * pairNumbers.Count(); ++i)
                 {
                     var rowIndex = 2 + i;
@@ -549,13 +566,17 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                         ws.Row(rowIndex).Height = 1;
                 }
 
+                
                 for (int i = 1; i <= groups.Count(); ++i)
                 {
                     var columnIndex = 2 + i;
-                    ws.Cells[2, columnIndex].Value = "";
+
                     if (pairInColumnCount[columnIndex] == 0)
+                    {
+                        ws.Cells[2, columnIndex].Value = "";
                         ws.Column(columnIndex).Width = 0;
-                }*/
+                    }
+                }
             }
             return p.GetAsByteArray();
         }

@@ -39,7 +39,7 @@
         //console.log($scope.currentAuditoriumId);
         //console.log($scope.currentBuildingId);
 
-        document.location.href = '/Report/GetReportForAuditorium?auditoriumId={0}&buildingId={1}'
+        document.location.href = $http.prefix + 'Report/GetReportForAuditorium?auditoriumId={0}&buildingId={1}'
             .replace('{0}', $scope.currentAuditoriumId)
             .replace('{1}', $scope.currentBuildingId);
     };

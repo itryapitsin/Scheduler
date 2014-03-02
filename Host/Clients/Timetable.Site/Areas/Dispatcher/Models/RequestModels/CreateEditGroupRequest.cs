@@ -17,6 +17,8 @@ namespace Timetable.Site.Areas.Dispatcher.Models.RequestModels
 
         public int StudyTypeId { get; set; }
 
+        public bool isActual { get; set; }
+
         public int? GroupId { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Drawing;
 using Timetable.Site.Models.ResponseModels;
 using Timetable.Site.Models.ViewModels;
 using Timetable.Site.Areas.Students.Models.RequestModels;
+using Timetable.Site.Infrastructure;
 
 namespace Timetable.Site.Areas.Students.Controllers
 {
@@ -54,7 +55,7 @@ namespace Timetable.Site.Areas.Students.Controllers
             ws.Cells[1, 1, 1, dt.Columns.Count].Style.Font.Bold = true;
             ws.Cells[1, 1, 1, dt.Columns.Count].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             //ws.Cells[1, 1, 1, dt.Columns.Count].AutoFitColumns();
-            ws.Cells[2, 1].Value = "Время";
+            ws.Cells[2, 1].Value = "№ пары";
 
             ws.Column(1).Width = 10;
 
@@ -116,7 +117,11 @@ namespace Timetable.Site.Areas.Students.Controllers
                 if (pairNumberViewId > 0)
                 {
                     var cell = ws.Cells[2 + pairNumberViewId, 1 + schedule.DayOfWeek];
-                    var value = schedule.WeekTypeName + " " + schedule.LecturerName + " " +
+
+                    var timeStr = string.Format("{0}:{1}", schedule.Time.Start.Hours, schedule.Time.Start.Minutes) + "-"
+                        + string.Format("{0}:{1}", schedule.Time.End.Hours, schedule.Time.End.Minutes);
+
+                    var value = timeStr + " " + schedule.WeekTypeName + " " + schedule.LecturerName + " " +
                                 schedule.TutorialName + " (" + schedule.TutorialTypeName + ") " + schedule.GroupCodes.Aggregate((x, y) => x + ", " + y);
                     cell.Value = value;
                     cell.Style.WrapText = true;
@@ -246,7 +251,10 @@ namespace Timetable.Site.Areas.Students.Controllers
 
                 var fileName = string.Format("Расписание для Ауд. №" + auditorium.Number + "-{0:yyyy-MM-dd-HH-mm-ss}", DateTime.UtcNow);
 
-                var memoryStream = CreateTableBySchedulesAndTimes(fileName, times, schedules);
+                var presentationService = new SchedulePresentationFormatService();
+
+
+                var memoryStream = CreateTableBySchedulesAndTimes(fileName, times, presentationService.ForAuditoriumFilter(schedules));
 
                 return base.File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName + ".xlsx");
             }

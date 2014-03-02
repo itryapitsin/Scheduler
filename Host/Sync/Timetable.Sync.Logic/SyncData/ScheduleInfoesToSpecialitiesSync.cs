@@ -21,6 +21,7 @@ namespace Timetable.Sync.Logic.SyncData
 
         public override void Sync()
         {
+            //TODO: Нужно будет убрать часть ограничений в WHERE
             _connection.Open();
             DbCommand cmd = _connection.CreateCommand();
             cmd.CommandText = @"
@@ -37,11 +38,13 @@ namespace Timetable.Sync.Logic.SyncData
                     AND (SDMS.V_UPL_RASP.DIS_CODE IS NOT NULL)
                     AND (SDMS.V_STUD_GR.UBU_ID IS NOT NULL) 
                     AND (SDMS.V_UPL_RASP.GR_UBU_ID > 0) 
+                    AND (SDMS.V_UPL_RASP.UCH_GOG LIKE '2013/%')
                     AND (SDMS.V_UPL_RASP.GR_UBU_ID IS NOT NULL) 
                     AND (SDMS.V_UPL_RASP.KURS_CODE > 0) 
                     AND (SDMS.V_UPL_RASP.KURS_CODE IS NOT NULL) 
                     AND (SDMS.V_UPL_RASP.SPEC_CODE IS NOT NULL) 
                     AND (SDMS.V_UPL_RASP.FACULT_CODE IS NOT NULL)";
+
             var reader = cmd.ExecuteReader();
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Specialities").ToList();
             var specialities = SchedulerDatabase.Specialities.ToList();

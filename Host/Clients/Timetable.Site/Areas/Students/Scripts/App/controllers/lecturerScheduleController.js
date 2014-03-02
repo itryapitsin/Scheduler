@@ -44,7 +44,7 @@
         //console.log($scope.currentAuditoriumId);
         //console.log($scope.currentBuildingId);
 
-        document.location.href = '/Report/GetReportForLecturer?lecturerSearchString={0}'
+        document.location.href = $http.prefix + 'Report/GetReportForLecturer?lecturerSearchString={0}'
             .replace('{0}', $scope.currentLecturerSearchString);
     };
 }

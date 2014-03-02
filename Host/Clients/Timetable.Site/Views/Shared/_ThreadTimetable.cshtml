@@ -27,14 +27,21 @@
                          data-drag="true"
                          data-jqyoui-options="{containment: '#test2', revert: 'invalid', distance: 20}"
                          jqyoui-draggable="{animate:true, onStart: 'startDragging(scheduleInfo)', onStop: 'stopDragging()'}">
+                        
+                        <p style="margin: 0; color:red">
+                            {{schedule.weekTypeName}}
+                        </p>
                         <p style="margin: 0">
-                            {{schedule.timeId}}
+                            {{moment(schedule.time.start, 'HH:mm:ss').format('HH:mm')}}-{{moment(schedule.time.end, 'HH:mm:ss').format('HH:mm')}}
                         </p>
                         <p style="margin: 0">
                             {{schedule.tutorialName}}, {{schedule.tutorialTypeName}}., {{schedule.buildingName}}. {{schedule.auditoriumNumber}}
                         </p>
                         <p style="margin: 0">
                             {{schedule.lecturerName}}
+                        </p>
+                        <p style="margin: 0">
+                            {{schedule.groupCodes.join()}}., {{schedule.subGroup}}
                         </p>
                     </div>
                 </td>

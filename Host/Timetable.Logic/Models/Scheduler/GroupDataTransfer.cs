@@ -11,6 +11,9 @@ namespace Timetable.Logic.Models.Scheduler
 
         //TODO: возможно потом убрать поле
         public string SpecialityName { get; set; }
+
+
+        public bool IsActual { get; set; }
         
         public GroupDataTransfer(Group group)
         {
@@ -21,6 +24,10 @@ namespace Timetable.Logic.Models.Scheduler
                 ParentId = group.Parent.Id;
 
             SpecialityName = group.SpecialityName;
+
+            StudentsCount = group.StudentsCount;
+
+            IsActual = group.IsActual;
         }
     }
 }

@@ -81,8 +81,8 @@ namespace Timetable.Sync.Logic.SyncData
                 if (lecturer == null || tutorial == null || tutorialType == null || studyYear == null)
                     continue;
                 var semestr = (iiasEntity.Semestr % 2) == 0
-                    ? 1
-                    : 2;
+                    ? 2
+                    : 1;
 
                 if (schedulerEntity == null)
                 {

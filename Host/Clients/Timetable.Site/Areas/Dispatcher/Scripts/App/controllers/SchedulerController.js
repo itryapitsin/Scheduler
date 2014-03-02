@@ -66,15 +66,23 @@
             studyTypeId: $scope.currentStudyTypeId
         };
 
-        $http
-        .get($http.prefix + "Scheduler/GetSchedulesAndInfoes", { params: params })
-        .success(function (response) {
-            $scope.scheduleInfoes = response.scheduleInfoes;
-            $scope.schedules = response.schedules;
-        });
+        if ($scope.currentFacultyId != undefined && $scope.currentFacultyId != null &&
+           $scope.currentCourseId != undefined && $scope.currentCourseId != null &&
+           $scope.currentStudyYearId != undefined && $scope.currentStudyYearId != null &&
+           $scope.currentSemesterId != undefined && $scope.currentSemesterId != null &&
+           $scope.currentStudyTypeId != undefined && $scope.currentStudyTypeId != null &&
+           groupIds != "") {
+            $http
+            .get($http.prefix + "Scheduler/GetSchedulesAndInfoes", { params: params })
+            .success(function (response) {
+                $scope.scheduleInfoes = response.scheduleInfoes;
+                $scope.schedules = response.schedules;
+            });
+        }
     };
 
     function initThread(newThread) {
+        //fall here
         angular.extend($scope, newThread);
 
         $scope.currentBranch = findBranch();
@@ -95,6 +103,7 @@
         initThread(newThread);
         loadScheduleInfoesForFaculty();
     });
+
     $scope.$on('timetableParamsChanged', function (e, newParams) {
         initTimetableParams(newParams);
         loadScheduleInfoesForFaculty();
@@ -193,8 +202,12 @@
 
     $scope.getReportForFaculty = function () {
         console.log("getReportForFaculty");
+        console.log("Path prefix:");
+        console.log($http.prefix);
+
+       
         if ($scope.isFacultySelected()) {
-            document.location.href = '/Dispatcher/Report/GetReportForFaculty?branchId={0}&facultyId={1}&studyYearId={2}&semesterId={3}'
+            document.location.href = $http.prefix + 'Report/GetReportForFaculty?branchId={0}&facultyId={1}&studyYearId={2}&semesterId={3}'
                 .replace('{0}', $scope.currentBranchId)
                 .replace('{1}', $scope.currentFacultyId)
                 .replace('{2}', $scope.currentStudyYearId)
@@ -205,7 +218,7 @@
     $scope.getReportForCourse = function () {
         console.log("getReportForCourse");
         if ($scope.isCourseSelected()) {
-            document.location.href = '/Dispatcher/Report/GetReportForCourse?branchId={0}&facultyId={1}&studyTypeId={2}&courseId={3}&studyYearId={4}&semesterId={5}'
+            document.location.href = $http.prefix + 'Report/GetReportForCourse?branchId={0}&facultyId={1}&studyTypeId={2}&courseId={3}&studyYearId={4}&semesterId={5}'
                 .replace('{0}', $scope.currentBranchId)
                 .replace('{1}', $scope.currentFacultyId)
                 .replace('{2}', $scope.currentStudyTypeId)
@@ -218,7 +231,7 @@
     $scope.getReportForGroups = function () {
         console.log("getReportForGroups");
         if ($scope.isGroupsSelected()) {
-            document.location.href = '/Dispatcher/Report/GetReportForGroups?branchId={0}&facultyId={1}&courseId={2}&groupIds={3}&studyYearId={4}&semesterId={5}'
+            document.location.href = $http.prefix + 'Report/GetReportForGroups?branchId={0}&facultyId={1}&courseId={2}&groupIds={3}&studyYearId={4}&semesterId={5}'
                 .replace('{0}', $scope.currentBranchId)
                 .replace('{1}', $scope.currentFacultyId)
                 .replace('{2}', $scope.currentCourseId)
@@ -239,6 +252,8 @@
 
 function ThreadDialogController($scope, $http, $rootScope) {
     $scope.ok = function () {
+        console.log("ok pressed");
+        
         $scope.hideDialog();
         $rootScope.$broadcast('threadChanged', {
             currentBranchId: $scope.currentBranchId,
@@ -269,18 +284,27 @@ function ThreadDialogController($scope, $http, $rootScope) {
     $scope.changeFaculty = function () {
         $scope.groups = [];
         $scope.currentGroupIds = [];
-        var params = {
-            facultyId: $scope.currentFacultyId,
-            courseId: $scope.currentCourseId,
-            studyTypeId: $scope.currentStudyTypeId
-        };
 
-        $http
-            .get($http.prefix + 'group/get', { params: params })
-            .success(function (response) {
-                $scope.currentGroupIds = [];
-                $scope.groups = response;
-            });
+        console.log("SchedulerController/changeFaculty");
+
+        if ($scope.currentFacultyId != undefined && $scope.currentFacultyId != null &&
+           $scope.currentCourseId != undefined && $scope.currentCourseId != null &&
+           $scope.currentStudyTypeId != undefined && $scope.currentStudyTypeId != null) {
+
+            var params = {
+                facultyId: $scope.currentFacultyId,
+                courseId: $scope.currentCourseId,
+                studyTypeId: $scope.currentStudyTypeId
+            };
+
+
+            $http
+                .get($http.prefix + 'group/get', { params: params })
+                .success(function (response) {
+                    $scope.currentGroupIds = [];
+                    $scope.groups = response;
+                });
+        }
     };
 
     $scope.changeCourse = $scope.changeFaculty;

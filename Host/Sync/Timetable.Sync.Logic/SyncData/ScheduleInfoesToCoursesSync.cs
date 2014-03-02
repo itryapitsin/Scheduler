@@ -28,13 +28,16 @@ namespace Timetable.Sync.Logic.SyncData
                     AND (PCARD_ID IS NOT NULL) 
                     AND (EW_ID IS NOT NULL) 
                     AND (DIS_CODE IS NOT NULL) 
-                    AND (UBU_ID IS NOT NULL) 
-                    AND (GR_UBU_ID > 0) 
-                    AND (GR_UBU_ID IS NOT NULL) 
+                    AND (UCH_GOG LIKE '2013/%')
                     AND (KURS_CODE > 0) 
                     AND (KURS_CODE IS NOT NULL) 
                     AND (SPEC_CODE IS NOT NULL) 
                     AND (FACULT_CODE IS NOT NULL)";
+
+            //AND (GR_UBU_ID > 0) 
+            //AND (GR_UBU_ID IS NOT NULL) 
+            //AND (UBU_ID IS NOT NULL)
+
             var reader = cmd.ExecuteReader();
             var schedulerEntities = SchedulerDatabase.ScheduleInfoes.Include("Courses").ToList();
             var courses = SchedulerDatabase.Courses.ToList();

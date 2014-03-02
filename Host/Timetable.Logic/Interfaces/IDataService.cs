@@ -10,6 +10,7 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<SemesterDataTransfer> GetSemesters();
         SemesterDataTransfer GetSemesterForTime(DateTime? date);
 
+        IEnumerable<GroupDataTransfer> GetAllGroupsForFaculty(int facultyId, int courseId, int studyTypeId);
         IEnumerable<GroupDataTransfer> GetGroupsByCode(string code, int count);
         bool ValidateSchedule(ScheduleDataTransfer scheduleDataTransfer);
         IEnumerable<BranchDataTransfer> GetBranches();
@@ -350,7 +351,8 @@ namespace Timetable.Logic.Interfaces
             int [] facultyIds,
             int [] courseIds,
             int studyTypeId,
-            int groupId
+            int groupId,
+            bool isActual
            );
 
         void CreateGroup(
@@ -358,7 +360,8 @@ namespace Timetable.Logic.Interfaces
             int studentsCount,
             int [] facultyIds,
             int [] courseIds,
-            int studyTypeId
+            int studyTypeId,
+            bool isActual
            );
 
         void EditScheduleInfo(

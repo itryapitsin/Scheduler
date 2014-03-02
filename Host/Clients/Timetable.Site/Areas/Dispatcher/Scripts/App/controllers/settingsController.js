@@ -1819,6 +1819,266 @@ function CreateEditScheduleModalController($scope, $http, $controller, $rootScop
     };
 }
 
+
+
+
+//------------
+
+function GroupsController($scope, $modal, $http) {
+    $scope.faculties;
+    $scope.branches;
+    $scope.courses;
+    $scope.studyTypes;
+    $scope.currentStudyTypeId;
+    $scope.currentFacultyId;
+    $scope.currentCourseId;
+    $scope.currentBranchId;
+    $scope.currentGroupId;
+    $scope.groups;
+
+    if ($scope.currentFacultyId) {
+        $scope.currentFacultyId = parseInt($scope.currentFacultyId);
+    }
+    $scope.facultyChanged = function () {
+        console.log("changeFaculty");
+        loadGroups();
+    };
+
+    if ($scope.currentCourseId) {
+        $scope.currentCourseId = parseInt($scope.currentCourseId);
+    }
+    $scope.courseChanged = function () {
+        console.log("changeCourse");
+        loadGroups();
+    };
+
+    if ($scope.currentStudyTypeId) {
+        $scope.currentStudyTypeId = parseInt($scope.currentStudyTypeId);
+    }
+    $scope.studyTypeChanged = function () {
+        console.log("changeCourse");
+        loadGroups();
+    };
+
+
+    if ($scope.currentBranchId) {
+        $scope.currentBranchId = parseInt($scope.currentBranchId);
+    }
+    $scope.branchChanged = function () {
+        console.log("changeBranch");
+        loadFaculties();
+        loadCourses();
+    };
+
+
+    $scope.loadTableData = function () {
+        loadBranches();
+        loadSemesters();
+        loadStudyYears();
+        loadStudyTypes();
+    }
+
+
+    function loadStudyTypes() {
+        console.log("loadStudyTypes");
+        $http
+           .get($http.prefix + 'Settings/GetStudyTypes', {})
+           .success(function (response) {
+               $scope.studyTypes = response;
+           });
+    }
+
+    function loadGroups() {
+        if ($scope.currentFacultyId != undefined && $scope.currentCourseId != undefined && $scope.currentStudyTypeId != undefined) {
+            console.log("loadGroups");
+            $http
+               .get($http.prefix + 'Settings/GetAllGroups', {
+                   params: {
+                       facultyId: $scope.currentFacultyId,
+                       courseId: $scope.currentCourseId,
+                       studyTypeId: $scope.currentStudyTypeId
+                   }
+               })
+               .success(function (response) {
+                   $scope.groups = response;
+               });
+        }
+    }
+
+    function loadBranches() {
+        console.log("loadBranches");
+        $http
+           .get($http.prefix + 'Settings/GetBranches', {})
+           .success(function (response) {
+               $scope.branches = response.branches;
+               $scope.currentBranchId = response.currentBranchId;
+           });
+    }
+
+    function loadSemesters() {
+        console.log("loadSemesters");
+        $http
+           .get($http.prefix + 'Settings/GetSemesters', {})
+           .success(function (response) {
+               $scope.semesters = response;
+           });
+    }
+
+    function loadStudyYears() {
+        console.log("loadStudyYears");
+        $http
+           .get($http.prefix + 'Settings/GetStudyYears', {})
+           .success(function (response) {
+               $scope.studyYears = response;
+           });
+    }
+
+    function loadCourses() {
+        console.log("loadCourses");
+        $http
+           .get($http.prefix + 'Settings/GetCourses', { params: { branchId: $scope.currentBranchId } })
+           .success(function (response) {
+               $scope.courses = response;
+           });
+    }
+
+    function loadFaculties() {
+        console.log("loadFaculties");
+        $http
+           .get($http.prefix + 'Settings/GetFaculties', { params: { branchId: $scope.currentBranchId } })
+           .success(function (response) {
+               $scope.faculties = response;
+           });
+    }
+
+   
+    $scope.delete = function (group) {
+        var params = {
+            groupId: group.id
+        };
+
+        $scope.confirm = {
+            content: "Вы действительно хотите удалить группу: '{0}' ?".replace('{0}', group.code),
+            ok: function () {
+                $http
+                    .post($http.prefix + 'Settings/DeleteGroup', params)
+                    .success(function (response) {
+                        for (var i in $scope.groups) {
+                            if ($scope.groups[i].id == group.id) {
+                                $scope.groups.splice(i, 1);
+                                break;
+                            }
+                        }
+                    });
+                $scope.hideDialog();
+            },
+            cancel: function () {
+                $scope.hideDialog();
+            }
+        };
+        $scope.showDialog('confirmation.html');
+    };
+
+    $scope.$on('groupCreated', function (e, group) {
+        $scope.groups.push(group);
+    });
+
+    $scope.$on('groupUpdated', function (e, group) {
+
+        for (var i in $scope.groups) {
+
+            if ($scope.groups[i].id == group.id) {
+                $scope.groups[i] = group;
+                break;
+            }
+        }
+    });
+
+    $scope.edit = function (group) {
+        $scope.code = group.code;
+        $scope.specialityName = group.specialityName;
+        $scope.studentsCount = group.studentsCount;
+        $scope.currentIsActualValue = group.isActual;
+        $scope.groupId = group.id;
+        $scope.showDialog('editgroupmodal.html');
+    };
+
+    $scope.showCreateGroupDialog = function () {
+        $scope.showDialog('editgroupmodal.html');
+    };
+}
+
+function CreateEditGroupModalController($scope, $http, $controller, $rootScope) {
+  
+
+    $scope.isActuals = [{ name: "активна", value: true }, { name: "неактивна", value: false }];
+  
+    $scope.ok = function () {
+        var params = {
+            code: $scope.code,
+            studentsCount: $scope.studentsCount,
+            facultyIds: [$scope.currentFacultyId].toString(),
+            courseIds: [$scope.currentCourseId].toString(),
+            studyTypeId: [$scope.currentStudyTypeId].toString(),
+            isActual: $scope.currentIsActualValue,
+            groupId: $scope.groupId
+        };
+
+        $http
+            .post($http.prefix + 'Settings/CreateEditGroup', params)
+            .success(function (response) {
+                if (response.ok) {
+                    $scope.hideDialog();
+
+
+                    if ($scope.groupId !== undefined) {
+                        $rootScope.$broadcast('groupUpdated', {
+                            id: $scope.groupId,
+                            code: $scope.code,
+                            specialityName: $scope.specialityName,
+                            isActual: $scope.currentIsActualValue,
+                            studentsCount: $scope.studentsCount
+                        });
+                    } else {
+                        $rootScope.$broadcast('groupCreated', {
+                            code: $scope.code,
+                            specialityName: $scope.specialityName,
+                            isActual: $scope.currentIsActualValue,
+                            studentsCount: $scope.studentsCount
+                        });
+                    }
+                }
+
+                if (response.message)
+                    $scope.message = response.message;
+                else
+                    $scope.message = 'Ошибка запроса';
+            });
+    };
+
+    $scope.cancel = function () {
+        this.hideDialog();
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+//-------------
+
+
+
+
+
+
+
 function UsersController($scope, $modal, $http) {
     $scope.users = pageModel.users;
 

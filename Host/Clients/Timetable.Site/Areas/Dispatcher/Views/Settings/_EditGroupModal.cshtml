@@ -1,0 +1,50 @@
+﻿<div class="modal-dialog" style="width: 750px;" ng-controller="CreateEditGroupModalController" ng-init="loadModalData()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Создание новой группы</h5>
+        </div>
+        <div class="modal-body">
+        
+            <form class="form-horizontal" role="form" name="form">
+                <div class="form-group" ng-class="{'has-error': form.code.$error.required}">
+                    <label class="col-sm-3 control-label">Номер</label>
+                    <div class="col-sm-8">
+                        <input name="number" type="text" class="form-control" placeholder="Номер" ng-model="code" required="required">
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{'has-error': form.specialityName.$error.required}">
+                        <label class="col-sm-3 control-label">Специальность</label>
+                        <div class="col-sm-8">
+                            <input name="name" type="text" class="form-control" placeholder="Специальность" ng-model="specialityName" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.studentsCount.$error.required}">
+                        <label class="col-sm-3 control-label">Количество студентов</label>
+                        <div class="col-sm-8">
+                            <input name="info" type="text" class="form-control" placeholder="Количество студентов" ng-model="studentsCount" required="required">
+                        </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': form.isActual.$error.required}">
+                        <label class="col-sm-3 control-label">Активность</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required="required" ng-model="currentIsActualValue" ng-options="isActual.value as isActual.name for isActual in isActuals"></select>
+                        </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-left text-danger" ng-show="form.$invalid">
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>Поля, окрашенные красным, обязательны для заполнения</b>
+            </div>
+            <div class="pull-left text-danger" ng-show='message'>
+                <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
+            </div>
+            <button type="submit" ng-click="ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
+            <button class="btn" ng-click="cancel()">Отмена</button>
+        </div>
+    </div>
+</div>

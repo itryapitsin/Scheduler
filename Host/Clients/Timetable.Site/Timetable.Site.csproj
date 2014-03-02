@@ -211,7 +211,10 @@
     <Compile Include="Areas\Students\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\ThreadScheduleViewModel.cs" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_GroupsEditTable.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\Settings\_EditGroupModal.cshtml" />
     <None Include="Content\bootstrap\datepicker3.less" />
+    <Compile Include="Infrastructure\SchedulePresentationFormatService.cs" />
     <Compile Include="Models\BaseClientResponseModel.cs" />
     <Compile Include="Models\ResponseModels\GetAuditoriumsResponse.cs" />
     <Compile Include="Models\ViewModels\AuditoriumViewModel.cs" />
@@ -770,6 +773,7 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Properties\PublishProfiles\Profile.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />

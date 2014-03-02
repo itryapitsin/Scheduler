@@ -24,39 +24,42 @@ namespace Timetable.Sync.Logic.SyncData
                  VALUES
                        ('{0}'
                        ,'{1}'
-                       ,0
-                       ,NULL
                        ,{2}
+                       ,NULL
                        ,{3}
+                       ,{4}
                        ,1
                        ,GetDate()
                        ,GetDate()
-                       ,{4})";
+                       ,{5})";
         private string _updateQueryPattern = @"
                UPDATE [dbo].[Auditoriums]
                    SET [Number] = '{0}'
                       ,[Name] = '{1}'
-                      ,[Capacity] = 0
+                      ,[Capacity] = {2}
                       ,[Info] = NULL
-                      ,[BuildingId] = {2}
-                      ,[AuditoriumTypeId] = {3}
+                      ,[BuildingId] = {3}
+                      ,[AuditoriumTypeId] = {4}
                       ,[UpdatedDate] = GetDate()
-                 WHERE Id = {4};";
+                 WHERE Id = {5};";
 
         public override async void Sync()
         {
             var task1 = Task.Factory.StartNew(() => IIASContext.GetAuditoriums().ToList());
             var task2 = Task.Factory.StartNew(() => SchedulerDatabase.Auditoriums.ToList());
+           
 
             Task.WaitAll(task1, task2);
 
             var task3 = Task.Factory.StartNew(() => SchedulerDatabase.AuditoriumTypes.ToList());
+            var task4 = Task.Factory.StartNew(() => IIASContext.GetProductivities().ToList());
 
-            Task.WaitAll(task3);
+            Task.WaitAll(task3, task4);
 
             var iiasEntities = await task1;
             var schedulerEntyties = await task2;
             var schedulerAuditoriumTypes = await task3;
+            var iiasProductivities = await task4;
             var command = string.Empty;
 
             foreach (var iiasEntity in iiasEntities)
@@ -66,7 +69,9 @@ namespace Timetable.Sync.Logic.SyncData
                 var building = SchedulerDatabase.Buildings.FirstOrDefault(x => x.IIASKey == iiasEntity.BuildingId);
                 if(auditoriumType == null || building == null)
                     continue;
-                
+
+                //Может быть долго, но не придумал как перенести эту логику в SQL
+                var capacity = iiasProductivities.Where(x => x.Id == iiasEntity.Id).Select(x => x.Capacity).FirstOrDefault();
 
                 if (schedulerEntyty == null)
                 {
@@ -74,6 +79,7 @@ namespace Timetable.Sync.Logic.SyncData
                         _insertQueryPattern,
                         iiasEntity.Num,
                         iiasEntity.Name,
+                        capacity.HasValue ? capacity.Value : 0,
                         building.Id,
                         auditoriumType.Id,
                         iiasEntity.Id);
@@ -99,6 +105,7 @@ namespace Timetable.Sync.Logic.SyncData
                         _updateQueryPattern,
                         iiasEntity.Num,
                         iiasEntity.Name,
+                        capacity.HasValue ? capacity.Value : 0,
                         building.Id,
                         auditoriumType.Id,
                         iiasEntity.Id);

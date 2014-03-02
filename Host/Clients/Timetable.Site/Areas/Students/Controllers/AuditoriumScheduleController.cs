@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Timetable.Site.Areas.Students.Models.ViewModels;
@@ -41,11 +42,12 @@ namespace Timetable.Site.Areas.Students.Controllers
 
                 model.CurrentAuditoriumId = Convert.ToInt32(currentAuditoriumId.Value);
 
+                var presentationService = new SchedulePresentationFormatService();
 
                 //TODO: Сделать определение семетра по текущему времени
-                model.Schedules = DataService
+                model.Schedules = presentationService.ForAuditoriumFilter(DataService
                     .GetSchedules(new[] { model.CurrentAuditoriumId }, studyYear.Id, semester.Id)
-                    .Select(x => new ScheduleViewModel(x));
+                    .Select(x => new ScheduleViewModel(x)));
             }
 
             return PartialView("_Index", model);
@@ -75,7 +77,14 @@ namespace Timetable.Site.Areas.Students.Controllers
                     DateTime.Now)
                 .Select(x => new ScheduleViewModel(x));
 
-            return new JsonNetResult(response);
+
+            var presentationService = new SchedulePresentationFormatService();
+
+            return new JsonNetResult(presentationService.ForAuditoriumFilter(response));
         }
+
+       
     }
+
+   
 }

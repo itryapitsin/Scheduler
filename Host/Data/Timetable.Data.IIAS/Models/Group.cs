@@ -10,6 +10,8 @@ namespace Timetable.Data.IIAS.Models
 
         public Int64 StudyTypeId { get; set; }
 
+        public int? StudentsCount { get; set; }
+
         //TODO: возможно потом убрать поле
         public string SpecialityName { get; set; }
     }

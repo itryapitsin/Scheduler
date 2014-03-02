@@ -22,20 +22,22 @@ namespace Timetable.Sync.Logic.SyncData
                        ,[SpecialityName])
                  VALUES
                        ('{0}'                      
-                       ,0
-                       ,1
-                       ,GetDate()
-                       ,GetDate()
                        ,{1}
-                       ,null
+                       ,{5}
+                       ,GetDate()
+                       ,GetDate()
                        ,{2}
-                       ,'{3}');";
+                       ,null
+                       ,{3}
+                       ,'{4}');";
         private string _updateQueryPattern = @"
                 UPDATE [dbo].[Groups]
                    SET [Code] = '{0}'
                       ,[UpdatedDate] = GetDate()
                       ,[StudyTypeId] = {2}
                       ,[SpecialityName] = '{3}'
+                      ,[StudentsCount] = {4}
+                      ,[IsActual] = {5}
                  WHERE Id = {1};";
 
         public override async void Sync()
@@ -57,14 +59,20 @@ namespace Timetable.Sync.Logic.SyncData
                 if(studyType == null)
                     continue;
 
+                var isActual = 1;
+                if (iiasEntity.StudentsCount <= 1)
+                    isActual = 0;
+
                 if (schedulerEntity == null)
                 {
                     command += string.Format(
                         _insertQueryPattern,
                         iiasEntity.Code,
+                        iiasEntity.StudentsCount,
                         iiasEntity.Id,
                         studyType.Id,
-                        iiasEntity.SpecialityName);
+                        iiasEntity.SpecialityName,
+                        isActual);
                 }
                 else
                 {
@@ -73,7 +81,9 @@ namespace Timetable.Sync.Logic.SyncData
                         iiasEntity.Code,
                         iiasEntity.Id,
                         studyType.Id,
-                        iiasEntity.SpecialityName);
+                        iiasEntity.SpecialityName,
+                        iiasEntity.StudentsCount,
+                        isActual);
                 }
             }
 

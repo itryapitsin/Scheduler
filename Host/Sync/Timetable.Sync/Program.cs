@@ -14,7 +14,7 @@ namespace Timetable.Sync
         {
             var conn = new OracleConnection("DATA SOURCE=iias.karelia.ru:1521/iias;USER ID=DPYATIN;Password=xgmst321");
 
-           /* Console.Write(@"Loading schedule types...");
+            Console.Write(@"Loading schedule types...");
             DoSync(new ScheduleTypeSync());
             Console.WriteLine(@"done!");
 
@@ -48,13 +48,13 @@ namespace Timetable.Sync
 
             Console.Write(@"Loading buildings...");
             DoSync(new BuildingSync());
-            Console.WriteLine(@"done!");*/
+            Console.WriteLine(@"done!");
 
             Console.Write(@"Loading auditoriums...");
             DoSync(new AuditoriumSync());
             Console.WriteLine(@"done!");
 
-            /*
+            
             Console.Write(@"Loading faculties...");
             DoSync(new FacultySync());
             Console.WriteLine(@"done!");
@@ -129,10 +129,14 @@ namespace Timetable.Sync
 
             Console.Write(@"Loading specialities to tutorials...");
             DoSync(new SpecialitiesToTutorialsSync(conn));
-            Console.WriteLine(@"done!");*/
+            Console.WriteLine(@"done!");
 
             Console.Write(@"Loading schedules...");
             DoSync(new ScheduleSync());
+            Console.WriteLine(@"done!");
+
+            Console.Write(@"After sync updates...");
+            DoSync(new AfterSync());
             Console.WriteLine(@"done!");
         }
 

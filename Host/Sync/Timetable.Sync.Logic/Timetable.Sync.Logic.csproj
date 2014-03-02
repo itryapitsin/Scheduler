@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyncData\AfterSync.cs" />
     <Compile Include="SyncData\AuditoriumSync.cs" />
     <Compile Include="SyncData\BaseSync.cs" />
     <Compile Include="SyncData\BranchesToCoursesSync.cs" />

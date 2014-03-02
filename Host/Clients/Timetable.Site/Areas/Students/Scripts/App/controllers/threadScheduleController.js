@@ -82,7 +82,7 @@
         //console.log($scope.currentAuditoriumId);
         //console.log($scope.currentBuildingId);
 
-        document.location.href = '/Report/GetReportForGroup?facultyId={0}&courseId={1}&groupId={2}'
+        document.location.href = $http.prefix + 'Report/GetReportForGroup?facultyId={0}&courseId={1}&groupId={2}'
             .replace('{0}', $scope.currentFacultyId)
             .replace('{1}', $scope.currentCourseId)
             .replace('{2}', $scope.currentGroupId);

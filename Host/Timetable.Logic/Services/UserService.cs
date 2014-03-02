@@ -85,8 +85,10 @@ namespace Timetable.Logic.Services
             user.CreatorSelectedBranchId = userDataTransfer.CreatorSettings.CurrentBranchId;
             user.CreatorSelectedFacultyId = userDataTransfer.CreatorSettings.CurrentFacultyId;
             user.CreatorSelectedStudyTypeId = userDataTransfer.CreatorSettings.CurrentStudyTypeId;
-            if (user.CreatorSelectedFacultyId.HasValue)
-                user.CreatorSelectedBranchId = DataContext.Branches.First(x => x.Faculties.Any(y => y.Id == user.CreatorSelectedFacultyId)).Id;
+
+
+            if (user.CreatorSelectedFacultyId.HasValue && user.CreatorSelectedFacultyId.HasValue)
+                user.CreatorSelectedBranchId = DataContext.Branches.FirstOrDefault(x => x.Faculties.Any(y => y.Id == user.CreatorSelectedFacultyId)).Id;
 
             user.CreatorSelectedCourseId = userDataTransfer.CreatorSettings.CurrentCourseId;
 

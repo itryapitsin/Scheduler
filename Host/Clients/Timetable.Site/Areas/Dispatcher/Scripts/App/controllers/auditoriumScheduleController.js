@@ -13,7 +13,7 @@
 
     $scope.getReportForAuditorium = function () {
 
-        document.location.href = '/Report/GetReportForAuditorium?auditoriumId={0}&semester={1}&studyYearId={2}&title="sometitle"'
+        document.location.href = $http.prefix + 'Report/GetReportForAuditorium?auditoriumId={0}&semester={1}&studyYearId={2}&title="sometitle"'
             .replace('{0}', $scope.auditorium)
             .replace('{1}', $scope.semester)
             .replace('{2}', $scope.studyYear);

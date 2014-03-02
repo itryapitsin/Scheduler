@@ -237,6 +237,19 @@ namespace Timetable.Logic.Services
             return result;
         }
 
+        //Get actual and not actual groups
+        public IEnumerable<GroupDataTransfer> GetAllGroupsForFaculty(int facultyId, int courseId, int studyTypeId)
+        {
+            var result = Database.Groups
+                .Where(x => x.Courses.Any(y => y.Id == courseId))
+                .Where(x => x.Faculties.Any(y => y.Id == facultyId))
+                .Where(x => x.StudyTypeId == studyTypeId)
+                .ToList()
+                .Select(x => new GroupDataTransfer(x));
+
+            return result;
+        }
+
         #endregion
 
         #region lecturers
@@ -482,6 +495,8 @@ namespace Timetable.Logic.Services
             int timeId,
             int weekTypeId)
         {
+            //TODO: Исправить в соответствии с GroupBy
+
             var weekType = Database.WeekTypes
                 .Where(x => x.IsActual)
                 .FirstOrDefault(x => x.Name == "Л");
@@ -519,7 +534,8 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
                 .Where(x => x.ScheduleInfo.SemesterId == semester);
 
-            return result.ToList().Select(x => new ScheduleDataTransfer(x));
+            //TODO: Убрать GroupBy
+            return result.ToList().GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault()).Select(x => new ScheduleDataTransfer(x));
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedules(
@@ -532,7 +548,8 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
                 .Where(x => x.ScheduleInfo.SemesterId == semester);
 
-            return result.ToList().Select(x => new ScheduleDataTransfer(x));
+            //TODO: Убрать GroupBy
+            return result.ToList().GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault()).Select(x => new ScheduleDataTransfer(x));
         }
 
 
@@ -551,7 +568,8 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))
                 .OrderByDescending(x => x.WeekTypeId);
 
-            return result.ToList().Select(x => new ScheduleDataTransfer(x));
+            //TODO: Убрать GroupBy
+            return result.ToList().GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault()).Select(x => new ScheduleDataTransfer(x));
         }
 
    
@@ -563,15 +581,19 @@ namespace Timetable.Logic.Services
             int semester)
         {
 
-            var t = GetSchedules().Where(x => x.Id == 1458).ToList();
+            //var t = GetSchedules().Where(x => x.Id == 1458).ToList();
 
+            //semester = 1;
+
+            //TODO: Убрать GroupBy, раскоментировать курсы и факультеты
             return GetSchedules()
-                //.Where(x => x.ScheduleInfo.StudyYearId == studyYear)
-                //.Where(x => x.ScheduleInfo.SemesterId == semester)
+                .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
+                .Where(x => x.ScheduleInfo.SemesterId == semester)
                 //.Where(x => x.ScheduleInfo.Faculties.Any(y => y.Id == facultyId))
                 //.Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))
                 .Where(x => x.ScheduleInfo.Groups.Any(y => groupIds.Contains(y.Id)))
                 .ToList()
+                .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -580,11 +602,13 @@ namespace Timetable.Logic.Services
             int studyYearId,
             int semester)
         {
+            //TODO: Убрать GroupBy
             var result = GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYearId == studyYearId)
                 .Where(x => x.ScheduleInfo.SemesterId == semester)
                 .Where(x => x.ScheduleInfo.LecturerId.Equals(lecturerId))
                 .ToList()
+                .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
 
             return result;
@@ -595,11 +619,13 @@ namespace Timetable.Logic.Services
             int studyYearId,
             int semester)
         {
+            //TODO: Убрать GroupBy
             var result = GetSchedules()
                .Where(x => x.ScheduleInfo.StudyYearId == studyYearId)
                .Where(x => x.ScheduleInfo.SemesterId == semester)
                .Where(x => x.AuditoriumId == auditoriumId)
                .ToList()
+               .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
                .Select(x => new ScheduleDataTransfer(x));
 
             return result;
@@ -618,11 +644,16 @@ namespace Timetable.Logic.Services
 
             var semester = GetSemesterForTime(date);
 
+            //semester.Id = 1;
+
+
+            //TODO: Убрать GroupBy
             var result = GetSchedules()
                .Where(x => x.ScheduleInfo.StudyYearId == studyYear.Id)
                .Where(x => x.AuditoriumId == auditoriumId)
                .Where(x => x.ScheduleInfo.Semester.Id == semester.Id)
                .ToList()
+               .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
                .Select(x => new ScheduleDataTransfer(x));
 
             return result;
@@ -640,14 +671,17 @@ namespace Timetable.Logic.Services
 
         public int CountSchedulesForScheduleInfoes(int scheduleInfoId)
         {
+            //TODO: Исправить подсчет в соответствии с GroupBy
             return Database.Schedules.Count(x => x.ScheduleInfo.Id == scheduleInfoId);
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForScheduleInfoes(int scheduleInfoId)
         {
+            //TODO: Убрать GroupBy
             return GetSchedules()
                 .Where(x => x.ScheduleInfo.Id == scheduleInfoId)
                 .ToList()
+                .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -668,6 +702,7 @@ namespace Timetable.Logic.Services
                 .Include(x => x.ScheduleInfo.Courses)
                 .Include(x => x.ScheduleInfo.Groups)
                 .Include(x => x.ScheduleInfo.Faculties)
+                .Include(x => x.ScheduleInfo.StudyYear)
                 .Include(x => x.Type)
                 .Include(x => x.WeekType)
                 .Include(x => x.Auditorium)
@@ -1446,8 +1481,8 @@ namespace Timetable.Logic.Services
           int [] facultyIds,
           int [] courseIds,
           int studyTypeId,
-          int groupId
-          )
+          int groupId,
+          bool isActual)
         {
 
             var studyType = Database.StudyTypes.Where(x => x.Id == studyTypeId).FirstOrDefault();
@@ -1458,10 +1493,10 @@ namespace Timetable.Logic.Services
 
             group.Code = code;
             group.StudentsCount = studentsCount;
-            group.Faculties = faculties;
-            group.Courses = courses;
-            group.StudyType = studyType;
-            group.IsActual = true;
+            //group.Faculties = faculties;
+            //group.Courses = courses;
+            //group.StudyType = studyType;
+            group.IsActual = isActual;
             group.CreatedDate = DateTime.Now;
             group.UpdatedDate = DateTime.Now;
 
@@ -1473,8 +1508,8 @@ namespace Timetable.Logic.Services
                 int studentsCount,
                 int [] facultyIds,
                 int [] courseIds,
-                int studyTypeId
-            )
+                int studyTypeId,
+                bool isActual)
         {
             var studyType = Database.StudyTypes.Where(x => x.Id == studyTypeId).FirstOrDefault();
             var faculties = Database.Faculties.Where(x => facultyIds.Any(y => y == x.Id)).ToList();
@@ -1488,7 +1523,7 @@ namespace Timetable.Logic.Services
                         Faculties = faculties,
                         Courses = courses,
                         StudyType = studyType,
-                        IsActual = true,
+                        IsActual = isActual,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now
                     }

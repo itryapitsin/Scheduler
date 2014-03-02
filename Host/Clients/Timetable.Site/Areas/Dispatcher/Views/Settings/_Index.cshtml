@@ -2,7 +2,7 @@
 @{var model = new JsonNetResult(Model);}
 
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(model.JsonText)');
+    window.pageModel = JSON.parse('@Html.Raw(model.JsonText.Replace("\\","\\\\"))');
 </script>
 
 <div class="container" style="padding-right: 0; padding-left: 0; margin-top: 75px; overflow-y: visible;">
@@ -204,7 +204,7 @@
                                         <div class="tab-pane active" id="auditoriums" ng-controller="AuditoriumsController">@Html.Partial("_AuditoriumsEditTable")</div>
                                         <div class="tab-pane" id="auditoriumTypes" ng-controller="AuditoriumTypesController">@Html.Partial("_AuditoriumTypesEditTable")</div>
                                         <div class="tab-pane" id="courses">courses</div>
-                                        <div class="tab-pane" id="groups">groups</div>
+                                        <div class="tab-pane" id="groups" ng-controller="GroupsController">@Html.Partial("_GroupsEditTable")</div>
                                         <div class="tab-pane" id="lecturers">lecturers</div>
                                         <div class="tab-pane" id="scheduleInfoes" ng-controller="ScheduleInfoesController">@Html.Partial("_ScheduleInfoesEditTable")</div>
                                         <div class="tab-pane" id="schedules" ng-controller="ScheduleController">@Html.Partial("_SchedulesEditTable")</div>
@@ -267,4 +267,8 @@
 
 <script type="text/ng-template" id="editschedulemodal.html">
     @Html.Partial("_EditScheduleModal")
+</script>
+
+<script type="text/ng-template" id="editgroupmodal.html">
+    @Html.Partial("_EditGroupModal")
 </script>

@@ -20,10 +20,13 @@
                          ng-repeat="schedule in findScheduleTickets(time.position, day)"
                          ng-class="{even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}">
                         <p style="margin: 0">
-                            {{schedule.tutorialName}}, {{schedule.tutorialTypeName}}., {{schedule.buildingName}}. {{schedule.auditoriumNumber}}
+                            {{schedule.tutorialName}}, {{schedule.tutorialTypeName}}., @*{{schedule.buildingName}}. {{schedule.auditoriumNumber}}*@
                         </p>
                         <p style="margin: 0">
                             {{schedule.lecturerName}}
+                        </p>
+                        <p style="margin: 0">
+                            {{schedule.groupCodes.join()}}., {{schedule.subGroup}}
                         </p>
                     </div>
                 </td>

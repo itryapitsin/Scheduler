@@ -45,6 +45,8 @@ namespace Timetable.Site.Areas.Students.Controllers
             var studyYear = DataService.GetStudyYear(DateTime.Now);
             var semester = DataService.GetSemesterForTime(DateTime.Now);
 
+            var presentationService = new SchedulePresentationFormatService(); 
+
             var response = DataService
                 .GetSchedulesForGroups(
                     facultyId,
@@ -54,7 +56,7 @@ namespace Timetable.Site.Areas.Students.Controllers
                     semester.Id)
                 .Select(x => new ScheduleViewModel(x));
 
-            return new JsonNetResult(response);
+            return new JsonNetResult(presentationService.ForGroupFilter(response));
         }
     }
 }

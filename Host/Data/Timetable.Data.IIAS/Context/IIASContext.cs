@@ -33,6 +33,8 @@ namespace Timetable.Data.IIAS.Context
 
         public DbSet<Lecturer> Lecturers { get; set; }
 
+        public DbSet<Productivity> Productivities { get; set; }
+
         public DbSet<TutorialType> TutorialTypes { get; set; }
 
         public DbSet<Time> Times { get; set; }
@@ -186,6 +188,7 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.V_UPL_RASP");
         }
 
+        //TODO: Возможно придется убрать SDMS.V_STUD_SPEC.STATUS = 'Y'
         public IQueryable<Speciality> GetSpecialities()
         {
             return RawSqlQuery<Speciality>(@"
@@ -196,9 +199,12 @@ namespace Timetable.Data.IIAS.Context
                         SDMS.O_BASE_UNIT.CODE AS Code, 
                         SDMS.V_STUD_GR.UBU_ID_PODR AS BranchId
                     FROM            
-                        SDMS.V_STUD_GR, 
+                        SDMS.V_STUD_GR,
+                        SDMS.V_STUD_SPEC,
                         SDMS.O_BASE_UNIT
-                    WHERE        
+                    WHERE
+                        SDMS.V_STUD_SPEC.BUN_ID = SDMS.V_STUD_GR.SPEC_BUN_ID AND
+                        (SDMS.V_STUD_SPEC.STATUS = 'Y' OR SDMS.V_STUD_SPEC.STATUS IS NULL) AND        
                         SDMS.V_STUD_GR.SPEC_BUN_ID = SDMS.O_BASE_UNIT.BUN_ID");
         }
 
@@ -227,7 +233,7 @@ namespace Timetable.Data.IIAS.Context
                         ""Finish""");
         }
 
-        //Некоторых аудиторий не было в SDMS.B_PRODUCTIVITY, удалил условие выборки
+        //Некоторых аудиторий не было в SDMS.B_PRODUCTIVITY, удалил условие выборки, добавил выборку только учебных аудиторий
         public IQueryable<Auditorium> GetAuditoriums()
         {
             return RawSqlQuery<Auditorium>(@"
@@ -239,7 +245,18 @@ namespace Timetable.Data.IIAS.Context
                     FROM    
                         SDMS.B_QUARTERS
                     WHERE
-                        (SDMS.B_QUARTERS.STATUS = 'Y')");
+                        (SDMS.B_QUARTERS.STATUS = 'Y') AND
+                        (SDMS.B_QUARTERS.LIVING = 'U')");
+        }
+
+        public IQueryable<Productivity> GetProductivities()
+        {
+            return RawSqlQuery<Productivity>(@"
+                    SELECT DISTINCT       
+                            SDMS.B_PRODUCTIVITY.ROO_ID AS Id, 
+                            SDMS.B_PRODUCTIVITY.VALUE AS Capacity
+                    FROM    
+                            SDMS.B_PRODUCTIVITY");
         }
 
         //Tutorials в schedule_infoes ставятся неправильно (возможно это из-за нескольких обновлений данных подряд)
@@ -275,18 +292,40 @@ namespace Timetable.Data.IIAS.Context
                         UCH_GOG");
         }
 
+
+        //TODO: Возможно придется убрать SDMS.V_STUD_SPEC.STATUS = 'Y'
+        //TODO: Возможно добавить SDMS.V_STUD_KOLS.UPL_UCH_GOG LIKE '2013/%'
         public IQueryable<Group> GetGroups()
         {
-            return RawSqlQuery<Group>(@"
+            return RawSqlQuery<Group>(@" SELECT DISTINCT 
+                        SDMS.V_STUD_GR.GR_CODE AS Code, 
+                        SDMS.V_STUD_GR.UBU_ID AS id, 
+                        SDMS.V_STUD_GR.FO_BUN_ID AS studytypeid,
+                        SDMS.V_STUD_GR.SPEC_CODE AS SpecialityName,
+                        SDMS.V_STUD_KOLS.KOL_STUD AS StudentsCount
+                    FROM            
+                        SDMS.V_STUD_GR, SDMS.V_STUD_A_GR, SDMS.V_STUD_SPEC, SDMS.V_STUD_KOLS
+                    WHERE
+                        (SDMS.V_STUD_KOLS.UPL_UCH_GOG LIKE '2013/%') AND
+                        (SDMS.V_STUD_GR.SPEC_BUN_ID = SDMS.V_STUD_SPEC.BUN_ID) AND
+                        (SDMS.V_STUD_SPEC.STATUS = 'Y' OR SDMS.V_STUD_SPEC.STATUS IS NULL) AND
+                        (SDMS.V_STUD_A_GR.GR_UBU_ID = SDMS.V_STUD_GR.UBU_ID) AND
+                        (SDMS.V_STUD_KOLS.SPEC_CODE = SDMS.V_STUD_GR.SPEC_CODE)");
+
+            /*return RawSqlQuery<Group>(@"
                     SELECT DISTINCT 
                         SDMS.V_STUD_GR.GR_CODE AS Code, 
                         SDMS.V_STUD_GR.UBU_ID AS id, 
                         SDMS.V_STUD_GR.FO_BUN_ID AS studytypeid,
                         SDMS.V_STUD_GR.SPEC_CODE AS SpecialityName
                     FROM            
-                        SDMS.V_STUD_GR, SDMS.O_BASE_UNIT
-                    WHERE        
-                        (SDMS.O_BASE_UNIT.STATUS = 'Y')");
+                        SDMS.V_STUD_GR, SDMS.O_BASE_UNIT, SDMS.V_STUD_A_GR, SDMS.V_STUD_SPEC, SDMS.V_STUD_KOLS
+                    WHERE
+                        (SDMS.V_STUD_GR.SPEC_BUN_ID = SDMS.V_STUD_SPEC.BUN_ID) AND
+                        (SDMS.V_STUD_SPEC.STATUS = 'Y' OR SDMS.V_STUD_SPEC.STATUS IS NULL) AND
+                        (SDMS.V_STUD_A_GR.GR_UBU_ID = SDMS.V_STUD_GR.UBU_ID) AND
+                        (SDMS.V_STUD_KOLS.SPEC_CODE = SDMS.V_STUD_GR.SPEC_CODE) AND
+                        (SDMS.O_BASE_UNIT.STATUS = 'Y')");*/
         }
 
         public IQueryable<ScheduleType> GetScheduleTypes()
