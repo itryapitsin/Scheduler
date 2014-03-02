@@ -296,6 +296,10 @@
     <Content Include="Areas\Students\Scripts\App\controllers\AuditoriumScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\LecturerScheduleController.js" />
     <Content Include="Areas\Students\Scripts\App\controllers\ThreadScheduleController.js" />
+    <Content Include="ClearScript.V8\ClearScriptV8-32.dll" />
+    <Content Include="ClearScript.V8\ClearScriptV8-64.dll" />
+    <Content Include="ClearScript.V8\v8-ia32.dll" />
+    <Content Include="ClearScript.V8\v8-x64.dll" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\demo.css" />
