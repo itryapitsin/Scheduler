@@ -246,3 +246,4 @@ Host/Data/Timetable.Data.IIAS/App.config
 /Host/Clients/Timetable.Site/Web.config
 /Host/Clients/Timetable.Site/Web.Debug.config
 /Host/Clients/Timetable.Site/Web.Release.config
+/Host/Clients/Timetable.Site/Noesis.Javascript
