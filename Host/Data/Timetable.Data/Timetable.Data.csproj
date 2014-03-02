@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201312221821222_AddApplicationLogsTable.Designer.cs">
       <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312292009026_AddShortNameToBranches.cs" />
+    <Compile Include="Migrations\201312292009026_AddShortNameToBranches.Designer.cs">
+      <DependentUpon>201312292009026_AddShortNameToBranches.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201401311624260_AddUserSettingsFields.cs" />
     <Compile Include="Migrations\201401311624260_AddUserSettingsFields.Designer.cs">
       <DependentUpon>201401311624260_AddUserSettingsFields.cs</DependentUpon>
@@ -217,6 +221,10 @@
     <Compile Include="Migrations\201402131727313_Add_SpecialityNameField_for_groups.cs" />
     <Compile Include="Migrations\201402131727313_Add_SpecialityNameField_for_groups.Designer.cs">
       <DependentUpon>201402131727313_Add_SpecialityNameField_for_groups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201402161037357_AddShortNameToBranches2.cs" />
+    <Compile Include="Migrations\201402161037357_AddShortNameToBranches2.Designer.cs">
+      <DependentUpon>201402161037357_AddShortNameToBranches2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
@@ -340,11 +348,17 @@
     <EmbeddedResource Include="Migrations\201312221821222_AddApplicationLogsTable.resx">
       <DependentUpon>201312221821222_AddApplicationLogsTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312292009026_AddShortNameToBranches.resx">
+      <DependentUpon>201312292009026_AddShortNameToBranches.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401311624260_AddUserSettingsFields.resx">
       <DependentUpon>201401311624260_AddUserSettingsFields.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201402131727313_Add_SpecialityNameField_for_groups.resx">
       <DependentUpon>201402131727313_Add_SpecialityNameField_for_groups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402161037357_AddShortNameToBranches2.resx">
+      <DependentUpon>201402161037357_AddShortNameToBranches2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -14,11 +14,6 @@ namespace Timetable.Site
             var jsTransformer = new JsTransformer();
             var nullOrderer = new NullOrderer();
 
-#if DEBUG
-            BundleTable.EnableOptimizations = false;
-#else
-            BundleTable.EnableOptimizations = true;
-#endif
             var jqueryBundle = new Bundle("~/Scripts/jquery");
             jqueryBundle.Include("~/Scripts/jquery*");
             jqueryBundle.Builder = nullBuilder;
@@ -137,12 +132,12 @@ namespace Timetable.Site
             bootstrapStyleBundle.Builder = nullBuilder;
             bootstrapStyleBundle.Transforms.Add(cssTransformer);
             bootstrapStyleBundle.Orderer = nullOrderer;
-
-            var datepickerStyleBundle = new Bundle("~/Content/bootstrap");
-            datepickerStyleBundle.Include("~/Content/bootstrap/datepicker3.less");
-            datepickerStyleBundle.Builder = nullBuilder;
-            datepickerStyleBundle.Transforms.Add(cssTransformer);
-            datepickerStyleBundle.Orderer = nullOrderer;
+            
+            //var datepickerStyleBundle = new Bundle("~/Content/bootstrap");
+            //datepickerStyleBundle.Include("~/Content/bootstrap/datepicker3.less");
+            //datepickerStyleBundle.Builder = nullBuilder;
+            //datepickerStyleBundle.Transforms.Add(cssTransformer);
+            //datepickerStyleBundle.Orderer = nullOrderer;
 
             var select2StyleBundle = new Bundle("~/Content/select2");
             select2StyleBundle.Include("~/Content/css/select2.css");

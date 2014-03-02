@@ -30,6 +30,7 @@ namespace Timetable.Sync.Logic.SyncData
                         UpdatedDate = DateTime.Now,
                         IIASKey = iiasEntity.Id,
                         Name = iiasEntity.Name,
+                        ShortName = iiasEntity.ShortName,
                         OrganizationId = (int)iiasEntity.OrganizationId,
                         IsActual = true
                     };
@@ -40,6 +41,7 @@ namespace Timetable.Sync.Logic.SyncData
                     schedulerEntity.UpdatedDate = DateTime.Now;
                     schedulerEntity.IIASKey = iiasEntity.Id;
                     schedulerEntity.Name = iiasEntity.Name;
+                    schedulerEntity.ShortName = iiasEntity.ShortName;
                     schedulerEntity.OrganizationId = (int)iiasEntity.OrganizationId;
 
                     SchedulerDatabase.Update(schedulerEntity);
