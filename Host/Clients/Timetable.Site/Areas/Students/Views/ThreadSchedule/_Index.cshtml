@@ -8,5 +8,5 @@
 
 @{ var model = new JsonNetResult(Model);}
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(model.JsonText.Replace("\\","\\\\"))');
+    window.pageModel = @Html.Raw(model.JsonText);
 </script>

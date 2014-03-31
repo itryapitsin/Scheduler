@@ -2,7 +2,7 @@
 @{var model = new JsonNetResult(Model);}
 
 <script>
-    window.pageModel = JSON.parse('@Html.Raw(model.JsonText.Replace("\\","\\\\"))');
+    window.pageModel = @Html.Raw(model.JsonText);
 </script>
 
 <div class="container" style="padding-right: 0; padding-left: 0; margin-top: 75px; overflow-y: visible;">

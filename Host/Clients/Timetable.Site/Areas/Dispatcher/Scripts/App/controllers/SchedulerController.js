@@ -179,7 +179,9 @@
 
         //self.modal.getTimeForPair();
 
-        $(ui.draggable[0]).addClass("hide");
+        //$(ui.draggable[0]).addClass("hide");
+
+
     };
 
     $scope.isFacultySelected = function(){
@@ -339,6 +341,9 @@ function TimetableParamsDialogController($scope, $rootScope) {
 
 function PlaningDialogController($scope, $rootScope, $http) {
 
+    $scope.daysOfWeek = [{ id: 1, name: 'Понедельник' }, { id: 2, name: 'Вторник' }, { id: 3, name: 'Среда' }, { id: 4, name: 'Четверг' }, { id: 5, name: 'Пятница' }, { id: 6, name: 'Суббота' }, { id: 7, name: 'Воскресенье' }];
+    //$scope.subGroup = '1/2';
+
     function getTimePeriod() {
         if ($scope.time)
             return moment($scope.time.start, 'HH:mm:ss').format('HH:mm') + ' - ' + moment($scope.time.end, 'HH:mm:ss').format('HH:mm');
@@ -365,6 +370,8 @@ function PlaningDialogController($scope, $rootScope, $http) {
                 .ToArray();
         }
     }
+
+
     
     function availablePairs() {
         $scope.availablePairs = $scope.pairs;
