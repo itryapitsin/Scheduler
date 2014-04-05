@@ -142,6 +142,13 @@
         $scope.showDialog('planing.modal.html');
     };
 
+    $scope.unplan = function () {
+        //works no as edit, runs broadcast 3 times per one button click
+        //$scope.$broadcast('ticketDeleting', $scope.selectedTicket);
+        //TODO: add confirmation dialog
+        //$scope.showDialog('planing.modal.html');
+    };
+
     $scope.select = function (e, item) {
         $scope.selectedTicket = item;
     };
@@ -161,6 +168,9 @@
     };
 
     $scope.stopDragging = function (e, ui) {
+
+        //TODO: add if case for schedule-ticket and for shedule info
+
         $("#test1").css("overflow-y", "scroll");
 
     };
@@ -168,10 +178,21 @@
     $scope.startDragging = function (e, ui, item) {
         $scope.selectedScheduleInfo = item;
 
+        //TODO: add if case for schedule-ticket and for shedule info
+
         $("#test1").css("overflow", "");
     };
 
+
     $scope.startPlaning = function (e, ui, scope, pair, dayOfWeek) {
+
+        console.log("ui::::");
+        console.log(ui);
+        console.log(pair);
+        console.log(scope);
+
+        //TODO: add if case for schedule-ticket and for shedule info
+
         $scope.pair = pair;
         $scope.dayOfWeek = dayOfWeek;
         $scope.ui = ui;
@@ -416,6 +437,12 @@ function PlaningDialogController($scope, $rootScope, $http) {
     };
 
     $scope.$on('ticketEditing', function (e, newParams) {
+        console.log("editTicket")
+        angular.extend($scope, newParams);
+    });
+
+    $scope.$on('ticketDeleting', function (e, newParams) {
+        console.log("DeleteTicket");
         angular.extend($scope, newParams);
     });
 
