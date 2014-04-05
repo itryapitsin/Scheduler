@@ -162,6 +162,7 @@
 
     $scope.stopDragging = function (e, ui) {
         $("#test1").css("overflow-y", "scroll");
+
     };
 
     $scope.startDragging = function (e, ui, item) {
@@ -176,13 +177,28 @@
         $scope.ui = ui;
         
         $scope.showDialog('planing.modal.html');
+        $("#test1").css("overflow-y", "scroll");
+       
+        //console.log($scope.selectedScheduleInfo);
+
+
+        for (var i = 0; i < $scope.scheduleInfoes.length; ++i)
+            if ($scope.scheduleInfoes[i] == $scope.selectedScheduleInfo)
+                $scope.selectedScheduleInfoIndex = i;
+
+        $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
+            return obj !== $scope.selectedScheduleInfo;
+        });
+
 
         //self.modal.getTimeForPair();
-
         //$(ui.draggable[0]).addClass("hide");
-
-
     };
+
+    $scope.cancelPlaning = function () {
+        $scope.scheduleInfoes.splice($scope.selectedScheduleInfoIndex, 0, $scope.selectedScheduleInfo);
+        $scope.hideDialog();
+    }
 
     $scope.isFacultySelected = function(){
         if ($scope.currentFacultyId == null || $scope.currentFacultyId == undefined || $scope.currentFacultyId == "")
@@ -441,6 +457,6 @@ function PlaningDialogController($scope, $rootScope, $http) {
         
     };
 
-    $scope.cancel = $scope.hideDialog;
+    $scope.cancel = $scope.cancelPlaning;
 }
 
