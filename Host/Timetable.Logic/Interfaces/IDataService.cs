@@ -158,6 +158,27 @@ namespace Timetable.Logic.Interfaces
         StudyYearDataTransfer GetStudyYear(DateTime date);
         IEnumerable<StudyTypeDataTransfer> GetStudyTypes();
 
+
+        /// <summary>
+        /// Редактировать запланированный предмет.
+        /// </summary>
+        /// <exception cref="ScheduleCollisionException"></exception>
+        /// <param name="auditoriumId"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <param name="scheduleId"></param>
+        /// <param name="timeId"></param>
+        /// <param name="weekTypeId"></param>
+        /// <param name="typeId"></param>
+        /// <returns></returns>
+        void PlanEdit(
+            int auditoriumId,
+            int dayOfWeek,
+            int scheduleId,
+            int timeId,
+            int weekTypeId,
+            int typeId,
+            string subGroup);
+
         /// <summary>
         /// Запланировать предмет.
         /// </summary>
@@ -175,7 +196,8 @@ namespace Timetable.Logic.Interfaces
             int scheduleInfoId, 
             int timeId, 
             int weekTypeId, 
-            int typeId);
+            int typeId,
+            string subGroup);
 
         void EditAuditorium(
              string number,

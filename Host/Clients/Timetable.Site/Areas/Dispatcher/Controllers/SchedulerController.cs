@@ -107,7 +107,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                     request.ScheduleInfoId,
                     request.TimeId,
                     request.WeekTypeId,
-                    request.TypeId);
+                    request.TypeId,
+                    request.SubGroup);
 
                 return new JsonNetResult(
                     new SuccessResponse(
@@ -115,7 +116,11 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             }
             catch (ScheduleCollisionException ex)
             {
-                return new JsonNetResult(new FailResponse("Возникла коллизия: проверте правильность параметров"));
+                return new JsonNetResult(new FailResponse("Возникла коллизия: проверьте правильность параметров"));
+            }
+            catch (ScheduleNoDataException ex)
+            {
+                return new JsonNetResult(new FailResponse("Заполнены не все параметры"));
             }
             catch (Exception ex)
             {
@@ -126,7 +131,32 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         [HttpPost]
         public ActionResult Edit(EditScheduleRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DataService.PlanEdit(
+                    request.AuditoriumId,
+                    request.DayOfWeek,
+                    request.ScheduleId,
+                    request.TimeId,
+                    request.WeekTypeId,
+                    request.TypeId,
+                    request.SubGroup);
+
+                return new JsonNetResult(
+                    new SuccessResponse("Занятие успешно изменено"));
+            }
+            catch (ScheduleCollisionException ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла коллизия: проверьте правильность параметров"));
+            }
+            catch (ScheduleNoDataException ex)
+            {
+                return new JsonNetResult(new FailResponse("Заполнены не все параметры"));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
         }
 
         [HttpPost]

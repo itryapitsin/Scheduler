@@ -108,6 +108,7 @@
         initTimetableParams(newParams);
         loadScheduleInfoesForFaculty();
     });
+
     $scope.$on('ticketPlanned', function (e, newParams) {
         delete $scope.draggedScheduleInfo;
         delete $scope.pair;
@@ -115,6 +116,16 @@
         delete $scope.ui;
 
         $scope.schedules.push(newParams.schedule);
+    });
+
+    $scope.$on('ticketEdited', function (e, newParams) {
+        //TODO:
+        /*delete $scope.draggedScheduleInfo;
+        delete $scope.pair;
+        delete $scope.dayOfWeek;
+        delete $scope.ui;
+
+        $scope.schedules.push(newParams.schedule);*/
     });
 
     $scope.$watch('currentGroups', function () {
@@ -167,29 +178,28 @@
             && $scope.currentStudyYearId;
     };
 
-    $scope.stopDragging = function (e, ui) {
+    $scope.stopDragging = function (e, ui, item) {
 
-        //TODO: add if case for schedule-ticket and for shedule info
-
-        $("#test1").css("overflow-y", "scroll");
+        //is a schedule info
+        if(item.time == undefined)
+               $("#test1").css("overflow-y", "scroll");
 
     };
 
     $scope.startDragging = function (e, ui, item) {
-        $scope.selectedScheduleInfo = item;
-
-        //TODO: add if case for schedule-ticket and for shedule info
-
-        $("#test1").css("overflow", "");
+        //if item not schedule ticket
+        if (item.time == undefined) {
+            $("#test1").css("overflow", "");
+            $scope.selectedScheduleInfo = item;
+            //console.log("scheduleInfo");
+        } else {
+            //console.log("scheduleTicket");
+            $scope.selectedTicket = item;
+        }
     };
 
 
     $scope.startPlaning = function (e, ui, scope, pair, dayOfWeek) {
-
-        console.log("ui::::");
-        console.log(ui);
-        console.log(pair);
-        console.log(scope);
 
         //TODO: add if case for schedule-ticket and for shedule info
 
@@ -198,18 +208,28 @@
         $scope.ui = ui;
         
         $scope.showDialog('planing.modal.html');
-        $("#test1").css("overflow-y", "scroll");
-       
-        //console.log($scope.selectedScheduleInfo);
 
+        if ($.inArray('schedule-info-card', ui.draggable[0].classList) > -1) {
+            //if schedule info planning
+            $scope.isSIplanning = true;
+            $("#test1").css("overflow-y", "scroll");
 
-        for (var i = 0; i < $scope.scheduleInfoes.length; ++i)
-            if ($scope.scheduleInfoes[i] == $scope.selectedScheduleInfo)
-                $scope.selectedScheduleInfoIndex = i;
+            //console.log($scope.selectedScheduleInfo);
 
-        $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
-            return obj !== $scope.selectedScheduleInfo;
-        });
+            for (var i = 0; i < $scope.scheduleInfoes.length; ++i)
+                if ($scope.scheduleInfoes[i] == $scope.selectedScheduleInfo)
+                    $scope.selectedScheduleInfoIndex = i;
+
+            $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
+                return obj !== $scope.selectedScheduleInfo;
+            });
+        } else {
+            //if schedule replanning
+            $scope.isSIplanning = false;
+            //console.log($scope.selectedTicket);
+            //console.log($scope.schedules);
+            //console.log($scope.tickets);
+        }
 
 
         //self.modal.getTimeForPair();
@@ -217,7 +237,8 @@
     };
 
     $scope.cancelPlaning = function () {
-        $scope.scheduleInfoes.splice($scope.selectedScheduleInfoIndex, 0, $scope.selectedScheduleInfo);
+        if ($scope.isSIplanning)
+            $scope.scheduleInfoes.splice($scope.selectedScheduleInfoIndex, 0, $scope.selectedScheduleInfo);
         $scope.hideDialog();
     }
 
@@ -451,37 +472,76 @@ function PlaningDialogController($scope, $rootScope, $http) {
     });
 
     $scope.ok = function () {
-        var params = {
-            auditoriumId: $scope.auditorium,
-            dayOfWeek: $scope.dayOfWeek,
-            scheduleInfoId: $scope.selectedScheduleInfo.id,
-            timeId: $scope.time.id,
-            weekTypeId: $scope.weekType,
-            typeId: $scope.scheduleType
-        };
 
-        $http
-            .post($http.prefix + 'Scheduler/Create', params)
-            .success(function (response) {
-                if (response.ok) {
-                    $scope.hideDialog();
-                    $rootScope.$broadcast('ticketPlanned', {
-                        auditoriumId: $scope.auditorium,
-                        dayOfWeek: $scope.dayOfWeek,
-                        scheduleInfoId: $scope.selectedScheduleInfo.id,
-                        timeId: $scope.time.id,
-                        weekTypeId: $scope.weekType,
-                        typeId: $scope.scheduleType,
-                        schedule: response
-                    });
-                }
-                
-                if (response.fail) {
-                    $scope.message = response.message;
-                }
-            });
+        if ($scope.isSIplanning == true) {
+            var params = {
+                auditoriumId: $scope.auditorium,
+                dayOfWeek: $scope.dayOfWeek,
+                scheduleInfoId: $scope.selectedScheduleInfo == undefined ? undefined : $scope.selectedScheduleInfo.id,
+                timeId: $scope.time == undefined ? undefined : $scope.time.id,
+                weekTypeId: $scope.weekType,
+                typeId: $scope.scheduleType,
+                subGroup: $scope.subGroup
+            };
 
-        
+            $http
+                .post($http.prefix + 'Scheduler/Create', params)
+                .success(function (response) {
+                    if (response.ok) {
+                        //TODO: cases for schedule info planning and schedule replanning
+
+                        $scope.hideDialog();
+
+                        $rootScope.$broadcast('ticketPlanned', {
+                            auditoriumId: $scope.auditorium,
+                            dayOfWeek: $scope.dayOfWeek,
+                            scheduleInfoId: $scope.selectedScheduleInfo == undefined ? undefined : $scope.selectedScheduleInfo.id,
+                            timeId: $scope.time == undefined ? undefined : $scope.time.id,
+                            weekTypeId: $scope.weekType,
+                            typeId: $scope.scheduleType,
+                            schedule: response
+                        });
+                    }
+
+                    if (response.fail) {
+                        $scope.message = response.message;
+                    }
+                });
+
+        } else {
+            var params = {
+                auditoriumId: $scope.auditorium,
+                dayOfWeek: $scope.dayOfWeek,
+                scheduleId: $scope.selectedTicket == undefined ? undefined : $scope.selectedTicket.id,
+                timeId: $scope.time == undefined ? undefined : $scope.time.id,
+                weekTypeId: $scope.weekType,
+                typeId: $scope.scheduleType,
+                subGroup: $scope.subGroup
+            };
+
+            $http
+                .post($http.prefix + 'Scheduler/Edit', params)
+                .success(function (response) {
+                    if (response.ok) {
+                        //TODO: cases for schedule info planning and schedule replanning
+
+                        $scope.hideDialog();
+
+                        $rootScope.$broadcast('ticketEdited', {
+                            auditoriumId: $scope.auditorium,
+                            dayOfWeek: $scope.dayOfWeek,
+                            timeId: $scope.time == undefined ? undefined : $scope.time.id,
+                            weekTypeId: $scope.weekType,
+                            typeId: $scope.scheduleType,
+                            schedule: $scope.selectedTicket
+                        });
+                    }
+
+                    if (response.fail) {
+                        $scope.message = response.message;
+                    }
+                });
+        }
     };
 
     $scope.cancel = $scope.cancelPlaning;

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\ScheduleCollisionException.cs" />
+    <Compile Include="Exceptions\ScheduleNoDataException.cs" />
     <Compile Include="Interfaces\IBaseService.cs" />
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Models\AuditoriumScheduleSettings.cs" />

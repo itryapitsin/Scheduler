@@ -2,7 +2,7 @@
     <table class="table table-bordered table-striped" style="margin-bottom: 0px;">
         <tbody>
             <tr ng-repeat="scheduleInfo in scheduleInfoes">
-                <td class="schedule-info-card" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true, onStart: 'startDragging(scheduleInfo)', onStop: 'stopDragging()'}" data-drop="true">
+                <td class="schedule-info-card" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true, onStart: 'startDragging(scheduleInfo)', onStop: 'stopDragging(scheduleInfo)'}" data-drop="true">
                     <p>
                         {{scheduleInfo.tutorialName}}, {{scheduleInfo.tutorialType}}
                         <span class="label label-info">{{scheduleInfo.hoursPerWeek}}</span>

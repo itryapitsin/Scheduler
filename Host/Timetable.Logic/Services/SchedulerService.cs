@@ -841,14 +841,56 @@ namespace Timetable.Logic.Services
                 .Select(x => new StudyTypeDataTransfer(x));
         }
 
+
+        public void PlanEdit(
+            int auditoriumId,
+            int dayOfWeek,
+            int scheduleId,
+            int timeId,
+            int weekTypeId,
+            int typeId,
+            string subGroup
+            )
+        {
+            if (auditoriumId == 0 || dayOfWeek == 0 || scheduleId == 0 || timeId == 0 || weekTypeId == 0 || typeId == 0)
+                throw new ScheduleNoDataException();
+
+            var schedule = Database.Schedules.Where(x => x.Id == scheduleId).FirstOrDefault();
+            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId) > 0;
+            if (hasCollisions)
+                throw new ScheduleCollisionException();
+
+            if (schedule.AuditoriumId != auditoriumId)
+                schedule.Auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
+
+            if (schedule.TimeId != timeId)
+                 schedule.Time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
+
+            if(schedule.WeekTypeId != weekTypeId)
+                schedule.WeekType = Database.WeekTypes.Where(x => x.Id == weekTypeId).FirstOrDefault();
+
+            if (schedule.TypeId != typeId)
+                schedule.Type = Database.ScheduleTypes.Where(x => x.Id == typeId).FirstOrDefault();
+
+            schedule.DayOfWeek = dayOfWeek;
+            schedule.SubGroup = subGroup;
+            
+
+            Database.Update(schedule);
+        }
+
         public ScheduleDataTransfer Plan(
             int auditoriumId,
             int dayOfWeek,
             int scheduleInfoId,
             int timeId, 
             int weekTypeId,
-            int typeId)
+            int typeId,
+            string subGroup)
         {
+            if (auditoriumId == 0 || dayOfWeek == 0 || scheduleInfoId == 0 || timeId == 0 || weekTypeId == 0 || typeId == 0)
+                throw new ScheduleNoDataException();
+
             var schedule = new Schedule
             {
                 AuditoriumId = auditoriumId,
@@ -860,8 +902,11 @@ namespace Timetable.Logic.Services
                 WeekTypeId = weekTypeId,
                 TypeId = typeId,
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now
+                EndDate = DateTime.Now,
+                SubGroup = subGroup,
             };
+
+           
 
             var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId) > 0;
             if(hasCollisions)

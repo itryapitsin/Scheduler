@@ -8,5 +8,6 @@
         public int TimeId { get; set; }
         public int WeekTypeId { get; set; }
         public int TypeId { get; set; }
+        public string SubGroup { get; set; }
     }
 }
