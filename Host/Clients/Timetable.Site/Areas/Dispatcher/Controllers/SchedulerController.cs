@@ -160,9 +160,19 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         }
 
         [HttpPost]
-        public ActionResult Remove(int id)
+        public ActionResult Remove(int scheduleId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DataService.Unplan(scheduleId);
+
+                return new JsonNetResult(
+                    new SuccessResponse("Занятие успешно удалено"));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
         }
     }
 }

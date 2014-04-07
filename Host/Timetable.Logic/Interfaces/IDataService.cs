@@ -179,6 +179,8 @@ namespace Timetable.Logic.Interfaces
             int typeId,
             string subGroup);
 
+        void Unplan(int scheduleId);
+
         /// <summary>
         /// Запланировать предмет.
         /// </summary>

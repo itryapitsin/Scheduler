@@ -5,6 +5,9 @@
                 <h4><i class="glyphicon glyphicon-question-sign"></i> {{confirm.content}}</h4>
             </div>
             <div class="modal-footer">
+                <div class="pull-left text-danger" ng-show='message'>
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;<b>{{message}}</b>
+                </div>
                 <button ng-click="confirm.ok()" class="btn btn-success" ng-disabled="form.$invalid"><i class="icon-white icon-ok"></i> OK</button>
                 <button class="btn" ng-click="confirm.cancel()">Отмена</button>
             </div>

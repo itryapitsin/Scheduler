@@ -924,7 +924,9 @@ namespace Timetable.Logic.Services
 
         public void Unplan(int scheduleId)
         {
-            
+            var schedule = Database.Schedules.Where(x => x.Id == scheduleId).FirstOrDefault();
+            Database.Schedules.Remove(schedule);
+            Database.SaveChanges();
         }
 
 

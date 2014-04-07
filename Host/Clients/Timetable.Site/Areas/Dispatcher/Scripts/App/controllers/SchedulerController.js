@@ -154,14 +154,50 @@
     };
 
     $scope.unplan = function () {
-        //works no as edit, runs broadcast 3 times per one button click
-        //$scope.$broadcast('ticketDeleting', $scope.selectedTicket);
-        //TODO: add confirmation dialog
-        //$scope.showDialog('planing.modal.html');
+   
+        console.log($scope.selectedTicket);
+
+        var ticketName = $scope.selectedTicket.tutorialName + " " + $scope.selectedTicket.lecturerName;
+
+        $scope.confirm = {
+            content: "Вы действительно хотите снять занятие '{0}' ?".replace('{0}', ticketName),
+            ok: function () {
+             
+                var params = {
+                    scheduleId: $scope.selectedTicket.id,
+                };
+
+                $http
+                    .post($http.prefix + 'Scheduler/Remove', params)
+                    .success(function (response) {
+                        if (response.ok) {
+
+                            $scope.hideDialog();
+                  
+                            //TODO: make a updatating ui after deleting ? without reloading ?
+                        }
+
+                        if (response.fail) {
+                            $scope.message = response.message;
+                        }
+                    });
+              
+                $scope.hideDialog();
+            },
+            cancel: function () {
+                $scope.hideDialog();
+            }
+        };
+        $scope.showDialog('confirmation.html');
     };
 
     $scope.select = function (e, item) {
         $scope.selectedTicket = item;
+    };
+
+    //maybe transfer it to base timetable controller ?
+    $scope.isSelectedScheduleTicket = function(schedule){
+        return schedule == $scope.selectedTicket;
     };
 
     $scope.unschedule = function () {
@@ -223,12 +259,16 @@
             $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
                 return obj !== $scope.selectedScheduleInfo;
             });
+
+            //TODO: make a updatating ui after planning ? without reloading ?
         } else {
             //if schedule replanning
             $scope.isSIplanning = false;
             //console.log($scope.selectedTicket);
             //console.log($scope.schedules);
             //console.log($scope.tickets);
+
+            //TODO: make a updatating ui after planning ? without reloading ?
         }
 
 
@@ -458,15 +498,14 @@ function PlaningDialogController($scope, $rootScope, $http) {
     };
 
     $scope.$on('ticketEditing', function (e, newParams) {
-        console.log("editTicket")
+        console.log("editTicket");
+        console.log(newParams);
+        //TODO: add setting params from scheduleTicket
+        //what it for ?
         angular.extend($scope, newParams);
     });
 
-    $scope.$on('ticketDeleting', function (e, newParams) {
-        console.log("DeleteTicket");
-        angular.extend($scope, newParams);
-    });
-
+  
     $scope.$watch('time', function () {
         $scope.timePeriod = getTimePeriod();
     });
