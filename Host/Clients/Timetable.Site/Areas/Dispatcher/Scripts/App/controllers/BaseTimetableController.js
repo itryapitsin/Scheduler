@@ -14,6 +14,7 @@
         return result;
     };
 
+   
     $scope.hasFullScheduleTicket = function (pair, dayOfWeek) {
         var result = $.Enumerable.From(this.schedules)
             .Where(function (x) {

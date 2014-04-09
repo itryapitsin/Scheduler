@@ -55,6 +55,8 @@
             .FirstOrDefault({ name: "<Форма обучения не выбрана>" });
     };
 
+   
+
     function loadScheduleInfoesForFaculty() {
         var groupIds = $.Enumerable.From($scope.currentGroups).Select('$.id').ToArray();
         var params = {
@@ -110,6 +112,9 @@
     });
 
     $scope.$on('ticketPlanned', function (e, newParams) {
+        console.log("ticketPlanned");
+        console.log(newParams);
+
         delete $scope.draggedScheduleInfo;
         delete $scope.pair;
         delete $scope.dayOfWeek;
@@ -120,12 +125,6 @@
 
     $scope.$on('ticketEdited', function (e, newParams) {
         //TODO:
-        /*delete $scope.draggedScheduleInfo;
-        delete $scope.pair;
-        delete $scope.dayOfWeek;
-        delete $scope.ui;
-
-        $scope.schedules.push(newParams.schedule);*/
     });
 
     $scope.$watch('currentGroups', function () {
@@ -149,8 +148,35 @@
     };
 
     $scope.edit = function () {
+        //set parameters of schedule
+
+        $scope.building = $scope.selectedTicket.buildingId;
+        $scope.pair = $scope.selectedTicket.pair;
+        $scope.auditorium = $scope.selectedTicket.auditoriumId;
+        $scope.subGroup = $scope.selectedTicket.subGroup;
+        $scope.scheduleType = $scope.selectedTicket.scheduleTypeId;
+
+        $scope.weekType = $scope.selectedTicket.weekTypeId;
+        $scope.dayOfWeek = $scope.selectedTicket.dayOfWeek;
+
+        //transfer it in other place!
+        //update times and auditoriums
+        $http
+            .get($http.prefix + "Scheduler/BuildingChanged", { params: { buildingId: $scope.building } })
+            .success(function (response) {
+                $scope.times = response.times;
+                $scope.auditoriums = response.auditoriums;
+
+                //getTimeForPair();
+                $scope.time = $.Enumerable.From($scope.times)
+                    .Where(function (item) { return item.position == $scope.pair; })
+                    .FirstOrDefault();
+            });
+
+        //broadcast not work correct
         $scope.$broadcast('ticketEditing', $scope.selectedTicket);
         $scope.showDialog('planing.modal.html');
+
     };
 
     $scope.unplan = function () {
@@ -239,9 +265,13 @@
 
         //TODO: add if case for schedule-ticket and for shedule info
 
+       
+
         $scope.pair = pair;
         $scope.dayOfWeek = dayOfWeek;
         $scope.ui = ui;
+
+        
         
         $scope.showDialog('planing.modal.html');
 
@@ -264,9 +294,33 @@
         } else {
             //if schedule replanning
             $scope.isSIplanning = false;
-            //console.log($scope.selectedTicket);
-            //console.log($scope.schedules);
-            //console.log($scope.tickets);
+            
+
+            //set parameters of schedule
+
+            $scope.building = $scope.selectedTicket.buildingId;
+            $scope.pair = pair;
+            $scope.auditorium = $scope.selectedTicket.auditoriumId;
+            $scope.subGroup = $scope.selectedTicket.subGroup;
+            $scope.scheduleType = $scope.selectedTicket.scheduleTypeId;
+
+
+            $scope.weekType = $scope.selectedTicket.weekTypeId;
+            $scope.dayOfWeek = dayOfWeek;
+
+            //transfer it in other place!
+            //update times and auditoriums
+            $http
+                .get($http.prefix + "Scheduler/BuildingChanged", { params: { buildingId: $scope.building } })
+                .success(function (response) {
+                    $scope.times = response.times;
+                    $scope.auditoriums = response.auditoriums;
+
+                    //getTimeForPair();
+                    $scope.time = $.Enumerable.From($scope.times)
+                        .Where(function (item) { return item.position == $scope.pair; })
+                        .FirstOrDefault();
+                });
 
             //TODO: make a updatating ui after planning ? without reloading ?
         }
@@ -448,16 +502,24 @@ function PlaningDialogController($scope, $rootScope, $http) {
         else return '';
     }
 
-    function getTimeForPair () {
+
+    //transfer logic to server ?
+    function getTimeForPair() {
+        //console.log("getTimeForPair");
+        //console.log($scope.times);
         $scope.time = $.Enumerable.From($scope.times)
             .Where(function (item) { return item.position == $scope.pair; })
             .FirstOrDefault();
     };
     
+
+
+    //transfer logic to server ?
     function availableWeekTypes() {
         var exp = $.Enumerable.From($scope.tickets);
         var query = '$.weekTypeName=="{0}"';
         $scope.availableWeekTypes = [];
+
         angular.copy($scope.weekTypes, $scope.availableWeekTypes);
 
         if (exp.Count() > 0) {
@@ -470,7 +532,7 @@ function PlaningDialogController($scope, $rootScope, $http) {
     }
 
 
-    
+    //transfer logic to server ?
     function availablePairs() {
         $scope.availablePairs = $scope.pairs;
     }
@@ -497,9 +559,10 @@ function PlaningDialogController($scope, $rootScope, $http) {
         availablePairs();
     };
 
+   
+
     $scope.$on('ticketEditing', function (e, newParams) {
-        console.log("editTicket");
-        console.log(newParams);
+      
         //TODO: add setting params from scheduleTicket
         //what it for ?
         angular.extend($scope, newParams);
