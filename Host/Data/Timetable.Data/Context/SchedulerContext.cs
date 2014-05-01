@@ -39,6 +39,8 @@ namespace Timetable.Data.Context
         public DbSet<ScheduleType> ScheduleTypes { get; set; }
         public DbSet<StudyType> StudyTypes { get; set; }
         public DbSet<Semester> Semesters { get; set; }
+        public DbSet<AuditoriumOrder> AuditoriumOrders { get; set; }
+        public DbSet<Exam> Exams { get; set; }
 
         public SchedulerContext()
         {

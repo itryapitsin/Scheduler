@@ -226,10 +226,15 @@
     <Compile Include="Migrations\201402161037357_AddShortNameToBranches2.Designer.cs">
       <DependentUpon>201402161037357_AddShortNameToBranches2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405012007559_AddAuditoriumOrdersAndExamsEntities.cs" />
+    <Compile Include="Migrations\201405012007559_AddAuditoriumOrdersAndExamsEntities.Designer.cs">
+      <DependentUpon>201405012007559_AddAuditoriumOrdersAndExamsEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Scheduler\AuditoriumEqualityComparer.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumOrder.cs" />
     <Compile Include="Models\Scheduler\BaseIIASEntity.cs" />
     <Compile Include="Models\Personalization\User.cs" />
     <Compile Include="Models\Personalization\UserRole.cs" />
@@ -240,6 +245,7 @@
     <Compile Include="Models\Scheduler\Building.cs" />
     <Compile Include="Models\Scheduler\Course.cs" />
     <Compile Include="Models\Scheduler\Departament.cs" />
+    <Compile Include="Models\Scheduler\Exam.cs" />
     <Compile Include="Models\Scheduler\Faculty.cs" />
     <Compile Include="Models\Scheduler\Group.cs" />
     <Compile Include="Models\Scheduler\Lecturer.cs" />
@@ -359,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201402161037357_AddShortNameToBranches2.resx">
       <DependentUpon>201402161037357_AddShortNameToBranches2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405012007559_AddAuditoriumOrdersAndExamsEntities.resx">
+      <DependentUpon>201405012007559_AddAuditoriumOrdersAndExamsEntities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

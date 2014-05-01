@@ -1793,5 +1793,133 @@ namespace Timetable.Logic.Services
             Database.Schedules.Remove(schedule);
             Database.SaveChanges();
         }
+
+
+        public void PlanAuditoriumOrder(
+                string tutorialName,
+                string lecturerName,
+                string threadName,
+                int dayOfWeek,
+                int timeId,
+                int auditoriumId,
+                bool autoDelete
+            )
+        {
+
+            var auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
+            var time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
+
+            Database.AuditoriumOrders.Add(
+                    new AuditoriumOrder
+                    {
+                        TutorialName = tutorialName,
+                        LecturerName = lecturerName,
+                        ThreadName = threadName,
+                        DayOfWeek = dayOfWeek,
+                        Time = time,
+                        Auditorium = auditorium,
+                        AutoDelete = autoDelete
+                    }
+                );
+            Database.SaveChanges();
+        }
+
+        public void EditAuditoriumOrder(
+                string tutorialName,
+                string lecturerName,
+                string threadName,
+                int auditoriumOrderId
+            )
+        {
+
+            var auditoriumOrder = Database.AuditoriumOrders.Where(x => x.Id == auditoriumOrderId).FirstOrDefault();
+
+            auditoriumOrder.ThreadName = threadName;
+            auditoriumOrder.LecturerName = lecturerName;
+            auditoriumOrder.TutorialName = tutorialName;
+
+            Database.Update(auditoriumOrder);
+        }
+
+        public void UnplanAuditoriumOrder(
+                int auditoriumOrderId
+            )
+        {
+            var auditoriumOrder = Database.AuditoriumOrders.Where(x => x.Id == auditoriumOrderId).FirstOrDefault();
+            Database.AuditoriumOrders.Remove(auditoriumOrder);
+            Database.SaveChanges();
+        }
+
+        public IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
+            int timeId, 
+            int dayOfWeek, 
+            int buildingId)
+        {
+            var result = Database.AuditoriumOrders.Where(
+                x => x.Time.Id == timeId &&
+                x.DayOfWeek == dayOfWeek &&
+                x.Auditorium.Building.Id == buildingId).AsQueryable();
+
+            return result
+                .ToList()
+                .Select(x => new AuditoriumOrderDataTransfer(x));
+        }
+
+        public void PlanExam(
+                int? lecturerId,
+                int tutorialId,
+                int? groupId,
+                int? auditoriumId,
+                DateTime time
+            )
+        {
+            Data.Models.Scheduler.Auditorium auditorium = null;
+            Data.Models.Scheduler.Lecturer lecturer = null;
+            Data.Models.Scheduler.Group group = null;
+
+            if(auditoriumId.HasValue)
+                auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId.Value).FirstOrDefault();
+
+            if (lecturerId.HasValue)
+                lecturer = Database.Lecturers.Where(x => x.Id == lecturerId.Value).FirstOrDefault();
+
+            if (groupId.HasValue)
+                group = Database.Groups.Where(x => x.Id == groupId.Value).FirstOrDefault();
+
+            var tutorial = Database.Tutorials.Where(x => x.Id == tutorialId).FirstOrDefault();
+
+            Database.Exams.Add(
+                    new Exam
+                    {
+                        Tutorial = tutorial,
+                        Lecturer = lecturer,
+                        Group = group,
+                        Auditorium = auditorium,
+                        Time = time
+                    }
+                );
+            Database.SaveChanges();
+        }
+
+        public void UnplanExam(
+                int examId
+            )
+        {
+            var exam = Database.Exams.Where(x => x.Id == examId).FirstOrDefault();
+            Database.Exams.Remove(exam);
+            Database.SaveChanges();
+        }
+
+        public IEnumerable<ExamDataTransfer> GetExams(
+            int LecturerId
+            )
+        {
+            var result = Database.Exams.Where(
+                x => x.LecturerId == LecturerId).AsQueryable();
+
+            return result
+                .ToList()
+                .Select(x => new ExamDataTransfer(x));
+        }
     }
 }

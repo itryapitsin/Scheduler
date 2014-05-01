@@ -454,6 +454,42 @@ namespace Timetable.Logic.Interfaces
 
         void DeleteSchedule(int scheduleId);
 
+        void PlanAuditoriumOrder(
+                string tutorialName,
+                string lecturerName,
+                string threadName,
+                int dayOfWeek,
+                int timeId,
+                int auditoriumId,
+                bool autoDelete
+            );
+        void EditAuditoriumOrder(
+                string tutorialName,
+                string lecturerName,
+                string threadName,
+                int auditoriumOrderId
+            );
+        void UnplanAuditoriumOrder(
+                int auditoriumOrderId
+            );
+
+        IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
+            int timeId,
+            int dayOfWeek,
+            int buildingId);
+
+        void PlanExam(
+                int? lecturerId,
+                int tutorialId,
+                int? groupId,
+                int? auditoriumId,
+                DateTime time
+            );
+
+        void UnplanExam(
+                int examId
+            );
+
         IEnumerable<DepartmentDataTransfer>  GetDepartments();
 
         IEnumerable<PositionDataTransfer> GetPositions();

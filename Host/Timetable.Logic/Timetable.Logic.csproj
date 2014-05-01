@@ -53,12 +53,14 @@
     <Compile Include="Models\DataSettings.cs" />
     <Compile Include="Models\LecturerScheduleSettings.cs" />
     <Compile Include="Models\Scheduler\AuditoriumDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\AuditoriumOrderDataTransfer.cs" />
     <Compile Include="Models\Scheduler\AuditoriumTypeDataTransfer.cs" />
     <Compile Include="Models\Scheduler\BaseDataTransfer.cs" />
     <Compile Include="Models\Scheduler\BranchDataTransfer.cs" />
     <Compile Include="Models\Scheduler\BuildingDataTransfer.cs" />
     <Compile Include="Models\Scheduler\CourseDataTransfer.cs" />
     <Compile Include="Models\Scheduler\DepartamentDataTransfer.cs" />
+    <Compile Include="Models\Scheduler\ExamDataTransfer.cs" />
     <Compile Include="Models\Scheduler\FacultyDataTransfer.cs" />
     <Compile Include="Models\Scheduler\GroupDataTransfer.cs" />
     <Compile Include="Models\Scheduler\LecturerDataTransfer.cs" />
