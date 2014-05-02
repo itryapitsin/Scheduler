@@ -75,6 +75,11 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return PartialView("_General", model);
         }
 
+        public PartialViewResult Order()
+        {
+            return PartialView("_Order");
+        }
+
         /// <summary>
         /// Used in auditoriumScheduleController.js
         /// </summary>

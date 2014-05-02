@@ -164,6 +164,7 @@
     <Compile Include="Areas\Dispatcher\Controllers\MainController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\ReportController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\SchedulerController.cs" />
+    <Compile Include="Areas\Dispatcher\Controllers\SessionScheduleController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\SettingsController.cs" />
     <Compile Include="Areas\Dispatcher\Controllers\UserController.cs" />
     <Compile Include="Areas\Dispatcher\DispatcherAreaRegistration.cs" />
@@ -226,8 +227,12 @@
     <Compile Include="Areas\Students\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Students\Models\ViewModels\ThreadScheduleViewModel.cs" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\AuditoriumScheduleOrderController.js" />
+    <Content Include="Areas\Dispatcher\Scripts\App\controllers\SessionScheduleController.js" />
     <Content Include="Areas\Dispatcher\Views\Settings\_GroupsEditTable.cshtml" />
     <Content Include="Areas\Dispatcher\Views\Settings\_EditGroupModal.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\AuditoriumSchedule\_Order.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\SessionSchedule\_Index.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -22,9 +22,19 @@ app.config(function ($routeProvider) {
         controller: AuditoriumScheduleController,
     };
 
+    var sessionScheduleRoute = {
+        templateUrl: prefix + 'sessionschedule',
+        controller: SessionScheduleController,
+    };
+
     var auditoriumScheduleGeneralRoute = {
         templateUrl: prefix + 'auditoriumschedule/general',
         controller: AuditoriumScheduleGeneralController,
+    };
+
+    var auditoriumScheduleOrderRoute = {
+        templateUrl: prefix + 'auditoriumschedule/order',
+        controller: AuditoriumScheduleOrderController,
     };
 
     var settingsRoute = {
@@ -36,7 +46,9 @@ app.config(function ($routeProvider) {
         .when('/scheduler', schedulerRoute)
         .when('/lecturerschedule', lecturerScheduleRoute)
         .when('/auditoriumschedule', auditoriumScheduleRoute)
+        .when('/sessionschedule', sessionScheduleRoute)
         .when('/auditoriumschedule/general', auditoriumScheduleGeneralRoute)
+        .when('/auditoriumschedule/order', auditoriumScheduleOrderRoute)
         .when('/settings', settingsRoute)
         .otherwise({ redirectTo: '/scheduler' });
 });

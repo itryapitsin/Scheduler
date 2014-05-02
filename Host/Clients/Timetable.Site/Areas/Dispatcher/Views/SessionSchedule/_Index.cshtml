@@ -1,0 +1,7 @@
+﻿@using Newtonsoft.Json
+
+<h2>Session schedule</h2>
+
+<script>
+    window.pageModel = @Html.Raw(JsonConvert.SerializeObject(Model));
+</script>

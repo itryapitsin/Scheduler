@@ -91,7 +91,9 @@ namespace Timetable.Site
                 "~/Areas/Dispatcher/Scripts/App/Controllers/settingsController.js",
                 "~/Areas/Dispatcher/Scripts/App/Controllers/schedulerController.js",
                 "~/Areas/Dispatcher/Scripts/App/Controllers/lecturerScheduleController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/sessionScheduleController.js",
                 "~/Areas/Dispatcher/Scripts/App/Controllers/auditoriumScheduleController.js",
+                "~/Areas/Dispatcher/Scripts/App/Controllers/auditoriumScheduleOrderController.js",
                 "~/Areas/Dispatcher/Scripts/App/Controllers/auditoriumScheduleGeneralController.js");
             dispatcherApp.Builder = nullBuilder;
             dispatcherApp.Transforms.Add(jsTransformer);
