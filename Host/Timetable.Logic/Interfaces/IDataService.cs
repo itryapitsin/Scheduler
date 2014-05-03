@@ -111,6 +111,12 @@ namespace Timetable.Logic.Interfaces
             int studyYear,
             int semester);
         IEnumerable<ScheduleDataTransfer> GetSchedules(
+            int[] auditoriumIds,
+            int studyYear,
+            int semester,
+            int timeId,
+            int dayOfWeek);
+        IEnumerable<ScheduleDataTransfer> GetSchedules(
             int auditoriumTypeId,
             int studyYear,
             int semester);
@@ -477,6 +483,12 @@ namespace Timetable.Logic.Interfaces
             int timeId,
             int dayOfWeek,
             int buildingId);
+
+        IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
+            int timeId,
+            int dayOfWeek,
+            int buildingId,
+            int[] auditoriumTypeIds = null);
 
         void PlanExam(
                 int? lecturerId,

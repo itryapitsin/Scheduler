@@ -1,1 +1,54 @@
-﻿<h2>Auditorium ordering</h2>
+﻿@using Newtonsoft.Json
+@using Timetable.Site.Infrastructure
+
+@Html.Partial("Modals/_Ordering")
+
+<div class="navbar navbar-default navbar-fixed-top navbar-child" role="navigation" style="top:51px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <form class="navbar-form navbar-left" style="width: 100%">
+                <div class="form-group col-sm-3">
+                    <select class="form-control" required="required" ng-change="buildingChanged()" ng-model="building" ng-options="building.id as building.name for building in pageModel.buildings"></select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <select class="form-control" required="required" ng-change="auditoriumTypeChanged()" ng-model="auditoriumType" ng-options="auditoriumType.id as auditoriumType.name for auditoriumType in pageModel.auditoriumTypes"></select>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <select class="form-control" required="required" ng-change="timeChanged()" ng-model="time" ng-options="time as moment(time.start, 'HH:mm:ss').format('HH:mm') + '-' + moment(time.end, 'HH:mm:ss').format('HH:mm') for time in pageModel.times"></select>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <select class="form-control" required="required" ng-change="dayOfWeekChanged()" ng-model="dayOfWeek" ng-options="dayOfWeek as dayOfWeek.name for dayOfWeek in daysOfWeek"></select>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid" style="position: absolute; left: 0; width: 100%; top: 100px; bottom:0; overflow-y: scroll;">
+
+        <div ng-repeat="auditorium in auditoriums">
+            <div style="cursor:pointer; width: 200px; height: 200px; border: solid 1px; border-color: lightgray; float: left;"
+                 ng-click="select($event, auditorium)">
+                <p style="margin: 0">
+                    {{auditorium.number}}
+                </p>
+                <div ng-repeat="schedule in schedulesInAuditorium(auditorium.id)">
+                    <div class="schedule-card alert"
+                         style="background-color:#FFC0CB">
+                        <span>{{schedule.tutorialName}}</span>,
+                        <span>{{schedule.lecturerName}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ var model = new JsonNetResult(Model); }
+<script>
+       window.pageModel = @Html.Raw(model.JsonText);
+</script>

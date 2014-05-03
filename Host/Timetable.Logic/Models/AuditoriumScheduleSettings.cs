@@ -10,6 +10,11 @@ namespace Timetable.Logic.Models
         public int? StudyYearId { get; set; }
         public int? SemesterId { get; set; }
         public int? BuildingId { get; set; }
+
+        public int? TimeId { get; set; }
+
+        public int? DayOfWeek { get; set; }
+
         public IEnumerable<int> AuditoriumTypeIds { get; set; }
 
         public AuditoriumScheduleSettings(User user)
@@ -22,6 +27,10 @@ namespace Timetable.Logic.Models
             StudyYearId = user.AuditoriumScheduleSelectedStudyYearId;
             SemesterId = user.AuditoriumScheduleSelectedSemesterId;
             BuildingId = user.AuditoriumScheduleSelectedBuildingId;
+
+            //TODO: may be move in separated setting class
+            TimeId = user.AuditoriumScheduleSelectedTimeId;
+            DayOfWeek = user.AuditoriumScheduleSelectedDayOfWeek;
         }
     }
 }

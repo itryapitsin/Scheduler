@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Timetable.Site.Areas.Dispatcher.Models.RequestModels;
@@ -77,7 +78,9 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
         public PartialViewResult Order()
         {
-            return PartialView("_Order");
+            var model = new AuditoriumScheduleOrderViewModel(DataService, UserData);
+
+            return PartialView("_Order", model);
         }
 
         /// <summary>
@@ -173,5 +176,60 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
             return new JsonNetResult(model);
         }
+
+        /// <summary>
+        /// Used in auditoriumScheduleOrderController.js
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ActionResult GetAuditoriumsAndOrders(AuditoriumsOrderRequest request)
+        {
+            UserData.AuditoriumScheduleSettings.BuildingId = request.BuildingId;
+            UserData.AuditoriumScheduleSettings.AuditoriumId = null;
+            UserData.AuditoriumScheduleSettings.TimeId = request.TimeId;
+            UserData.AuditoriumScheduleSettings.DayOfWeek = request.DayOfWeek;
+            UserData.AuditoriumScheduleSettings.AuditoriumTypeIds = new List<int> { request.AuditoriumTypeId };
+            UserService.SaveUserState(UserData);
+
+            var studyYear = DataService.GetStudyYear(DateTime.Now);
+            var semester = DataService.GetSemesterForTime(DateTime.Now);
+
+            var auditoriums = DataService
+                .GetAuditoriums(
+                    request.BuildingId,
+                    new[] { request.AuditoriumTypeId },
+                    true)
+                .Select(x => new AuditoriumViewModel(x));
+
+
+            var auditoriumIds = auditoriums.Select(x => x.Id).ToArray();
+
+            var schedules = DataService
+                .GetSchedules(
+                    auditoriumIds, 
+                    studyYear.Id,
+                    semester.Id,
+                    request.TimeId,
+                    request.DayOfWeek)
+                .Select(x => new ScheduleViewModel(x));
+
+
+            var model = new GetAuditoriumsAndOrdersResponse
+            {
+                Auditoriums = auditoriums,
+                AuditoriumOrders = DataService.GetAuditoriumOrders(
+                     request.TimeId,
+                     request.DayOfWeek,
+                     request.BuildingId,
+                     new List<int> { request.AuditoriumTypeId }.ToArray()
+                     ).Select(x => new AuditoriumOrderViewModel(x)),
+
+                Schedules = schedules
+            };
+
+            return new JsonNetResult(model);
+        }
     }
+
+
 }

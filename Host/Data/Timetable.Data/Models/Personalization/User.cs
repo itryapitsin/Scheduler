@@ -38,6 +38,12 @@ namespace Timetable.Data.Models.Personalization
         public int? AuditoriumScheduleSelectedAuditoriumId { get; set; }
         public virtual StudyYear AuditoriumScheduleSelectedStudyYear { get; set; }
         public int? AuditoriumScheduleSelectedStudyYearId { get; set; }
+
+        public virtual Time AuditoriumScheduleSelectedTime { get; set; }
+        public int? AuditoriumScheduleSelectedTimeId { get; set; }
+
+        public int? AuditoriumScheduleSelectedDayOfWeek { get; set; }
+
         public virtual Semester AuditoriumScheduleSelectedSemester { get; set; }
         public int? AuditoriumScheduleSelectedSemesterId { get; set; }
         public virtual List<AuditoriumType> AuditoriumScheduleSelectedAuditoriumTypes { get; set; }

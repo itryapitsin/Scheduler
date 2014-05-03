@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201405012007559_AddAuditoriumOrdersAndExamsEntities.Designer.cs">
       <DependentUpon>201405012007559_AddAuditoriumOrdersAndExamsEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405031735228_AddNewFieldsInUserSettings.cs" />
+    <Compile Include="Migrations\201405031735228_AddNewFieldsInUserSettings.Designer.cs">
+      <DependentUpon>201405031735228_AddNewFieldsInUserSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -368,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405012007559_AddAuditoriumOrdersAndExamsEntities.resx">
       <DependentUpon>201405012007559_AddAuditoriumOrdersAndExamsEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405031735228_AddNewFieldsInUserSettings.resx">
+      <DependentUpon>201405031735228_AddNewFieldsInUserSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

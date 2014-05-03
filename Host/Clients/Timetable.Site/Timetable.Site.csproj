@@ -169,6 +169,7 @@
     <Compile Include="Areas\Dispatcher\Controllers\UserController.cs" />
     <Compile Include="Areas\Dispatcher\DispatcherAreaRegistration.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumScheduleRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumsOrderRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumsScheduleRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditAuditoriumRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditAuditoriumTypeRequest.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\SignInRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\UserStateChangedRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\AuditoriumCreateEditeModalDataResponse.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetAuditoriumsAndOrdersResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\BranchesInCourseCreateEditResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\BuildingsInAuditoriumCreateEditResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\BuildingsInTimeCreateEditResponse.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\GetSchedulesAndInfoesResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ResponseModels\TimeCreateEditModalDataResponse.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleGeneralViewModel.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleOrderViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleForLecturersWithTimesViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\SettingsViewModel.cs" />
@@ -233,6 +236,7 @@
     <Content Include="Areas\Dispatcher\Views\Settings\_EditGroupModal.cshtml" />
     <Content Include="Areas\Dispatcher\Views\AuditoriumSchedule\_Order.cshtml" />
     <Content Include="Areas\Dispatcher\Views\SessionSchedule\_Index.cshtml" />
+    <Content Include="Areas\Dispatcher\Views\AuditoriumSchedule\Modals\_Ordering.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>

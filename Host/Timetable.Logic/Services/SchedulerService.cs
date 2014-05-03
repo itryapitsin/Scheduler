@@ -539,6 +539,26 @@ namespace Timetable.Logic.Services
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedules(
+            int[] auditoriumIds,
+            int studyYear,
+            int semester,
+            int timeId,
+            int dayOfWeek)
+        {
+            if (auditoriumIds.Count() == 0)
+                return Enumerable.Empty<ScheduleDataTransfer>();
+
+            var result = GetSchedules()
+                .Where(x => auditoriumIds.Any(y => y == x.AuditoriumId))
+                .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
+                .Where(x => x.ScheduleInfo.SemesterId == semester)
+                .Where(x => x.TimeId == timeId && x.DayOfWeek == dayOfWeek);
+
+            //TODO: Убрать GroupBy
+            return result.ToList().Select(x => new ScheduleDataTransfer(x));
+        }
+
+        public IEnumerable<ScheduleDataTransfer> GetSchedules(
             int auditoriumTypeId,
             int studyYear,
             int semester)
@@ -1860,6 +1880,27 @@ namespace Timetable.Logic.Services
                 x.DayOfWeek == dayOfWeek &&
                 x.Auditorium.Building.Id == buildingId).AsQueryable();
 
+            return result
+                .ToList()
+                .Select(x => new AuditoriumOrderDataTransfer(x));
+        }
+
+
+        
+ 
+        public IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
+            int timeId,
+            int dayOfWeek,
+            int buildingId,
+            int[] auditoriumTypeIds = null)
+        {
+            var result = Database.AuditoriumOrders.Where(
+                x => x.Time.Id == timeId &&
+                x.DayOfWeek == dayOfWeek &&
+                x.Auditorium.Building.Id == buildingId &&
+                auditoriumTypeIds.Contains(x.Auditorium.AuditoriumType.Id)).AsQueryable();
+
+       
             return result
                 .ToList()
                 .Select(x => new AuditoriumOrderDataTransfer(x));
