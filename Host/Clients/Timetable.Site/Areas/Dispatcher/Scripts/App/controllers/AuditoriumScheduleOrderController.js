@@ -14,11 +14,11 @@
         return element.id == pageModel.timeId;
     })[0];
 
-    //console.log("time");
-    //console.log($scope.time);
+    console.log("auditoriumOrders ");
+    console.log($scope.auditoriumOrders);
 
     $scope.daysOfWeek = [{ id: 1, name: "Понедельник" }, { id: 2, name: "Вторник" }, { id: 3, name: "Среда" }, { id: 4, name: "Четверг" }, { id: 5, name: "Пятница" }, { id: 6, name: "Суббота" }, { id: 7, name: "Воскресенье" }];
-    $scope.dayOfWeek = $scope.daysOfWeek[pageModel.dayOfWeek];
+    $scope.dayOfWeek = $scope.daysOfWeek[pageModel.dayOfWeek-1];
 
     console.log($scope.pageModel);
 
@@ -80,6 +80,21 @@
         return schedulesIn;
     }
 
+    $scope.ordersInAuditorium = function (auditoriumId) {
+        var ordersIn = [];
+
+        //console.log($scope.schedules.length);
+
+        if ($scope.auditoriumOrders) {
+            for (var i = 0; i < $scope.auditoriumOrders.length; ++i) {
+                if ($scope.auditoriumOrders[i])
+                    if ($scope.auditoriumOrders[i].auditoriumId == auditoriumId)
+                        ordersIn.push($scope.auditoriumOrders[i]);
+            }
+        }
+        return ordersIn;
+    }
+
     $scope.isValid = function () {
         return $scope.building
             && $scope.auditoriumType
@@ -99,8 +114,31 @@
 
 function OrderingDialogController($scope, $rootScope, $http) {
 
+    $scope.lecturerName;
+    $scope.tutorialName;
+    $scope.threadName;
+
+    $scope.currentAutoDeleteState = false;
+
+    $scope.autoDeletes = [{ state: true, name: "Да" }, { state: false, name: "Нет" }];
+
     $scope.ok = function () {
-        console.log($scope.selectedAuditorium);
+        $http
+            .get($http.prefix + 'AuditoriumSchedule/OrderAuditorium',
+                {
+                    params: {
+                        LecturerName: $scope.lecturerName,
+                        TutorialName: $scope.tutorialName,
+                        ThreadName: $scope.threadName,
+                        AuditoriumId: $scope.selectedAuditorium.id,
+                        TimeId: $scope.selectedTime.id,
+                        DayOfWeek: $scope.selectedDayOfWeek.id,
+                        AutoDelete: $scope.currentAutoDeleteState
+                    }
+                })
+            .success(function (response) {
+                console.log("success plan order");
+            });
         $scope.hideDialog();
     };
 

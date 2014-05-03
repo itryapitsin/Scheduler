@@ -12,9 +12,12 @@ namespace Timetable.Logic.Models.Scheduler
 
         public AuditoriumTypeDataTransfer(AuditoriumType auditoriumType)
         {
-            Name = auditoriumType.Name;
-            Pattern = auditoriumType.Pattern;
-            Id = auditoriumType.Id;
+            if (auditoriumType != null)
+            {
+                Name = auditoriumType.Name;
+                Pattern = auditoriumType.Pattern;
+                Id = auditoriumType.Id;
+            }
         }
 
         public AuditoriumTypeDataTransfer()

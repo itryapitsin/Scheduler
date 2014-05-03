@@ -17,10 +17,13 @@ namespace Timetable.Logic.Models.Scheduler
 
         public TimeDataTransfer(Time time)
         {
-            Id = time.Id;
-            Start = time.Start;
-            End = time.End;
-            Position = time.Position;
+            if (time != null)
+            {
+                Id = time.Id;
+                Start = time.Start;
+                End = time.End;
+                Position = time.Position;
+            }
         }
     }
 }

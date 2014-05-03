@@ -15,11 +15,13 @@ namespace Timetable.Logic.Models.Scheduler
         public string Info { get; set; }
         public BuildingDataTransfer(Building building)
         {
-            Id = building.Id;
-            Name = building.Name;
-            Address = building.Address;
-            ShortName = building.ShortName;
-            Info = building.Info;
+            if(building != null){
+                Id = building.Id;
+                Name = building.Name;
+                Address = building.Address;
+                ShortName = building.ShortName;
+                Info = building.Info;
+            }
         }
 
         public BuildingDataTransfer()

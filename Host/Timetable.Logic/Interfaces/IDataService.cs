@@ -460,7 +460,7 @@ namespace Timetable.Logic.Interfaces
 
         void DeleteSchedule(int scheduleId);
 
-        void PlanAuditoriumOrder(
+       AuditoriumOrderDataTransfer PlanAuditoriumOrder(
                 string tutorialName,
                 string lecturerName,
                 string threadName,

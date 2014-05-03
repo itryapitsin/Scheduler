@@ -1815,7 +1815,7 @@ namespace Timetable.Logic.Services
         }
 
 
-        public void PlanAuditoriumOrder(
+        public AuditoriumOrderDataTransfer PlanAuditoriumOrder(
                 string tutorialName,
                 string lecturerName,
                 string threadName,
@@ -1829,8 +1829,8 @@ namespace Timetable.Logic.Services
             var auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
             var time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
 
-            Database.AuditoriumOrders.Add(
-                    new AuditoriumOrder
+
+            var auditoriumOrder = new AuditoriumOrder
                     {
                         TutorialName = tutorialName,
                         LecturerName = lecturerName,
@@ -1838,10 +1838,16 @@ namespace Timetable.Logic.Services
                         DayOfWeek = dayOfWeek,
                         Time = time,
                         Auditorium = auditorium,
-                        AutoDelete = autoDelete
-                    }
+                        AutoDelete = autoDelete,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    };
+            Database.AuditoriumOrders.Add(
+                    auditoriumOrder
                 );
             Database.SaveChanges();
+
+            return new AuditoriumOrderDataTransfer(auditoriumOrder);
         }
 
         public void EditAuditoriumOrder(

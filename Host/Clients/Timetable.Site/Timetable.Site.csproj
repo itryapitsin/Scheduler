@@ -193,6 +193,7 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetScheduleBaseRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetScheduleForLecturerRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetSchedulesAndInfoesRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\OrderAuditoriumRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\ReportForAuditoriumRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\ReportForLecturerRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\SaveSettingsRequest.cs" />

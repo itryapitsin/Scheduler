@@ -43,6 +43,13 @@
                         <span>{{schedule.lecturerName}}</span>
                     </div>
                 </div>
+                <div ng-repeat="order in ordersInAuditorium(auditorium.id)">
+                    <div class="schedule-card alert"
+                         style="background-color:#AAC1EE">
+                        <span>{{order.tutorialName}}</span>,
+                        <span>{{order.lecturerName}}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

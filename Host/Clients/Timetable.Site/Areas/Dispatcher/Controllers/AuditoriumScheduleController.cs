@@ -229,7 +229,28 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
             return new JsonNetResult(model);
         }
+
+        public ActionResult OrderAuditorium(OrderAuditoriumRequest request)
+        {
+           try
+           {
+                var result = DataService.PlanAuditoriumOrder(
+                    request.TutorialName,
+                    request.LecturerName,
+                    request.ThreadName,
+                    request.DayOfWeek,
+                    request.TimeId,
+                    request.AuditoriumId,
+                    request.AutoDelete);
+
+                return new JsonNetResult(
+                    new SuccessResponse(
+                        new AuditoriumOrderViewModel(result)));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
+        }
     }
-
-
 }
