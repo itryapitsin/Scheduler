@@ -22,6 +22,7 @@ namespace Timetable.Logic.Models.Scheduler
 
         public AuditoriumOrderDataTransfer(AuditoriumOrder auditoriumOrder)
         {
+            Id = auditoriumOrder.Id;
             ThreadName = auditoriumOrder.ThreadName;
             LecturerName = auditoriumOrder.LecturerName;
             TutorialName = auditoriumOrder.TutorialName;

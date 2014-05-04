@@ -2,6 +2,27 @@
 
 <h2>Session schedule</h2>
 
+<div class="navbar navbar-default navbar-fixed-top navbar-child" role="navigation" style="top:51px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <form class="navbar-form navbar-left" style="width: 100%;">
+               
+               
+                <div class="form-group col-sm-4">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <input class="form-control" daterangepicker required="required" ng-change="periodChanged()" ng-model="period" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
 <script>
     window.pageModel = @Html.Raw(JsonConvert.SerializeObject(Model));
 </script>

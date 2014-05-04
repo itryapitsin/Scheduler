@@ -14,6 +14,8 @@
 
         //option defaults
 
+        //moment.lang('ru');
+
         this.startDate = moment().startOf('day');
         this.endDate = moment().startOf('day');
         this.minDate = false;
@@ -36,12 +38,12 @@
         this.separator = ' - ';
 
         this.locale = {
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
-            fromLabel: 'From',
-            toLabel: 'To',
-            weekLabel: 'W',
-            customRangeLabel: 'Custom Range',
+            applyLabel: 'Установить',
+            cancelLabel: 'Отмена',
+            fromLabel: 'С',
+            toLabel: 'По',
+            weekLabel: 'Неделя',
+            customRangeLabel: 'Произвольный интервал',
             daysOfWeek: moment()._lang._weekdaysMin.slice(),
             monthNames: moment()._lang._monthsShort.slice(),
             firstDay: 0
@@ -85,9 +87,9 @@
             }
         }
 
-        var DRPTemplate = '<div class="daterangepicker dropdown-menu">' +
-                '<div class="calendar left"></div>' +
-                '<div class="calendar right"></div>' +
+        var DRPTemplate = '<div class="daterangepicker dropdown-menu" style="z-index:9999999999">' +
+                '<div class="calendar right" style="float:left; margin-right:20px; left:10px;"></div>' +
+                '<div class="calendar left" style="right:10px;"></div>' +
                 '<div class="ranges">' +
                   '<div class="range_inputs">' +
                     '<div class="daterangepicker_start_input" style="float: left">' +

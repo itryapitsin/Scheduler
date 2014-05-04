@@ -38,17 +38,23 @@
                 </p>
                 <div ng-repeat="schedule in schedulesInAuditorium(auditorium.id)">
                     <div class="schedule-card alert"
-                         style="background-color:#FFC0CB">
+                         style="background-color: #FFC0CB; color: #A22525;">
                         <span>{{schedule.tutorialName}}</span>,
                         <span>{{schedule.lecturerName}}</span>
                     </div>
                 </div>
                 <div ng-repeat="order in ordersInAuditorium(auditorium.id)">
                     <div class="schedule-card alert"
-                         style="background-color:#AAC1EE">
+                         style="background-color: #AAC1EE; color:#1A4780;">
                         <span>{{order.tutorialName}}</span>,
                         <span>{{order.lecturerName}}</span>
+
+                        <p style="margin: 0; right:0px;">
+                            <a href="" ng-click="editOrder($event, auditorium, order)">Изменить</a>
+                            <a href="" ng-click="deleteOrder($event, order)">Удалить</a>
+                        </p>
                     </div>
+
                 </div>
             </div>
         </div>

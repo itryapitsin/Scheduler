@@ -188,6 +188,7 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditUserRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditWeekTypeRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateScheduleRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\EditOrderAuditoriumRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\EditScheduleRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetFreeAuditoiumsRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\GetScheduleBaseRequest.cs" />

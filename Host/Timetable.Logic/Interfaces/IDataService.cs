@@ -473,7 +473,8 @@ namespace Timetable.Logic.Interfaces
                 string tutorialName,
                 string lecturerName,
                 string threadName,
-                int auditoriumOrderId
+                int auditoriumOrderId,
+                bool autoDelete
             );
         void UnplanAuditoriumOrder(
                 int auditoriumOrderId

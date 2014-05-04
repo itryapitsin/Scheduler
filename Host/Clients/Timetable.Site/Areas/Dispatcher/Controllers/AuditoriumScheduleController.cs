@@ -252,5 +252,41 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
             }
         }
+
+        public ActionResult EditOrderAuditorium(EditOrderAuditoriumRequest request)
+        {
+            try
+            {
+                DataService.EditAuditoriumOrder(
+                    request.TutorialName,
+                    request.LecturerName,
+                    request.ThreadName,
+                    request.AuditoriumOrderId,
+                    request.AutoDelete);
+
+                return new JsonNetResult(
+                    new SuccessResponse("Заказ успешно изменен"));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
+        }
+
+        public ActionResult UnOrderAuditorium(int orderId)
+        {
+            
+            try
+            {
+                DataService.UnplanAuditoriumOrder(orderId);
+
+                return new JsonNetResult(
+                    new SuccessResponse("Заказ успешно удален"));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
+        }
     }
 }

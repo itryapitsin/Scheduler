@@ -2338,7 +2338,7 @@
 
 
     // Set default language, other languages will inherit from English.
-    moment.lang('en', {
+    moment.lang('ru', {
         ordinal : function (number) {
             var b = number % 10,
                 output = (toInt(number % 100 / 10) === 1) ? 'th' :

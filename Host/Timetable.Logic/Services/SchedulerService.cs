@@ -1840,7 +1840,8 @@ namespace Timetable.Logic.Services
                         Auditorium = auditorium,
                         AutoDelete = autoDelete,
                         CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now
+                        UpdatedDate = DateTime.Now,
+                        IsActual = true
                     };
             Database.AuditoriumOrders.Add(
                     auditoriumOrder
@@ -1854,7 +1855,8 @@ namespace Timetable.Logic.Services
                 string tutorialName,
                 string lecturerName,
                 string threadName,
-                int auditoriumOrderId
+                int auditoriumOrderId,
+                bool autoDelete
             )
         {
 
@@ -1863,6 +1865,7 @@ namespace Timetable.Logic.Services
             auditoriumOrder.ThreadName = threadName;
             auditoriumOrder.LecturerName = lecturerName;
             auditoriumOrder.TutorialName = tutorialName;
+            auditoriumOrder.AutoDelete = autoDelete;
 
             Database.Update(auditoriumOrder);
         }
