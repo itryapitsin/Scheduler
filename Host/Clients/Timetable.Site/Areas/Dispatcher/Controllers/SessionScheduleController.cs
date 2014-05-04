@@ -14,7 +14,22 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
     {
         public PartialViewResult Index()
         {
-            return PartialView("_Index");
+            var model = new SessionScheduleViewModel(DataService, UserData);
+         
+            return PartialView("_Index", model);
+        }
+
+        public ActionResult BranchChanged(int branchId)
+        {
+            var faculties = DataService
+                .GetFaculties(branchId)
+                .Select(x => new FacultyViewModel(x));
+
+            var courses = DataService
+                .GetCources(branchId)
+                .Select(x => new CourseViewModel(x));
+
+            return new JsonNetResult(new { Faculties = faculties, Courses = courses });
         }
     }
 }

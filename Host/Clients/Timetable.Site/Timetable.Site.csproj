@@ -217,6 +217,7 @@
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleOrderViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\LecturerScheduleViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\ScheduleForLecturersWithTimesViewModel.cs" />
+    <Compile Include="Areas\Dispatcher\Models\ViewModels\SessionScheduleViewModel.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\SettingsViewModel.cs" />
     <Compile Include="Areas\Students\Controllers\BaseController.cs" />
     <Compile Include="Areas\Dispatcher\Models\ViewModels\AuditoriumScheduleViewModel.cs" />
