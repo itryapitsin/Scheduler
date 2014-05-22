@@ -171,6 +171,7 @@
     <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumScheduleRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumsOrderRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\AuditoriumsScheduleRequest.cs" />
+    <Compile Include="Areas\Dispatcher\Models\RequestModels\BuildingChangedRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditAuditoriumRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditAuditoriumTypeRequest.cs" />
     <Compile Include="Areas\Dispatcher\Models\RequestModels\CreateEditCourseRequest.cs" />

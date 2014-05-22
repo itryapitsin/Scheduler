@@ -53,19 +53,15 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             if (UserData.AuditoriumScheduleSettings.AuditoriumId.HasValue
                 && UserData.AuditoriumScheduleSettings.SemesterId.HasValue
                 && UserData.AuditoriumScheduleSettings.StudyYearId.HasValue)
-            {
-                var presentationService = new SchedulePresentationFormatService();
-
-                model.Schedules = presentationService.ForAuditoriumFilter(DataService
+            {        
+                model.Schedules = DataService
                 .GetSchedulesForAuditorium(
                     UserData.AuditoriumScheduleSettings.AuditoriumId.Value,
                     UserData.AuditoriumScheduleSettings.StudyYearId.Value,
                     UserData.AuditoriumScheduleSettings.SemesterId.Value)
                 .ToList()
-                .Select(x => new ScheduleViewModel(x)));
-
+                .Select(x => new ScheduleViewModel(x));
             }
-
             return PartialView("_Index", model);
         }
 
@@ -128,9 +124,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 .GetSchedulesForAuditorium(request.AuditoriumId, request.StudyYearId, request.Semester)
                 .ToList()
                 .Select(x => new ScheduleViewModel(x));
-
-            var presentationService = new SchedulePresentationFormatService();
-            return new JsonNetResult(presentationService.ForAuditoriumFilter(schedules));
+        
+            return new JsonNetResult(schedules);
         }
 
         /// <summary>
@@ -161,8 +156,6 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                     request.Semester)
                 .Select(x => new ScheduleViewModel(x));
 
-            var presentationService = new SchedulePresentationFormatService();
-
             var times = DataService
                 .GetTimes(request.BuildingId)
                 .Select(x => new TimeViewModel(x));
@@ -170,7 +163,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             var model = new GetAuditoriumsAndSchedulesResponse
                 {
                     Auditoriums = auditoriums,
-                    Schedules = presentationService.ForAuditoriumFilter(schedules),
+                    Schedules = schedules,
                     Times = times
                 };
 

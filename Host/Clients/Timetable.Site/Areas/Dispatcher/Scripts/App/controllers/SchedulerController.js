@@ -112,7 +112,7 @@
     });
 
     $scope.$on('ticketPlanned', function (e, newParams) {
-        console.log("ticketPlanned");
+        console.log("ticketPlanned!");
         console.log(newParams);
 
         delete $scope.draggedScheduleInfo;
@@ -120,11 +120,41 @@
         delete $scope.dayOfWeek;
         delete $scope.ui;
 
-        $scope.schedules.push(newParams.schedule);
+        $scope.selectedScheduleInfo.hoursPassed += 1;
+        $scope.scheduleInfoes.splice($scope.selectedScheduleInfoIndex, 0, $scope.selectedScheduleInfo);
+
+        $scope.schedules.push(newParams.schedule.content);
     });
 
+    $scope.$on('ticketRemoved', function (e, newParams) {
+        console.log("TicketRemoved!");
+        for (var i = 0; i < $scope.schedules.length; ++i) {
+            if ($scope.schedules[i].id == newParams.schedule.id) {
+                $scope.schedules.splice(i, 1);
+                break;
+            }
+        }
+
+        for (var i = 0; i < $scope.scheduleInfoes.length; ++i) {
+            if ($scope.scheduleInfoes[i].id == newParams.schedule.scheduleInfoId)
+                $scope.scheduleInfoes[i].hoursPassed -= 1;
+        }
+
+    });
+
+
     $scope.$on('ticketEdited', function (e, newParams) {
-        //TODO:
+   
+        console.log("TicketEdited!");
+        console.log(newParams);
+        console.log($scope.schedules);
+
+        for (var i = 0; i < $scope.schedules.length; ++i) {
+            if ($scope.schedules[i].id == newParams.schedule.id) {
+                $scope.schedules[i] = newParams.schedule;
+                break;
+            }
+        }
     });
 
     $scope.$watch('currentGroups', function () {
@@ -161,8 +191,17 @@
 
         //transfer it in other place!
         //update times and auditoriums
+
+        console.log("bc1");
         $http
-            .get($http.prefix + "Scheduler/BuildingChanged", { params: { buildingId: $scope.building } })
+            .get($http.prefix + "Scheduler/BuildingChanged", {
+                params: {
+                    buildingId: $scope.building,
+                    dayOfWeek: $scope.dayOfWeek,
+                    pair: $scope.pair,
+                    weekTypeId: $scope.weekType
+                }
+            })
             .success(function (response) {
                 $scope.times = response.times;
                 $scope.auditoriums = response.auditoriums;
@@ -201,6 +240,12 @@
                             $scope.hideDialog();
                   
                             //TODO: make a updatating ui after deleting ? without reloading ?
+
+                            $scope.$broadcast('ticketRemoved', {
+                                schedule: $scope.selectedTicket
+                            });
+
+                           
                         }
 
                         if (response.fail) {
@@ -277,19 +322,30 @@
 
         if ($.inArray('schedule-info-card', ui.draggable[0].classList) > -1) {
             //if schedule info planning
+
+            $scope.building = undefined;
+            $scope.auditorium = undefined;
+            $scope.subGroup = undefined;
+            $scope.scheduleType = undefined;
+            $scope.weekType = undefined;
+
             $scope.isSIplanning = true;
             $("#test1").css("overflow-y", "scroll");
 
             //console.log($scope.selectedScheduleInfo);
 
+
+          
             for (var i = 0; i < $scope.scheduleInfoes.length; ++i)
-                if ($scope.scheduleInfoes[i] == $scope.selectedScheduleInfo)
+                if ($scope.scheduleInfoes[i] == $scope.selectedScheduleInfo) {
                     $scope.selectedScheduleInfoIndex = i;
+                    break;
+                }
 
-            $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
-                return obj !== $scope.selectedScheduleInfo;
-            });
-
+             $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
+                    return obj !== $scope.selectedScheduleInfo;
+             });
+     
             //TODO: make a updatating ui after planning ? without reloading ?
         } else {
             //if schedule replanning
@@ -299,19 +355,26 @@
             //set parameters of schedule
 
             $scope.building = $scope.selectedTicket.buildingId;
-            $scope.pair = pair;
             $scope.auditorium = $scope.selectedTicket.auditoriumId;
             $scope.subGroup = $scope.selectedTicket.subGroup;
             $scope.scheduleType = $scope.selectedTicket.scheduleTypeId;
 
-
-            $scope.weekType = $scope.selectedTicket.weekTypeId;
+            //$scope.weekType = { id: $scope.selectedTicket.weekTypeId, name: $scope.selectedTicket.weekTypeName };
             $scope.dayOfWeek = dayOfWeek;
 
             //transfer it in other place!
             //update times and auditoriums
+
+            console.log("bc2");
             $http
-                .get($http.prefix + "Scheduler/BuildingChanged", { params: { buildingId: $scope.building } })
+                .get($http.prefix + "Scheduler/BuildingChanged", {
+                    params: {
+                        buildingId: $scope.building,
+                        dayOfWeek: $scope.dayOfWeek,
+                        pair: $scope.pair,
+                        weekTypeId: $scope.weekType
+                    }
+                })
                 .success(function (response) {
                     $scope.times = response.times;
                     $scope.auditoriums = response.auditoriums;
@@ -541,9 +604,17 @@ function PlaningDialogController($scope, $rootScope, $http) {
     availableWeekTypes();
     availablePairs();
     
+    console.log("bc3");
     $scope.buildingChanged = function () {
         $http
-            .get($http.prefix + "Scheduler/BuildingChanged", { params: { buildingId: $scope.building } })
+            .get($http.prefix + "Scheduler/BuildingChanged", {
+                params: {
+                    buildingId: $scope.building,
+                    dayOfWeek: $scope.dayOfWeek,
+                    pair: $scope.pair,
+                    weekTypeId: $scope.weekType
+                }
+            })
             .success(function (response) {
                 $scope.times = response.times;
                 $scope.auditoriums = response.auditoriums;
@@ -561,12 +632,12 @@ function PlaningDialogController($scope, $rootScope, $http) {
 
    
 
-    $scope.$on('ticketEditing', function (e, newParams) {
+    //$scope.$on('ticketEditing', function (e, newParams) {
       
         //TODO: add setting params from scheduleTicket
         //what it for ?
-        angular.extend($scope, newParams);
-    });
+        ///angular.extend($scope, newParams);
+    //});
 
   
     $scope.$watch('time', function () {
@@ -591,6 +662,9 @@ function PlaningDialogController($scope, $rootScope, $http) {
                 .success(function (response) {
                     if (response.ok) {
                         //TODO: cases for schedule info planning and schedule replanning
+
+                        console.log("schedule info planned");
+                        console.log(response);
 
                         $scope.hideDialog();
 
@@ -626,6 +700,9 @@ function PlaningDialogController($scope, $rootScope, $http) {
                 .success(function (response) {
                     if (response.ok) {
                         //TODO: cases for schedule info planning and schedule replanning
+
+                        console.log("schedule info replanned");
+                        console.log(response);
 
                         $scope.hideDialog();
 

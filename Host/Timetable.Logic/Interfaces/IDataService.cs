@@ -23,8 +23,9 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<AuditoriumDataTransfer> GetFreeAuditoriums(
             int buildingId,
             int dayOfWeek,
-            int weekTypeId,
-            int timeId);
+            int? weekTypeId,
+            int timeId,
+            int? scheduleId);
         IEnumerable<AuditoriumTypeDataTransfer> GetAuditoriumTypes(bool? isTraining = null);
         IEnumerable<BuildingDataTransfer> GetBuildings();
         IEnumerable<CourseDataTransfer> GetCources(int branchId);
@@ -82,7 +83,9 @@ namespace Timetable.Logic.Interfaces
         int CountScheduleCollisions(
             int day,
             int timeId,
-            int weekTypeId);
+            int weekTypeId,
+            int auditoriumId,
+            int? scheduleId);
 
         #region schedule
 
@@ -176,7 +179,7 @@ namespace Timetable.Logic.Interfaces
         /// <param name="weekTypeId"></param>
         /// <param name="typeId"></param>
         /// <returns></returns>
-        void PlanEdit(
+        ScheduleDataTransfer PlanEdit(
             int auditoriumId,
             int dayOfWeek,
             int scheduleId,

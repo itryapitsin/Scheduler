@@ -106,17 +106,49 @@ namespace Timetable.Logic.Services
         public IEnumerable<AuditoriumDataTransfer> GetFreeAuditoriums(
             int buildingId,
             int dayOfWeek,
-            int weekTypeId,
-            int pair)
+            int? weekTypeId,
+            int pair,
+            int? scheduleId = null)
         {
             var time = Database.Times.FirstOrDefault(x => x.Position == pair && x.Buildings.Any(y => y.Id == buildingId));
 
-            var scheduledAuditoriums = Database.Schedules
+            var weekType = Database.WeekTypes
+                .Where(x => x.IsActual)
+                .FirstOrDefault(x => x.Name == "Л");
+
+
+            var scheduledAuditoriums = weekTypeId.HasValue ?
+
+                scheduleId.HasValue ?
+                Database.Schedules
+                .Where(x => x.Id != scheduleId.Value)
                 .Where(x => x.IsActual)
                 .Where(x => x.Time.Id == time.Id)
                 .Where(x => x.DayOfWeek == dayOfWeek)
-                .Where(x => x.WeekType.Id == weekTypeId)
+                .Select(x => x.Auditorium) :
+                Database.Schedules
+                .Where(x => x.IsActual)
+                .Where(x => x.Time.Id == time.Id)
+                .Where(x => x.DayOfWeek == dayOfWeek)
+                .Select(x => x.Auditorium)
+                :
+                scheduleId.HasValue ?
+                Database.Schedules
+                .Where(x => x.Id != scheduleId.Value)
+                .Where(x => x.IsActual)
+                .Where(x => x.Time.Id == time.Id)
+                .Where(x => x.DayOfWeek == dayOfWeek)
+                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id))
+                .Select(x => x.Auditorium) :
+                Database.Schedules
+                .Where(x => x.IsActual)
+                .Where(x => x.Time.Id == time.Id)
+                .Where(x => x.DayOfWeek == dayOfWeek)
+                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id))
                 .Select(x => x.Auditorium);
+
+            
+
 
             var freeAuditoriums = Database.Auditoriums
                 .Where(x => x.IsActual)
@@ -493,19 +525,25 @@ namespace Timetable.Logic.Services
         public int CountScheduleCollisions(
             int day,
             int timeId,
-            int weekTypeId)
+            int weekTypeId,
+            int auditoriumId,
+            int? scheduleId = null)
         {
-            //TODO: Исправить в соответствии с GroupBy
-
             var weekType = Database.WeekTypes
                 .Where(x => x.IsActual)
                 .FirstOrDefault(x => x.Name == "Л");
 
             var result = Database.Schedules
                 .Where(x => x.IsActual)
-                .Where(x => x.TimeId == timeId)
+                .Where(x => x.Time.Id == timeId)
                 .Where(x => x.DayOfWeek == day)
-                .Where(x => ((x.WeekTypeId == weekTypeId) || (x.WeekTypeId == weekType.Id)));
+                .Where(x => x.Auditorium.Id == auditoriumId)
+                .Where(x => ((x.WeekType.Id == weekTypeId) || (x.WeekType.Id == weekType.Id)));
+
+          
+
+            if (scheduleId.HasValue)
+                return result.Where(x => x.Id != scheduleId.Value).Count();
             return result.Count();
         }
 
@@ -534,8 +572,9 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
                 .Where(x => x.ScheduleInfo.SemesterId == semester);
 
-            //TODO: Убрать GroupBy
-            return result.ToList().GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault()).Select(x => new ScheduleDataTransfer(x));
+            return result.ToList()
+                .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time, x.Auditorium}).Select(x => x.FirstOrDefault())
+                .Select(x => new ScheduleDataTransfer(x));
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedules(
@@ -550,12 +589,13 @@ namespace Timetable.Logic.Services
 
             var result = GetSchedules()
                 .Where(x => auditoriumIds.Any(y => y == x.AuditoriumId))
-                .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
-                .Where(x => x.ScheduleInfo.SemesterId == semester)
-                .Where(x => x.TimeId == timeId && x.DayOfWeek == dayOfWeek);
+                .Where(x => x.ScheduleInfo.StudyYear.Id == studyYear)
+                .Where(x => x.ScheduleInfo.Semester.Id == semester)
+                .Where(x => x.Time.Id == timeId && x.DayOfWeek == dayOfWeek);
 
-            //TODO: Убрать GroupBy
-            return result.ToList().Select(x => new ScheduleDataTransfer(x));
+            return result.ToList()
+                   .GroupBy(x => new {x.WeekType, x.Auditorium }).Select(x => x.FirstOrDefault())
+                   .Select(x => new ScheduleDataTransfer(x));
         }
 
         public IEnumerable<ScheduleDataTransfer> GetSchedules(
@@ -568,8 +608,9 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
                 .Where(x => x.ScheduleInfo.SemesterId == semester);
 
-            //TODO: Убрать GroupBy
-            return result.ToList().GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault()).Select(x => new ScheduleDataTransfer(x));
+            return result.ToList()
+                .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium }).Select(x => x.FirstOrDefault())
+                .Select(x => new ScheduleDataTransfer(x));
         }
 
 
@@ -588,8 +629,10 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))
                 .OrderByDescending(x => x.WeekTypeId);
 
-            //TODO: Убрать GroupBy
-            return result.ToList().GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault()).Select(x => new ScheduleDataTransfer(x));
+            return result.ToList()
+                .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium })
+                .Select(x => x.FirstOrDefault())
+                .Select(x => new ScheduleDataTransfer(x));
         }
 
    
@@ -600,12 +643,6 @@ namespace Timetable.Logic.Services
             int studyYear,
             int semester)
         {
-
-            //var t = GetSchedules().Where(x => x.Id == 1458).ToList();
-
-            //semester = 1;
-
-            //TODO: Убрать GroupBy, раскоментировать курсы и факультеты
             return GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYearId == studyYear)
                 .Where(x => x.ScheduleInfo.SemesterId == semester)
@@ -613,7 +650,8 @@ namespace Timetable.Logic.Services
                 //.Where(x => x.ScheduleInfo.Courses.Any(y => y.Id == courseId))
                 .Where(x => x.ScheduleInfo.Groups.Any(y => groupIds.Contains(y.Id)))
                 .ToList()
-                .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
+                .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium })
+                .Select(x => x.FirstOrDefault()) 
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -622,13 +660,13 @@ namespace Timetable.Logic.Services
             int studyYearId,
             int semester)
         {
-            //TODO: Убрать GroupBy
             var result = GetSchedules()
                 .Where(x => x.ScheduleInfo.StudyYearId == studyYearId)
                 .Where(x => x.ScheduleInfo.SemesterId == semester)
                 .Where(x => x.ScheduleInfo.LecturerId.Equals(lecturerId))
                 .ToList()
-                .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
+                .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time })
+                .Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
 
             return result;
@@ -639,13 +677,13 @@ namespace Timetable.Logic.Services
             int studyYearId,
             int semester)
         {
-            //TODO: Убрать GroupBy
             var result = GetSchedules()
                .Where(x => x.ScheduleInfo.StudyYearId == studyYearId)
                .Where(x => x.ScheduleInfo.SemesterId == semester)
                .Where(x => x.AuditoriumId == auditoriumId)
                .ToList()
-               .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
+               .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time })
+               .Select(x => x.FirstOrDefault())
                .Select(x => new ScheduleDataTransfer(x));
 
             return result;
@@ -664,16 +702,13 @@ namespace Timetable.Logic.Services
 
             var semester = GetSemesterForTime(date);
 
-            //semester.Id = 1;
-
-
-            //TODO: Убрать GroupBy
             var result = GetSchedules()
                .Where(x => x.ScheduleInfo.StudyYearId == studyYear.Id)
                .Where(x => x.AuditoriumId == auditoriumId)
                .Where(x => x.ScheduleInfo.Semester.Id == semester.Id)
                .ToList()
-               .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
+               .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time })
+               .Select(x => x.FirstOrDefault())
                .Select(x => new ScheduleDataTransfer(x));
 
             return result;
@@ -697,11 +732,10 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForScheduleInfoes(int scheduleInfoId)
         {
-            //TODO: Убрать GroupBy
             return GetSchedules()
                 .Where(x => x.ScheduleInfo.Id == scheduleInfoId)
                 .ToList()
-                .GroupBy(x => x.ScheduleInfoId).Select(x => x.FirstOrDefault())
+                .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time, x.Auditorium }).Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -862,7 +896,7 @@ namespace Timetable.Logic.Services
         }
 
 
-        public void PlanEdit(
+        public ScheduleDataTransfer PlanEdit(
             int auditoriumId,
             int dayOfWeek,
             int scheduleId,
@@ -876,7 +910,7 @@ namespace Timetable.Logic.Services
                 throw new ScheduleNoDataException();
 
             var schedule = Database.Schedules.Where(x => x.Id == scheduleId).FirstOrDefault();
-            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId) > 0;
+            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, auditoriumId, weekTypeId) > 0;
             if (hasCollisions)
                 throw new ScheduleCollisionException();
 
@@ -897,6 +931,8 @@ namespace Timetable.Logic.Services
             
 
             Database.Update(schedule);
+
+            return GetScheduleById(scheduleId);
         }
 
         public ScheduleDataTransfer Plan(
@@ -911,6 +947,8 @@ namespace Timetable.Logic.Services
             if (auditoriumId == 0 || dayOfWeek == 0 || scheduleInfoId == 0 || timeId == 0 || weekTypeId == 0 || typeId == 0)
                 throw new ScheduleNoDataException();
 
+           
+
             var schedule = new Schedule
             {
                 AuditoriumId = auditoriumId,
@@ -924,22 +962,32 @@ namespace Timetable.Logic.Services
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now,
                 SubGroup = subGroup,
+                IsActual = true,
             };
 
            
 
-            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId) > 0;
+            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, auditoriumId, weekTypeId) > 0;
             if(hasCollisions)
                 throw new ScheduleCollisionException();
 
             var scheduleInfo = Database.ScheduleInfoes.First(x => x.Id == scheduleInfoId);
 
-            Database.Schedules.Add(schedule);
             scheduleInfo.IsPlanned = true;
+
+            Database.Schedules.Add(schedule);
+            
 
             Database.SaveChanges();
 
-            return new ScheduleDataTransfer(schedule);
+            var newschedule = Database.Schedules.Where(x=> x.ScheduleInfo.Id == scheduleInfoId
+                                                        && x.Auditorium.Id == auditoriumId &&
+                                                        x.WeekType.Id == weekTypeId &&
+                                                        x.Time.Id == timeId &&
+                                                        x.Type.Id == typeId &&
+                                                        x.DayOfWeek == dayOfWeek).FirstOrDefault();
+            var test = GetScheduleById(newschedule.Id);
+            return GetScheduleById(newschedule.Id);
         }
 
         public void Unplan(int scheduleId)

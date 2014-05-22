@@ -13,6 +13,8 @@ namespace Timetable.Site.Models.ViewModels
         public IEnumerable<string> Groups { get; set; }
         public decimal HoursPerWeek { get; set; }
 
+        public decimal HoursPassed { get; set; }
+
         public int SubGroupCount { get; set; }
         public int TutorialId { get; set; }
         public int TutorialTypeId { get; set; }
@@ -36,7 +38,7 @@ namespace Timetable.Site.Models.ViewModels
             }
 
             HoursPerWeek = scheduleInfo.HoursPerWeek;
-            //HoursPassed = scheduleInfo.Schedules.Sum(x => x.)
+            HoursPassed = scheduleInfo.HoursPassed;
             Groups = scheduleInfo.Groups.Select(x => x.Code);
             GroupIds = scheduleInfo.Groups.Select(x => x.Id);
             SubGroupCount = scheduleInfo.SubgroupCount;

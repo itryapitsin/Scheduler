@@ -43,12 +43,20 @@ namespace Timetable.Logic.Models.Scheduler
             if(schedule.Time != null)
                 Time = new TimeDataTransfer(schedule.Time);
 
-            ScheduleInfo = new ScheduleInfoDataTransfer(schedule.ScheduleInfo);
-            WeekType = new WeekTypeDataTransfer(schedule.WeekType);
+            if (schedule.ScheduleInfo != null)
+                ScheduleInfo = new ScheduleInfoDataTransfer(schedule.ScheduleInfo);
+
+            if (schedule.WeekType != null)
+                WeekType = new WeekTypeDataTransfer(schedule.WeekType);
+
             AutoDelete = schedule.AutoDelete;
-            Timetable = new ScheduleTypeDataTransfer(schedule.Type);
+
+            if (schedule.Type != null)
+                Timetable = new ScheduleTypeDataTransfer(schedule.Type);
+
             SubGroup = schedule.SubGroup;
             @ScheduleType = schedule.Type;
+            
         }
     }
 }

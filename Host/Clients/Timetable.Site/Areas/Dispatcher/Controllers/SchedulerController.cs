@@ -34,15 +34,18 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return new JsonNetResult(new { Faculties = faculties, Courses = courses });
         }
 
-        public ActionResult BuildingChanged(int buildingId)
+        public ActionResult BuildingChanged(BuildingChangedRequest request)
         {
             var times = DataService
-                .GetTimes(buildingId)
+                .GetTimes(request.BuildingId)
                 .Select(x => new TimeViewModel(x));
 
-            var auditoriums = DataService
-                .GetAuditoriums(buildingId, isTraining: true)
+            var auditoriums =
+             DataService
+                .GetFreeAuditoriums(request.BuildingId, request.DayOfWeek, request.WeekTypeId, request.Pair, request.ScheduleId)
                 .Select(x => new AuditoriumViewModel(x));
+              
+
 
             return new JsonNetResult(new { Auditoriums = auditoriums, Times = times });
         }
@@ -54,7 +57,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                     request.BuildingId,
                     request.DayOfWeek,
                     request.WeekTypeId,
-                    request.Pair)
+                    request.Pair,
+                    null)
                 .Select(x => new AuditoriumViewModel(x));
 
             return new JsonNetResult(result);
@@ -133,7 +137,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         {
             try
             {
-                DataService.PlanEdit(
+                var result = DataService.PlanEdit(
                     request.AuditoriumId,
                     request.DayOfWeek,
                     request.ScheduleId,
@@ -143,7 +147,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                     request.SubGroup);
 
                 return new JsonNetResult(
-                    new SuccessResponse("Занятие успешно изменено"));
+                    new SuccessResponse(
+                    new ScheduleViewModel(result)));
             }
             catch (ScheduleCollisionException ex)
             {

@@ -42,12 +42,11 @@ namespace Timetable.Site.Areas.Students.Controllers
 
                 model.CurrentAuditoriumId = Convert.ToInt32(currentAuditoriumId.Value);
 
-                var presentationService = new SchedulePresentationFormatService();
-
                 //TODO: Сделать определение семетра по текущему времени
-                model.Schedules = presentationService.ForAuditoriumFilter(DataService
-                    .GetSchedules(new[] { model.CurrentAuditoriumId }, studyYear.Id, semester.Id)
-                    .Select(x => new ScheduleViewModel(x)));
+        
+                model.Schedules = DataService.GetSchedules(new[] { model.CurrentAuditoriumId }, studyYear.Id, semester.Id)
+                    .Select(x => new ScheduleViewModel(x));
+
             }
 
             return PartialView("_Index", model);
@@ -77,14 +76,7 @@ namespace Timetable.Site.Areas.Students.Controllers
                     DateTime.Now)
                 .Select(x => new ScheduleViewModel(x));
 
-
-            var presentationService = new SchedulePresentationFormatService();
-
-            return new JsonNetResult(presentationService.ForAuditoriumFilter(response));
-        }
-
-       
-    }
-
-   
+            return new JsonNetResult(response);
+        }   
+    } 
 }

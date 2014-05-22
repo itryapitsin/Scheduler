@@ -251,10 +251,7 @@ namespace Timetable.Site.Areas.Students.Controllers
 
                 var fileName = string.Format("Расписание для Ауд. №" + auditorium.Number + "-{0:yyyy-MM-dd-HH-mm-ss}", DateTime.UtcNow);
 
-                var presentationService = new SchedulePresentationFormatService();
-
-
-                var memoryStream = CreateTableBySchedulesAndTimes(fileName, times, presentationService.ForAuditoriumFilter(schedules));
+                var memoryStream = CreateTableBySchedulesAndTimes(fileName, times, schedules);
 
                 return base.File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName + ".xlsx");
             }

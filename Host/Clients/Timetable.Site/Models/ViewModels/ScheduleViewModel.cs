@@ -37,8 +37,14 @@ namespace Timetable.Site.Models.ViewModels
             var cns = new CutNameService();
         
             Id = schedule.Id;
-            AuditoriumNumber = schedule.Auditorium.Number;
-            BuildingName = schedule.Auditorium.Building.ShortName;
+
+            if (schedule.Auditorium != null)
+            {
+                AuditoriumNumber = schedule.Auditorium.Number;
+                BuildingName = schedule.Auditorium.Building.ShortName;
+            }
+
+           
             LecturerName = LecturerViewModel.GetLecturerShortName(schedule.ScheduleInfo.Lecturer);
             TutorialName = cns.Cut(schedule.ScheduleInfo.Tutorial.Name);
             TutorialTypeName = schedule.ScheduleInfo.TutorialType.Name.FirstOrDefault();
