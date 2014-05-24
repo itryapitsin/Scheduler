@@ -1,9 +1,17 @@
 using System;
+using System.Collections.Generic;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Logic.Models.Scheduler
 {
-    
+    public enum ScheduleState
+    {
+        Current,
+        RelatedWithLecturer,
+        RelatedWithThread,
+        RelatedWithAuditorium,
+    };
+
     public class ScheduleDataTransfer : BaseDataTransfer
     {
         
@@ -29,11 +37,16 @@ namespace Timetable.Logic.Models.Scheduler
 
         public ScheduleType @ScheduleType { get; set; }
 
+        public IEnumerable<ScheduleState> States { get; set; }
         public ScheduleDataTransfer() { }
 
-        public ScheduleDataTransfer(Schedule schedule)
+        public ScheduleDataTransfer(Schedule schedule, IEnumerable<ScheduleState> states = null)
         {
             Id = schedule.Id;
+
+            if (states == null)
+                states = new List<ScheduleState>() { ScheduleState.Current };
+            States = states;
 
             if (schedule.Auditorium != null)
                 Auditorium = new AuditoriumDataTransfer(schedule.Auditorium);

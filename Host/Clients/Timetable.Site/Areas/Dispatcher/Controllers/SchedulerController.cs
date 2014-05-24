@@ -58,8 +58,26 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                     request.DayOfWeek,
                     request.WeekTypeId,
                     request.Pair,
-                    null)
+                    request.ScheduleId)
                 .Select(x => new AuditoriumViewModel(x));
+
+            return new JsonNetResult(result);
+        }
+
+        public ActionResult GetSchedulesForSchedule(int scheduleId)
+        {
+            var result = DataService
+                .GetSchedulesForSchedule(scheduleId)
+                .Select(x => new ScheduleViewModel(x));
+
+            return new JsonNetResult(result);
+        }
+
+        public ActionResult GetSchedulesForScheduleInfo(int scheduleInfoId)
+        {
+            var result = DataService
+                .GetSchedulesForScheduleInfo(scheduleInfoId)
+                .Select(x => new ScheduleViewModel(x));
 
             return new JsonNetResult(result);
         }

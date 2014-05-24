@@ -32,11 +32,25 @@ namespace Timetable.Site.Models.ViewModels
         public string ScheduleTypeName { get; set; }
         public int ScheduleTypeId { get; set; }
 
+        public IList<int> States { get; set; }
         public ScheduleViewModel(ScheduleDataTransfer schedule)
         {
             var cns = new CutNameService();
         
             Id = schedule.Id;
+
+            States = new List<int>();
+            foreach (var state in schedule.States)
+            {
+                switch (state)
+                {
+                    case ScheduleState.Current: States.Add(1); break;
+                    case ScheduleState.RelatedWithAuditorium: States.Add(2); break;
+                    case ScheduleState.RelatedWithLecturer: States.Add(3); break;
+                    case ScheduleState.RelatedWithThread: States.Add(4); break;
+                    default: throw new System.NullReferenceException();
+                }
+            }
 
             if (schedule.Auditorium != null)
             {

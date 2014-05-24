@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">День недели</label>
                         <div class="col-sm-9">
-                            <select class="form-control" ng-disabled="!daysOfWeek" ng-model="dayOfWeek" ng-options="dayOfWeek.id as dayOfWeek.name for dayOfWeek in daysOfWeek"></select>
+                            <select class="form-control" ng-disabled="!daysOfWeek" ng-model="dayOfWeek" ng-change="dayOfWeekChanged()" ng-options="dayOfWeek.id as dayOfWeek.name for dayOfWeek in daysOfWeek"></select>
                         </div>
                     </div>
 

@@ -85,6 +85,7 @@ namespace Timetable.Logic.Interfaces
             int timeId,
             int weekTypeId,
             int auditoriumId,
+            int scheduleInfoId,
             int? scheduleId);
 
         #region schedule
@@ -141,6 +142,9 @@ namespace Timetable.Logic.Interfaces
         IEnumerable<ScheduleDataTransfer> GetSchedulesForAuditorium(
             int auditoriumId,
             DateTime date);
+        IEnumerable<ScheduleDataTransfer> GetSchedulesForSchedule(int scheduleId);
+
+        IEnumerable<ScheduleDataTransfer> GetSchedulesForScheduleInfo(int scheduleInfoId);
         ScheduleDataTransfer GetScheduleById(int id);
         IEnumerable<ScheduleTypeDataTransfer> GetScheduleTypes();
         #endregion

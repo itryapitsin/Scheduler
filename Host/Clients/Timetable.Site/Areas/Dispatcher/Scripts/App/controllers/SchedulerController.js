@@ -112,9 +112,6 @@
     });
 
     $scope.$on('ticketPlanned', function (e, newParams) {
-        console.log("ticketPlanned!");
-        console.log(newParams);
-
         delete $scope.draggedScheduleInfo;
         delete $scope.pair;
         delete $scope.dayOfWeek;
@@ -127,10 +124,10 @@
     });
 
     $scope.$on('ticketRemoved', function (e, newParams) {
-        console.log("TicketRemoved!");
+  
         for (var i = 0; i < $scope.schedules.length; ++i) {
             if ($scope.schedules[i].id == newParams.schedule.id) {
-                $scope.schedules.splice(i, 1);
+                $scope.schedules.splice(i, 1);      
                 break;
             }
         }
@@ -139,22 +136,26 @@
             if ($scope.scheduleInfoes[i].id == newParams.schedule.scheduleInfoId)
                 $scope.scheduleInfoes[i].hoursPassed -= 1;
         }
-
     });
 
 
     $scope.$on('ticketEdited', function (e, newParams) {
-   
-        console.log("TicketEdited!");
-        console.log(newParams);
-        console.log($scope.schedules);
-
         for (var i = 0; i < $scope.schedules.length; ++i) {
-            if ($scope.schedules[i].id == newParams.schedule.id) {
-                $scope.schedules[i] = newParams.schedule;
+            if ($scope.schedules[i].id == newParams.schedule.content.id) {
+                $scope.schedules[i] = newParams.schedule.content;
                 break;
             }
         }
+        
+        //magic
+        $($scope.draggedScheduleTicket).addClass("hide");
+
+        $($scope.draggedScheduleTicket)
+               .removeClass('hide')
+               .css("top", "")
+               .css("left", "0");
+
+        delete $scope.draggedScheduleTicket;
     });
 
     $scope.$watch('currentGroups', function () {
@@ -199,7 +200,8 @@
                     buildingId: $scope.building,
                     dayOfWeek: $scope.dayOfWeek,
                     pair: $scope.pair,
-                    weekTypeId: $scope.weekType
+                    weekTypeId: $scope.weekType,
+                    scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                 }
             })
             .success(function (response) {
@@ -219,9 +221,7 @@
     };
 
     $scope.unplan = function () {
-   
-        console.log($scope.selectedTicket);
-
+  
         var ticketName = $scope.selectedTicket.tutorialName + " " + $scope.selectedTicket.lecturerName;
 
         $scope.confirm = {
@@ -263,12 +263,87 @@
     };
 
     $scope.select = function (e, item) {
-        $scope.selectedTicket = item;
+        if (!$scope.isRelatedScheduleTicket(item)) {
+            $scope.selectedTicket = item;
+            $scope.schedules = $scope.schedules.filter(function (obj) { return !$scope.isRelatedScheduleTicket(obj); });
+
+            $scope.selectedScheduleInfo = undefined;
+
+            console.log($scope.selectedTicket);
+
+            $http.get($http.prefix + "Scheduler/GetSchedulesForSchedule", {
+                params: {
+                    scheduleId: $scope.selectedTicket.id,
+                }
+            }).success(function (response) {
+                
+
+                $scope.relatedSchedules = response;
+                console.log("relatedSchedulesWithSchedule1");
+
+
+                $scope.relatedSchedules = $scope.relatedSchedules.filter(function (obj1) {
+                    return $scope.schedules.filter(function (obj2) {
+                        return obj1.id == obj2.id || (obj1.dayOfWeek == obj2.dayOfWeek &&
+                                                      obj1.pair == obj2.pair &&
+                                                     (obj2.weekTypeName == 'Л' || obj1.weekTypeName == obj2.weekTypeName || obj1.weekTypeName == 'Л'));
+                    }).length == 0;
+                });
+
+                for (var i = 0; i < $scope.relatedSchedules.length; ++i) {
+                    $scope.schedules.push($scope.relatedSchedules[i]);
+                }
+                console.log($scope.relatedSchedules);
+            });
+        }
     };
+
+    $scope.selectScheduleInfo = function (e, item) {
+
+        $scope.schedules = $scope.schedules.filter(function (obj) { return !$scope.isRelatedScheduleTicket(obj); });
+
+        $scope.selectedTicket = undefined;
+        $scope.selectedScheduleInfo = item;
+
+        $http.get($http.prefix + "Scheduler/GetSchedulesForScheduleInfo", {
+            params: {
+                scheduleInfoId: item.id,
+            }
+        }).success(function (response) {
+
+            
+
+            $scope.relatedSchedules = response;
+            console.log("relatedSchedulesWithScheduleInfo1");
+
+            $scope.relatedSchedules = $scope.relatedSchedules.filter(function (obj1) {
+                return $scope.schedules.filter(function (obj2) {
+                    return obj1.id == obj2.id || (obj1.dayOfWeek == obj2.dayOfWeek &&
+                                                  obj1.pair == obj2.pair &&
+                                                 (obj2.weekTypeName == 'Л' || obj1.weekTypeName == obj2.weekTypeName || obj1.weekTypeName == 'Л'));
+                }).length == 0;
+            });
+
+            for (var i = 0; i < $scope.relatedSchedules.length; ++i) {
+                $scope.schedules.push($scope.relatedSchedules[i]);
+            }
+
+            console.log($scope.relatedSchedules);
+        });
+
+    };
+
+    $scope.isRelatedScheduleTicket = function (schedule) {
+        return schedule.states.indexOf(1) == -1;
+    }
 
     //maybe transfer it to base timetable controller ?
     $scope.isSelectedScheduleTicket = function(schedule){
         return schedule == $scope.selectedTicket;
+    };
+
+    $scope.isSelectedScheduleInfo = function (scheduleInfo) {
+        return scheduleInfo == $scope.selectedScheduleInfo;
     };
 
     $scope.unschedule = function () {
@@ -297,11 +372,15 @@
         //if item not schedule ticket
         if (item.time == undefined) {
             $("#test1").css("overflow", "");
-            $scope.selectedScheduleInfo = item;
-            //console.log("scheduleInfo");
+            if ($scope.selectedScheduleInfo != item) {
+                $scope.selectScheduleInfo(null, item);
+            }
         } else {
-            //console.log("scheduleTicket");
-            $scope.selectedTicket = item;
+            if ($scope.selectedTicket != item) {
+                if (!$scope.isRelatedScheduleTicket(item)) {
+                    $scope.select(null, item);
+                }
+            }
         }
     };
 
@@ -332,10 +411,6 @@
             $scope.isSIplanning = true;
             $("#test1").css("overflow-y", "scroll");
 
-            //console.log($scope.selectedScheduleInfo);
-
-
-          
             for (var i = 0; i < $scope.scheduleInfoes.length; ++i)
                 if ($scope.scheduleInfoes[i] == $scope.selectedScheduleInfo) {
                     $scope.selectedScheduleInfoIndex = i;
@@ -358,8 +433,7 @@
             $scope.auditorium = $scope.selectedTicket.auditoriumId;
             $scope.subGroup = $scope.selectedTicket.subGroup;
             $scope.scheduleType = $scope.selectedTicket.scheduleTypeId;
-
-            //$scope.weekType = { id: $scope.selectedTicket.weekTypeId, name: $scope.selectedTicket.weekTypeName };
+            $scope.weekType = $scope.selectedTicket.weekTypeId;
             $scope.dayOfWeek = dayOfWeek;
 
             //transfer it in other place!
@@ -372,7 +446,8 @@
                         buildingId: $scope.building,
                         dayOfWeek: $scope.dayOfWeek,
                         pair: $scope.pair,
-                        weekTypeId: $scope.weekType
+                        weekTypeId: $scope.weekType,
+                        scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                     }
                 })
                 .success(function (response) {
@@ -385,17 +460,28 @@
                         .FirstOrDefault();
                 });
 
+            $scope.draggedScheduleTicket = ui.draggable[0];
+            
+
+            
+
             //TODO: make a updatating ui after planning ? without reloading ?
         }
 
-
         //self.modal.getTimeForPair();
-        //$(ui.draggable[0]).addClass("hide");
+       
     };
 
     $scope.cancelPlaning = function () {
-        if ($scope.isSIplanning)
+        if ($scope.isSIplanning) {
             $scope.scheduleInfoes.splice($scope.selectedScheduleInfoIndex, 0, $scope.selectedScheduleInfo);
+        } else {
+            $($scope.draggedScheduleTicket).addClass("hide");
+            $($scope.draggedScheduleTicket)
+                   .removeClass('hide')
+                   .css("top", "")
+                   .css("left", "0");
+        }
         $scope.hideDialog();
     }
 
@@ -418,11 +504,7 @@
     }
 
     $scope.getReportForFaculty = function () {
-        console.log("getReportForFaculty");
-        console.log("Path prefix:");
-        console.log($http.prefix);
-
-       
+  
         if ($scope.isFacultySelected()) {
             document.location.href = $http.prefix + 'Report/GetReportForFaculty?branchId={0}&facultyId={1}&studyYearId={2}&semesterId={3}'
                 .replace('{0}', $scope.currentBranchId)
@@ -433,7 +515,6 @@
     };
 
     $scope.getReportForCourse = function () {
-        console.log("getReportForCourse");
         if ($scope.isCourseSelected()) {
             document.location.href = $http.prefix + 'Report/GetReportForCourse?branchId={0}&facultyId={1}&studyTypeId={2}&courseId={3}&studyYearId={4}&semesterId={5}'
                 .replace('{0}', $scope.currentBranchId)
@@ -446,7 +527,6 @@
     };
 
     $scope.getReportForGroups = function () {
-        console.log("getReportForGroups");
         if ($scope.isGroupsSelected()) {
             document.location.href = $http.prefix + 'Report/GetReportForGroups?branchId={0}&facultyId={1}&courseId={2}&groupIds={3}&studyYearId={4}&semesterId={5}'
                 .replace('{0}', $scope.currentBranchId)
@@ -469,8 +549,6 @@
 
 function ThreadDialogController($scope, $http, $rootScope) {
     $scope.ok = function () {
-        console.log("ok pressed");
-        
         $scope.hideDialog();
         $rootScope.$broadcast('threadChanged', {
             currentBranchId: $scope.currentBranchId,
@@ -501,8 +579,6 @@ function ThreadDialogController($scope, $http, $rootScope) {
     $scope.changeFaculty = function () {
         $scope.groups = [];
         $scope.currentGroupIds = [];
-
-        console.log("SchedulerController/changeFaculty");
 
         if ($scope.currentFacultyId != undefined && $scope.currentFacultyId != null &&
            $scope.currentCourseId != undefined && $scope.currentCourseId != null &&
@@ -559,6 +635,8 @@ function PlaningDialogController($scope, $rootScope, $http) {
     $scope.daysOfWeek = [{ id: 1, name: 'Понедельник' }, { id: 2, name: 'Вторник' }, { id: 3, name: 'Среда' }, { id: 4, name: 'Четверг' }, { id: 5, name: 'Пятница' }, { id: 6, name: 'Суббота' }, { id: 7, name: 'Воскресенье' }];
     //$scope.subGroup = '1/2';
 
+   
+
     function getTimePeriod() {
         if ($scope.time)
             return moment($scope.time.start, 'HH:mm:ss').format('HH:mm') + ' - ' + moment($scope.time.end, 'HH:mm:ss').format('HH:mm');
@@ -568,8 +646,6 @@ function PlaningDialogController($scope, $rootScope, $http) {
 
     //transfer logic to server ?
     function getTimeForPair() {
-        //console.log("getTimeForPair");
-        //console.log($scope.times);
         $scope.time = $.Enumerable.From($scope.times)
             .Where(function (item) { return item.position == $scope.pair; })
             .FirstOrDefault();
@@ -579,10 +655,11 @@ function PlaningDialogController($scope, $rootScope, $http) {
 
     //transfer logic to server ?
     function availableWeekTypes() {
-        var exp = $.Enumerable.From($scope.tickets);
-        var query = '$.weekTypeName=="{0}"';
-        $scope.availableWeekTypes = [];
+        //var exp = $.Enumerable.From($scope.tickets);
+        //var query = '$.weekTypeName=="{0}"';
+        $scope.availableWeekTypes = $scope.weekTypes;
 
+        /*
         angular.copy($scope.weekTypes, $scope.availableWeekTypes);
 
         if (exp.Count() > 0) {
@@ -591,13 +668,32 @@ function PlaningDialogController($scope, $rootScope, $http) {
                     return item.name != "Л" && !exp.Any(query.replace('{0}', item.name));
                 })
                 .ToArray();
-        }
+        }*/
     }
 
 
     //transfer logic to server ?
     function availablePairs() {
         $scope.availablePairs = $scope.pairs;
+    }
+
+
+    function availableAuditoriums() {
+       $http
+            .get($http.prefix + "Scheduler/GetFreeAuditoriums", {
+                params: {
+                    buildingId: $scope.building,
+                    dayOfWeek: $scope.dayOfWeek,
+                    pair: $scope.pair,
+                    weekTypeId: $scope.weekType,
+                    scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
+                }
+            })
+            .success(function (response) {
+                $scope.auditoriums = response;
+                getTimeForPair();
+                console.log("ok");
+            });
     }
 
     $scope.tickets = $scope.findScheduleTickets($scope.pair, $scope.dayOfWeek);
@@ -612,7 +708,8 @@ function PlaningDialogController($scope, $rootScope, $http) {
                     buildingId: $scope.building,
                     dayOfWeek: $scope.dayOfWeek,
                     pair: $scope.pair,
-                    weekTypeId: $scope.weekType
+                    weekTypeId: $scope.weekType,
+                    scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
                 }
             })
             .success(function (response) {
@@ -628,18 +725,18 @@ function PlaningDialogController($scope, $rootScope, $http) {
         getTimeForPair();
         availableWeekTypes();
         availablePairs();
+        availableAuditoriums();
     };
 
-   
+    $scope.dayOfWeekChanged = function () {
+        availableAuditoriums();
+    };
 
-    //$scope.$on('ticketEditing', function (e, newParams) {
-      
-        //TODO: add setting params from scheduleTicket
-        //what it for ?
-        ///angular.extend($scope, newParams);
-    //});
+    $scope.weekTypeChanged = function () {
+        console.log("wt changed");
+        availableAuditoriums();
+    };
 
-  
     $scope.$watch('time', function () {
         $scope.timePeriod = getTimePeriod();
     });
@@ -662,9 +759,6 @@ function PlaningDialogController($scope, $rootScope, $http) {
                 .success(function (response) {
                     if (response.ok) {
                         //TODO: cases for schedule info planning and schedule replanning
-
-                        console.log("schedule info planned");
-                        console.log(response);
 
                         $scope.hideDialog();
 
@@ -701,9 +795,6 @@ function PlaningDialogController($scope, $rootScope, $http) {
                     if (response.ok) {
                         //TODO: cases for schedule info planning and schedule replanning
 
-                        console.log("schedule info replanned");
-                        console.log(response);
-
                         $scope.hideDialog();
 
                         $rootScope.$broadcast('ticketEdited', {
@@ -712,7 +803,7 @@ function PlaningDialogController($scope, $rootScope, $http) {
                             timeId: $scope.time == undefined ? undefined : $scope.time.id,
                             weekTypeId: $scope.weekType,
                             typeId: $scope.scheduleType,
-                            schedule: $scope.selectedTicket
+                            schedule: response
                         });
                     }
 

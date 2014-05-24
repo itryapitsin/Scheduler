@@ -4,7 +4,9 @@
     {
         public int BuildingId { get; set; }
         public int DayOfWeek { get; set; }
-        public int WeekTypeId { get; set; }
+        public int? WeekTypeId { get; set; }
         public int Pair { get; set; }
+
+        public int? ScheduleId { get; set; }
     }
 }
