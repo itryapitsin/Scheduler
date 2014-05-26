@@ -385,28 +385,57 @@
     };
 
 
+
+
     $scope.startPlaning = function (e, ui, scope, pair, dayOfWeek) {
 
         //TODO: add if case for schedule-ticket and for shedule info
 
-       
-
         $scope.pair = pair;
         $scope.dayOfWeek = dayOfWeek;
         $scope.ui = ui;
-
-        
-        
+ 
         $scope.showDialog('planing.modal.html');
 
         if ($.inArray('schedule-info-card', ui.draggable[0].classList) > -1) {
             //if schedule info planning
 
-            $scope.building = undefined;
+            console.log($scope.globalBuilding);
+            console.log($scope.globalScheduleType);
+            console.log($scope.globalWeekType);
+      
+
+     
             $scope.auditorium = undefined;
             $scope.subGroup = undefined;
-            $scope.scheduleType = undefined;
-            $scope.weekType = undefined;
+            $scope.scheduleType = $scope.globalScheduleType == undefined ? undefined : $scope.globalScheduleType;
+            $scope.weekType = $scope.globalWeekType == undefined ? undefined : $scope.globalWeekType;
+
+            if ($scope.globalBuilding != undefined) {
+                $scope.building = $scope.globalBuilding;
+
+                $http
+                .get($http.prefix + "Scheduler/BuildingChanged", {
+                    params: {
+                        buildingId: $scope.building,
+                        dayOfWeek: $scope.dayOfWeek,
+                        pair: $scope.pair,
+                        weekTypeId: $scope.weekType,
+                        scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
+                    }
+                })
+                .success(function (response) {
+                    $scope.times = response.times;
+                    $scope.auditoriums = response.auditoriums;
+
+                    //getTimeForPair();
+                    $scope.time = $.Enumerable.From($scope.times)
+                        .Where(function (item) { return item.position == $scope.pair; })
+                        .FirstOrDefault();
+                });
+            } else {
+                $scope.building = undefined;
+            }
 
             $scope.isSIplanning = true;
             $("#test1").css("overflow-y", "scroll");
@@ -635,7 +664,6 @@ function PlaningDialogController($scope, $rootScope, $http) {
     $scope.daysOfWeek = [{ id: 1, name: 'Понедельник' }, { id: 2, name: 'Вторник' }, { id: 3, name: 'Среда' }, { id: 4, name: 'Четверг' }, { id: 5, name: 'Пятница' }, { id: 6, name: 'Суббота' }, { id: 7, name: 'Воскресенье' }];
     //$scope.subGroup = '1/2';
 
-   
 
     function getTimePeriod() {
         if ($scope.time)
@@ -702,6 +730,10 @@ function PlaningDialogController($scope, $rootScope, $http) {
     
     console.log("bc3");
     $scope.buildingChanged = function () {
+
+        $rootScope.globalBuilding = $scope.building;
+
+
         $http
             .get($http.prefix + "Scheduler/BuildingChanged", {
                 params: {
@@ -732,8 +764,13 @@ function PlaningDialogController($scope, $rootScope, $http) {
         availableAuditoriums();
     };
 
+    $scope.scheduleTypeChanged = function () {
+        $rootScope.globalScheduleType = $scope.scheduleType;
+    }
+
     $scope.weekTypeChanged = function () {
         console.log("wt changed");
+        $rootScope.globalWeekType = $scope.weekType;
         availableAuditoriums();
     };
 

@@ -125,13 +125,13 @@ namespace Timetable.Logic.Services
                 .Where(x => x.IsActual)
                 .Where(x => x.Time.Id == time.Id)
                 .Where(x => x.DayOfWeek == dayOfWeek)
-                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id))
+                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id) || (weekTypeId == weekType.Id))
                 .Select(x => x.Auditorium) :
                 Database.Schedules
                 .Where(x => x.IsActual)
                 .Where(x => x.Time.Id == time.Id)
                 .Where(x => x.DayOfWeek == dayOfWeek)
-                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id))
+                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id) || (weekTypeId == weekType.Id))
                 .Select(x => x.Auditorium)
                 :
                 scheduleId.HasValue ?
@@ -550,7 +550,8 @@ namespace Timetable.Logic.Services
                 .Where(x => x.IsActual)
                 .Where(x => x.Time.Id == timeId)
                 .Where(x => x.DayOfWeek == day)
-                .Where(x => ((x.WeekType.Id == weekTypeId) || (x.WeekType.Id == weekType.Id)));
+                .Where(x => ((x.WeekType.Id == weekTypeId) || (x.WeekType.Id == weekType.Id) || (weekTypeId == weekType.Id)));
+
 
           
 
@@ -988,7 +989,7 @@ namespace Timetable.Logic.Services
 
             var schedule = Database.Schedules.Where(x => x.Id == scheduleId).Include(x => x.ScheduleInfo).FirstOrDefault();
 
-            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, auditoriumId, weekTypeId, schedule.ScheduleInfo.Id, scheduleId) > 0;
+            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId, auditoriumId, schedule.ScheduleInfo.Id, scheduleId) > 0;
             if (hasCollisions)
                 throw new ScheduleCollisionException();
 
@@ -1045,7 +1046,7 @@ namespace Timetable.Logic.Services
 
 
 
-            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, auditoriumId, weekTypeId, scheduleInfoId) > 0;
+            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId, auditoriumId, scheduleInfoId) > 0;
             if(hasCollisions)
                 throw new ScheduleCollisionException();
 
