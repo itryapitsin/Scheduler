@@ -1,4 +1,5 @@
-﻿var app = angular.module('scheduler', ['ui.select2', 'ngResource', 'ngRoute', '$strap.directives', 'ngCookies', 'LocalStorageModule']);
+﻿var app = angular.module('scheduler', ['ui.select2', 'ngResource', 'ngRoute', '$strap.directives', 'ngCookies', 'LocalStorageModule', 'ui.bootstrap']);
+
 
 app.config(function ($routeProvider) {
 

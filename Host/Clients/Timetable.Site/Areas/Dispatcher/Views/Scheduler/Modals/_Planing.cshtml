@@ -2,7 +2,7 @@
     <div class="modal-dialog" style="width: 750px;" ng-controller="PlaningDialogController">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="myModalLabel">Редактирование расписания</h4>
+                <h4 id="myModalLabel">Редактирование расписания  {{selectedScheduleInfo.studentsCount}}{{selectedTicket.studentsCount}} чел.</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" name="form">
@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Аудитория</label>
                         <div class="col-sm-9">
-                            <select class="form-control" ng-disabled="!auditoriums" ng-model="auditorium" ng-options="auditorium.id as auditorium.name for auditorium in auditoriums"></select>
+                            <select class="form-control" ng-disabled="!auditoriums" ng-model="auditorium" ng-options="auditorium.id as auditorium.name + '  (' + auditorium.capacity + ' чел.)' for auditorium in auditoriums"></select>
                         </div>
                     </div>
 
@@ -51,8 +51,8 @@
                             <input class="form-control" ng-model="subGroup"></input>
                         </div>
                     </div>
-
-                </form>
+                    
+                 </form>
             </div>
             <div class="modal-footer">
                 <div class="pull-left text-danger" ng-show='message'>

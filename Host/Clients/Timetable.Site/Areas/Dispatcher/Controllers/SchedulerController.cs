@@ -42,7 +42,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
             var auditoriums =
              DataService
-                .GetFreeAuditoriums(request.BuildingId, request.DayOfWeek, request.WeekTypeId, request.Pair, request.ScheduleId)
+                .GetFreeAuditoriums(request.BuildingId, request.DayOfWeek, 
+                request.WeekTypeId, request.Pair, request.ScheduleInfoId, request.SubGroup, request.ScheduleId)
                 .Select(x => new AuditoriumViewModel(x));
 
 
@@ -58,6 +59,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                     request.DayOfWeek,
                     request.WeekTypeId,
                     request.Pair,
+                    request.ScheduleInfoId,
+                    request.SubGroup,
                     request.ScheduleId)
                 .Select(x => new AuditoriumViewModel(x));
 

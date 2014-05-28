@@ -25,6 +25,8 @@ namespace Timetable.Logic.Interfaces
             int dayOfWeek,
             int? weekTypeId,
             int timeId,
+            int scheduleInfoId,
+            string subGroup,
             int? scheduleId);
         IEnumerable<AuditoriumTypeDataTransfer> GetAuditoriumTypes(bool? isTraining = null);
         IEnumerable<BuildingDataTransfer> GetBuildings();
@@ -86,6 +88,7 @@ namespace Timetable.Logic.Interfaces
             int weekTypeId,
             int auditoriumId,
             int scheduleInfoId,
+            string subGroup,
             int? scheduleId);
 
         #region schedule

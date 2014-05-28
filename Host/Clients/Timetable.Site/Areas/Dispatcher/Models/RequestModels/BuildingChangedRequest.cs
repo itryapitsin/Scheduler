@@ -13,6 +13,10 @@ namespace Timetable.Site.Areas.Dispatcher.Models.RequestModels
         [Required]
         public int? WeekTypeId { get; set; }
         [Required]
+        public string SubGroup { get; set; }
+        [Required]
+        public int ScheduleInfoId { get; set; }
+        [Required]
         public int? ScheduleId { get; set; }
     }
 }

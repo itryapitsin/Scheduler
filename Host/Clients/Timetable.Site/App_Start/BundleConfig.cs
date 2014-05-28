@@ -72,6 +72,12 @@ namespace Timetable.Site
             select2Bundle.Transforms.Add(jsTransformer);
             select2Bundle.Orderer = nullOrderer;
 
+            var uiBootstrapBundle = new Bundle("~/Scripts/ui-bootstrap-0.10.0");
+            uiBootstrapBundle.Include("~/Scripts/ui-bootstrap-0.10.0.js");
+            uiBootstrapBundle.Builder = nullBuilder;
+            uiBootstrapBundle.Transforms.Add(jsTransformer);
+            uiBootstrapBundle.Orderer = nullOrderer;
+
             var dispatcherApp = new Bundle("~/Dispatcher/App");
             dispatcherApp.Include(
                 "~/Scripts/underscore.js",
@@ -120,6 +126,7 @@ namespace Timetable.Site
             bundles.Add(momentBundle);
             bundles.Add(angularBundle);
             bundles.Add(select2Bundle);
+            bundles.Add(uiBootstrapBundle);
             bundles.Add(dispatcherApp);
             bundles.Add(studentApp);
 

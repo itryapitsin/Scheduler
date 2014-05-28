@@ -25,6 +25,8 @@ namespace Timetable.Site.Models.ViewModels
         public string DepartmentName { get; set; }
         public int DepartmentId { get; set; }
 
+        public int StudentsCount { get; set; }
+
 
         public ScheduleInfoViewModel(ScheduleInfoDataTransfer scheduleInfo)
         {
@@ -35,6 +37,13 @@ namespace Timetable.Site.Models.ViewModels
             {
                 LecturerId = scheduleInfo.Lecturer.Id;
                 Lecturer = LecturerViewModel.GetLecturerShortName(scheduleInfo.Lecturer);
+            }
+
+            if (scheduleInfo.Groups != null)
+            {
+                var sCount = scheduleInfo.Groups.Sum(x => x.StudentsCount);
+                if (sCount.HasValue)
+                    StudentsCount = sCount.Value;
             }
 
             HoursPerWeek = scheduleInfo.HoursPerWeek;

@@ -32,6 +32,8 @@ namespace Timetable.Site.Models.ViewModels
         public string ScheduleTypeName { get; set; }
         public int ScheduleTypeId { get; set; }
 
+        public int StudentsCount { get; set; }
+
         public IList<int> States { get; set; }
         public ScheduleViewModel(ScheduleDataTransfer schedule)
         {
@@ -60,6 +62,14 @@ namespace Timetable.Site.Models.ViewModels
 
            
             LecturerName = LecturerViewModel.GetLecturerShortName(schedule.ScheduleInfo.Lecturer);
+
+            if (schedule.ScheduleInfo.Groups != null)
+            {
+                var sCount = schedule.ScheduleInfo.Groups.Sum(x => x.StudentsCount);
+                if (sCount.HasValue)
+                    StudentsCount = sCount.Value;
+            }
+
             TutorialName = cns.Cut(schedule.ScheduleInfo.Tutorial.Name);
             TutorialTypeName = schedule.ScheduleInfo.TutorialType.Name.FirstOrDefault();
             GroupCodes = schedule.ScheduleInfo.Groups.Select(x => x.Code);

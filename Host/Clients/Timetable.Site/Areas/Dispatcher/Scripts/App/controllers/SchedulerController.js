@@ -125,6 +125,8 @@
 
     $scope.$on('ticketRemoved', function (e, newParams) {
 
+        
+
         for (var i = 0; i < $scope.schedules.length; ++i) {
             if ($scope.schedules[i].id == newParams.schedule.id) {
                 $scope.schedules.splice(i, 1);
@@ -136,6 +138,8 @@
             if ($scope.scheduleInfoes[i].id == newParams.schedule.scheduleInfoId)
                 $scope.scheduleInfoes[i].hoursPassed -= 1;
         }
+
+        $scope.schedules = $scope.schedules.filter(function (obj) { return !$scope.isRelatedScheduleTicket(obj); });
     });
 
 
@@ -201,6 +205,8 @@
                     dayOfWeek: $scope.dayOfWeek,
                     pair: $scope.pair,
                     weekTypeId: $scope.weekType,
+                    scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
+                    subGroup: $scope.subGroup,
                     scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                 }
             })
@@ -421,6 +427,8 @@
                         dayOfWeek: $scope.dayOfWeek,
                         pair: $scope.pair,
                         weekTypeId: $scope.weekType,
+                        scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
+                        subGroup: $scope.subGroup,
                         scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                     }
                 })
@@ -476,6 +484,8 @@
                         dayOfWeek: $scope.dayOfWeek,
                         pair: $scope.pair,
                         weekTypeId: $scope.weekType,
+                        scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
+                        subGroup: $scope.subGroup,
                         scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                     }
                 })
@@ -714,6 +724,8 @@ function PlaningDialogController($scope, $rootScope, $http) {
                      dayOfWeek: $scope.dayOfWeek,
                      pair: $scope.pair,
                      weekTypeId: $scope.weekType,
+                     scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id :  $scope.selectedTicket.scheduleInfoId,
+                     subGroup: $scope.subGroup,
                      scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
                  }
              })
@@ -741,6 +753,8 @@ function PlaningDialogController($scope, $rootScope, $http) {
                     dayOfWeek: $scope.dayOfWeek,
                     pair: $scope.pair,
                     weekTypeId: $scope.weekType,
+                    scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
+                    subGroup: $scope.subGroup,
                     scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
                 }
             })
