@@ -34,7 +34,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/31/2014 21:36:25</publishTime>
     </File>
     <File Include="Areas/Dispatcher/Scripts/App/controllers/SchedulerController.js">
-      <publishTime>05/24/2014 20:12:34</publishTime>
+      <publishTime>05/26/2014 12:13:34</publishTime>
     </File>
     <File Include="Areas/Dispatcher/Scripts/App/controllers/SessionScheduleController.js">
       <publishTime>05/04/2014 23:37:17</publishTime>
@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/02/2014 10:31:26</publishTime>
     </File>
     <File Include="Areas/Dispatcher/Views/Scheduler/Modals/_Planing.cshtml">
-      <publishTime>05/23/2014 22:38:47</publishTime>
+      <publishTime>05/26/2014 12:16:15</publishTime>
     </File>
     <File Include="Areas/Dispatcher/Views/Scheduler/Modals/_Thread.cshtml">
       <publishTime>03/31/2014 21:36:25</publishTime>
@@ -124,10 +124,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/04/2014 23:28:23</publishTime>
     </File>
     <File Include="Areas/Dispatcher/Views/Scheduler/_ScheduleInfoList.cshtml">
-      <publishTime>05/24/2014 19:24:32</publishTime>
+      <publishTime>05/26/2014 12:15:48</publishTime>
     </File>
     <File Include="Areas/Dispatcher/Views/Scheduler/_Timetable.cshtml">
-      <publishTime>05/24/2014 20:04:21</publishTime>
+      <publishTime>05/26/2014 12:15:05</publishTime>
     </File>
     <File Include="Areas/Dispatcher/Views/SessionSchedule/_Index.cshtml">
       <publishTime>05/04/2014 23:28:58</publishTime>
@@ -325,7 +325,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/30/2014 17:27:47</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/30/2014 17:28:00</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>03/30/2014 00:08:14</publishTime>
@@ -379,16 +379,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/21/2014 22:03:36</publishTime>
     </File>
     <File Include="bin/Timetable.Logic.dll">
-      <publishTime>05/24/2014 18:48:21</publishTime>
+      <publishTime>05/26/2014 12:16:19</publishTime>
     </File>
     <File Include="bin/Timetable.Logic.pdb">
-      <publishTime>05/24/2014 18:48:21</publishTime>
+      <publishTime>05/26/2014 12:16:19</publishTime>
     </File>
     <File Include="bin/Timetable.Site.dll">
-      <publishTime>05/24/2014 18:49:19</publishTime>
+      <publishTime>05/26/2014 12:16:23</publishTime>
     </File>
     <File Include="bin/Timetable.Site.pdb">
-      <publishTime>05/24/2014 18:49:19</publishTime>
+      <publishTime>05/26/2014 12:16:23</publishTime>
     </File>
     <File Include="bin/Timetable.Sync.Logic.dll">
       <publishTime>05/21/2014 22:03:56</publishTime>

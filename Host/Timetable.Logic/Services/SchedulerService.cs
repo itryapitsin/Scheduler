@@ -45,7 +45,7 @@ namespace Timetable.Logic.Services
                 .Select(x => new SemesterDataTransfer(x));
         }
 
-        public SemesterDataTransfer GetSemesterForTime(DateTime ?date)
+        public SemesterDataTransfer GetSemesterForTime(DateTime? date)
         {
             if (date.HasValue)
             {
@@ -69,7 +69,7 @@ namespace Timetable.Logic.Services
                 .Select(x => new BranchDataTransfer(x));
         }
 
-        public AuditoriumDataTransfer GetAuditoriumById(int auditoriumId) 
+        public AuditoriumDataTransfer GetAuditoriumById(int auditoriumId)
         {
             return Database.Auditoriums
                   .Where(x => x.Id == auditoriumId)
@@ -125,13 +125,13 @@ namespace Timetable.Logic.Services
                 .Where(x => x.IsActual)
                 .Where(x => x.Time.Id == time.Id)
                 .Where(x => x.DayOfWeek == dayOfWeek)
-                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id))
+                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id) || (weekTypeId == weekType.Id))
                 .Select(x => x.Auditorium) :
                 Database.Schedules
                 .Where(x => x.IsActual)
                 .Where(x => x.Time.Id == time.Id)
                 .Where(x => x.DayOfWeek == dayOfWeek)
-                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id))
+                .Where(x => (x.WeekType.Id == weekTypeId.Value || x.WeekType.Id == weekType.Id) || (weekTypeId == weekType.Id))
                 .Select(x => x.Auditorium)
                 :
                 scheduleId.HasValue ?
@@ -147,7 +147,7 @@ namespace Timetable.Logic.Services
                 .Where(x => x.DayOfWeek == dayOfWeek)
                 .Select(x => x.Auditorium);
 
-            
+
 
 
             var freeAuditoriums = Database.Auditoriums
@@ -339,7 +339,7 @@ namespace Timetable.Logic.Services
                               x => x.Lastname == lastName)
                              .ToList()
                              .Select(x => new LecturerDataTransfer(x));
-                             
+
 
             }
             if (tokens.Length == 2)
@@ -351,7 +351,7 @@ namespace Timetable.Logic.Services
                               x.Firstname.StartsWith(firstName))
                              .ToList()
                              .Select(x => new LecturerDataTransfer(x));
-                           
+
             }
 
             lastName = tokens[0];
@@ -541,7 +541,7 @@ namespace Timetable.Logic.Services
                 .FirstOrDefault();
 
             var groupIds = scheduleInfo.Groups.Select(x => x.Id).AsEnumerable();
-          
+
 
             var result = Database.Schedules
                 .Where(x => x.ScheduleInfo.Lecturer.Id == scheduleInfo.Lecturer.Id ||
@@ -550,9 +550,10 @@ namespace Timetable.Logic.Services
                 .Where(x => x.IsActual)
                 .Where(x => x.Time.Id == timeId)
                 .Where(x => x.DayOfWeek == day)
-                .Where(x => ((x.WeekType.Id == weekTypeId) || (x.WeekType.Id == weekType.Id)));
+                .Where(x => ((x.WeekType.Id == weekTypeId) || (x.WeekType.Id == weekType.Id) || (weekTypeId == weekType.Id)));
 
-          
+
+
 
             if (scheduleId.HasValue)
                 return result.Where(x => x.Id != scheduleId.Value).Count();
@@ -585,7 +586,7 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.SemesterId == semester);
 
             return result.ToList()
-                .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time, x.Auditorium}).Select(x => x.FirstOrDefault())
+                .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium }).Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -606,7 +607,7 @@ namespace Timetable.Logic.Services
                 .Where(x => x.Time.Id == timeId && x.DayOfWeek == dayOfWeek);
 
             return result.ToList()
-                   .GroupBy(x => new {x.WeekType, x.Auditorium }).Select(x => x.FirstOrDefault())
+                   .GroupBy(x => new { x.WeekType, x.Auditorium }).Select(x => x.FirstOrDefault())
                    .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -647,7 +648,7 @@ namespace Timetable.Logic.Services
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
-   
+
         public IEnumerable<ScheduleDataTransfer> GetSchedulesForGroups(
             int facultyId,
             int courseId,
@@ -663,7 +664,7 @@ namespace Timetable.Logic.Services
                 .Where(x => x.ScheduleInfo.Groups.Any(y => groupIds.Contains(y.Id)))
                 .ToList()
                 .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium })
-                .Select(x => x.FirstOrDefault()) 
+                .Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -694,7 +695,7 @@ namespace Timetable.Logic.Services
                .Where(x => x.ScheduleInfo.SemesterId == semester)
                .Where(x => x.AuditoriumId == auditoriumId)
                .ToList()
-               .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time })
+               .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time })
                .Select(x => x.FirstOrDefault())
                .Select(x => new ScheduleDataTransfer(x));
 
@@ -707,7 +708,7 @@ namespace Timetable.Logic.Services
         {
             var studyYear = date.Month > 6
                 ? Database.StudyYears.FirstOrDefault(x => x.StartYear == date.Year)
-                : Database.StudyYears.FirstOrDefault(x => x.StartYear+x.Length == date.Year);
+                : Database.StudyYears.FirstOrDefault(x => x.StartYear + x.Length == date.Year);
 
             if (studyYear == null)
                 return Enumerable.Empty<ScheduleDataTransfer>();
@@ -719,7 +720,7 @@ namespace Timetable.Logic.Services
                .Where(x => x.AuditoriumId == auditoriumId)
                .Where(x => x.ScheduleInfo.Semester.Id == semester.Id)
                .ToList()
-               .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time })
+               .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time })
                .Select(x => x.FirstOrDefault())
                .Select(x => new ScheduleDataTransfer(x));
 
@@ -747,7 +748,7 @@ namespace Timetable.Logic.Services
             return GetSchedules()
                 .Where(x => x.ScheduleInfo.Id == scheduleInfoId)
                 .ToList()
-                .GroupBy(x => new {x.DayOfWeek, x.WeekType, x.Time, x.Auditorium }).Select(x => x.FirstOrDefault())
+                .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium }).Select(x => x.FirstOrDefault())
                 .Select(x => new ScheduleDataTransfer(x));
         }
 
@@ -768,7 +769,7 @@ namespace Timetable.Logic.Services
                             (x.ScheduleInfo.Groups.Select(y => y.Id).Intersect(groupIds).Count() > 0))
                 .ToList()
                 .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium }).Select(x => x.FirstOrDefault())
-                .Select(x => new ScheduleDataTransfer(x, (new Func<IEnumerable<ScheduleState>> (() =>
+                .Select(x => new ScheduleDataTransfer(x, (new Func<IEnumerable<ScheduleState>>(() =>
                 {
                     var states = new List<ScheduleState>();
                     if (x.ScheduleInfo.Lecturer.Id == schedule.ScheduleInfo.Lecturer.Id)
@@ -798,7 +799,8 @@ namespace Timetable.Logic.Services
                             (x.ScheduleInfo.Groups.Select(y => y.Id).Intersect(groupIds).Count() > 0))
                 .ToList()
                 .GroupBy(x => new { x.DayOfWeek, x.WeekType, x.Time, x.Auditorium }).Select(x => x.FirstOrDefault())
-                .Select(x => new ScheduleDataTransfer(x, (new Func<IEnumerable<ScheduleState>> (() => {
+                .Select(x => new ScheduleDataTransfer(x, (new Func<IEnumerable<ScheduleState>>(() =>
+                {
 
                     var states = new List<ScheduleState>();
 
@@ -808,12 +810,12 @@ namespace Timetable.Logic.Services
                     if ((x.ScheduleInfo.Groups.Select(y => y.Id).Intersect(groupIds).Count() > 0))
                         states.Add(ScheduleState.RelatedWithThread);
 
-                    return states; 
+                    return states;
                 })).Invoke()));
-                /*.Select(x => new ScheduleDataTransfer(x,
-                            x.ScheduleInfo.Lecturer.Id == scheduleInfo.Lecturer.Id ?
-                            ScheduleState.RelatedWithLecturer :
-                            ScheduleState.RelatedWithThread));*/
+            /*.Select(x => new ScheduleDataTransfer(x,
+                        x.ScheduleInfo.Lecturer.Id == scheduleInfo.Lecturer.Id ?
+                        ScheduleState.RelatedWithLecturer :
+                        ScheduleState.RelatedWithThread));*/
         }
 
         public ScheduleDataTransfer GetScheduleById(int id)
@@ -957,9 +959,9 @@ namespace Timetable.Logic.Services
 
         public StudyYearDataTransfer GetStudyYear(DateTime date)
         {
-            var studyYear = date.Month > 6 
-                ? Database.StudyYears.FirstOrDefault(x => x.StartYear == date.Year) 
-                : Database.StudyYears.FirstOrDefault(x => x.StartYear+x.Length == date.Year);
+            var studyYear = date.Month > 6
+                ? Database.StudyYears.FirstOrDefault(x => x.StartYear == date.Year)
+                : Database.StudyYears.FirstOrDefault(x => x.StartYear + x.Length == date.Year);
 
             return new StudyYearDataTransfer(studyYear);
         }
@@ -988,7 +990,7 @@ namespace Timetable.Logic.Services
 
             var schedule = Database.Schedules.Where(x => x.Id == scheduleId).Include(x => x.ScheduleInfo).FirstOrDefault();
 
-            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, auditoriumId, weekTypeId, schedule.ScheduleInfo.Id, scheduleId) > 0;
+            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId, auditoriumId, schedule.ScheduleInfo.Id, scheduleId) > 0;
             if (hasCollisions)
                 throw new ScheduleCollisionException();
 
@@ -996,9 +998,9 @@ namespace Timetable.Logic.Services
                 schedule.Auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId).FirstOrDefault();
 
             if (schedule.TimeId != timeId)
-                 schedule.Time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
+                schedule.Time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
 
-            if(schedule.WeekTypeId != weekTypeId)
+            if (schedule.WeekTypeId != weekTypeId)
                 schedule.WeekType = Database.WeekTypes.Where(x => x.Id == weekTypeId).FirstOrDefault();
 
             if (schedule.TypeId != typeId)
@@ -1006,7 +1008,7 @@ namespace Timetable.Logic.Services
 
             schedule.DayOfWeek = dayOfWeek;
             schedule.SubGroup = subGroup;
-            
+
 
             Database.Update(schedule);
 
@@ -1017,7 +1019,7 @@ namespace Timetable.Logic.Services
             int auditoriumId,
             int dayOfWeek,
             int scheduleInfoId,
-            int timeId, 
+            int timeId,
             int weekTypeId,
             int typeId,
             string subGroup)
@@ -1025,7 +1027,7 @@ namespace Timetable.Logic.Services
             if (auditoriumId == 0 || dayOfWeek == 0 || scheduleInfoId == 0 || timeId == 0 || weekTypeId == 0 || typeId == 0)
                 throw new ScheduleNoDataException();
 
-           
+
 
             var schedule = new Schedule
             {
@@ -1045,8 +1047,8 @@ namespace Timetable.Logic.Services
 
 
 
-            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, auditoriumId, weekTypeId, scheduleInfoId) > 0;
-            if(hasCollisions)
+            var hasCollisions = CountScheduleCollisions(dayOfWeek, timeId, weekTypeId, auditoriumId, scheduleInfoId) > 0;
+            if (hasCollisions)
                 throw new ScheduleCollisionException();
 
             var scheduleInfo = Database.ScheduleInfoes.First(x => x.Id == scheduleInfoId);
@@ -1054,11 +1056,11 @@ namespace Timetable.Logic.Services
             scheduleInfo.IsPlanned = true;
 
             Database.Schedules.Add(schedule);
-            
+
 
             Database.SaveChanges();
 
-            var newschedule = Database.Schedules.Where(x=> x.ScheduleInfo.Id == scheduleInfoId
+            var newschedule = Database.Schedules.Where(x => x.ScheduleInfo.Id == scheduleInfoId
                                                         && x.Auditorium.Id == auditoriumId &&
                                                         x.WeekType.Id == weekTypeId &&
                                                         x.Time.Id == timeId &&
@@ -1114,7 +1116,7 @@ namespace Timetable.Logic.Services
             var building = Database.Buildings.Where(x => x.Id == buildingId).FirstOrDefault();
             var auditoriumType = Database.AuditoriumTypes.Where(x => x.Id == auditoriumTypeId).FirstOrDefault();
             Database.Auditoriums.Add(
-                    
+
 
                     new Auditorium
                     {
@@ -1164,7 +1166,7 @@ namespace Timetable.Logic.Services
                string pattern
             )
         {
-          
+
             Database.AuditoriumTypes.Add(
                     new AuditoriumType
                     {
@@ -1436,7 +1438,7 @@ namespace Timetable.Logic.Services
 
         public void EditCourse(
            string name,
-           int [] branchIds,
+           int[] branchIds,
            int courseId
            )
         {
@@ -1490,7 +1492,7 @@ namespace Timetable.Logic.Services
            int timeId
            )
         {
-           
+
             var time = Database.Times.Where(x => x.Id == timeId).FirstOrDefault();
             var buildings = Database.Buildings.Where(x => buildingIds.Any(y => y == x.Id)).ToList();
 
@@ -1671,8 +1673,8 @@ namespace Timetable.Logic.Services
         public void EditGroup(
           string code,
           int studentsCount,
-          int [] facultyIds,
-          int [] courseIds,
+          int[] facultyIds,
+          int[] courseIds,
           int studyTypeId,
           int groupId,
           bool isActual)
@@ -1681,7 +1683,7 @@ namespace Timetable.Logic.Services
             var studyType = Database.StudyTypes.Where(x => x.Id == studyTypeId).FirstOrDefault();
             var faculties = Database.Faculties.Where(x => facultyIds.Any(y => y == x.Id)).ToList();
             var courses = Database.Courses.Where(x => courseIds.Any(y => y == x.Id)).ToList();
-            
+
             var group = Database.Groups.Where(x => x.Id == groupId).FirstOrDefault();
 
             group.Code = code;
@@ -1699,8 +1701,8 @@ namespace Timetable.Logic.Services
         public void CreateGroup(
                 string code,
                 int studentsCount,
-                int [] facultyIds,
-                int [] courseIds,
+                int[] facultyIds,
+                int[] courseIds,
                 int studyTypeId,
                 bool isActual)
         {
@@ -1749,7 +1751,7 @@ namespace Timetable.Logic.Services
           int scheduleInfoId
           )
         {
-      
+
             var studyYear = Database.StudyYears.Where(x => x.Id == studyYearId).FirstOrDefault();
             var department = Database.Departments.Where(x => x.Id == departmentId).FirstOrDefault();
             var tutorialType = Database.TutorialTypes.Where(x => x.Id == tutorialTypeId).FirstOrDefault();
@@ -1813,7 +1815,7 @@ namespace Timetable.Logic.Services
             var tutorial = Database.Tutorials.Where(x => x.Name.Contains(tutorialSearchString)).FirstOrDefault();
             var lecturer = Database.Lecturers.Where(x => x.Lastname.Contains(lecturerSearchString)).FirstOrDefault();
 
-        
+
 
             Database.ScheduleInfoes.Add(
                     new ScheduleInfo
@@ -1957,18 +1959,18 @@ namespace Timetable.Logic.Services
 
 
             var auditoriumOrder = new AuditoriumOrder
-                    {
-                        TutorialName = tutorialName,
-                        LecturerName = lecturerName,
-                        ThreadName = threadName,
-                        DayOfWeek = dayOfWeek,
-                        Time = time,
-                        Auditorium = auditorium,
-                        AutoDelete = autoDelete,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                        IsActual = true
-                    };
+            {
+                TutorialName = tutorialName,
+                LecturerName = lecturerName,
+                ThreadName = threadName,
+                DayOfWeek = dayOfWeek,
+                Time = time,
+                Auditorium = auditorium,
+                AutoDelete = autoDelete,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                IsActual = true
+            };
             Database.AuditoriumOrders.Add(
                     auditoriumOrder
                 );
@@ -2006,8 +2008,8 @@ namespace Timetable.Logic.Services
         }
 
         public IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
-            int timeId, 
-            int dayOfWeek, 
+            int timeId,
+            int dayOfWeek,
             int buildingId)
         {
             var result = Database.AuditoriumOrders.Where(
@@ -2021,8 +2023,8 @@ namespace Timetable.Logic.Services
         }
 
 
-        
- 
+
+
         public IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
             int timeId,
             int dayOfWeek,
@@ -2035,7 +2037,7 @@ namespace Timetable.Logic.Services
                 x.Auditorium.Building.Id == buildingId &&
                 auditoriumTypeIds.Contains(x.Auditorium.AuditoriumType.Id)).AsQueryable();
 
-       
+
             return result
                 .ToList()
                 .Select(x => new AuditoriumOrderDataTransfer(x));
@@ -2053,7 +2055,7 @@ namespace Timetable.Logic.Services
             Data.Models.Scheduler.Lecturer lecturer = null;
             Data.Models.Scheduler.Group group = null;
 
-            if(auditoriumId.HasValue)
+            if (auditoriumId.HasValue)
                 auditorium = Database.Auditoriums.Where(x => x.Id == auditoriumId.Value).FirstOrDefault();
 
             if (lecturerId.HasValue)

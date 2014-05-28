@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Тип</label>
                         <div class="col-sm-3">
-                            <select class="form-control" ng-model="scheduleType" ng-options="scheduleType.id as scheduleType.name for scheduleType in scheduleTypes"></select>
+                            <select class="form-control" ng-model="scheduleType" ng-change="scheduleTypeChanged()" ng-options="scheduleType.id as scheduleType.name for scheduleType in scheduleTypes"></select>
                         </div>
                         <label class="col-sm-1 control-label">Корпус</label>
                         <div class="col-sm-5">

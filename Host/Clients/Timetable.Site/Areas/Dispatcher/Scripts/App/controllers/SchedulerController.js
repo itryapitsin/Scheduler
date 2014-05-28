@@ -55,7 +55,7 @@
             .FirstOrDefault({ name: "<Форма обучения не выбрана>" });
     };
 
-   
+
 
     function loadScheduleInfoesForFaculty() {
         var groupIds = $.Enumerable.From($scope.currentGroups).Select('$.id').ToArray();
@@ -124,10 +124,10 @@
     });
 
     $scope.$on('ticketRemoved', function (e, newParams) {
-  
+
         for (var i = 0; i < $scope.schedules.length; ++i) {
             if ($scope.schedules[i].id == newParams.schedule.id) {
-                $scope.schedules.splice(i, 1);      
+                $scope.schedules.splice(i, 1);
                 break;
             }
         }
@@ -146,7 +146,7 @@
                 break;
             }
         }
-        
+
         //magic
         $($scope.draggedScheduleTicket).addClass("hide");
 
@@ -221,13 +221,13 @@
     };
 
     $scope.unplan = function () {
-  
+
         var ticketName = $scope.selectedTicket.tutorialName + " " + $scope.selectedTicket.lecturerName;
 
         $scope.confirm = {
             content: "Вы действительно хотите снять занятие '{0}' ?".replace('{0}', ticketName),
             ok: function () {
-             
+
                 var params = {
                     scheduleId: $scope.selectedTicket.id,
                 };
@@ -238,21 +238,21 @@
                         if (response.ok) {
 
                             $scope.hideDialog();
-                  
+
                             //TODO: make a updatating ui after deleting ? without reloading ?
 
                             $scope.$broadcast('ticketRemoved', {
                                 schedule: $scope.selectedTicket
                             });
 
-                           
+
                         }
 
                         if (response.fail) {
                             $scope.message = response.message;
                         }
                     });
-              
+
                 $scope.hideDialog();
             },
             cancel: function () {
@@ -276,7 +276,7 @@
                     scheduleId: $scope.selectedTicket.id,
                 }
             }).success(function (response) {
-                
+
 
                 $scope.relatedSchedules = response;
                 console.log("relatedSchedulesWithSchedule1");
@@ -311,7 +311,7 @@
             }
         }).success(function (response) {
 
-            
+
 
             $scope.relatedSchedules = response;
             console.log("relatedSchedulesWithScheduleInfo1");
@@ -338,7 +338,7 @@
     }
 
     //maybe transfer it to base timetable controller ?
-    $scope.isSelectedScheduleTicket = function(schedule){
+    $scope.isSelectedScheduleTicket = function (schedule) {
         return schedule == $scope.selectedTicket;
     };
 
@@ -363,8 +363,8 @@
     $scope.stopDragging = function (e, ui, item) {
 
         //is a schedule info
-        if(item.time == undefined)
-               $("#test1").css("overflow-y", "scroll");
+        if (item.time == undefined)
+            $("#test1").css("overflow-y", "scroll");
 
     };
 
@@ -385,28 +385,57 @@
     };
 
 
+
+
     $scope.startPlaning = function (e, ui, scope, pair, dayOfWeek) {
 
         //TODO: add if case for schedule-ticket and for shedule info
-
-       
 
         $scope.pair = pair;
         $scope.dayOfWeek = dayOfWeek;
         $scope.ui = ui;
 
-        
-        
         $scope.showDialog('planing.modal.html');
 
         if ($.inArray('schedule-info-card', ui.draggable[0].classList) > -1) {
             //if schedule info planning
 
-            $scope.building = undefined;
+            console.log($scope.globalBuilding);
+            console.log($scope.globalScheduleType);
+            console.log($scope.globalWeekType);
+
+
+
             $scope.auditorium = undefined;
             $scope.subGroup = undefined;
-            $scope.scheduleType = undefined;
-            $scope.weekType = undefined;
+            $scope.scheduleType = $scope.globalScheduleType == undefined ? undefined : $scope.globalScheduleType;
+            $scope.weekType = $scope.globalWeekType == undefined ? undefined : $scope.globalWeekType;
+
+            if ($scope.globalBuilding != undefined) {
+                $scope.building = $scope.globalBuilding;
+
+                $http
+                .get($http.prefix + "Scheduler/BuildingChanged", {
+                    params: {
+                        buildingId: $scope.building,
+                        dayOfWeek: $scope.dayOfWeek,
+                        pair: $scope.pair,
+                        weekTypeId: $scope.weekType,
+                        scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
+                    }
+                })
+                .success(function (response) {
+                    $scope.times = response.times;
+                    $scope.auditoriums = response.auditoriums;
+
+                    //getTimeForPair();
+                    $scope.time = $.Enumerable.From($scope.times)
+                        .Where(function (item) { return item.position == $scope.pair; })
+                        .FirstOrDefault();
+                });
+            } else {
+                $scope.building = undefined;
+            }
 
             $scope.isSIplanning = true;
             $("#test1").css("overflow-y", "scroll");
@@ -417,15 +446,15 @@
                     break;
                 }
 
-             $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
-                    return obj !== $scope.selectedScheduleInfo;
-             });
-     
+            $scope.scheduleInfoes = $scope.scheduleInfoes.filter(function (obj) {
+                return obj !== $scope.selectedScheduleInfo;
+            });
+
             //TODO: make a updatating ui after planning ? without reloading ?
         } else {
             //if schedule replanning
             $scope.isSIplanning = false;
-            
+
 
             //set parameters of schedule
 
@@ -461,15 +490,15 @@
                 });
 
             $scope.draggedScheduleTicket = ui.draggable[0];
-            
 
-            
+
+
 
             //TODO: make a updatating ui after planning ? without reloading ?
         }
 
         //self.modal.getTimeForPair();
-       
+
     };
 
     $scope.cancelPlaning = function () {
@@ -485,7 +514,7 @@
         $scope.hideDialog();
     }
 
-    $scope.isFacultySelected = function(){
+    $scope.isFacultySelected = function () {
         if ($scope.currentFacultyId == null || $scope.currentFacultyId == undefined || $scope.currentFacultyId == "")
             return false;
         return true;
@@ -504,7 +533,7 @@
     }
 
     $scope.getReportForFaculty = function () {
-  
+
         if ($scope.isFacultySelected()) {
             document.location.href = $http.prefix + 'Report/GetReportForFaculty?branchId={0}&facultyId={1}&studyYearId={2}&semesterId={3}'
                 .replace('{0}', $scope.currentBranchId)
@@ -635,7 +664,6 @@ function PlaningDialogController($scope, $rootScope, $http) {
     $scope.daysOfWeek = [{ id: 1, name: 'Понедельник' }, { id: 2, name: 'Вторник' }, { id: 3, name: 'Среда' }, { id: 4, name: 'Четверг' }, { id: 5, name: 'Пятница' }, { id: 6, name: 'Суббота' }, { id: 7, name: 'Воскресенье' }];
     //$scope.subGroup = '1/2';
 
-   
 
     function getTimePeriod() {
         if ($scope.time)
@@ -650,7 +678,7 @@ function PlaningDialogController($scope, $rootScope, $http) {
             .Where(function (item) { return item.position == $scope.pair; })
             .FirstOrDefault();
     };
-    
+
 
 
     //transfer logic to server ?
@@ -679,29 +707,33 @@ function PlaningDialogController($scope, $rootScope, $http) {
 
 
     function availableAuditoriums() {
-       $http
-            .get($http.prefix + "Scheduler/GetFreeAuditoriums", {
-                params: {
-                    buildingId: $scope.building,
-                    dayOfWeek: $scope.dayOfWeek,
-                    pair: $scope.pair,
-                    weekTypeId: $scope.weekType,
-                    scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
-                }
-            })
-            .success(function (response) {
-                $scope.auditoriums = response;
-                getTimeForPair();
-                console.log("ok");
-            });
+        $http
+             .get($http.prefix + "Scheduler/GetFreeAuditoriums", {
+                 params: {
+                     buildingId: $scope.building,
+                     dayOfWeek: $scope.dayOfWeek,
+                     pair: $scope.pair,
+                     weekTypeId: $scope.weekType,
+                     scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
+                 }
+             })
+             .success(function (response) {
+                 $scope.auditoriums = response;
+                 getTimeForPair();
+                 console.log("ok");
+             });
     }
 
     $scope.tickets = $scope.findScheduleTickets($scope.pair, $scope.dayOfWeek);
     availableWeekTypes();
     availablePairs();
-    
+
     console.log("bc3");
     $scope.buildingChanged = function () {
+
+        $rootScope.globalBuilding = $scope.building;
+
+
         $http
             .get($http.prefix + "Scheduler/BuildingChanged", {
                 params: {
@@ -720,7 +752,7 @@ function PlaningDialogController($scope, $rootScope, $http) {
             });
     };
 
-    $scope.pairChanged = function() {
+    $scope.pairChanged = function () {
         $scope.tickets = $scope.findScheduleTickets($scope.pair, $scope.dayOfWeek);
         getTimeForPair();
         availableWeekTypes();
@@ -732,8 +764,13 @@ function PlaningDialogController($scope, $rootScope, $http) {
         availableAuditoriums();
     };
 
+    $scope.scheduleTypeChanged = function () {
+        $rootScope.globalScheduleType = $scope.scheduleType;
+    }
+
     $scope.weekTypeChanged = function () {
         console.log("wt changed");
+        $rootScope.globalWeekType = $scope.weekType;
         availableAuditoriums();
     };
 

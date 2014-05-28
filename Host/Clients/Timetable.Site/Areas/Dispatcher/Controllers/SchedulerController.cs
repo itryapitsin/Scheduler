@@ -44,7 +44,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
              DataService
                 .GetFreeAuditoriums(request.BuildingId, request.DayOfWeek, request.WeekTypeId, request.Pair, request.ScheduleId)
                 .Select(x => new AuditoriumViewModel(x));
-              
+
 
 
             return new JsonNetResult(new { Auditoriums = auditoriums, Times = times });
@@ -93,7 +93,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             UserData.CreatorSettings.CurrentGroupIds = groupIds.ToArray();
             UserData.CreatorSettings.CurrentStudyTypeId = request.StudyTypeId;
             UserService.SaveUserState(UserData);
-            
+
             var response = new GetSchedulesAndInfoesResponse
             {
                 ScheduleInfoes = DataService
