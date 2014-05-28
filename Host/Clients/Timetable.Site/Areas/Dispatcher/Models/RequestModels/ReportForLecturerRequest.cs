@@ -7,7 +7,7 @@ namespace Timetable.Site.Areas.Dispatcher.Models.RequestModels
         [Required]
         public string Title { get; set; }
         [Required]
-        public string LecturerQuery { get; set; }
+        public int LecturerId { get; set; }
         [Required]
         public int StudyYearId { get; set; }
         [Required]

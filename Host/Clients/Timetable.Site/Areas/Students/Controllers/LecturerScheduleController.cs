@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -12,29 +13,26 @@ namespace Timetable.Site.Areas.Students.Controllers
     {
         public ActionResult Index()
         {
-            //var currentLecturerId = Request.Cookies["currentLecturerId"];
-            var currentLecturerSearchString = Request.Cookies["currentLecturerSearchString"];
+
+            var currentLecturerId = Request.Cookies["currentLecturerId"];
 
             var model = new LecturerScheduleViewModel();
 
-            if (currentLecturerSearchString != null)
+            if (currentLecturerId != null)
             {
-                var lecturer = DataService.GetLecturerBySearchString(currentLecturerSearchString.Value);
 
+                int lecturerId = int.Parse(currentLecturerId.Value);
                 //Сконвертировать currentLecturerSearchString.Value
 
+                var studyYear = DataService.GetStudyYear(DateTime.Now);
+                var semester = DataService.GetSemesterForTime(DateTime.Now);
 
-                if (lecturer != null)
-                {
-                    var studyYear = DataService.GetStudyYear(DateTime.Now);
-                    var semester = DataService.GetSemesterForTime(DateTime.Now);
+                model.Lecturer = new LecturerViewModel(DataService.GetLecturerById(lecturerId));
 
-                    model.Lecturer = new LecturerViewModel(lecturer);
+                model.Schedules = DataService
+                    .GetSchedulesForLecturer(lecturerId, studyYear.Id, semester.Id)
+                    .Select(x => new ScheduleViewModel(x));
 
-                    model.Schedules = DataService
-                        .GetSchedulesForLecturer(lecturer.Id, studyYear.Id, semester.Id)
-                        .Select(x => new ScheduleViewModel(x));
-                }
             }
 
 
@@ -42,16 +40,20 @@ namespace Timetable.Site.Areas.Students.Controllers
         }
 
 
+        public ActionResult LoadLecturers(string searchString)
+        {
+            var lecturers = searchString.Length > 3 ? DataService.GetLecturersByFirstMiddleLastname(searchString)
+                .Select(x => new LecturerViewModel(x))
+                : new List<LecturerViewModel>();
+
+            return new JsonNetResult(lecturers);
+        }
+
         //old
         //public ActionResult LoadLecturerSchedule(int lecturerId)
         //new
-        public ActionResult LoadLecturerSchedule(string searchString)
+        public ActionResult LoadLecturerSchedule(int lecturerId)
         {
-            var lecturerId = 0;
-            var lecturer = DataService.GetLecturerBySearchString(searchString);
-            if (lecturer != null)
-                lecturerId = lecturer.Id;
-
             var studyYear = DataService.GetStudyYear(DateTime.Now);
             var semester = DataService.GetSemesterForTime(DateTime.Now);
 

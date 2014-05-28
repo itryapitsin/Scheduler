@@ -259,27 +259,21 @@ namespace Timetable.Site.Areas.Students.Controllers
         }
 
 
-        public FileResult GetReportForLecturer(string lecturerSearchString)
+        public FileResult GetReportForLecturer(int lecturerId)
         {
-            var currentLecturer = DataService.GetLecturerBySearchString(lecturerSearchString);
-
             var studyYear = DataService.GetStudyYear(DateTime.Now);
             var semester = DataService.GetSemesterForTime(DateTime.Now);
 
-            if (currentLecturer != null)
-            {
-                var schedules = DataService.GetSchedulesForLecturer(currentLecturer.Id, studyYear.Id, semester.Id)
-                   .ToList()
-                   .Select(x => new ScheduleViewModel(x)).ToList();
+            var schedules = DataService.GetSchedulesForLecturer(lecturerId, studyYear.Id, semester.Id)
+               .ToList()
+               .Select(x => new ScheduleViewModel(x)).ToList();
 
-                var fileName = string.Format("Расписание для " + lecturerSearchString + "-{0:yyyy-MM-dd-HH-mm-ss}", DateTime.UtcNow);
+            var fileName = string.Format("Расписание для преподавателя" + "-{0:yyyy-MM-dd-HH-mm-ss}", DateTime.UtcNow);
 
-                var memoryStream = CreateTableBySchedulesAndPairNumbers(fileName, schedules, new int[]{1,2,3,4,5,6,7,8});
+            var memoryStream = CreateTableBySchedulesAndPairNumbers(fileName, schedules, new int[] { 1, 2, 3, 4, 5, 6, 7, 8 });
 
-                return base.File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName + ".xlsx");
-            }
+            return base.File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName + ".xlsx");
 
-            return null;
         }
 
 

@@ -52,16 +52,12 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             UserData.LecturerScheduleSettings.StudyYearId = request.StudyYearId;
             UserService.SaveUserState(UserData);
 
-            var currentLecturer = DataService.GetLecturerBySearchQuery(request.LecturerQuery);
-
-            if (currentLecturer == null) 
-                return new EmptyResult();
-
-            UserData.LecturerScheduleSettings.LecturerId = currentLecturer.Id;
+          
+            UserData.LecturerScheduleSettings.LecturerId = request.LecturerId;
             UserService.SaveUserState(UserData);
 
             var schedules = DataService
-                .GetSchedulesForLecturer(currentLecturer.Id, request.StudyYearId, request.Semester)
+                .GetSchedulesForLecturer(request.LecturerId, request.StudyYearId, request.Semester)
                 .Select(x => new ScheduleViewModel(x));
 
             return new JsonNetResult(new ScheduleForLecturersWithTimesViewModel

@@ -304,77 +304,6 @@ namespace Timetable.Logic.Services
                 .Select(x => new LecturerDataTransfer(x));
         }
 
-
-        //depricated
-        public LecturerDataTransfer GetLecturerBySearchQuery(string queryString)
-        {
-            queryString = queryString.Replace(".", "");
-            var list = queryString.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            var lastName = list[0];
-            var firstName = "";
-            var middleName = "";
-
-            if (list.Length >= 2) firstName = list[1];
-            if (list.Length >= 3) middleName = list[2];
-
-            var query = Database.Lecturers.Where(x => x.Lastname == lastName &&
-                 x.Middlename.StartsWith(middleName) &&
-                 x.Firstname.StartsWith(firstName))
-                .ToList()
-                .Select(x => new LecturerDataTransfer(x));
-
-            return query.FirstOrDefault();
-        }
-
-        //new
-        public LecturerDataTransfer GetLecturerBySearchString(string searchString)
-        {
-            return GetLecturersBySearchString(searchString).FirstOrDefault();
-        }
-
-        public IEnumerable<LecturerDataTransfer> GetLecturersBySearchString(string searchString)
-        {
-            var tokens = searchString.Replace(".", "")
-                                    .Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            var lastName = "";
-            var firstName = "";
-            var middleName = "";
-
-            if (tokens.Length == 1)
-            {
-                lastName = tokens[0];
-                return Database.Lecturers.Where(
-                              x => x.Lastname == lastName)
-                             .ToList()
-                             .Select(x => new LecturerDataTransfer(x));
-
-
-            }
-            if (tokens.Length == 2)
-            {
-                lastName = tokens[0];
-                firstName = tokens[1];
-                return Database.Lecturers.Where(
-                              x => x.Lastname == lastName &&
-                              x.Firstname.StartsWith(firstName))
-                             .ToList()
-                             .Select(x => new LecturerDataTransfer(x));
-
-            }
-
-            lastName = tokens[0];
-            firstName = tokens[1];
-            middleName = tokens[2];
-            return Database.Lecturers.Where(
-                          x => x.Lastname == lastName &&
-                          x.Firstname.StartsWith(firstName) &&
-                          x.Middlename.StartsWith(middleName))
-                         .ToList()
-                         .Select(x => new LecturerDataTransfer(x));
-        }
-
         public LecturerDataTransfer GetLecturerById(int lecturerId)
         {
             return Database.Lecturers
@@ -471,6 +400,23 @@ namespace Timetable.Logic.Services
                 .Where(x => x.StudyYearId == studyYear)
                 .Where(x => x.SemesterId == semester)
                 .Where(x => x.Groups.Any(y => groupIds.Contains(y.Id)))
+                .Include(x => x.Lecturer)
+                .Include(x => x.Tutorial)
+                .Include(x => x.TutorialType)
+                .Include(x => x.Groups)
+                .ToList()
+                .Select(x => new ScheduleInfoDataTransfer(x));
+        }
+
+        public IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForLecturer(
+            int lecturerId,
+            int studyYear,
+            int semester)
+        {
+            return Database.ScheduleInfoes
+                .Where(x => x.StudyYearId == studyYear)
+                .Where(x => x.SemesterId == semester)
+                .Where(x => x.LecturerId == lecturerId)
                 .Include(x => x.Lecturer)
                 .Include(x => x.Tutorial)
                 .Include(x => x.TutorialType)

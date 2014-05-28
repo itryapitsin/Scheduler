@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201405031735228_AddNewFieldsInUserSettings.Designer.cs">
       <DependentUpon>201405031735228_AddNewFieldsInUserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405281911335_AddNewPlanningSettingsFields.cs" />
+    <Compile Include="Migrations\201405281911335_AddNewPlanningSettingsFields.Designer.cs">
+      <DependentUpon>201405281911335_AddNewPlanningSettingsFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -375,6 +379,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405031735228_AddNewFieldsInUserSettings.resx">
       <DependentUpon>201405031735228_AddNewFieldsInUserSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405281911335_AddNewPlanningSettingsFields.resx">
+      <DependentUpon>201405281911335_AddNewPlanningSettingsFields.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -32,6 +32,17 @@ namespace Timetable.Data.Models.Personalization
         public virtual StudyType CreatorSelectedStudyType { get; set; }
         public int? CreatorSelectedStudyTypeId { get; set; }
 
+
+        public virtual ScheduleType PlanningModalSelectedScheduleType { get; set; }
+        public int? PlanningModalSelectedScheduleTypeId { get; set; }
+        public virtual Building PlanningModalSelectedBuilding { get; set; }
+        public int? PlanningModalSelectedBuildingId { get; set; }
+        public virtual WeekType PlanningModalSelectedWeekType { get; set; }
+        public int? PlanningModalSelectedWeekTypeId { get; set; }
+        public virtual Auditorium PlanningModalSelectedAuditorium { get; set; }
+        public int? PlanningModalSelectedAuditoriumId { get; set; }
+        public string PlanningModalSelectedSubGroup { get; set; }
+
         public virtual Building AuditoriumScheduleSelectedBuilding { get; set; }
         public int? AuditoriumScheduleSelectedBuildingId { get; set; }
         public virtual Auditorium AuditoriumScheduleSelectedAuditorium { get; set; }

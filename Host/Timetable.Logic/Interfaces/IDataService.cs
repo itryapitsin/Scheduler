@@ -53,9 +53,6 @@ namespace Timetable.Logic.Interfaces
 
         #region lecturers
         LecturerDataTransfer GetLecturerById(int lecturerId);
-        LecturerDataTransfer GetLecturerBySearchQuery(string queryString);
-        LecturerDataTransfer GetLecturerBySearchString(string searchString);
-        IEnumerable<LecturerDataTransfer> GetLecturersBySearchString(string searchString);
         IEnumerable<LecturerDataTransfer> GetLecturersByDeparmentId(int departmentId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialId(int tutorialId);
         IEnumerable<LecturerDataTransfer> GetLecturersByTutorialIdAndTutorialTypeId(
@@ -74,6 +71,11 @@ namespace Timetable.Logic.Interfaces
 
         IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForGroups(
             int[] groupIds,
+            int studyYear,
+            int semester);
+
+        IEnumerable<ScheduleInfoDataTransfer> GetScheduleInfoesForLecturer(
+            int lecturerId,
             int studyYear,
             int semester);
 

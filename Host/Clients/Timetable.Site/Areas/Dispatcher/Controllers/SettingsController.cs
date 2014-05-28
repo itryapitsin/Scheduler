@@ -249,7 +249,8 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
         public ActionResult GetLecturers(string searchString)
         {
-            var lecturers = DataService.GetLecturersBySearchString(searchString).Select(x => new LecturerViewModel(x)).ToList();
+            var lecturers = DataService.GetLecturersByFirstMiddleLastname(searchString)
+                .Select(x => new LecturerViewModel(x)).ToList();
             var model = lecturers;
             return new JsonNetResult(model);
         }

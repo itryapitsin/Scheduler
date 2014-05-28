@@ -603,25 +603,20 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
         public FileResult GetReportForLecturer(ReportForLecturerRequest request)
         {
-            var currentLecturer = DataService.GetLecturerBySearchQuery(request.LecturerQuery);
 
-            if (currentLecturer != null)
-            {
-                var schedules = DataService.GetSchedulesForLecturer(currentLecturer.Id, request.StudyYearId, request.Semester)
-                   .ToList()
-                   .Select(x => new ScheduleViewModel(x)).ToList();
+            var schedules = DataService.GetSchedulesForLecturer(request.LecturerId, request.StudyYearId, request.Semester)
+               .ToList()
+               .Select(x => new ScheduleViewModel(x)).ToList();
 
-                var timeIds = schedules.Select(x => x.TimeId).Distinct().ToList();
-                var times = DataService.GetTimesByIds(timeIds).ToList().Select(x => new TimeViewModel(x)).ToList();
+            var timeIds = schedules.Select(x => x.TimeId).Distinct().ToList();
+            var times = DataService.GetTimesByIds(timeIds).ToList().Select(x => new TimeViewModel(x)).ToList();
 
-                var fileName = string.Format("Расписание для " + request.LecturerQuery + "-{0:yyyy-MM-dd-HH-mm-ss}", DateTime.UtcNow);
+            var fileName = string.Format("Расписание для преподавателя" + "-{0:yyyy-MM-dd-HH-mm-ss}", DateTime.UtcNow);
 
-                var memoryStream = CreateTableBySchedulesAndTimes(fileName, times, schedules);
+            var memoryStream = CreateTableBySchedulesAndTimes(fileName, times, schedules);
 
-                return base.File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName + ".xlsx");
-            }
+            return base.File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName + ".xlsx");
 
-            return null;
         }
 
         public FileResult GetReportForFaculty(int? branchId, int? facultyId, int? studyYearId, int? semesterId)

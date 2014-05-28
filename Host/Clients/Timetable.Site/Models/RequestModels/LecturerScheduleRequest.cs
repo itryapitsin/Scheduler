@@ -5,7 +5,7 @@ namespace Timetable.Site.Models.RequestModels
     public class LecturerScheduleRequest
     {
         [Required]
-        public string LecturerQuery { get; set; }
+        public int LecturerId { get; set; }
         [Required]
         public int StudyYearId { get; set; }
         [Required]

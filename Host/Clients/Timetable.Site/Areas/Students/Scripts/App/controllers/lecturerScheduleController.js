@@ -5,49 +5,41 @@
     angular.extend($scope, pageModel);
     $scope.pairs = [1, 2, 3, 4, 5, 6, 7, 8];
 
-    $scope.selected = undefined;
-    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    $scope.currentLecturerId = $cookieStore.get('currentLecturerId');
 
-    //$scope.currentLecturerId = $cookieStore.get('currentLecturerId');
-    $scope.currentLecturerSearchString = $cookieStore.get('currentLecturerSearchString');
+    $scope.loadLecturers = function (val) {
 
-    //if ($scope.currentLecturerId) {
-        //$scope.currentLecturerId = parseInt($scope.currentLecturerId);
-    //}
+        return $http.get($http.prefix + 'LecturerSchedule/LoadLecturers', {
+            params: {
+                searchString: val
+            }
+        }).then(function (res) {
+            var lecturers = [];
 
-    $scope.lecturerChanged = function () {
-        //console.log("lecturerChanged");
-        //$cookieStore.put('currentLecturerId', $scope.currentLecturerId);
-        $cookieStore.put('currentLecturerSearchString', $scope.currentLecturerSearchString);
+           
+           
+
+            angular.forEach(res.data, function (item) {
+               lecturers.push(item);
+            });
+
+          
+            return lecturers;
+        });
     };
 
-    $scope.canFindLecturer = function () {
-        if ($scope.currentLecturerSearchString == null || $scope.currentLecturerSearchString == "" || $scope.currentLecturerSearchString == undefined)
-            return false;
-        return true;
-    }
+    $scope.loadLecturerSchedule = function () {
+        $cookieStore.put('currentLecturerId', $scope.currentLecturer.id);
 
-    $scope.canSaveReport = function () {
-        if ($scope.schedules == null || $scope.schedules == undefined || $scope.schedules == "")
-            return false;
-        return true;
-    }
-
-    $scope.loadLecturerSchedule = function() {
-        //console.log("loadLecturerSchedule");
         $http
-            .get($http.prefix + 'LecturerSchedule/LoadLecturerSchedule', { params: { searchString: $scope.currentLecturerSearchString } })
+            .get($http.prefix + 'LecturerSchedule/LoadLecturerSchedule', { params: { LecturerId: $scope.currentLecturer.id} })
             .success(function (response) {
                 $scope.schedules = response;
             });
     }
 
     $scope.getReportForLecturer = function () {
-        console.log("getReportForLecturer");
-        //console.log($scope.currentAuditoriumId);
-        //console.log($scope.currentBuildingId);
-
-        document.location.href = $http.prefix + 'Report/GetReportForLecturer?lecturerSearchString={0}'
-            .replace('{0}', $scope.currentLecturerSearchString);
+        document.location.href = $http.prefix + 'Report/GetReportForLecturer?lecturerId={0}'
+            .replace('{0}', $scope.currentLecturer.id);
     };
 }

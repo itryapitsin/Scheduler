@@ -7,6 +7,8 @@ namespace Timetable.Data.Models.Personalization
 
         Dispatcher = 1,
 
-        Administration = 2
+        Administration = 2,
+
+        Lecturer = 3,
     }
 }
