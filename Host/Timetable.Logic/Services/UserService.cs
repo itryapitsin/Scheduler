@@ -86,6 +86,12 @@ namespace Timetable.Logic.Services
             user.CreatorSelectedFacultyId = userDataTransfer.CreatorSettings.CurrentFacultyId;
             user.CreatorSelectedStudyTypeId = userDataTransfer.CreatorSettings.CurrentStudyTypeId;
 
+            user.PlanningModalSelectedAuditoriumId = userDataTransfer.CreatorSettings.CurrentPlanningAuditoriumId;
+            user.PlanningModalSelectedBuildingId = userDataTransfer.CreatorSettings.CurrentPlanningBuildingId;
+            user.PlanningModalSelectedScheduleTypeId = userDataTransfer.CreatorSettings.CurrentPlanningScheduleTypeId;
+            user.PlanningModalSelectedWeekTypeId = userDataTransfer.CreatorSettings.CurrentPlanningWeekTypeId;
+            user.PlanningModalSelectedSubGroup = userDataTransfer.CreatorSettings.CurrentPlanningSubGroup;
+
 
             if (user.CreatorSelectedFacultyId.HasValue && user.CreatorSelectedFacultyId.HasValue)
                 user.CreatorSelectedBranchId = DataContext.Branches.FirstOrDefault(x => x.Faculties.Any(y => y.Id == user.CreatorSelectedFacultyId)).Id;

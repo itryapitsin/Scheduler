@@ -7,6 +7,8 @@
 
     $scope.currentLecturerId = $cookieStore.get('currentLecturerId');
 
+    $scope.currentLecturer = undefined;
+
     $scope.loadLecturers = function (val) {
 
         return $http.get($http.prefix + 'LecturerSchedule/LoadLecturers', {

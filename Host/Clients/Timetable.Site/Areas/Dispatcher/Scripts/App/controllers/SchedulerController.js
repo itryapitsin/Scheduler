@@ -92,6 +92,21 @@
         $scope.currentCourse = findCourse();
         $scope.currentGroups = findGroups();
         $scope.currentStudyType = findStudyType();
+
+        console.log("pageModel");
+        console.log(pageModel);
+
+        $scope.globalBuilding = pageModel.currentPlaningBuildingId;
+
+        $scope.globalScheduleType = pageModel.currentPlaningScheduleTypeId;
+
+        $scope.globalWeekType = pageModel.currentPlaningWeekTypeId;
+
+        $scope.globalAuditorium = pageModel.currentPlaningAuditoriumId;
+
+        $scope.globalSubGroup = pageModel.currentPlaningSubGroup;
+     
+
     }
 
     function initTimetableParams(newParams) {
@@ -207,6 +222,7 @@
                     weekTypeId: $scope.weekType,
                     scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
                     subGroup: $scope.subGroup,
+                    scheduleTypeId: $scope.scheduleType,
                     scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                 }
             })
@@ -409,11 +425,10 @@
             console.log($scope.globalBuilding);
             console.log($scope.globalScheduleType);
             console.log($scope.globalWeekType);
+            console.log($scope.globalAuditorium);
 
-
-
-            $scope.auditorium = undefined;
-            $scope.subGroup = undefined;
+            $scope.auditorium = $scope.globalAuditorium == undefined ? undefined : $scope.globalAuditorium;
+            $scope.subGroup = $scope.globalSubGroup == undefined ? undefined : $scope.globalSubGroup;
             $scope.scheduleType = $scope.globalScheduleType == undefined ? undefined : $scope.globalScheduleType;
             $scope.weekType = $scope.globalWeekType == undefined ? undefined : $scope.globalWeekType;
 
@@ -429,6 +444,7 @@
                         weekTypeId: $scope.weekType,
                         scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
                         subGroup: $scope.subGroup,
+                        scheduleTypeId: $scope.scheduleType,
                         scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                     }
                 })
@@ -486,6 +502,7 @@
                         weekTypeId: $scope.weekType,
                         scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
                         subGroup: $scope.subGroup,
+                        scheduleTypeId: $scope.scheduleType,
                         scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id,
                     }
                 })
@@ -726,6 +743,7 @@ function PlaningDialogController($scope, $rootScope, $http) {
                      weekTypeId: $scope.weekType,
                      scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id :  $scope.selectedTicket.scheduleInfoId,
                      subGroup: $scope.subGroup,
+                     scheduleTypeId: $scope.scheduleType,
                      scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
                  }
              })
@@ -755,6 +773,7 @@ function PlaningDialogController($scope, $rootScope, $http) {
                     weekTypeId: $scope.weekType,
                     scheduleInfoId: $scope.selectedTicket == undefined ? $scope.selectedScheduleInfo.id : $scope.selectedTicket.scheduleInfoId,
                     subGroup: $scope.subGroup,
+                    scheduleTypeId: $scope.scheduleType,
                     scheduleId: $scope.selectedTicket == undefined ? null : $scope.selectedTicket.id
                 }
             })
@@ -780,6 +799,17 @@ function PlaningDialogController($scope, $rootScope, $http) {
 
     $scope.scheduleTypeChanged = function () {
         $rootScope.globalScheduleType = $scope.scheduleType;
+        availableAuditoriums();
+    }
+
+    $scope.AuditoriumChanged = function () {
+        $rootScope.globalAuditorium = $scope.auditorium;
+        $http
+           .get($http.prefix + "Scheduler/AuditoriumChanged", {
+               params: {
+                   auditoriumId: $scope.auditorium,
+               }
+           });
     }
 
     $scope.weekTypeChanged = function () {
@@ -793,6 +823,8 @@ function PlaningDialogController($scope, $rootScope, $http) {
     });
 
     $scope.ok = function () {
+
+        $rootScope.globalSubGroup = $scope.subGroup;
 
         if ($scope.isSIplanning == true) {
             var params = {

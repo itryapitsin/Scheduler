@@ -7,6 +7,7 @@
         public int? WeekTypeId { get; set; }
         public int Pair { get; set; }
         public string SubGroup { get; set; }
+        public int ScheduleTypeId { get; set; }
         public int ScheduleInfoId { get; set; }
         public int? ScheduleId { get; set; }
     }

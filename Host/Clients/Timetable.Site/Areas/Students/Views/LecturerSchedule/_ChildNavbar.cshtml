@@ -5,16 +5,16 @@
 
             <form class="navbar-form navbar-left" style="width:100%;">
                 <div class="form-group col-sm-2 col-sm-offset-4">
-                    <div class="input-group input-group-lg">
+                    <div  class="input-group input-group-lg">
                         <input type="text" style="height: 34px;" placeholder="Поиск: Введите ФИО..." data-min-length="7" ng-model="currentLecturer" typeahead="lecturer as lecturer.name for lecturer in loadLecturers($viewValue)" typeahead-loading="loadingLecturers" class="form-control">
                         @*<span class="input-group-addon" style="padding: 4px 12px; height: 34px;"><i class="glyphicon glyphicon-search"></i></span>*@
-                       
+
                     </div> 
                 </div>
                 
                 <div class="form-group col-sm-1">
-                    <button class="btn btn-default" ng-disabled="!currentLecturer" data-original-title ng-click="loadLecturerSchedule()"><i class="glyphicon glyphicon-search"></i></button>
-                    <button class="btn btn-default" ng-disabled="!currentLecturer" data-original-title ng-click="getReportForLecturer()"><i class="glyphicon glyphicon-download-alt"></i></button>
+                    <button class="btn btn-default"  ng-disabled="!currentLecturer"  data-original-title ng-click="loadLecturerSchedule()"><i class="glyphicon glyphicon-search"></i></button>
+                    <button class="btn btn-default"  ng-disabled="!currentLecturer"  data-original-title ng-click="getReportForLecturer()"><i class="glyphicon glyphicon-download-alt"></i></button>
                     <span class=" badge badge-important">{{foundLecturersCount}}</span>
                 </div>
             </form>

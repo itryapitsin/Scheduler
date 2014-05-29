@@ -18,8 +18,24 @@ namespace Timetable.Logic.Models
         public int? CurrentCourseId { get; set; }
         public int[] CurrentGroupIds { get; set; }
 
+        public int? CurrentPlanningScheduleTypeId { get; set; }
+
+        public int? CurrentPlanningBuildingId { get; set; }
+
+        public int? CurrentPlanningAuditoriumId { get; set; }
+
+        public int? CurrentPlanningWeekTypeId { get; set; }
+
+        public string CurrentPlanningSubGroup { get; set; }
+
         public CreatorSettings(User user)
         {
+            CurrentPlanningScheduleTypeId = user.PlanningModalSelectedScheduleTypeId;
+            CurrentPlanningBuildingId = user.PlanningModalSelectedBuildingId;
+            CurrentPlanningAuditoriumId = user.PlanningModalSelectedAuditoriumId;
+            CurrentPlanningWeekTypeId = user.PlanningModalSelectedWeekTypeId;
+            CurrentPlanningSubGroup = user.PlanningModalSelectedSubGroup;
+
             CurrentBuildingId = user.CreatorSelectedBuildingId;
             CurrentStudyYearId = user.CreatorSelectedStudyYearId;
             CurrentStudyTypeId = user.CreatorSelectedStudyTypeId;

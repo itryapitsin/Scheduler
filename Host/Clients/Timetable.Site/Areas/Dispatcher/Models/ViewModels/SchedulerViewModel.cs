@@ -33,6 +33,16 @@ namespace Timetable.Site.Areas.Dispatcher.Models.ViewModels
         public int? CurrentCourseId { get; set; }
         public int[] CurrentGroupIds { get; set; }
 
+        public int? CurrentPlaningBuildingId { get; set; }
+
+        public int? CurrentPlaningScheduleTypeId { get; set; }
+
+        public int? CurrentPlaningAuditoriumId { get; set; }
+
+        public int? CurrentPlaningWeekTypeId { get; set; }
+
+        public string CurrentPlaningSubGroup { get; set; }
+
         public SchedulerViewModel(
             IDataService dataService,
             UserDataTransfer userData)
@@ -82,6 +92,11 @@ namespace Timetable.Site.Areas.Dispatcher.Models.ViewModels
             CurrentStudyYearId = userData.CreatorSettings.CurrentStudyYearId;
             CurrentStudyTypeId = userData.CreatorSettings.CurrentStudyTypeId;
             CurrentSemesterId = userData.CreatorSettings.CurrentSemesterId;
+            CurrentPlaningBuildingId = userData.CreatorSettings.CurrentPlanningBuildingId;
+            CurrentPlaningAuditoriumId = userData.CreatorSettings.CurrentPlanningAuditoriumId;
+            CurrentPlaningScheduleTypeId = userData.CreatorSettings.CurrentPlanningScheduleTypeId;
+            CurrentPlaningWeekTypeId = userData.CreatorSettings.CurrentPlanningWeekTypeId;
+            CurrentPlaningSubGroup = userData.CreatorSettings.CurrentPlanningSubGroup;
 
             if (!userData.CreatorSettings.CurrentBranchId.HasValue)
                 return;

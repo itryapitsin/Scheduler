@@ -15,6 +15,8 @@ namespace Timetable.Site.Areas.Dispatcher.Models.RequestModels
         [Required]
         public string SubGroup { get; set; }
         [Required]
+        public int ScheduleTypeId { get; set; }
+        [Required]
         public int ScheduleInfoId { get; set; }
         [Required]
         public int? ScheduleId { get; set; }

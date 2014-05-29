@@ -34,8 +34,31 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             return new JsonNetResult(new { Faculties = faculties, Courses = courses });
         }
 
+        public void AuditoriumChanged(int auditoriumId)
+        {
+            if (auditoriumId != 0)
+            {
+                UserData.CreatorSettings.CurrentPlanningAuditoriumId = auditoriumId;
+                UserService.SaveUserState(UserData);
+            }
+        }
+
         public ActionResult BuildingChanged(BuildingChangedRequest request)
         {
+            if(request.BuildingId != 0)
+                UserData.CreatorSettings.CurrentPlanningBuildingId = request.BuildingId;
+
+            if (request.SubGroup != null)
+                UserData.CreatorSettings.CurrentPlanningSubGroup = request.SubGroup;
+
+            if (request.WeekTypeId.HasValue)
+                UserData.CreatorSettings.CurrentPlanningWeekTypeId = request.WeekTypeId.Value;
+
+            if (request.ScheduleTypeId != 0)
+                 UserData.CreatorSettings.CurrentPlanningScheduleTypeId = request.ScheduleTypeId;
+
+            UserService.SaveUserState(UserData);
+
             var times = DataService
                 .GetTimes(request.BuildingId)
                 .Select(x => new TimeViewModel(x));
@@ -46,13 +69,25 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 request.WeekTypeId, request.Pair, request.ScheduleInfoId, request.SubGroup, request.ScheduleId)
                 .Select(x => new AuditoriumViewModel(x));
 
-
-
             return new JsonNetResult(new { Auditoriums = auditoriums, Times = times });
         }
 
         public ActionResult GetFreeAuditoriums(GetFreeAuditoiumsRequest request)
         {
+            if (request.BuildingId != 0)
+                UserData.CreatorSettings.CurrentPlanningBuildingId = request.BuildingId;
+
+            if (request.SubGroup != null)
+                UserData.CreatorSettings.CurrentPlanningSubGroup = request.SubGroup;
+
+            if (request.WeekTypeId.HasValue)
+                UserData.CreatorSettings.CurrentPlanningWeekTypeId = request.WeekTypeId.Value;
+
+            if (request.ScheduleTypeId != 0)
+                UserData.CreatorSettings.CurrentPlanningScheduleTypeId = request.ScheduleTypeId;
+
+            UserService.SaveUserState(UserData);
+
             var result = DataService
                 .GetFreeAuditoriums(
                     request.BuildingId,
@@ -89,12 +124,24 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         {
             var groupIds = GetListFromString(request.GroupIds);
 
-            UserData.CreatorSettings.CurrentFacultyId = request.FacultyId;
-            UserData.CreatorSettings.CurrentCourseId = request.CourseId;
-            UserData.CreatorSettings.CurrentSemesterId = request.SemesterId;
-            UserData.CreatorSettings.CurrentStudyYearId = request.StudyYearId;
-            UserData.CreatorSettings.CurrentGroupIds = groupIds.ToArray();
-            UserData.CreatorSettings.CurrentStudyTypeId = request.StudyTypeId;
+            if (request.FacultyId != 0)
+                UserData.CreatorSettings.CurrentFacultyId = request.FacultyId;
+
+            if (request.CourseId != 0)
+                UserData.CreatorSettings.CurrentCourseId = request.CourseId;
+
+            if (request.SemesterId != 0)
+                UserData.CreatorSettings.CurrentSemesterId = request.SemesterId;
+
+            if (request.StudyYearId != 0)
+                UserData.CreatorSettings.CurrentStudyYearId = request.StudyYearId;
+
+            if(groupIds != null)
+                UserData.CreatorSettings.CurrentGroupIds = groupIds.ToArray();
+
+            if (request.StudyTypeId != 0)
+                UserData.CreatorSettings.CurrentStudyTypeId = request.StudyTypeId;
+
             UserService.SaveUserState(UserData);
 
             var response = new GetSchedulesAndInfoesResponse
@@ -124,6 +171,12 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         [HttpPost]
         public ActionResult Create(CreateScheduleRequest request)
         {
+            if (request.SubGroup != null)
+            {
+                UserData.CreatorSettings.CurrentPlanningSubGroup = request.SubGroup;
+                UserService.SaveUserState(UserData);
+            }
+
             try
             {
                 var result = DataService.Plan(
@@ -156,6 +209,12 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
         [HttpPost]
         public ActionResult Edit(EditScheduleRequest request)
         {
+            if (request.SubGroup != null)
+            {
+                UserData.CreatorSettings.CurrentPlanningSubGroup = request.SubGroup;
+                UserService.SaveUserState(UserData);
+            }
+
             try
             {
                 var result = DataService.PlanEdit(

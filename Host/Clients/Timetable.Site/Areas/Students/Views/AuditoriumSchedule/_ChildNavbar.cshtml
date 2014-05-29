@@ -6,10 +6,10 @@
                     <select class="form-control" required="required" ng-change="buildingChanged()" ng-model="currentBuildingId" ng-options="building.id as building.name for building in buildings"></select>
                 </div>
                 <div class="form-group col-sm-2">
-                    <select class="form-control" required="required" ng-change="auditoriumChanged()" ng-model="currentAuditoriumId" ng-options="auditorium.id as auditorium.name for auditorium in auditoriums"></select>         
+                    <select class="form-control"  required="required" ng-change="auditoriumChanged()" ng-model="currentAuditoriumId" ng-options="auditorium.id as auditorium.name for auditorium in auditoriums"></select>         
                 </div>
                 <div class="form-group col-sm-1">
-                        <button class="btn btn-default" ng-disabled="!canSaveReport()" data-original-title ng-click="getReportForAuditorium()"><i class="glyphicon glyphicon-download-alt"></i></button>
+                    <button class="btn btn-default" ng-disabled="!canSaveReport()" data-original-title ng-click="getReportForAuditorium()"><i class="glyphicon glyphicon-download-alt"></i></button>
                 </div>
             </form>
         </div>

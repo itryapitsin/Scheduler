@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Аудитория</label>
                         <div class="col-sm-9">
-                            <select class="form-control" ng-disabled="!auditoriums" ng-model="auditorium" ng-options="auditorium.id as auditorium.name + '  (' + auditorium.capacity + ' чел.)' for auditorium in auditoriums"></select>
+                            <select class="form-control" ng-disabled="!auditoriums" ng-model="auditorium" ng-change="AuditoriumChanged()" ng-options="auditorium.id as auditorium.name + '  (' + auditorium.capacity + ' чел.)' for auditorium in auditoriums"></select>
                         </div>
                     </div>
 
