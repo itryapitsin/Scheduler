@@ -25,7 +25,7 @@ namespace Timetable.Site.Areas.Dispatcher.Models.ViewModels
 
         public int? TimeId { get; set; }
 
-        public int? DayOfWeek { get; set; }
+        public string Date { get; set; }
 
         public AuditoriumScheduleOrderViewModel(IDataService dataService, UserDataTransfer userData)
         {
@@ -45,7 +45,10 @@ namespace Timetable.Site.Areas.Dispatcher.Models.ViewModels
             BuildingId = userData.AuditoriumScheduleSettings.BuildingId;
             AuditoriumTypeId = userData.AuditoriumScheduleSettings.AuditoriumTypeIds.FirstOrDefault();
             TimeId = userData.AuditoriumScheduleSettings.TimeId;
-            DayOfWeek = userData.AuditoriumScheduleSettings.DayOfWeek;
+
+            if (userData.AuditoriumScheduleSettings.Date.HasValue)
+                Date = userData.AuditoriumScheduleSettings.Date.Value.ToString("yyyy-MM-dd");
+
             AuditoriumId = userData.AuditoriumScheduleSettings.AuditoriumId;
 
             if (!userData.AuditoriumScheduleSettings.BuildingId.HasValue
@@ -64,25 +67,34 @@ namespace Timetable.Site.Areas.Dispatcher.Models.ViewModels
             var auditoriumIds = Auditoriums.Select(x => x.Id).ToArray();
 
 
-            if (TimeId.HasValue && DayOfWeek.HasValue)
+
+
+            if (TimeId.HasValue && userData.AuditoriumScheduleSettings.Date.HasValue)
+            {
+                var dayOfWeek = (int)userData.AuditoriumScheduleSettings.Date.Value.DayOfWeek;
+
+                if (dayOfWeek == 0)
+                    dayOfWeek = 7;
+
                 Schedules = dataService
                 .GetSchedules(
                     auditoriumIds,
                     studyYear.Id,
                     semester.Id,
                     TimeId.Value,
-                    DayOfWeek.Value)
+                    dayOfWeek)
                 .Select(x => new ScheduleViewModel(x));
+            }
 
 
              if (userData.AuditoriumScheduleSettings.TimeId.HasValue
-                && userData.AuditoriumScheduleSettings.DayOfWeek.HasValue
+                && userData.AuditoriumScheduleSettings.Date.HasValue
                  )
              {
 
                  AuditoriumOrders = dataService.GetAuditoriumOrders(
                      userData.AuditoriumScheduleSettings.TimeId.Value,
-                     userData.AuditoriumScheduleSettings.DayOfWeek.Value,
+                     userData.AuditoriumScheduleSettings.Date.Value.ToString("yyyy-MM-dd"),
                      userData.AuditoriumScheduleSettings.BuildingId.Value,
                      userData.AuditoriumScheduleSettings.AuditoriumTypeIds.ToArray()
                      ).Select(x => new AuditoriumOrderViewModel(x));

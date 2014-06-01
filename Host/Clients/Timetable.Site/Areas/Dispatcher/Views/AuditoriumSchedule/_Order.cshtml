@@ -19,7 +19,15 @@
                 </div>
 
                 <div class="form-group col-sm-3">
-                    <select class="form-control" required="required" ng-change="dayOfWeekChanged()" ng-model="dayOfWeek" ng-options="dayOfWeek as dayOfWeek.name for dayOfWeek in daysOfWeek"></select>
+              
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-change="dateChanged()" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Закрыть" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
+                   
+                    <!--<select class="form-control" required="required" ng-change="dayOfWeekChanged()" ng-model="date" ng-options="dayOfWeek as dayOfWeek.name for dayOfWeek in daysOfWeek"></select>-->
                 </div>
 
             </form>

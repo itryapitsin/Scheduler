@@ -14,9 +14,11 @@ namespace Timetable.Site.Areas.Dispatcher.Models.RequestModels
         public int AuditoriumId { get; set; }
         [Required]
         public int TimeId { get; set; }
-        [Required]
-        public int DayOfWeek { get; set; }
+      
         [Required]
         public bool AutoDelete { get; set; }
+
+        [Required]
+        public string Date { get; set; }
     }
 }

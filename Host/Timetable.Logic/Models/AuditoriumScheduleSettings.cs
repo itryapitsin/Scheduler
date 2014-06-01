@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Timetable.Data.Models.Personalization;
 
@@ -13,7 +14,7 @@ namespace Timetable.Logic.Models
 
         public int? TimeId { get; set; }
 
-        public int? DayOfWeek { get; set; }
+        public DateTime? Date { get; set; }
 
         public IEnumerable<int> AuditoriumTypeIds { get; set; }
 
@@ -30,7 +31,7 @@ namespace Timetable.Logic.Models
 
             //TODO: may be move in separated setting class
             TimeId = user.AuditoriumScheduleSelectedTimeId;
-            DayOfWeek = user.AuditoriumScheduleSelectedDayOfWeek;
+            Date = user.AuditoriumScheduleSelectedDate;
         }
     }
 }

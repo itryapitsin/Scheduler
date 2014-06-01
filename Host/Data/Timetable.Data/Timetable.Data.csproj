@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201405281911335_AddNewPlanningSettingsFields.Designer.cs">
       <DependentUpon>201405281911335_AddNewPlanningSettingsFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406011001266_AddAuditoriumOrderDateField.cs" />
+    <Compile Include="Migrations\201406011001266_AddAuditoriumOrderDateField.Designer.cs">
+      <DependentUpon>201406011001266_AddAuditoriumOrderDateField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\NonSystemTableSqlGenerator.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -382,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405281911335_AddNewPlanningSettingsFields.resx">
       <DependentUpon>201405281911335_AddNewPlanningSettingsFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406011001266_AddAuditoriumOrderDateField.resx">
+      <DependentUpon>201406011001266_AddAuditoriumOrderDateField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

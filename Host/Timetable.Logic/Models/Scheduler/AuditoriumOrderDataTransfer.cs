@@ -1,4 +1,5 @@
 ﻿using Timetable.Data.Models.Scheduler;
+using System;
 
 namespace Timetable.Logic.Models.Scheduler
 {
@@ -10,13 +11,13 @@ namespace Timetable.Logic.Models.Scheduler
 
         public string TutorialName { get; set; }
 
-        public int DayOfWeek { get; set; }
-
         public TimeDataTransfer Time { get; set; }
 
         public AuditoriumDataTransfer Auditorium { get; set; }
 
         public bool AutoDelete { get; set; }
+
+        public DateTime Date { get; set; }
 
         public AuditoriumOrderDataTransfer() {}
 
@@ -26,7 +27,8 @@ namespace Timetable.Logic.Models.Scheduler
             ThreadName = auditoriumOrder.ThreadName;
             LecturerName = auditoriumOrder.LecturerName;
             TutorialName = auditoriumOrder.TutorialName;
-            DayOfWeek = auditoriumOrder.DayOfWeek;
+         
+            Date = auditoriumOrder.Date;
 
             if (auditoriumOrder.Time != null)
                 Time = new TimeDataTransfer(auditoriumOrder.Time);

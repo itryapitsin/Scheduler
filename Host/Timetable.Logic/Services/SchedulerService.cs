@@ -1916,7 +1916,7 @@ namespace Timetable.Logic.Services
                 string tutorialName,
                 string lecturerName,
                 string threadName,
-                int dayOfWeek,
+                string date,
                 int timeId,
                 int auditoriumId,
                 bool autoDelete
@@ -1932,7 +1932,7 @@ namespace Timetable.Logic.Services
                 TutorialName = tutorialName,
                 LecturerName = lecturerName,
                 ThreadName = threadName,
-                DayOfWeek = dayOfWeek,
+                Date = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Time = time,
                 Auditorium = auditorium,
                 AutoDelete = autoDelete,
@@ -1978,12 +1978,14 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
             int timeId,
-            int dayOfWeek,
+            string date,
             int buildingId)
         {
+            var Date = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
             var result = Database.AuditoriumOrders.Where(
                 x => x.Time.Id == timeId &&
-                x.DayOfWeek == dayOfWeek &&
+                x.Date.Month == Date.Month && x.Date.Day == Date.Day && x.Date.Year == Date.Year &&
                 x.Auditorium.Building.Id == buildingId).AsQueryable();
 
             return result
@@ -1996,13 +1998,15 @@ namespace Timetable.Logic.Services
 
         public IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
             int timeId,
-            int dayOfWeek,
+            string date,
             int buildingId,
             int[] auditoriumTypeIds = null)
         {
+            var Date = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
             var result = Database.AuditoriumOrders.Where(
                 x => x.Time.Id == timeId &&
-                x.DayOfWeek == dayOfWeek &&
+                x.Date.Month == Date.Month && x.Date.Day == Date.Day && x.Date.Year == Date.Year &&
                 x.Auditorium.Building.Id == buildingId &&
                 auditoriumTypeIds.Contains(x.Auditorium.AuditoriumType.Id)).AsQueryable();
 

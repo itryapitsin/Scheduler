@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Timetable.Data.Models.Scheduler;
 
 namespace Timetable.Data.Models.Personalization
@@ -53,7 +54,7 @@ namespace Timetable.Data.Models.Personalization
         public virtual Time AuditoriumScheduleSelectedTime { get; set; }
         public int? AuditoriumScheduleSelectedTimeId { get; set; }
 
-        public int? AuditoriumScheduleSelectedDayOfWeek { get; set; }
+        public DateTime? AuditoriumScheduleSelectedDate { get; set; }
 
         public virtual Semester AuditoriumScheduleSelectedSemester { get; set; }
         public int? AuditoriumScheduleSelectedSemesterId { get; set; }

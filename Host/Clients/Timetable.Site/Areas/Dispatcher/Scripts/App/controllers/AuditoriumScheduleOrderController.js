@@ -3,22 +3,20 @@
 
     $scope.pageModel = pageModel;
   
-
     $scope.building = pageModel.buildingId;
     $scope.auditoriumOrders = pageModel.auditoriumOrders;
     $scope.auditoriumType = pageModel.auditoriumTypeId;
     $scope.auditoriums = pageModel.auditoriums;
     $scope.schedules = pageModel.schedules;
     $scope.times = pageModel.times;
+    $scope.dt = new Date(pageModel.date);
+
     $scope.time = pageModel.times.filter(function f(element) {
         return element.id == pageModel.timeId;
     })[0];
 
     console.log("auditoriumOrders ");
     console.log($scope.auditoriumOrders);
-
-    $scope.daysOfWeek = [{ id: 1, name: "Понедельник" }, { id: 2, name: "Вторник" }, { id: 3, name: "Среда" }, { id: 4, name: "Четверг" }, { id: 5, name: "Пятница" }, { id: 6, name: "Суббота" }, { id: 7, name: "Воскресенье" }];
-    $scope.dayOfWeek = $scope.daysOfWeek[pageModel.dayOfWeek-1];
 
     console.log($scope.pageModel);
 
@@ -37,12 +35,15 @@
             getAuditoriumsAndOrders();
     };
 
-    $scope.dayOfWeekChanged = function () {
+    $scope.dateChanged = function () {
         if ($scope.isValid())
             getAuditoriumsAndOrders();
     };
 
     function getAuditoriumsAndOrders() {
+
+        console.log($scope.dt);
+
         $http
             .get($http.prefix + 'AuditoriumSchedule/GetAuditoriumsAndOrders',
                 {
@@ -50,7 +51,7 @@
                         buildingId: $scope.building,
                         auditoriumTypeId: $scope.auditoriumType,
                         timeId: $scope.time.id,
-                        dayOfWeek: $scope.dayOfWeek.id
+                        date: moment($scope.dt).format("YYYY-MM-DD")
                     }
                 })
             .success(function (response) {
@@ -121,13 +122,13 @@
         return $scope.building
             && $scope.auditoriumType
             && $scope.time
-            && $scope.dayOfWeek;
+            && $scope.dt;
     };
 
     $scope.select = function (event, auditorium) {
         if (event.originalEvent.toElement.localName !== "a") {
             $scope.selectedAuditorium = auditorium;
-            $scope.selectedDayOfWeek = $scope.dayOfWeek;
+            $scope.selectedDate = $scope.dt;
             $scope.selectedOrder = undefined;
             //console.log("event");
             //console.log(event.originalEvent.toElement);
@@ -139,7 +140,7 @@
     $scope.editOrder = function (event, auditorium, order) {
         $scope.selectedOrder = order;
         $scope.selectedAuditorium = auditorium;
-        $scope.selectedDayOfWeek = $scope.dayOfWeek;
+        $scope.selectedDate = $scope.dt;
         $scope.selectedTime = { id: $scope.time.id, name: moment($scope.time.start, 'HH:mm:ss').format('HH:mm') + '-' + moment($scope.time.end, 'HH:mm:ss').format('HH:mm') };
 
         $scope.showDialog('ordering.modal.html');
@@ -180,6 +181,43 @@
         $scope.showDialog('confirmation.html');
 
     }
+
+    //start datepicker
+    $scope.today = function () {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.dt = null;
+    };
+
+    // Disable weekend selection
+    $scope.disabled = function (date, mode) {
+        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+    };
+
+    $scope.toggleMin = function () {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.initDate = $scope.dt;
+    $scope.formats = ['yyyy-MM-dd', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    //end datepicker
 }
 
 function OrderingDialogController($scope, $rootScope, $http) {
@@ -209,8 +247,8 @@ function OrderingDialogController($scope, $rootScope, $http) {
                             ThreadName: $scope.threadName,
                             AuditoriumId: $scope.selectedAuditorium.id,
                             TimeId: $scope.selectedTime.id,
-                            DayOfWeek: $scope.selectedDayOfWeek.id,
-                            AutoDelete: $scope.currentAutoDeleteState
+                            AutoDelete: $scope.currentAutoDeleteState,
+                            Date: moment($scope.selectedDate).format("YYYY-MM-DD"),
                         }
                     })
                 .success(function (response) {

@@ -11,6 +11,6 @@ namespace Timetable.Site.Areas.Dispatcher.Models.RequestModels
         [Required]
         public int TimeId { get; set; }
         [Required]
-        public int DayOfWeek { get; set; }
+        public string Date { get; set; }
     }
 }

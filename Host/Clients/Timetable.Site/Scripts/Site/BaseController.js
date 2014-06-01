@@ -2,6 +2,7 @@
 
     $scope.showDialog = function (templateUrl) {
         var self = this;
+
         var modalPromise = $modal({
             template: templateUrl,
             persist: true,

@@ -13,8 +13,6 @@ namespace Timetable.Site.Models.ViewModels
 
         public string TutorialName { get; set; }
 
-        public int DayOfWeek { get; set; }
-
         public TimeViewModel Time { get; set; }
 
         public int TimeId { get; set; }
@@ -29,6 +27,8 @@ namespace Timetable.Site.Models.ViewModels
 
         public bool AutoDelete { get; set; }
 
+        public string Date { get; set; }
+
         public AuditoriumOrderViewModel(AuditoriumOrderDataTransfer auditoriumOrder)
         {
             Id = auditoriumOrder.Id;
@@ -39,8 +39,8 @@ namespace Timetable.Site.Models.ViewModels
 
             TutorialName = auditoriumOrder.TutorialName;
 
-            DayOfWeek = auditoriumOrder.DayOfWeek;
-
+            Date = auditoriumOrder.Date.ToString("yyyy-MM-dd");
+            
             Time = new TimeViewModel(auditoriumOrder.Time);
 
             if (auditoriumOrder.Time != null) 
@@ -57,6 +57,8 @@ namespace Timetable.Site.Models.ViewModels
                 AuditoriumId = auditoriumOrder.Auditorium.Id;
             }
 
+         
+              
             
         }
     }

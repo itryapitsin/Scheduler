@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Timetable.Site.Areas.Dispatcher.Models.RequestModels;
@@ -180,7 +181,9 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             UserData.AuditoriumScheduleSettings.BuildingId = request.BuildingId;
             UserData.AuditoriumScheduleSettings.AuditoriumId = null;
             UserData.AuditoriumScheduleSettings.TimeId = request.TimeId;
-            UserData.AuditoriumScheduleSettings.DayOfWeek = request.DayOfWeek;
+
+            if (!string.IsNullOrEmpty(request.Date))
+                UserData.AuditoriumScheduleSettings.Date = DateTime.ParseExact(request.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             UserData.AuditoriumScheduleSettings.AuditoriumTypeIds = new List<int> { request.AuditoriumTypeId };
             UserService.SaveUserState(UserData);
 
@@ -197,13 +200,18 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
 
             var auditoriumIds = auditoriums.Select(x => x.Id).ToArray();
 
+            var dayOfWeek = (int)DateTime.ParseExact(request.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture).DayOfWeek;
+
+            if (dayOfWeek == 0)
+                dayOfWeek = 7;
+
             var schedules = DataService
                 .GetSchedules(
                     auditoriumIds, 
                     studyYear.Id,
                     semester.Id,
                     request.TimeId,
-                    request.DayOfWeek)
+                    dayOfWeek)
                 .Select(x => new ScheduleViewModel(x));
 
 
@@ -212,7 +220,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                 Auditoriums = auditoriums,
                 AuditoriumOrders = DataService.GetAuditoriumOrders(
                      request.TimeId,
-                     request.DayOfWeek,
+                     request.Date,
                      request.BuildingId,
                      new List<int> { request.AuditoriumTypeId }.ToArray()
                      ).Select(x => new AuditoriumOrderViewModel(x)),
@@ -231,7 +239,7 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
                     request.TutorialName,
                     request.LecturerName,
                     request.ThreadName,
-                    request.DayOfWeek,
+                    request.Date,
                     request.TimeId,
                     request.AuditoriumId,
                     request.AutoDelete);

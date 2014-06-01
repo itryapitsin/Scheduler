@@ -113,7 +113,7 @@ namespace Timetable.Logic.Services
             user.AuditoriumScheduleSelectedSemesterId = userDataTransfer.AuditoriumScheduleSettings.SemesterId;
 
             user.AuditoriumScheduleSelectedTimeId = userDataTransfer.AuditoriumScheduleSettings.TimeId;
-            user.AuditoriumScheduleSelectedDayOfWeek = userDataTransfer.AuditoriumScheduleSettings.DayOfWeek;
+            user.AuditoriumScheduleSelectedDate = userDataTransfer.AuditoriumScheduleSettings.Date;
 
             var auditoriumTypes = DataContext.AuditoriumTypes
                 .Where(x => userDataTransfer.AuditoriumScheduleSettings.AuditoriumTypeIds.Contains(x.Id))

@@ -476,7 +476,7 @@ namespace Timetable.Logic.Interfaces
                 string tutorialName,
                 string lecturerName,
                 string threadName,
-                int dayOfWeek,
+                string date,
                 int timeId,
                 int auditoriumId,
                 bool autoDelete
@@ -494,12 +494,12 @@ namespace Timetable.Logic.Interfaces
 
         IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
             int timeId,
-            int dayOfWeek,
+            string date,
             int buildingId);
 
         IEnumerable<AuditoriumOrderDataTransfer> GetAuditoriumOrders(
             int timeId,
-            int dayOfWeek,
+            string date,
             int buildingId,
             int[] auditoriumTypeIds = null);
 
