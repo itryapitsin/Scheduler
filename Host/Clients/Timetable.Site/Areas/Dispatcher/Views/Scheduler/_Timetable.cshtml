@@ -23,6 +23,7 @@
                     <div class="schedule-card alert alert-success"
                          ng-style="{'background-color':  (isRelatedScheduleTicket(schedule) ? '#FFFFFF' : (isSelectedScheduleTicket(schedule) ? '#B4E9BA' : '#D0F1E0' ))}"
                          ng-click="select($event, schedule)"
+                         ng-dblclick="dbclickScheduleTicket($event, schedule)"
                          ng-repeat="schedule in findScheduleTickets(pair, day)"
                          ng-class="{even: isEvenScheduleTicket(schedule), odd: isOddScheduleTicket(schedule)}"
                          data-drag="true"

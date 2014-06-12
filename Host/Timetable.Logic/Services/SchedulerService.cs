@@ -984,6 +984,12 @@ namespace Timetable.Logic.Services
             return GetScheduleById(scheduleId);
         }
 
+        public ScheduleDataTransfer AutoPlanEdit(
+           int scheduleId)
+        {
+            return null;
+        }
+
         public ScheduleDataTransfer Plan(
             int auditoriumId,
             int dayOfWeek,
@@ -1037,6 +1043,12 @@ namespace Timetable.Logic.Services
                                                         x.DayOfWeek == dayOfWeek).FirstOrDefault();
             var test = GetScheduleById(newschedule.Id);
             return GetScheduleById(newschedule.Id);
+        }
+
+        public ScheduleDataTransfer AutoPlan(
+           int scheduleInfoId)
+        {
+            return null;
         }
 
         public void Unplan(int scheduleId)

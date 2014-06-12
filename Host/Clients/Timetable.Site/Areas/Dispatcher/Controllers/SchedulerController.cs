@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -19,6 +20,15 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             var model = new SchedulerViewModel(DataService, UserData);
 
             return PartialView("_Index", model);
+        }
+
+        public ActionResult LoadLecturers(string searchString)
+        {
+            var lecturers = searchString.Length > 3 ? DataService.GetLecturersByFirstMiddleLastname(searchString)
+                .Select(x => new LecturerViewModel(x))
+                : new List<LecturerViewModel>();
+
+            return new JsonNetResult(lecturers);
         }
 
         public ActionResult BranchChanged(int branchId)
@@ -166,6 +176,60 @@ namespace Timetable.Site.Areas.Dispatcher.Controllers
             };
 
             return new JsonNetResult(response);
+        }
+
+        public ActionResult GetSchedulesAndInfoesForLecturer(GetSchedulesAndInfoesForLecturerRequest request)
+        {
+            var schedules = DataService
+                .GetSchedulesForLecturer(request.LecturerId, request.StudyYearId, request.SemesterId)
+                .Select(x => new ScheduleViewModel(x));
+
+            var response = new GetSchedulesAndInfoesResponse
+            {
+                ScheduleInfoes = DataService
+                    .GetScheduleInfoesForLecturer(request.LecturerId, request.StudyYearId, request.SemesterId)
+                    .Select(x => new ScheduleInfoViewModel(x)),
+
+                Schedules = DataService
+                    .GetSchedulesForLecturer(request.LecturerId, request.StudyYearId, request.SemesterId)
+                .Select(x => new ScheduleViewModel(x))
+            };
+
+            return new JsonNetResult(response);
+        }
+
+
+        [HttpPost]
+        public ActionResult AutoCreate(int scheduleInfoId)
+        {
+            try
+            {
+                var result = DataService.AutoPlan(scheduleInfoId);
+                return new JsonNetResult(
+                    new SuccessResponse(
+                        new ScheduleViewModel(result)));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult AutoEdit(int scheduleId)
+        {
+            try
+            {
+                var result = DataService.AutoPlanEdit(scheduleId);
+                return new JsonNetResult(
+                    new SuccessResponse(
+                        new ScheduleViewModel(result)));
+            }
+            catch (Exception ex)
+            {
+                return new JsonNetResult(new FailResponse("Возникла ошибка сервера"));
+            }
         }
 
         [HttpPost]

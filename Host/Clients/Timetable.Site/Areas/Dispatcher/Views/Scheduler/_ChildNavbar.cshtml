@@ -1,11 +1,17 @@
 ﻿<nav class="navbar navbar-default navbar-fixed-top navbar-child" role="navigation" style="top:51px;" >
     <div class="navbar-inner">
         <div class="container-fluid">
-            <ul class="nav navbar-nav pull-left col-sm-2">
-                <li>
-                    <a><b>Сведения к расписанию для потока</b></a>
-                </li>
-            </ul>
+         
+
+            <div class="nav navbar-nav pull-left col-sm-2" style="padding: 0;">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown"> {{selectedModeName}} <b class="caret"></b></a>
+                <ul class="dropdown-menu" style="z-index:99999">
+                    <li><a href="" ng-click="changeMode(1)">Сведения для потока</a></li>
+                    <li><a href="" ng-click="changeMode(2)">Сведения для преподавателя</a></li>
+                </ul>
+            </div>
+
+
             <form class="navbar-form navbar-left" style="padding: 0;">
                 <button class="btn" ng-disabled="!selectedTicket" ng-click="edit(selectedTicket)"><i class="glyphicon glyphicon-pencil"></i></button>
                 <button class="btn" ng-disabled="!selectedTicket" ng-click="unplan(selectedTicket)"><i class="glyphicon glyphicon-trash"></i></button>
@@ -16,16 +22,19 @@
                          <i class="glyphicon glyphicon-print"></i>
                          <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a style="cursor:pointer" ng-style="(isFacultySelected()) && true || (thisStyle={opacity:0.5})" ng-click="getReportForFaculty()" >Отчет по факультету: {{currentFaculty.name}}</a></li>
-                        <li><a style="cursor:pointer" ng-style="(isCourseSelected()) && true || (thisStyle={opacity:0.5})" ng-click="getReportForCourse()" >Отчет по курсу: {{currentCourse.name}}</a></li> 
-                        <li><a style="cursor:pointer" ng-style="(isGroupsSelected()) && true || (thisStyle={opacity:0.5})" ng-click="getReportForGroups()" >Отчет по группам: {{currentGroupNames}} </a></li>
+                    <ul class="dropdown-menu" role="menu" ng-show="selectedMode == 1">
+                        <li><a style="cursor:pointer" ng-style="(isFacultySelected()) && true || (thisStyle={opacity:0.5})" ng-click="getReportForFaculty()">Отчет по факультету: {{currentFaculty.name}}</a></li>
+                        <li><a style="cursor:pointer" ng-style="(isCourseSelected()) && true || (thisStyle={opacity:0.5})" ng-click="getReportForCourse()">Отчет по курсу: {{currentCourse.name}}</a></li>
+                        <li><a style="cursor:pointer" ng-style="(isGroupsSelected()) && true || (thisStyle={opacity:0.5})" ng-click="getReportForGroups()">Отчет по группам: {{currentGroupNames}} </a></li>
+                    </ul>
+                    <ul class="dropdown-menu" role="menu" ng-show="selectedMode == 2">
+                        <li><a style="cursor:pointer" ng-style="(isFacultySelected()) && true || (thisStyle={opacity:0.5})" ng-click="getReportForFaculty()">Отчет по преподавателю: {{currentLecturer.name}}</a></li>  
                     </ul>
                 </div>
 
                
             </form>
-            <ul class="nav navbar-nav pull-right">
+            <ul class="nav navbar-nav pull-right" ng-show="selectedMode == 1">
                 <li>
                     <a href="" ng-click="showThreadDialog()">
                         Параметры потока:
@@ -37,6 +46,19 @@
                     </a>
                 </li>
             </ul>
-        </div>
+
+            <form class="navbar-form navbar-right" style="padding: 0;" ng-show="selectedMode == 2">
+                <div class="form-group col-sm-9 col-sm-offset-0">
+                    <div class="input-group input-group-lg">
+                        <input type="text" style="height: 34px;" placeholder="Поиск: Введите ФИО..." data-min-length="7" ng-model="currentLecturer" typeahead="lecturer as lecturer.name for lecturer in loadLecturers($viewValue)" typeahead-loading="loadingLecturers" class="form-control">
+
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-offset-1">
+                    <button class="btn btn-default" ng-disabled="" data-original-title ng-click="loadLecturersSchedule()"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </form>
+</div>
     </div>
 </nav>

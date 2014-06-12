@@ -197,6 +197,10 @@ namespace Timetable.Logic.Interfaces
             int typeId,
             string subGroup);
 
+        ScheduleDataTransfer AutoPlanEdit(
+            int scheduleId);
+
+
         void Unplan(int scheduleId);
 
         /// <summary>
@@ -218,6 +222,9 @@ namespace Timetable.Logic.Interfaces
             int weekTypeId, 
             int typeId,
             string subGroup);
+
+        ScheduleDataTransfer AutoPlan(
+            int scheduleInfoId);
 
         void EditAuditorium(
              string number,

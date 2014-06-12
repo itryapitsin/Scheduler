@@ -4,6 +4,37 @@
     $controller('BaseTimetableController', { $scope: $scope });
     angular.extend($scope, pageModel);
 
+    
+
+    $scope.changeMode = function (mode) {
+        $scope.selectedMode = mode;
+        if (mode == 1) {
+            $scope.selectedModeName = "Сведения для потока";
+        }
+        if (mode == 2) {
+            $scope.selectedModeName = "Сведения для преподавателя";
+        }
+    }
+
+    $scope.currentLecturer = undefined;
+    $scope.loadLecturers = function (val) {
+        return $http.get($http.prefix + 'Scheduler/LoadLecturers', {
+            params: {
+                searchString: val
+            }
+        }).then(function (res) {
+            var lecturers = [];
+            angular.forEach(res.data, function (item) {
+                lecturers.push(item);
+            });
+            return lecturers;
+        });
+    };
+
+    $scope.loadLecturersSchedule = function () {
+        loadScheduleInfoesForLecturer();
+    }
+
     function findBranch() {
         return $.Enumerable.From($scope.branches)
             .Where(function (item) { return item.id == $scope.currentBranchId; })
@@ -55,7 +86,22 @@
             .FirstOrDefault({ name: "<Форма обучения не выбрана>" });
     };
 
-
+    function loadScheduleInfoesForLecturer() {
+        if ($scope.currentLecturer != undefined) {
+            var params = {
+                lecturerId: $scope.currentLecturer.id,
+                studyYearId: $scope.currentStudyYearId,
+                semesterId: $scope.currentSemesterId,
+                studyTypeId: $scope.currentStudyTypeId
+            }
+            $http
+           .get($http.prefix + "Scheduler/GetSchedulesAndInfoesForLecturer", { params: params })
+           .success(function (response) {
+               $scope.scheduleInfoes = response.scheduleInfoes;
+               $scope.schedules = response.schedules;
+           });
+        }
+    };
 
     function loadScheduleInfoesForFaculty() {
         var groupIds = $.Enumerable.From($scope.currentGroups).Select('$.id').ToArray();
@@ -86,6 +132,8 @@
     function initThread(newThread) {
         //fall here
         angular.extend($scope, newThread);
+
+        $scope.changeMode(1);
 
         $scope.currentBranch = findBranch();
         $scope.currentFaculty = findFaculty();
@@ -285,6 +333,10 @@
     };
 
     $scope.select = function (e, item) {
+        if ($scope.selectedTicket != undefined)
+            if ($scope.selectedTicket.id == item.id)
+                return;
+
         if (!$scope.isRelatedScheduleTicket(item)) {
             $scope.selectedTicket = item;
             $scope.schedules = $scope.schedules.filter(function (obj) { return !$scope.isRelatedScheduleTicket(obj); });
@@ -320,7 +372,61 @@
         }
     };
 
+    $scope.dbclickScheduleInfo = function (e, item) {
+
+        console.log("dbl-click-scheduleInfo");
+
+        var params = {
+            scheduleInfoId: item.id,
+        };
+
+        $http.post($http.prefix + 'Scheduler/AutoCreate', params)
+                .success(function (response) {
+                    if (response.ok) {
+                        console.log(response);
+                        /*$scope.$broadcast('ticketPlanned', {
+                            auditoriumId: $scope.auditorium,
+                            dayOfWeek: $scope.dayOfWeek,
+                            scheduleInfoId: $scope.selectedScheduleInfo == undefined ? undefined : $scope.selectedScheduleInfo.id,
+                            timeId: $scope.time == undefined ? undefined : $scope.time.id,
+                            weekTypeId: $scope.weekType,
+                            typeId: $scope.scheduleType,
+                            schedule: response.schedule
+                        });*/
+                    }
+                    if (response.fail) {
+                        $scope.message = response.message;
+                    }
+                });
+    }
+
+    $scope.planAllScheduleInfoes = function () {
+        console.log("plan all scheduleInfoes");
+
+    }
+
+    $scope.dbclickScheduleTicket = function (e, item) {
+        console.log("dbl-click-scheduleTicket");
+
+        var params = {
+            scheduleId: item.id,
+        };
+
+        $http.post($http.prefix + 'Scheduler/AutoEdit', params)
+                .success(function (response) {
+                    if (response.ok) {
+
+                    }
+                    if (response.fail) {
+                        $scope.message = response.message;
+                    }
+                });
+    }
+
     $scope.selectScheduleInfo = function (e, item) {
+        if ($scope.selectedScheduleInfo != undefined)
+            if ($scope.selectedScheduleInfo.id == item.id)
+                return;
 
         $scope.schedules = $scope.schedules.filter(function (obj) { return !$scope.isRelatedScheduleTicket(obj); });
 
@@ -687,6 +793,8 @@ function TimetableParamsDialogController($scope, $rootScope) {
 }
 
 function PlaningDialogController($scope, $rootScope, $http) {
+
+    $scope.message = undefined;
 
     $scope.daysOfWeek = [{ id: 1, name: 'Понедельник' }, { id: 2, name: 'Вторник' }, { id: 3, name: 'Среда' }, { id: 4, name: 'Четверг' }, { id: 5, name: 'Пятница' }, { id: 6, name: 'Суббота' }, { id: 7, name: 'Воскресенье' }];
     //$scope.subGroup = '1/2';

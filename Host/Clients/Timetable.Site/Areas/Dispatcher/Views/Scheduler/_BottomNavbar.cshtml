@@ -1,6 +1,15 @@
 ﻿<div class="navbar navbar-default navbar-fixed-bottom">
     <div class="navbar-inner">
         <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-left" ng-show="!(isThreadValid() && scheduleInfoes.length == 0)">        
+                <li>
+                    <a href="" ng-click="planAllScheduleInfoes()">
+                        Запланировать все
+                        {{scheduleInfoes.length}}
+                        сведений
+                    </a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="" ng-click="showTimetableParamsDialog()">

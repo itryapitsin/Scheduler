@@ -3,7 +3,9 @@
         <tbody>
             <tr ng-show="scheduleInfo.hoursPassed < scheduleInfo.hoursPerWeek" ng-repeat="scheduleInfo in scheduleInfoes">
                 <td class="schedule-info-card"
+                    style="cursor:pointer"
                     ng-click="selectScheduleInfo($event, scheduleInfo)"
+                    ng-dblclick="dbclickScheduleInfo($event, scheduleInfo)"
                     ng-style="{'background-color':  (isSelectedScheduleInfo(scheduleInfo) ? '#B4E9BA' : '#FFFFFF' )}"
                     data-drag="true"
                     data-jqyoui-options="{revert: 'invalid'}"

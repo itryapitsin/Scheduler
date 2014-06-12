@@ -10,22 +10,15 @@
     $scope.currentLecturer = undefined;
 
     $scope.loadLecturers = function (val) {
-
         return $http.get($http.prefix + 'LecturerSchedule/LoadLecturers', {
             params: {
                 searchString: val
             }
         }).then(function (res) {
             var lecturers = [];
-
-           
-           
-
             angular.forEach(res.data, function (item) {
                lecturers.push(item);
             });
-
-          
             return lecturers;
         });
     };
